@@ -2,50 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/jsons/divisions.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jsons/zilas.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/api/upload-images.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_24636f839f5acba5ebf8b19175de880e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_28794eccc857c9a98750918be77f1673.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2f7b651d58d323d7dc0d1a188cdf20f9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3327245b2923b52950d8028283c8dcd2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_377c70603f7070a5a4ff4868baf0b766.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_406bf6d489c451408103b409f5a96d10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_43503cfdeffd691543a6d1a54232b797.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5808ff5727a6d5cae08c1421da2f3013.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_589f9b7cabea6afbf28e90cc4485f15a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5c602ed7a52fbe9fabeb097976a3dd23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5fa818d0897148acb5b11d942a17d871.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_7ff3654e1390b065635103c6c7b15e4d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8415ab7c6cffc9166e5a47f8392940b0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8723e8684d6acbc7b8c0126e376bbf36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8c5d4671aca045ef2b7142647c482ef8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8da5d7cf1a562cd7d09b85701f63411d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9dd6180caf8026964440c9398e5ee505.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d0d2f5868a0a25d4312df252163751ae.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d498bba9fa99de9f7fe405ff97dd8949.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_e1bd8c6aa6a46645cfc7ceadeb4743e4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputFileField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputFileField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/nav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/verify/Images.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Images.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/verify/Personal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Personal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/login.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/verify.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/verify.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constantsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constantsArray.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/randomTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/randomTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validations/RegisterFormValiadtion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/RegisterFormValiadtion.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +72,7 @@
       <workItem from="1610977917530" duration="3488000" />
       <workItem from="1611033649519" duration="20553000" />
       <workItem from="1611077084426" duration="101000" />
-      <workItem from="1611132843776" duration="6764000" />
+      <workItem from="1611132843776" duration="7512000" />
     </task>
     <servers />
   </component>
