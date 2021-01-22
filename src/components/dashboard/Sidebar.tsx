@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { adminSidebarLinks, sideBarLinks } from "../../utils/constantsArray";
+import React from "react";
 
 interface SidebarProps {
   role: string;
@@ -48,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d={link.svgD}
-                    ></path>
+                    />
                   </svg>
                   <span>{link.label}</span>
                 </div>

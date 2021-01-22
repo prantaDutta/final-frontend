@@ -1,16 +1,16 @@
 import { Grid } from "@agney/react-loading";
-import axios from "axios";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import ReactLoader from "../../components/ReactLoader";
-import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import ReactLoader from "../../components/shared/ReactLoader";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { NewLoanFormValues } from "./new-loan";
+import { laravelApi } from "../../utils/api";
 
 interface currentLoansProps {
   user: ModifiedUserData;
@@ -18,13 +18,16 @@ interface currentLoansProps {
 
 const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   const router = useRouter();
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => setMounted(true), []);
   const { data, isValidating } = useSWR(
-    ["api/user/get-all-loans", user.userId],
-    async (url, userId) => {
-      const res = await axios.post(url, { userId });
-      return res.data;
+    mounted ? ["/user/all-loans", user.id] : null,
+    async (url, id) => {
+      const { data } = await laravelApi().post(url, { id });
+      return data.data;
     }
   );
+  if (data && !isProduction) console.log("data: ", data);
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
@@ -58,9 +61,12 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
                 interestRate,
                 loanDuration,
                 monthlyInstallment,
-              }: NewLoanFormValues = loanData.data;
+              }: NewLoanFormValues = loanData;
               return (
-                <table className="w-full shadow-lg bg-white text-center">
+                <table
+                  key={loanData.id}
+                  className="w-full shadow-lg bg-white text-center"
+                >
                   <thead>
                     <tr>
                       {CurrentLoanTableHeader.map((header: string) => (
@@ -75,7 +81,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
                   </thead>
 
                   <tbody>
-                    <tr key={loanData}>
+                    <tr key={loanData.id}>
                       <td className="font-semibold border px-8 py-4">
                         {amount}
                       </td>
@@ -89,7 +95,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
                         {monthlyInstallment}
                       </td>
                       <td className="font-semibold border px-8 py-4">
-                        {loanData.data.mode}
+                        {loanData.loanMode}
                       </td>
                       <td className="font-semibold border px-8 py-4">N/A</td>
                     </tr>

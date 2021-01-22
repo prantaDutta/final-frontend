@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import "../styles/index.css";
 import { BASE_URL } from "../utils/constants";
+import { laravelApi } from "../utils/api";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -16,7 +17,10 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
       <SWRConfig
         value={{
           dedupingInterval: 1000 * 60 * 5, // 5m
-          fetcher: (url: string) => axios.get(url).then((r) => r.data),
+          fetcher: (url: string) =>
+            laravelApi()
+              .get(url)
+              .then((r) => r.data),
         }}
       >
         {/*  This component shows the progress bar  */}

@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
 import InputSelectField from "../components/ReactHookForm/InputSelectField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/ReactLoader";
+import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
@@ -51,7 +51,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data: data });
-      await router.push("/dashboard");
+      await router.push("/verify");
     } catch (e) {
       if (!isProduction) console.log(e.response);
       setError("email", {

@@ -99,60 +99,73 @@ const Contact: React.FC<ContactProps> = ({}) => {
           <h3 className="font-bold text-2xl">Contact Information</h3>
         </section>
         <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-          <InputTextField
-            defaultValue={
-              verificationValues?.email
-                ? verificationValues?.email
-                : userData
-                ? userData.email
-                : ""
-            }
-            name="email"
-            label="Your Email"
-            error={errors.email?.message}
-            placeholder="youremail@email.com"
-            register={register}
-          />
-          <InputTextField
-            name="address"
-            defaultValue={verificationValues?.address}
-            label="Your Address"
-            error={errors.address?.message}
-            placeholder="Enter Your Address"
-            register={register}
-          />
-          <InputTextField
-            defaultValue={verificationValues?.mobileNo}
-            name="mobileNo"
-            label="Your Mobile No."
-            error={errors.mobileNo?.message}
-            register={register}
-            placeholder="i.e. 017XXXXXXXX"
-          />
-          <InputSelectField
-            defaultValue={verificationValues?.division}
-            name="division"
-            label="Select Division"
-            error={errors.division?.message}
-            register={register}
-            options={createDivisionsTypes()}
-          />
-          <InputSelectField
-            defaultValue={verificationValues?.zila}
-            name="zila"
-            label="Select Zila"
-            error={errors.zila?.message}
-            register={register}
-            options={createZilaTypes()}
-          />
-          <InputTextField
-            defaultValue={verificationValues?.zip_code}
-            name="zip_code"
-            label="Zip Code"
-            error={errors.zip_code?.message}
-            register={register}
-            placeholder="i.e. 4000"
-          />
+          <div className="flex px-4">
+            <InputTextField
+              halfWidth
+              defaultValue={
+                verificationValues?.email
+                  ? verificationValues?.email
+                  : userData
+                  ? userData.email
+                  : ""
+              }
+              name="email"
+              label="Your Email"
+              error={errors.email?.message}
+              placeholder="youremail@email.com"
+              register={register}
+            />
+
+            <InputTextField
+              defaultValue={verificationValues?.mobileNo}
+              name="mobileNo"
+              halfWidth
+              label="Your Mobile No."
+              error={errors.mobileNo?.message}
+              register={register}
+              placeholder="i.e. 017XXXXXXXX"
+            />
+          </div>
+          <div className="flex px-4">
+            <InputTextField
+              name="address"
+              defaultValue={verificationValues?.address}
+              label="Your Address"
+              error={errors.address?.message}
+              placeholder="Enter Your Address"
+              register={register}
+            />
+          </div>
+          <div className="flex px-4">
+            <InputSelectField
+              defaultValue={verificationValues?.division}
+              name="division"
+              halfWidth
+              label="Select Division"
+              error={errors.division?.message}
+              register={register}
+              options={createDivisionsTypes()}
+            />
+            <InputSelectField
+              defaultValue={verificationValues?.zila}
+              name="zila"
+              halfWidth
+              label="Select Zila"
+              error={errors.zila?.message}
+              register={register}
+              options={createZilaTypes()}
+            />
+          </div>
+          <div className="flex px-4">
+            <InputTextField
+              defaultValue={verificationValues?.zip_code}
+              name="zip_code"
+              label="Zip Code"
+              error={errors.zip_code?.message}
+              register={register}
+              placeholder="i.e. 4000"
+            />
+          </div>
           <NextPreviousButton nextDisabled={!errors} />
         </form>
       </main>

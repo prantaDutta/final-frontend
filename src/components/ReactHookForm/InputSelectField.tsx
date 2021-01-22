@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes } from "react";
 import { RefReturn, SelectOptionsTypes } from "../../utils/randomTypes";
 
 type InputSelectFieldProps = InputHTMLAttributes<HTMLSelectElement> & {
@@ -6,6 +6,7 @@ type InputSelectFieldProps = InputHTMLAttributes<HTMLSelectElement> & {
   component?: string;
   error: string | undefined | null;
   options: SelectOptionsTypes[];
+  halfWidth?: boolean;
   register: () => RefReturn;
 };
 
@@ -13,11 +14,12 @@ const InputSelectField: React.FC<InputSelectFieldProps> = ({
   error,
   label,
   register,
+  halfWidth,
   options,
   ...props
 }) => {
   return (
-    <div className="mt-6 px-4">
+    <div className={`mt-6 px-4 ${halfWidth ? "w-1/2" : "w-full"}`}>
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
       </label>

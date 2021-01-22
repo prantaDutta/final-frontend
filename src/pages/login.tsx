@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/ReactLoader";
+import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";

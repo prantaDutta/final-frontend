@@ -1,28 +1,26 @@
 import { ThreeDots } from "@agney/react-loading";
-import axios from "axios";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import ReactLoader from "../../../components/ReactLoader";
+import ReactLoader from "../../../components/shared/ReactLoader";
 import {
   BASE_URL,
   isProduction,
   NEXT_IRON_SESSION_CONFIG,
-  uuidFormatRegex,
 } from "../../../utils/constants";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
 import {
   downloadImage,
   isObject,
   objectToArray,
-  redirectToErrorPage,
   redirectToLogin,
 } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import { laravelApi } from "../../../utils/api";
 
 interface requestProps {
   user: ModifiedUserData;
@@ -33,6 +31,7 @@ interface ShowMultipleImageProps {
   photo: Array<any>;
 }
 
+// This component shows multiple images mainly bank account statements
 const ShowMultipleImage: React.FC<ShowMultipleImageProps> = ({ photo }) => {
   const statements = (photo[1] as any).split("#");
   statements.splice(-1, 1);
@@ -53,6 +52,7 @@ interface ShowImageProps {
   url: string;
 }
 
+// This component shows single component
 const ShowImage: React.FC<ShowImageProps> = ({ name, url }) => {
   return (
     <tr key={name}>
@@ -82,28 +82,38 @@ const ShowImage: React.FC<ShowImageProps> = ({ name, url }) => {
 };
 
 const request: React.FC<requestProps> = ({ user, request }) => {
+  const [mounted, useMounted] = useState<boolean>(false);
+  useEffect(() => useMounted(true), []);
   const router = useRouter();
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const { data, isValidating } = useSWR(
-    BASE_URL + `/api/admin/verification-requests/${request}`
+  let { data, isValidating } = useSWR(
+    mounted ? `/admin/verification-requests/${request}` : null
   );
-  let photos = data?.verificationPhotos
-    ? Object.entries(data?.verificationPhotos)
-    : null;
-
-  const bankStatements = data?.verificationPhotos?.bankAccountStateMents
-    ? data?.verificationPhotos?.bankAccountStateMents
-    : null;
-  if (photos) delete (photos as any)?.bankAccountStateMents;
-  let statementsArray = bankStatements ? bankStatements.split("#") : null;
-  if (statementsArray) {
-    statementsArray.splice(-1, 1);
-    statementsArray.map((state: any, i: number) => {
-      photos?.push(["bankAccountStatements " + (i + 1).toString(), state]);
-    });
+  let photos;
+  if (data) {
+    const { verification } = data;
+    // parsing the verification data
+    // because laravel sends them as json string
+    const jsonPhotos = JSON.parse(verification?.verificationPhotos);
+    // converting object to an array
+    photos = Object.entries(jsonPhotos);
+    // working with bankAccountStatements
+    // as there are multiple pictures of bankStatements
+    const bankStatements = jsonPhotos?.bankAccountStatements;
+    // deleting bankAccountStatements from photos
+    // as we are processing bankAccountStatements separately
+    delete (photos as any)?.bankAccountStatements;
+    // getting three pictures url from one bankStatements
+    let statementsArray = bankStatements ? bankStatements.split("#") : null;
+    // pushing them to the photos array
+    if (statementsArray) {
+      statementsArray.splice(-1, 1);
+      statementsArray.map((state: any, i: number) => {
+        photos?.push(["bankAccountStatements " + (i + 1).toString(), state]);
+      });
+    }
   }
-  const email = data?.email ? data?.email : null;
-  const userId = data?.userId ? data?.userId : null;
+  const id = data?.pendingUser?.id;
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between text-gray-900">
@@ -111,15 +121,12 @@ const request: React.FC<requestProps> = ({ user, request }) => {
         <button
           onClick={async () => {
             setSubmitting(true);
-            const { data } = await axios.post(
-              BASE_URL + "/api/admin/verification-requests/update",
-              {
-                email,
-              }
+            await laravelApi().get(
+              `/admin/verification-requests/verified/${id}`
             );
             if (isProduction) console.log(data);
             setSubmitting(false);
-            mutate(`/admin/verification-requests/${userId}`);
+            await mutate(`/admin/verification-requests`);
             router.back();
           }}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide
@@ -159,7 +166,7 @@ const request: React.FC<requestProps> = ({ user, request }) => {
 
           <tbody>
             {data &&
-              objectToArray(data).map((d) => {
+              objectToArray(data.pendingUser).map((d) => {
                 if (isObject(d[1])) {
                   return null;
                 }
@@ -174,9 +181,27 @@ const request: React.FC<requestProps> = ({ user, request }) => {
                   </tr>
                 );
               })}
+
+            {data &&
+              objectToArray(data.verification).map((d) => {
+                if (d[0] === "verificationPhotos") {
+                  return null;
+                }
+                return (
+                  <tr key={d[0]}>
+                    <td className="font-semibold border px-8 py-4 capitalize">
+                      {d[0]}
+                    </td>
+                    <td className="font-semibold border px-8 py-4 capitalize">
+                      {d[1]}
+                    </td>
+                  </tr>
+                );
+              })}
+
             {photos &&
               photos.map((photo) => {
-                if (photo[0] === "bankAccountStateMents") {
+                if (photo[0] === "bankAccountStatements") {
                   return (
                     <ShowMultipleImage
                       key={new Date().toString()}
@@ -209,10 +234,6 @@ export const getServerSideProps = withIronSession(
     }
 
     const request: any = context.query.request;
-    if (!uuidFormatRegex.test(request)) {
-      redirectToErrorPage(context.req, context.res);
-    }
-
     return {
       props: { user, request },
     };

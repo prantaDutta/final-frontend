@@ -47,8 +47,8 @@ export interface RegisterFormValues {
 }
 
 export type SelectOptionsTypes = {
-  value: string;
-  title: string;
+  value: string | number;
+  title: string | number;
 };
 
 export type VerificationFormValues = {

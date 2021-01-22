@@ -96,7 +96,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
       // printing the values before sending
       if (!isProduction)
         console.log("Verification Values: ", totalVerificationValues);
-      const response = await laravelApi().post("/verify", {
+      const response = await laravelApi().post("/user/verify", {
         values: totalVerificationValues,
       });
       if (!isProduction) console.log("Response: ", response);

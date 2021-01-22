@@ -1,6 +1,5 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
@@ -9,16 +8,17 @@ import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
-import ReactLoader from "../../components/ReactLoader";
+import ReactLoader from "../../components/shared/ReactLoader";
 import Yup from "../../lib/yup";
 import { newLoanFormValues } from "../../states/newLoanState";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import {
-  calculateMonthlyInstallment,
-  formatTwoDecimalPlaces,
-  redirectToLogin,
-} from "../../utils/functions";
+import { formatTwoDecimalPlaces, redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
+import InputSelectField from "../../components/ReactHookForm/InputSelectField";
+import { numberTypes } from "../../utils/constantsArray";
+import { laravelApi } from "../../utils/api";
+import { calculateSimpleInterest } from "../../utils/calculatingInterests";
+import { mutate } from "swr";
 
 interface newLoanProps {
   user: ModifiedUserData;
@@ -31,7 +31,7 @@ export interface NewLoanFormValues {
   monthlyInstallment: number;
 }
 
-const newLoan: React.FC<newLoanProps> = ({ user }) => {
+const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [complete, setComplete] = useState<boolean>(false);
@@ -45,13 +45,13 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
           .required("Required"),
         interestRate: Yup.number()
           .typeError("Amount must be a number")
-          .min(4, "Minimum Interest Rate is 4%")
+          .min(5, "Minimum Interest Rate is 5%")
           .max(15, "Maximum Interest Rate is 15%")
           .required("Required"),
         loanDuration: Yup.number()
           .typeError("Loan Duration must be a number")
-          .min(1, "Minimum Loan Duration is 4%")
-          .max(18, "Maximum Loan Duration is 15%")
+          .min(1, "Minimum Loan Duration is 1 Months")
+          .max(18, "Maximum Loan Duration is 18 Months")
           .required("Required"),
         monthlyInstallment: Yup.number()
           .typeError("Loan Duration must be a number")
@@ -71,7 +71,7 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
   const submitHandler = (values: NewLoanFormValues) => {
     // setFormValues(values);
     let modifiedInstallment = formatTwoDecimalPlaces(
-      calculateMonthlyInstallment(amount, +interestRate + 2, loanDuration)
+      calculateSimpleInterest(+amount, +interestRate + 2, +loanDuration)
     );
     setFormState({
       ...values,
@@ -87,7 +87,8 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
 
   if (amount && loanDuration) {
     modifiedMonthlyInstallment = formatTwoDecimalPlaces(
-      calculateMonthlyInstallment(amount, interestRate, loanDuration)
+      // calculateMonthlyInstallment(amount, interestRate, loanDuration)
+      calculateSimpleInterest(+amount, +interestRate, +loanDuration)
     );
   }
   return (
@@ -113,13 +114,13 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
             </p>
             <p className="text-xl font-bold mt-5">
               Company Fees (2%){": "}
-              {newFormState?.amount! * (newFormState?.interestRate! / 100)} Tk
+              {newFormState?.amount! * 0.02} Tk
             </p>
 
             <p className="text-xl font-bold mt-5">
               Monthly Installment With Fees:{" "}
               {formatTwoDecimalPlaces(
-                calculateMonthlyInstallment(
+                calculateSimpleInterest(
                   +newFormState?.amount!,
                   +newFormState?.interestRate! + 2,
                   +newFormState?.loanDuration!
@@ -140,13 +141,17 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
                 onClick={async () => {
                   // console.log(newFormState);
                   setSubmitting(true);
-                  const data = await axios.post("/api/user/new-loan", {
+                  if (!isProduction)
+                    console.log("Sending Values: ", newFormState);
+                  const { data } = await laravelApi().post("/user/new-loan", {
                     values: newFormState,
-                    userId: user.userId,
+                    id: user.id,
                   });
-                  if (!isProduction) console.log("data :>> ", data);
+                  if (!isProduction) console.log("data: ", data);
                   if (data) setFormState(null);
-                  router.push("/current-loans");
+                  setSubmitting(false);
+                  await mutate("/user/all-loans");
+                  return router.push("/current-loans");
                 }}
                 className="bg-primary text-white p-3 w-1/4 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
@@ -170,6 +175,7 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
             <div className="flex px-4">
               <InputTextField
                 name="amount"
+                halfWidth
                 label="Your Loan Amount (1000-50000tk)"
                 defaultValue={newFormState ? newFormState.amount : undefined}
                 error={errors.amount?.message}
@@ -177,30 +183,33 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
                 register={register}
               />
 
-              <InputTextField
+              <InputSelectField
                 name="interestRate"
+                halfWidth
                 defaultValue={
                   newFormState ? newFormState.interestRate : undefined
                 }
                 label="Your Desired Interest Rate (in %)"
                 error={errors.interestRate?.message}
-                placeholder="Enter A Number from 4 to 15"
+                options={numberTypes(5, 15)}
                 register={register}
               />
             </div>
             <div className="flex px-4">
-              <InputTextField
+              <InputSelectField
+                halfWidth
                 name="loanDuration"
                 label="Loan Duration (In Months)"
                 defaultValue={
                   newFormState ? newFormState.loanDuration : undefined
                 }
                 error={errors.loanDuration?.message}
-                placeholder="Enter A Number from 1 to 18"
                 register={register}
+                options={numberTypes(1, 18)}
               />
 
               <InputTextField
+                halfWidth
                 name="monthlyInstallment"
                 label="Monthly Installment Rate"
                 error={errors.monthlyInstallment?.message}
@@ -210,14 +219,14 @@ const newLoan: React.FC<newLoanProps> = ({ user }) => {
                     ? modifiedMonthlyInstallment
                     : newFormState?.monthlyInstallment || ""
                 }
-                placeholder="This Field is Uneditable"
+                placeholder="This Field is not editable"
                 readOnly
               />
             </div>
 
             <button
               type="submit"
-              className="mt-5 bg-primary text-gray-100 p-3 w-full rounded-full tracking-wide
+              className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full tracking-wide
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                                 shadow-lg transition-css"
             >
@@ -245,4 +254,4 @@ export const getServerSideProps = withIronSession(
   NEXT_IRON_SESSION_CONFIG
 );
 
-export default newLoan;
+export default NewLoan;

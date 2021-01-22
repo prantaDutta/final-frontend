@@ -1,7 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="" />
+    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/utils/calculatingInterests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsons/divisions.json" beforeDir="false" afterPath="$PROJECT_DIR$/jsons/divisions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_059d3008b0c0e2d593de0cf9f4572027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_06b2f3f0e68eeace39c09a223a51a789.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_08979c6c97f080746f9ad9e30d47e119.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_0c08c85df2f83f59ba2bc93064818f15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_136f6458c7c0a848b0b5d16ac130111e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_168f032d516913fe9286586883f1eb99.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1dc16bbf508a30b489f7253fd7bbe2f7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2ac1047efcc7040f95a0722129c00324.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2de33f7f8833644c3a1c0bdb63e85713.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2fc0bc2e1cafb03a63d542b59bd8fa14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_32c1ecb1da1f0f519fc51cacb3c09692.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_33ac48ee65a8cccbaec5065671a1e1d3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3811f17119113391968ed1a7b69af6e2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_381f4804a13a84509333a50bb0375004.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_396e05f801ed5f61cf83925751ae10c7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3f14e2651f202efc34d5fc18a7648423.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_41d7def985118a1152bd24a5039a591c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_42d333b8491d609791a77ddfd5063a7e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_44545bfa211f3e65211b9a8ebd1bc223.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_448650ea369a59d16d6d63a262938f02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_4627f07895d5c90c04bfd13f6ce51b24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_47009d655eb473ec81840b9363f76e10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_49ce784678007b1d0882e21078c19ea9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_502b645f83d2030326387f496c76bd4e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_549c5d1ce03e6f048c424161ceafa0cf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_551563087cb015fe094cff9e5f9a9cea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_574a1aa932bb24351c344a45fe393909.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_596292d0f13e9b34155c1ad2cf83a7ea.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5d377d4f09fc1c2fedf21d72597e9b79.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5dfc319e139582f6fdf2580e3db9fce6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5e339e003764c0458438216a8ac6f21e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5fd5c520e30b3be2686c878ca5d32ce2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_60f9389df42d539e92b5d60325cc0ab2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_61ee278306127859b04e690542856e6e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_62e3fcf8cc4bfc6aee940013e6d29cb4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6487f20e2055ea8657b69c4d4723543a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_67e10328ace5d84603c9600f148e4cfa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6a2e0dc8c9364c9cabf384d1130140ad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6b0e467cabe811770ad4b8cae86565e9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6bbed378c88c48c0061af34ac471f294.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6c09bc31b37d6ace89b9693f2f3cec32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6c478f3ed6f54e2b699df8078c195b2c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6cd2b212c1ec14f99190b53c90db25fe.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_6fea425da8b27b11a80a6d603feff591.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_70a10fe4ff8ddbd81107a33a84ed84b7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_74bc5846f3614cdb9f319f7f32dd48c3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_771fe6bdd838850600620b058454e722.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_7e17e098fe46a16e7dbc8e72bf292653.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_80ec1545046233a205a616f0785bf624.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_84be769c34c7952f584110a879d4028d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_84fb42290b377596a7c9ddfd8699fd45.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_883a4b02caf33a79ea73b8beac129862.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8cc70117b8887b3b874f47b754c75fb6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9020229f305c943e417d9ed47f89e01c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_926bf38b80fe5161bdbbda30c259ba9c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_92e8df537cf0030c47d6f412db64dc43.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_92ef3baf810bac6dc2d48651f01469ab.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_93397ca081f19f44f8d4692b86d6b7d4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_94b7dab7db121ed5ea4ea9ef37933de9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_97ed95b672338b516232cd77672cbd31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_99ecac6c96ae3da7a4105d1572062a49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9e2d4ad4cdda3dfbac72e6df1e087ca8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9e5f88b149402d1ab73f3d69a287173d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a20d9ab4d73eb115a9abcdd6c62d5413.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a4418bb48545a92fea6704e86a086e94.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a455d72c354d2a9bb7f142b84df7c683.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a71e5915d193f378707b220e56870b0b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ac4094f0f972f6d87ee293af9393bff9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ace87ed9bee38d227de772c28fcb4fe4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ae74ab136d2d3e1e5c580f86baba2b0b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_af416c93349951e9d9fc4e5c624e4f09.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b117a691884cf602e79d17fa0ae65b79.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b364ee37b03c1881dda1d3e09850e1be.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b61a2811cd8715bebaf6709d0bb93d33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b80cad2667068d9193c31f26b256557d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_bb6c0226edbd93f56b684e10c42fef56.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_bde21901e487babfe17c11c6c9e1cc35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c02b1a0f327ac6a486aa2b55ce5ab551.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c10f010b9f9f24db7eacf76c1d5f225d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c6aff4da0687d53e04f0c863cc3b6cf5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_cf4821606bbf0ad8be85feebd3fba945.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_cf978bbb973efb2629a96bc4c6312c51.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d2bb7398e8b30d8d28e8ea805e5af8bf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d5d57f16d020bfeafe3611df359da065.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d8ea290ed3582e4cec15117c5ff02ff9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_da1b7420e3cf46cdc6f392fdaedc0359.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_da338e3df66404408ac4d52d17d7a37a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_dd36f4b58fba6644b740b3099d231f26.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_e191f4973fdec2ce96a6b7d3e775f55d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_e1dd0d8d402e7c3db8bc22ee761eec0f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_e6145d97ff5c6e473250b0e05fb1dc41.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_e64e85759096c20f2e9bd51f77946d85.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f109f40b28cde3f26db9124c46144985.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f2608d2c66563342631aa69d053983dc.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f4962f0e690f1003e2a698c8fa138369.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f59a4da0bada977555d1da16b026a3f4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f6db3300b06836975ddea13316f12264.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_fb243e4e63cf6e6aeb0d642f9845cb90.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputDateField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputDateField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputSelectField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputSelectField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/ReactLoader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Images.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Images.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Personal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Personal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loan-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loan-requests/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/verification-requests/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/verification-requests/[request].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/verification-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/verification-requests/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/current-loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/new-loan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/current-loans/new-loan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constantsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constantsArray.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/randomTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/randomTypes.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +177,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Development\final-project\frontend\src\components\shared" />
       <recent name="G:\Development\final-project\frontend\jsons" />
       <recent name="G:\Development\final-project\frontend" />
     </key>
@@ -70,7 +196,9 @@
       <workItem from="1610977917530" duration="3488000" />
       <workItem from="1611033649519" duration="20553000" />
       <workItem from="1611077084426" duration="101000" />
-      <workItem from="1611132843776" duration="8105000" />
+      <workItem from="1611132843776" duration="12825000" />
+      <workItem from="1611207020079" duration="17274000" />
+      <workItem from="1611293720271" duration="30846000" />
     </task>
     <servers />
   </component>

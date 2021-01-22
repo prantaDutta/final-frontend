@@ -138,4 +138,15 @@ export const createDivisionsTypes = () => {
   return allDivisions;
 };
 
+export const numberTypes = (min: number, max: number) => {
+  let numbersArray: SelectOptionsTypes[] = [];
+  for (let i = min; i <= max; i++) {
+    numbersArray.push({
+      value: i,
+      title: i,
+    });
+  }
+  return numbersArray;
+};
+
 export const verificationRequestTableHeader = ["Field Name", "Data"];

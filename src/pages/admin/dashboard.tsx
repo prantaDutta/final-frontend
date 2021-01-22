@@ -23,7 +23,7 @@ export const getServerSideProps = withIronSession(
   async (context: NextPageContext) => {
     const user = (context.req as any).session.get("user");
     if (!user) {
-      redirectToLogin(context);
+      redirectToLogin(context?.req, context?.res);
       return { props: {} };
     }
 

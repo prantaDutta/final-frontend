@@ -5,7 +5,7 @@ import {
   verificationStep,
   verificationSubmitting,
 } from "../../states/verificationStates";
-import ReactLoader from "../ReactLoader";
+import ReactLoader from "../shared/ReactLoader";
 
 interface NextPreviousButtonProps {
   nextDisabled: boolean;

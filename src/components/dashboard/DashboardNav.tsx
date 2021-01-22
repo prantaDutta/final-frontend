@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authStatus } from "../../states/authStates";
@@ -61,20 +60,18 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
         </div>
       </div>
       <div className="p-4">
-        <h4 className="p-2 cursor-pointer rounded border-solid border-2 border-primary hover:bg-primaryAccent hover:text-white hover:border-0">
-          <Link href={router.pathname + "#"}>
-            <button
-              disabled={startLoggingOut}
-              onClick={async () => {
-                setLoggingOut(true);
-                toggleAuth(false);
-                await logout();
-                return router.push("/");
-              }}
-            >
-              Log Out
-            </button>
-          </Link>
+        <h4 className="p-2 cursor-pointer rounded border-solid border-2 border-primary hover:bg-primaryAccent hover:text-white hover:border-0 active:bg-primaryAccent">
+          <button
+            disabled={startLoggingOut}
+            onClick={async () => {
+              setLoggingOut(true);
+              toggleAuth(false);
+              await logout();
+              return router.push("/");
+            }}
+          >
+            Log Out
+          </button>
         </h4>
       </div>
     </div>

@@ -8,7 +8,10 @@ import Contact from "../components/verify/Contact";
 import Images from "../components/verify/Images";
 import Papers from "../components/verify/Papers";
 import Personal from "../components/verify/Personal";
-import StepperIcons, { icons } from "../components/verify/StepperIcons";
+import StepperIcons, {
+  borrowerIcons,
+  lenderIcons,
+} from "../components/verify/StepperIcons";
 import { authenticatedUserData } from "../states/userStates";
 import { verificationStep } from "../states/verificationStates";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
@@ -47,6 +50,7 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
   const [step] = useRecoilState(verificationStep);
   const [userData, changeUserData] = useRecoilState(authenticatedUserData);
   const { role, verified } = user;
+  const icons = role === "lender" ? lenderIcons : borrowerIcons;
   useEffect(() => changeUserData(user), [userData]);
   return (
     <DashboardLayout data={user}>
@@ -54,10 +58,12 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
         <p className=" font-medium md:font-2xl text-xl md:text-4xl text-center">
           Account Verification
         </p>
-        {verified === "true" ? (
+        {verified !== "no" ? (
           <div className="mt-6">
             <p className="text-xl font-semibold">
-              Your Account is already Verified
+              {verified === "yes"
+                ? "Your Account is already Verified"
+                : "Your Account Verification is Pending"}
             </p>
             <div className="flex">
               <button
@@ -82,6 +88,7 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
                   key={index}
                   index={index}
                   item={item}
+                  len={icons.length}
                   isDone={step > index}
                 />
               ))}
