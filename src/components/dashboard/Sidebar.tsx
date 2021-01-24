@@ -4,7 +4,7 @@ import { adminSidebarLinks, sideBarLinks } from "../../utils/constantsArray";
 import React from "react";
 
 interface SidebarProps {
-  role: string;
+  role?: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ role }) => {

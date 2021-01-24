@@ -18,7 +18,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   useEffect(() => setUserData(data), []);
   return (
     <div className="grid grid-cols-5 h-screen">
-      <Sidebar role={data.role} />
+      <Sidebar role={data?.role} />
       <div className="col-span-4 bg-gray-300">
         <MainContentNav />
         <div className="grid grid-cols-3 gap-8 mx-16">

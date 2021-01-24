@@ -59,11 +59,11 @@ const StepperIcons: React.FC<stepperIconsProps> = ({
 }) => {
   return (
     <>
-      <div className="flex items-center text-primary relative">
-        <div className="rounded-full flex justify-center items-center transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-teal-600">
+      <div className="flex items-center text-white relative">
+        <div className="rounded-full flex justify-center items-center transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-primary">
           {isDone ? (
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ const StepperIcons: React.FC<stepperIconsProps> = ({
             </svg>
           ) : (
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -98,7 +98,7 @@ const StepperIcons: React.FC<stepperIconsProps> = ({
         </div>
       </div>
       {index !== len - 1 ? (
-        <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-teal-600" />
+        <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-primary" />
       ) : null}
     </>
   );
