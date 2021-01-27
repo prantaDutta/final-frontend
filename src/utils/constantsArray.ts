@@ -1,6 +1,7 @@
 import { linkArray, SelectOptionsTypes } from "./randomTypes";
 import zilas from "../../jsons/zilas.json";
 import divisions from "../../jsons/divisions.json";
+import { capitalize } from "./functions";
 
 export const sideBarLinks: linkArray[] = [
   {
@@ -16,13 +17,13 @@ export const sideBarLinks: linkArray[] = [
       "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01",
   },
   {
-    href: "/deposit",
-    label: "Deposit",
+    href: "/deposits",
+    label: "Deposits",
     svgD: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12",
   },
   {
-    href: "/withdraw",
-    label: "Withdraw",
+    href: "/withdrawals",
+    label: "Withdrawals",
     svgD: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
   },
   {
@@ -116,9 +117,17 @@ export const BorrowerTypes: SelectOptionsTypes[] = [
   },
 ];
 
-export const createZilaTypes = () => {
+export const createZilaTypes = (division: string) => {
+  division = capitalize(division);
+  let division_id: string;
+  divisions.map((divisionObj: any) => {
+    if (divisionObj.name === division) {
+      division_id = divisionObj.id;
+    }
+  });
   let allZilas: SelectOptionsTypes[] = [];
   zilas.map((singleZila: { name: string }) => {
+    if (division_id !== (singleZila as any).division_id) return;
     allZilas.push({
       value: singleZila.name.toLowerCase(),
       title: singleZila.name,

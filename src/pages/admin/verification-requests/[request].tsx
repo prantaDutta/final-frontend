@@ -127,7 +127,7 @@ const request: React.FC<requestProps> = ({ user, request }) => {
             if (isProduction) console.log(data);
             setSubmitting(false);
             await mutate(`/admin/verification-requests`);
-            router.back();
+            return router.push("/admin/verification-requests");
           }}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent

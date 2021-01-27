@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/shared/WithAuth.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/deposit/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/shared/DashboardTitle.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/deposits/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputSelectField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputSelectField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/shared/nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/verification-requests/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/verification-requests/[request].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/logout.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/logout.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deposit/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constantsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constantsArray.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/functions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -56,7 +69,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="G:\laragon\bin\nodejs\node-v14.15.0\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="G:\Development\final-project\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -87,7 +100,14 @@
       <workItem from="1611381849690" duration="1440000" />
       <workItem from="1611402816161" duration="56000" />
       <workItem from="1611413893808" duration="4983000" />
-      <workItem from="1611466877176" duration="3847000" />
+      <workItem from="1611466877176" duration="6385000" />
+      <workItem from="1611563939648" duration="642000" />
+      <workItem from="1611564646739" duration="459000" />
+      <workItem from="1611565136265" duration="15368000" />
+      <workItem from="1611639769410" duration="10575000" />
+      <workItem from="1611666932899" duration="3814000" />
+      <workItem from="1611674238513" duration="3673000" />
+      <workItem from="1611721364893" duration="4583000" />
     </task>
     <servers />
   </component>

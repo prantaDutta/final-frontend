@@ -137,3 +137,9 @@ export const calculateMonthlyInstallment = (
 
 export const formatTwoDecimalPlaces = (num: number) =>
   +(Math.round(num * 100) / 100).toFixed(2);
+
+export const capitalize = (s: string) => {
+  return s.toLowerCase().replace(/\b./g, function (a) {
+    return a.toUpperCase();
+  });
+};

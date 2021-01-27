@@ -14,7 +14,7 @@ export const laravelApi = (nonApiRoute = false) => {
   api.interceptors.response.use(
     (response) => response,
     async (error) => {
-      if (error.response.status === 401) {
+      if (error?.response?.status === 401) {
         await logout();
         if (!isServer) {
           const router = useRouter();
@@ -24,10 +24,10 @@ export const laravelApi = (nonApiRoute = false) => {
         return Promise.reject({ status: 401, errors: ["Unauthorized"] });
       }
 
-      if (error.response?.status === 422) {
-        let errors = Object.values(error?.response?.data?.errors || {});
+      if (error?.response?.status === 422) {
+        let errors = Object?.values(error?.response?.data?.errors || {});
 
-        return Promise.reject({
+        return Promise?.reject({
           status: 422,
           errorsRaw: errors,
           errors: errors.reduce((error) => error),
@@ -36,8 +36,8 @@ export const laravelApi = (nonApiRoute = false) => {
 
       console.error(error);
 
-      return Promise.reject({
-        status: error.response?.status,
+      return Promise?.reject({
+        status: error?.response?.status,
         errors: ["Oops!"],
       });
     }

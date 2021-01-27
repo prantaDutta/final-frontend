@@ -28,6 +28,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
   const userData = useRecoilValue(authenticatedUserData);
   const [step, setStep] = useRecoilState(verificationStep);
   const {
+    watch,
     register,
     handleSubmit,
     errors,
@@ -74,7 +75,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
           .required("Required"),
       })
     ),
-    mode: "onSubmit",
+    mode: "onChange",
     reValidateMode: "onBlur",
   });
   const onSubmit = async (values: ContactVerificationFormValues) => {
@@ -92,6 +93,9 @@ const Contact: React.FC<ContactProps> = ({}) => {
     });
     setStep(step + 1);
   };
+  // The following is necessary because getValues only gets the values
+  // in the next render
+  // useEffect(() => {}, [getValues("division")]);
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -153,7 +157,9 @@ const Contact: React.FC<ContactProps> = ({}) => {
               label="Select Zila"
               error={errors.zila?.message}
               register={register}
-              options={createZilaTypes()}
+              options={
+                watch("division") ? createZilaTypes(watch("division")) : null
+              }
             />
           </div>
           <div className="flex px-4">

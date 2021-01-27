@@ -10,11 +10,17 @@ import InputTextField from "../components/ReactHookForm/InputTextField";
 import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import {
+  BASE_URL,
+  isProduction,
+  isServer,
+  NEXT_IRON_SESSION_CONFIG,
+} from "../utils/constants";
 import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
 import { loginValidationSchema } from "../validations/LoginFormValidation";
 import { laravelApi } from "../utils/api";
 import axios from "axios";
+import { NextPageContext } from "next";
 
 interface login2Props {
   user: ModifiedUserData;
@@ -45,7 +51,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data: data });
-      await router.push("/dashboard");
+      return router.push("/dashboard");
     } catch (e) {
       if (!isProduction) console.log(e.response);
       setError("email", {
@@ -115,15 +121,22 @@ const Login: React.FC<login2Props> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req }) => {
-  const user = req.session.get("user");
-  if (!user) {
+export const getServerSideProps = withIronSession(
+  async ({ req, res }: NextPageContext) => {
+    const user = (req as any).session.get("user");
+    if (user) {
+      if (!isServer) {
+        res?.writeHead(302, {
+          Location: `${BASE_URL}/dashboard`,
+        });
+        return res?.end();
+      }
+      const router = useRouter();
+      return router.push("/dashboard");
+    }
     return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+  },
+  NEXT_IRON_SESSION_CONFIG
+);
 
 export default Login;
