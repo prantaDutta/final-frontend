@@ -4,38 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_0309c919c03f223d62fe3eb432255289.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_12b2265078644e6e2db4700d20ec45a4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1dfee7903bb81b866e9d13a2a99b78aa.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2412bccaa5a37dff2d81133d44a1d37f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_24a459235e60f54b45b997c6c8f511c9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_24ae73100b608e2e254a654da43aa749.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2db4c5fe8f0614c477a81355d6203126.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3dc1921330f6d4e3eb35dbee64d6f96a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3ebee5c3dc6361d64586cf6a27eb4971.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_4320c2deb3f08f4abdf36fc1123e04d2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_470558c7d3bd0206be4fecd4e7758bb1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_70c70b0458040281d0d71030129b9950.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8663a26ad9d511aeb0943fa4964d7172.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_86f286b92cb5576b5ad4639bdd9329f9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8bc547504713d1fc5e82da2e57b82e75.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9f55ef846ebf8f0e86a801b99ce3d383.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9ff326abe24baee966bb4d05235223ae.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_bed39b18d512a81d7b2812cfee1e3c58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c46e5c1771d2e674ab71ad704dbdeea5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d52baba6578d861f765b465f23766277.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d56757f03f8d8ee1b81195430f825170.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d60017b41596979ef56116ed044a8cff.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ebce348fe4013fe5b933da51eaff5197.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f41492546dbdec68bf3a64638ea074f6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-    </list>
+    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
