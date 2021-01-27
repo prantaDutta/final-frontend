@@ -1,12 +1,11 @@
-import { laravelApi } from "./api";
 import axios from "axios";
+import { laravelApi } from "./api";
 
 export const logout = async () => {
   try {
     await laravelApi(true).get("/sanctum/csrf-cookie");
     await laravelApi().post(`/logout`);
-    const res = await axios.post("/api/logout");
-    console.log("res: ", res);
+    await axios.post("/api/set-user-cookie");
   } catch (e) {
     console.log(e.response);
   }

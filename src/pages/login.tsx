@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,17 +11,10 @@ import InputTextField from "../components/ReactHookForm/InputTextField";
 import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
-import {
-  BASE_URL,
-  isProduction,
-  isServer,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../utils/constants";
+import { laravelApi } from "../utils/api";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
 import { loginValidationSchema } from "../validations/LoginFormValidation";
-import { laravelApi } from "../utils/api";
-import axios from "axios";
-import { NextPageContext } from "next";
 
 interface login2Props {
   user: ModifiedUserData;
@@ -50,7 +44,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
       if (!isProduction) console.log(data);
       toggleAuth(true);
       setUserData(data);
-      await axios.post("/api/set-user-cookie", { data: data });
+      await axios.post("/api/set-user-cookie", { data });
       return router.push("/dashboard");
     } catch (e) {
       if (!isProduction) console.log(e.response);
@@ -121,22 +115,15 @@ const Login: React.FC<login2Props> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async ({ req, res }: NextPageContext) => {
-    const user = (req as any).session.get("user");
-    if (user) {
-      if (!isServer) {
-        res?.writeHead(302, {
-          Location: `${BASE_URL}/dashboard`,
-        });
-        return res?.end();
-      }
-      const router = useRouter();
-      return router.push("/dashboard");
-    }
+export const getServerSideProps = withIronSession(async ({ req }) => {
+  const user = req.session.get("user");
+  if (!user) {
     return { props: {} };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  }
+
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default Login;

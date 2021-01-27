@@ -23,8 +23,8 @@ export const NEXT_IRON_SESSION_CONFIG = {
   cookieOptions: {
     httpOnly: true,
     secure: isProduction,
-    // sameSite: "strict" as "strict",
-    sameSite: "none" as "none",
+    sameSite: "strict" as "strict",
+    // sameSite: "none" as "none",
     maxAge: 60 * 60, // 2 hours
     path: "/",
     // secure: process.env.NODE_ENV === "production" ? true : false,

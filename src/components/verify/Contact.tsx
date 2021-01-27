@@ -75,7 +75,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
           .required("Required"),
       })
     ),
-    mode: "onChange",
+    mode: "onSubmit",
     reValidateMode: "onBlur",
   });
   const onSubmit = async (values: ContactVerificationFormValues) => {
