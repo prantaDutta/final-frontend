@@ -1,11 +1,8 @@
-import { verify } from "jsonwebtoken";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import { AUTH_TOKEN_NAME } from "../utils/constants";
-
-export interface NextApiRequestExtended extends NextApiRequest {
-  token: string | null;
-}
+import { ironSession } from "next-iron-session";
+import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import { NextApiRequestExtended } from "../utils/randomTypes";
 
 export default nextConnect<NextApiRequestExtended, NextApiResponse>({
   onError(error, _req, res) {
@@ -16,21 +13,4 @@ export default nextConnect<NextApiRequestExtended, NextApiResponse>({
   onNoMatch(req, res) {
     res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   },
-}).use((req, _res, next) => {
-  req.token = null;
-  const cookie = req.cookies;
-
-  const token = cookie[`${AUTH_TOKEN_NAME}`];
-  if (token) {
-    verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET!,
-      (err: any, decoded: any) => {
-        if (!err && decoded) {
-          req.token = decoded;
-        }
-      }
-    );
-  }
-  next();
-});
+}).use(ironSession({ ...NEXT_IRON_SESSION_CONFIG }));

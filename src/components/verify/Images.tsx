@@ -1,6 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
@@ -9,12 +7,9 @@ import yup from "../../lib/yup";
 import {
   verificationFormValues,
   verificationStep,
+  verificationSubmitting,
 } from "../../states/verificationStates";
-import { BASE_URL, isProduction } from "../../utils/constants";
-import {
-  appendingFieldsToFormData,
-  appendingFileToFormData,
-} from "../../utils/functions";
+import { appendingFileToFormData } from "../../utils/functions";
 import { ImagesVerificationFormValues } from "../../utils/randomTypes";
 import {
   multipleImageValidation,
@@ -22,13 +17,19 @@ import {
 } from "../../utils/vaidationSchema";
 import InputFileField from "../ReactHookForm/InputFileField";
 import NextPreviousButton from "./NextPreviousButton";
+import axios from "axios";
+import { BASE_URL, isProduction } from "../../utils/constants";
+import { useRouter } from "next/router";
+import { laravelApi } from "../../utils/api";
 
 interface ImagesProps {}
 
 const Images: React.FC<ImagesProps> = ({}) => {
   const router = useRouter();
+  // we just need to re render the page with complete
   const [complete, setComplete] = useState<boolean>(false);
   const [, setStep] = useRecoilState(verificationStep);
+  const [, setSubmitting] = useRecoilState(verificationSubmitting);
   const [verificationValues, setValues] = useRecoilState(
     verificationFormValues
   );
@@ -42,7 +43,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         nidOrPassport: singleImageValidation,
         addressProof: singleImageValidation,
         recentPhoto: singleImageValidation,
-        bankAccountStateMents: multipleImageValidation,
+        bankAccountStatements: multipleImageValidation,
         businessProof: yup.lazy(() => {
           if (verificationValues?.borrowerType === "self") {
             return singleImageValidation;
@@ -69,69 +70,46 @@ const Images: React.FC<ImagesProps> = ({}) => {
     mode: "onChange",
     reValidateMode: "onChange",
   });
-  const formData = new FormData();
-  // sending data to the api
-
   // the updated value is available on the next render in recoil state
   // That's why we have to use useEffect
   useEffect(() => {}, [complete]);
 
   const onSubmit = async (values: ImagesVerificationFormValues) => {
-    let {
-      nidOrPassport,
-      addressProof,
-      recentPhoto,
-      bankAccountStateMents,
-      businessProof,
-      salarySlip,
-      employeeIdCard,
-    } = values;
-
-    // nidOrPassport = filesToObject(nidOrPassport as [File]);
-    appendingFileToFormData("nidOrPassport", nidOrPassport, formData);
-    appendingFileToFormData("addressProof", addressProof, formData);
-    appendingFileToFormData("recentPhoto", recentPhoto, formData);
-    appendingFileToFormData(
-      "bankAccountStateMents",
-      bankAccountStateMents,
-      formData
-    );
-    verificationValues?.borrowerType === "self" &&
-      appendingFileToFormData("businessProof", businessProof, formData);
-    verificationValues?.borrowerType === "salaried" &&
-      appendingFileToFormData("salarySlip", salarySlip, formData);
-    verificationValues?.borrowerType === "salaried" &&
-      appendingFileToFormData("employeeIdCard", employeeIdCard, formData);
-
-    for (const [key, value] of Object.entries(verificationValues!)) {
-      appendingFieldsToFormData(key, value, formData);
-    }
-    setValues({
-      ...verificationValues!,
-      nidOrPassport,
-      addressProof,
-      recentPhoto,
-      bankAccountStateMents,
-      businessProof,
-      salarySlip,
-      employeeIdCard,
-    });
+    setSubmitting(true);
     setComplete(true);
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(values)) {
+      appendingFileToFormData(key, value, formData);
+    }
 
     try {
-      const response = await axios(`${BASE_URL}/api/verify`, {
+      const { data } = await axios(`${BASE_URL}/api/upload-images`, {
         method: "PUT",
         data: formData,
         withCredentials: true,
       });
+      await laravelApi(true).get("/sanctum/csrf-cookie");
+      const totalVerificationValues = {
+        ...verificationValues,
+        verificationPhotos: data,
+      };
+      // printing the values before sending
+      if (!isProduction)
+        console.log("Verification Values: ", totalVerificationValues);
+      const response = await laravelApi().post("/user/verify", {
+        values: totalVerificationValues,
+      });
       if (!isProduction) console.log("Response: ", response);
       setStep(0);
-      router.push("/dashboard");
+      setSubmitting(false);
+      setValues(null);
+      return router.push("/dashboard");
     } catch (e) {
       console.log(e);
     }
+
+    setSubmitting(false);
   };
-  // console.log("verificationValues: ", verificationValues);
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -158,10 +136,10 @@ const Images: React.FC<ImagesProps> = ({}) => {
             control={control}
           />
           <InputFileField
-            name="bankAccountStateMents"
+            name="bankAccountStatements"
             multiple={true}
-            label="Bank AccountStateMents (Atleast 3 Months)"
-            error={(errors.bankAccountStateMents as any)?.message}
+            label="Bank AccountStatements (At least 3 Months)"
+            error={(errors.bankAccountStatements as any)?.message}
             control={control}
           />
           {verificationValues?.borrowerType === "self" && (
@@ -185,10 +163,10 @@ const Images: React.FC<ImagesProps> = ({}) => {
                 label="Employee Id Card"
                 error={(errors.employeeIdCard as any)?.message}
                 control={control}
-              />{" "}
+              />
             </>
           )}
-          <NextPreviousButton nextDisabled={errors ? false : true} />
+          <NextPreviousButton nextDisabled={!errors} />
         </form>
       </main>
     </div>

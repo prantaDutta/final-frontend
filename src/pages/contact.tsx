@@ -1,11 +1,16 @@
+import { withIronSession } from "next-iron-session";
 import Layout from "../components/layouts/Layout";
 import InputTextField from "../components/ReactHookForm/InputTextField";
+import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import { ModifiedUserData } from "../utils/randomTypes";
 
-interface contactProps {}
+interface contactProps {
+  user: ModifiedUserData;
+}
 
-const contact: React.FC<contactProps> = ({}) => {
+const contact: React.FC<contactProps> = ({ user }) => {
   return (
-    <Layout>
+    <Layout data={user}>
       <div className="grid md:grid-cols-2 gap-5 text-gray-600 md:mx-16 mt-6 md:mt-12">
         <div className="hidden md:block text-center">
           <h2 className="text-xl md:text-3xl font-bold tracking-wide">
@@ -105,5 +110,16 @@ Chattagram 4203`}
     </Layout>
   );
 };
+
+export const getServerSideProps = withIronSession(async ({ req }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    return { props: {} };
+  }
+
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default contact;

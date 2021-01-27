@@ -1,9 +1,11 @@
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
-import { authContext } from "../../contexts/authContext";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authStatus } from "../../states/authStates";
+import { authenticatedUserData } from "../../states/userStates";
 import { linkArray } from "../../utils/randomTypes";
+import { logout } from "../../utils/auth";
 
 export const links: linkArray[] = [
   { href: "/", label: "Home" },
@@ -15,7 +17,7 @@ export const links: linkArray[] = [
   { href: "/register", label: "Register" },
 ];
 
-// d attribute value of hambergur menu and cross sign
+// d attribute value of hamburger menu and cross sign
 const menu = ["M4 6h16M4 12h16M4 18h16", "M6 18L18 6M6 6l12 12"];
 
 export interface NavItemsProps {
@@ -23,11 +25,10 @@ export interface NavItemsProps {
 }
 
 export default function Nav() {
-  // const { isAuthenticated, toggleAuth } = useContext(authContext);
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const { toggleAuth, isAuthenticated } = useContext(authContext);
-
   const router = useRouter();
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [auth, toggleAuth] = useRecoilState(authStatus);
+  const userData = useRecoilValue(authenticatedUserData);
 
   // rendering each nav items
   const NavItems: React.FC<NavItemsProps> = ({ links }) => {
@@ -35,19 +36,32 @@ export default function Nav() {
       <>
         {links.map((link, index) => {
           // not rendering item 5 & 6 when authenticated
-          if (isAuthenticated && (index === 5 || index === 6)) return null;
+          if (auth && (index === 5 || index === 6)) return null;
           // not rendering item 3 & 4 when not authenticated
-          else if (!isAuthenticated && (index === 3 || index === 4))
-            return null;
-          else if (link.label === "Log Out")
+          else if (!auth && (index === 3 || index === 4)) return null;
+          else if (link.label === "Dashboard") {
+            if (userData?.role === "admin") link.href = "/admin/dashboard";
+            return (
+              <Link href={link.href} key={link.label}>
+                <a
+                  key={link.label}
+                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                    index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
+                  } transition-css`}
+                >
+                  {link.label}
+                </a>
+              </Link>
+            );
+          } else if (link.label === "Log Out")
             return (
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
                   onClick={async () => {
                     toggleAuth(false);
-                    await axios.get(`/api/logout`);
-                    router.push("/");
+                    await logout();
+                    return router.push("/");
                   }}
                   className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"

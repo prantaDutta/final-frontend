@@ -1,25 +1,29 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
+import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
 import InputSelectField from "../components/ReactHookForm/InputSelectField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/ReactLoader";
-import { authContext } from "../contexts/authContext";
+import ReactLoader from "../components/shared/ReactLoader";
+import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { UserRole } from "../utils/constantsArray";
-import { RegisterFormValues } from "../utils/randomTypes";
-import { registerValitationSchema } from "../validations/RegisterFormValiadtion";
+import { ModifiedUserData, RegisterFormValues } from "../utils/randomTypes";
+import { registerValidationSchema } from "../validations/RegisterFormValiadtion";
+import { laravelApi } from "../utils/api";
+import axios from "axios";
 
-interface registerProps {}
+interface registerProps {
+  user: ModifiedUserData;
+}
 
-const register: React.FC<registerProps> = ({}) => {
-  // const { toggleAuth, changeUserData } = useContext(authContext);
+const Register: React.FC<registerProps> = ({ user }) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const {
     register,
@@ -27,33 +31,40 @@ const register: React.FC<registerProps> = ({}) => {
     errors,
     setError,
   } = useForm<RegisterFormValues>({
-    resolver: yupResolver(registerValitationSchema),
-    mode: "onTouched",
+    resolver: yupResolver(registerValidationSchema),
+    mode: "onBlur",
     reValidateMode: "onBlur",
   });
   const router = useRouter();
-  const { toggleAuth } = useContext(authContext);
+  const [, toggleAuth] = useRecoilState(authStatus);
   const [, setUserData] = useRecoilState(authenticatedUserData);
 
   const onSubmit = async (values: RegisterFormValues) => {
     setSubmitting(true);
-    const { data } = await axios.post(`/api/register`, {
-      values,
-    });
-    if (data.id) {
+
+    await laravelApi(true).get("/sanctum/csrf-cookie");
+    try {
+      const {
+        data: { data },
+      } = await laravelApi().post("/register", values);
+      if (!isProduction) console.log(data);
       toggleAuth(true);
       setUserData(data);
-      return router.push("/dashboard");
+      await axios.post("/api/set-user-cookie", { data: data });
+      await router.push("/verify");
+    } catch (e) {
+      if (!isProduction) console.log(e.response);
+      setError("email", {
+        type: "manual",
+        message: "Email Already Taken",
+      });
     }
-    setError("name", {
-      type: "manual",
-      message: "Registration Failed, Please Try Again",
-    });
+
     setSubmitting(false);
   };
 
   return (
-    <Layout>
+    <Layout data={user}>
       <div className="pb-3 px-2 md:px-0">
         <main className="bg-white max-w-lg mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
           <section>
@@ -98,9 +109,9 @@ const register: React.FC<registerProps> = ({}) => {
 
             <InputTextField
               type="password"
-              name="confirmPassword"
+              name="password_confirmation"
               label="Password"
-              error={errors.confirmPassword?.message}
+              error={errors.password_confirmation?.message}
               placeholder="Confirm Your Password"
               register={register}
             />
@@ -134,4 +145,15 @@ const register: React.FC<registerProps> = ({}) => {
   );
 };
 
-export default register;
+export const getServerSideProps = withIronSession(async ({ req }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    return { props: {} };
+  }
+
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
+
+export default Register;

@@ -1,7 +1,7 @@
-import axios from "axios";
 import Yup from "../lib/yup";
+import { laravelApi } from "../utils/api";
 
-export const registerValitationSchema = Yup.object({
+export const registerValidationSchema = Yup.object({
   name: Yup.string().required("Required"),
   role: Yup.mixed()
     .oneOf(["lender", "borrower"], "Role should be Lender or Borrower")
@@ -9,25 +9,22 @@ export const registerValitationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email")
     .test("Unique Email", "Email already been taken", function (value) {
-      if (!value) return true;
-      return new Promise((resolve, _) => {
-        axios
-          .post("/api/unique-email", {
+      return new Promise(async (resolve, _) => {
+        try {
+          await laravelApi().post("/unique-email", {
             email: value,
-          })
-          .then(async ({ data }) => {
-            if (data.msg === "Email already been taken") {
-              resolve(false);
-            }
-            resolve(true);
           });
+          resolve(false);
+        } catch (e) {
+          resolve(true);
+        }
       });
     })
     .required("Required"),
   password: Yup.string()
-    .min(6, "Password should be atleast six letters")
+    .min(6, "Password should be at least six letters")
     .required("Required"),
-  confirmPassword: Yup.string()
+  password_confirmation: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Required"),
 });

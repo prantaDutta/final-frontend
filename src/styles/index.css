@@ -6,11 +6,10 @@
 /* Stop purging. */
 
 /* Write your own custom component styles here */
-/* .btn-blue {
-  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
-} */
-
 /* For Transition */
+html {
+  overflow-y: scroll;
+}
 .transition-css {
   @apply transition duration-500 ease-in-out;
 }
@@ -20,3 +19,9 @@
 /* Stop purging. */
 
 /* My own custom classses */
+/* Custorm Button */
+.btn {
+  @apply rounded-full tracking-wide
+        font-semibold focus:outline-none focus:ring-1 hover:bg-primaryAccent
+        shadow-lg transition-css disabled:opacity-50;
+}

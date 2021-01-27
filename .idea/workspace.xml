@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_0309c919c03f223d62fe3eb432255289.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_12b2265078644e6e2db4700d20ec45a4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1dfee7903bb81b866e9d13a2a99b78aa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2412bccaa5a37dff2d81133d44a1d37f.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_24a459235e60f54b45b997c6c8f511c9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_24ae73100b608e2e254a654da43aa749.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2db4c5fe8f0614c477a81355d6203126.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3dc1921330f6d4e3eb35dbee64d6f96a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3ebee5c3dc6361d64586cf6a27eb4971.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_4320c2deb3f08f4abdf36fc1123e04d2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_470558c7d3bd0206be4fecd4e7758bb1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_70c70b0458040281d0d71030129b9950.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8663a26ad9d511aeb0943fa4964d7172.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_86f286b92cb5576b5ad4639bdd9329f9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8bc547504713d1fc5e82da2e57b82e75.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9f55ef846ebf8f0e86a801b99ce3d383.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9ff326abe24baee966bb4d05235223ae.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_bed39b18d512a81d7b2812cfee1e3c58.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c46e5c1771d2e674ab71ad704dbdeea5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d52baba6578d861f765b465f23766277.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d56757f03f8d8ee1b81195430f825170.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d60017b41596979ef56116ed044a8cff.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ebce348fe4013fe5b933da51eaff5197.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f41492546dbdec68bf3a64638ea074f6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/set-user-cookie.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/jsons/zilas.json" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1nCNSR402INz46vFEkO04Cb02FK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.last.introduce.type" value="LET" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="G:\laragon\bin\nodejs\node-v14.15.0\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="G:\Development\final-project\frontend\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Development\final-project\frontend\src\components\shared" />
+      <recent name="G:\Development\final-project\frontend\jsons" />
+      <recent name="G:\Development\final-project\frontend" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="" />
+      <created>1610890127137</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610890127137</updated>
+      <workItem from="1610890165446" duration="9796000" />
+      <workItem from="1610901927731" duration="420000" />
+      <workItem from="1610946103473" duration="9256000" />
+      <workItem from="1610977917530" duration="3488000" />
+      <workItem from="1611033649519" duration="20553000" />
+      <workItem from="1611077084426" duration="101000" />
+      <workItem from="1611132843776" duration="12825000" />
+      <workItem from="1611207020079" duration="17274000" />
+      <workItem from="1611293720271" duration="31017000" />
+      <workItem from="1611381849690" duration="1440000" />
+      <workItem from="1611402816161" duration="56000" />
+      <workItem from="1611413893808" duration="4983000" />
+      <workItem from="1611466877176" duration="6385000" />
+      <workItem from="1611563939648" duration="642000" />
+      <workItem from="1611564646739" duration="459000" />
+      <workItem from="1611565136265" duration="15368000" />
+      <workItem from="1611639769410" duration="10575000" />
+      <workItem from="1611666932899" duration="3814000" />
+      <workItem from="1611674238513" duration="3673000" />
+      <workItem from="1611721364893" duration="4583000" />
+      <workItem from="1611727648725" duration="4880000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

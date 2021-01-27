@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import dayjs from "dayjs";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -12,7 +11,7 @@ import {
 } from "../../states/verificationStates";
 import { isProduction } from "../../utils/constants";
 import { Gender } from "../../utils/constantsArray";
-import { eightennYearsBackFromNow } from "../../utils/functions";
+import { eighteenYearsBackFromNow } from "../../utils/functions";
 import { PersonalVerificationFormValues } from "../../utils/randomTypes";
 import InputDateField from "../ReactHookForm/InputDateField";
 import InputSelectField from "../ReactHookForm/InputSelectField";
@@ -36,6 +35,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
   } = useForm<PersonalVerificationFormValues>({
     resolver: yupResolver(
       object({
+        id: yup.mixed().notRequired(),
         name: yup.string().required("Required"),
         gender: yup
           .mixed()
@@ -44,7 +44,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
         dateOfBirth: yup
           .date()
           .max(
-            eightennYearsBackFromNow("YYYY-MM-DD").toString(),
+            eighteenYearsBackFromNow("YYYY-MM-DD").toString(),
             "You Must be 18 Years Old"
           )
           .required("Invalid Date"),
@@ -54,7 +54,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
     reValidateMode: "onBlur",
   });
   const onSubmit = async (values: PersonalVerificationFormValues) => {
-    values.dateOfBirth = dayjs(values.dateOfBirth).format("DD/MM/YYYY");
+    // values.dateOfBirth = dayjs(values.dateOfBirth).format("DD/MM/YYYY");
     const { name, dateOfBirth, gender } = values;
     setValues({
       ...verificationValues!,
@@ -65,7 +65,6 @@ const Personal: React.FC<PersonalProps> = ({}) => {
     });
     setStep(step + 1);
   };
-  // console.log("date: ", dayjs().subtract(18, "year").format("DD/MM/YYYY"));
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -73,43 +72,49 @@ const Personal: React.FC<PersonalProps> = ({}) => {
           <h3 className="font-bold text-2xl">Personal Information</h3>
         </section>
         <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-          <InputTextField
-            name="name"
-            defaultValue={
-              verificationValues?.name
-                ? verificationValues?.name
-                : userData
-                ? userData.name
-                : ""
-            }
-            label="Your Full Name"
-            error={errors.name?.message}
-            placeholder="Enter Your Name"
-            register={register}
-          />
-          <InputDateField
-            name="dateOfBirth"
-            type="date"
-            label="Your Date of Birth"
-            error={errors.dateOfBirth?.message}
-            control={control}
-            defaultValue={
-              verificationValues?.dateOfBirth
-                ? verificationValues?.dateOfBirth
-                : isProduction
-                ? new Date().toString()
-                : eightennYearsBackFromNow("YYYY-MM-DD").toString()
-              // new Date().toString()
-            }
-          />
-          <InputSelectField
-            defaultValue={verificationValues?.gender}
-            name="gender"
-            label="You Are a"
-            error={errors.gender?.message}
-            options={Gender}
-            register={register}
-          />
+          <div className="flex px-4">
+            <InputTextField
+              name="name"
+              defaultValue={
+                verificationValues?.name
+                  ? verificationValues?.name
+                  : userData
+                  ? userData.name
+                  : ""
+              }
+              label="Your Full Name"
+              error={errors.name?.message}
+              placeholder="Enter Your Name"
+              register={register}
+            />
+          </div>
+          <div className="flex px-4">
+            <InputDateField
+              name="dateOfBirth"
+              halfWidth
+              type="date"
+              label="Your Date of Birth"
+              error={errors.dateOfBirth?.message}
+              control={control}
+              defaultValue={
+                verificationValues?.dateOfBirth
+                  ? verificationValues?.dateOfBirth
+                  : isProduction
+                  ? (new Date().toString() as any)
+                  : eighteenYearsBackFromNow("YYYY-MM-DD").toString()
+                // new Date().toString()
+              }
+            />
+            <InputSelectField
+              defaultValue={verificationValues?.gender}
+              name="gender"
+              halfWidth
+              label="You Are a"
+              error={errors.gender?.message}
+              options={Gender}
+              register={register}
+            />
+          </div>
           <NextPreviousButton nextDisabled={errors ? false : true} />
         </form>
       </main>

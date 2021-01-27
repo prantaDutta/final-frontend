@@ -1,15 +1,21 @@
 import { NextPageContext } from "next";
+import { withIronSession } from "next-iron-session";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { isAuthenticated } from "../apiHandlers/isAuthenticated";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Contact from "../components/verify/Contact";
 import Images from "../components/verify/Images";
 import Papers from "../components/verify/Papers";
 import Personal from "../components/verify/Personal";
-import StepperIcons, { icons } from "../components/verify/StepperIcons";
+import StepperIcons, {
+  borrowerIcons,
+  lenderIcons,
+} from "../components/verify/StepperIcons";
 import { authenticatedUserData } from "../states/userStates";
 import { verificationStep } from "../states/verificationStates";
+import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import { redirectToLogin } from "../utils/functions";
 import { ModifiedUserData } from "../utils/randomTypes";
 
 interface showVerifyComponentProps {
@@ -27,7 +33,6 @@ const ShowVerifyComponent: React.FC<showVerifyComponentProps> = ({
     case 1:
       return <Contact />;
     case 2:
-      console.log("role", role);
       return role === "lender" ? <Images /> : <Papers />;
     case 3:
       return <Images />;
@@ -37,44 +42,78 @@ const ShowVerifyComponent: React.FC<showVerifyComponentProps> = ({
 };
 
 interface verifyProps {
-  data: ModifiedUserData;
+  user: ModifiedUserData;
 }
 
-const verify: React.FC<verifyProps> = ({ data }) => {
+const Verify: React.FC<verifyProps> = ({ user }) => {
+  const router = useRouter();
   const [step] = useRecoilState(verificationStep);
-  const [, changeUserData] = useRecoilState(authenticatedUserData);
-
-  const { role } = data;
-  useEffect(() => changeUserData(data));
+  const [userData, changeUserData] = useRecoilState(authenticatedUserData);
+  const { role, verified } = user;
+  const icons = role === "lender" ? lenderIcons : borrowerIcons;
+  useEffect(() => changeUserData(user), [userData]);
   return (
-    <DashboardLayout data={data}>
+    <DashboardLayout data={user}>
       <div className="p-5">
         <p className=" font-medium md:font-2xl text-xl md:text-4xl text-center">
           Account Verification
         </p>
-        <div className="flex items-center mb-4 p-4">
-          {icons.map((item, index) => (
-            <StepperIcons
-              key={index}
-              index={index}
-              item={item}
-              isDone={step > index}
-            />
-          ))}
-        </div>
-
-        <ShowVerifyComponent role={role} step={step} />
+        {verified !== "no" ? (
+          <div className="mt-6">
+            <p className="text-xl font-semibold">
+              {verified === "yes"
+                ? "Your Account is already Verified"
+                : "Your Account Verification is Pending"}
+            </p>
+            <div className="flex">
+              <button
+                className="my-6 mr-6 btn bg-primary text-white p-3 w-1/4 block"
+                onClick={() => router.push("/dashboard")}
+              >
+                Go to Dashboard
+              </button>
+              <button
+                className="m-6 btn bg-primary text-white p-3 w-1/4 block"
+                onClick={() => router.back()}
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center mb-4 p-4">
+              {icons.map((item, index) => (
+                <StepperIcons
+                  key={index}
+                  index={index}
+                  item={item}
+                  len={icons.length}
+                  isDone={step > index}
+                />
+              ))}
+            </div>
+            <ShowVerifyComponent role={role} step={step} />
+          </>
+        )}
       </div>
     </DashboardLayout>
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
-  // The following function checks whether the user is authenticated and returns the userdata
-  const data = await isAuthenticated(context);
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
-}
+export const getServerSideProps = withIronSession(
+  async (context: NextPageContext) => {
+    const user = (context.req as any).session.get("user");
+    if (!user) {
+      redirectToLogin(context?.req, context?.res);
+      return { props: {} };
+    }
 
-export default verify;
+    return {
+      props: { user },
+    };
+  },
+  NEXT_IRON_SESSION_CONFIG
+);
+
+export default Verify;

@@ -1,14 +1,9 @@
+import { applySession } from "next-iron-session";
 import handler from "../../apiHandlers/handler";
-import { AUTH_TOKEN_NAME } from "../../utils/constants";
-import { serialize } from "cookie";
+import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 
-export default handler.get(async (_req, res) => {
-  res.setHeader(
-    "Set-Cookie",
-    serialize(AUTH_TOKEN_NAME, "", {
-      maxAge: -1,
-      path: "/",
-    })
-  );
+export default handler.post(async (req, res) => {
+  await applySession(req, res, NEXT_IRON_SESSION_CONFIG);
+  await (req as any).session.unset("user");
   return res.status(200).end();
 });

@@ -8,6 +8,7 @@ type InputDateFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   error?: string | undefined | null;
   control: Control;
   name: string;
+  halfWidth?: boolean;
   defaultValue:
     | string
     | Date
@@ -22,10 +23,11 @@ const InputDateField: React.FC<InputDateFieldProps> = ({
   label,
   control,
   name,
+  halfWidth,
   defaultValue,
 }) => {
   return (
-    <div className="mt-6">
+    <div className={`mt-6 px-4 ${halfWidth ? "w-1/2" : "w-full"}`}>
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
       </label>

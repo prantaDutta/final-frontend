@@ -1,22 +1,26 @@
-import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/ReactLoader";
-import { authContext } from "../contexts/authContext";
+import ReactLoader from "../components/shared/ReactLoader";
+import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
-import { LoginFormValues } from "../utils/randomTypes";
+import { laravelApi } from "../utils/api";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
 import { loginValidationSchema } from "../validations/LoginFormValidation";
 
-interface login2Props {}
+interface login2Props {
+  user: ModifiedUserData;
+}
 
-const login: React.FC<login2Props> = ({}) => {
+const Login: React.FC<login2Props> = ({ user }) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { register, handleSubmit, errors, setError } = useForm<LoginFormValues>(
     {
@@ -26,39 +30,33 @@ const login: React.FC<login2Props> = ({}) => {
     }
   );
   const router = useRouter();
-  const { toggleAuth } = useContext(authContext);
+  const [, toggleAuth] = useRecoilState(authStatus);
   const [, setUserData] = useRecoilState(authenticatedUserData);
 
   const onSubmit = async (values: LoginFormValues) => {
     setSubmitting(true);
-    const { data, status } = await axios.post(`/api/login`, {
-      values,
-    });
-    console.log("data: ", data);
-    if (status === 200) {
+
+    await laravelApi(true).get("/sanctum/csrf-cookie");
+    try {
+      const {
+        data: { data },
+      } = await laravelApi().post("/login", values);
+      if (!isProduction) console.log(data);
       toggleAuth(true);
       setUserData(data);
+      await axios.post("/api/set-user-cookie", { data });
       return router.push("/dashboard");
-    } else if (data.email) {
+    } catch (e) {
+      if (!isProduction) console.log(e.response);
       setError("email", {
         type: "manual",
-        message: data.email,
-      });
-    } else if (data.password) {
-      setError("password", {
-        type: "manual",
-        message: data.password,
-      });
-    } else {
-      setError("email", {
-        type: "manual",
-        message: "Login Failed, Please Try Again",
+        message: "Invalid Credentials",
       });
     }
     setSubmitting(false);
   };
   return (
-    <Layout>
+    <Layout data={user}>
       <div className="pb-3 px-2 md:px-0">
         <main className="bg-white max-w-lg mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
           <section>
@@ -99,11 +97,7 @@ const login: React.FC<login2Props> = ({}) => {
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                                 shadow-lg transition-css"
               >
-                {submitting ? (
-                  <ReactLoader component={<ThreeDots width="50" />} />
-                ) : (
-                  "Log In"
-                )}
+                {submitting ? <ReactLoader /> : "Log In"}
               </button>
             </div>
           </form>
@@ -121,4 +115,15 @@ const login: React.FC<login2Props> = ({}) => {
   );
 };
 
-export default login;
+export const getServerSideProps = withIronSession(async ({ req }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    return { props: {} };
+  }
+
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
+
+export default Login;

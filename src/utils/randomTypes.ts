@@ -1,16 +1,31 @@
+import { NextApiRequest } from "next";
+import React from "react";
+
 export type ModifiedUserData = {
-  id: number;
+  id: number | string;
   name: string;
   role: string;
   email: string;
+  verified: string;
 };
 
+export type UserAuthValues = {
+  id: number | string;
+  name: string;
+  email: string;
+  password?: string;
+  role: string;
+};
+
+export interface NextApiRequestExtended extends NextApiRequest {
+  token: string | null;
+}
 export interface linkArray {
   href: string;
   label: string;
   svgD?: string;
 }
-// this is the type defintion for react hook form ref
+// this is the type definition for react hook form ref
 export type RefReturn =
   | string
   | ((instance: HTMLInputElement | null) => void)
@@ -28,31 +43,34 @@ export interface RegisterFormValues {
   role: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
 }
 
 export type SelectOptionsTypes = {
-  value: string;
-  title: string;
+  value: string | number;
+  title: string | number;
 };
 
 export type VerificationFormValues = {
   // Personal
-  id: number;
+  id: number | string;
   name: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   gender: string;
   // contact information
   address: string;
   email: string;
-  mobileNo: string;
+  mobileNo: number;
+  zila: string;
+  zip_code: number;
+  division: string;
   // checking salaried individual or self-employed
   borrowerType: string;
-  // verificationphotos
+  // verificationPhotos
   nidOrPassport: {};
   addressProof: {};
   recentPhoto: {};
-  bankAccountStateMents: {};
+  bankAccountStatements: {};
   businessProof: {};
   salarySlip: {};
   employeeIdCard: {};
@@ -60,16 +78,19 @@ export type VerificationFormValues = {
 
 // Verification Types
 export type PersonalVerificationFormValues = {
-  id: number;
+  id: number | string;
   name: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   gender: string;
 };
 
 export type ContactVerificationFormValues = {
   address: string;
   email: string;
-  mobileNo: string;
+  mobileNo: number;
+  zila: string;
+  zip_code: number;
+  division: string;
 };
 
 export type PapersVerificationFormValues = {
@@ -80,7 +101,7 @@ export type ImagesVerificationFormValues = {
   nidOrPassport: Array<[File]>;
   addressProof: Array<[File]>;
   recentPhoto: Array<[File]>;
-  bankAccountStateMents: Array<[File]>;
+  bankAccountStatements: Array<[File]>;
   businessProof: Array<[File]>;
   salarySlip: Array<[File]>;
   employeeIdCard: Array<[File]>;

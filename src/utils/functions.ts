@@ -1,6 +1,11 @@
+import axios from "axios";
+import crypto from "crypto";
 import dayjs from "dayjs";
+import FileSaver from "file-saver";
+import { IncomingMessage, ServerResponse } from "http";
 import { verify } from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET } from "./constants";
+import { useRouter } from "next/router";
+import { ACCESS_TOKEN_SECRET, AUTH_TOKEN_NAME, BASE_URL } from "./constants";
 
 export const verifyJWTToken = (accessToken: string) => {
   try {
@@ -11,10 +16,60 @@ export const verifyJWTToken = (accessToken: string) => {
   }
 };
 
+export function random32BitString() {
+  return crypto.randomFillSync(Buffer.alloc(32)).toString("hex");
+}
+
+export const checkingIfAuthenticated = async (cookie: string) => {
+  let token = cookie.slice(`${AUTH_TOKEN_NAME}`.length + 1);
+  const tokenData = verifyJWTToken(token);
+  const { data } = await axios.post("/api/fetch-user-by-id", {
+    userId: tokenData.userId,
+  });
+  return data;
+};
+
+export const redirectToLogin = (
+  req: IncomingMessage | undefined,
+  res: ServerResponse | undefined
+) => {
+  if (!req) {
+    //  On client
+    const router = useRouter();
+    return router.replace("/login");
+  } else if (req) {
+    // On Server
+    res?.writeHead(302, {
+      Location: `${BASE_URL}/login`,
+    });
+    return res?.end();
+  }
+};
+
+export const redirectToErrorPage = (
+  req: IncomingMessage | undefined,
+  res: ServerResponse | undefined
+) => {
+  if (!req) {
+    //  On client
+    const router = useRouter();
+    return router.replace("/404");
+  } else if (req) {
+    // On Server
+    res?.writeHead(302, {
+      Location: `${BASE_URL}/404`,
+    });
+    return res?.end();
+  }
+};
+
+export const downloadImage = (url: string, name: string) =>
+  FileSaver.saveAs(url, name);
+
 export const formatDate = (date: Date, formatter: string) =>
   dayjs(date).format(formatter);
 
-export const eightennYearsBackFromNow = (formatter: string) =>
+export const eighteenYearsBackFromNow = (formatter: string) =>
   dayjs().subtract(18, "year").format(formatter);
 
 export const objectToArray = (obj: Record<any, any>) =>
@@ -72,4 +127,19 @@ export const appendingFieldsToFormData = (
 ) => {
   formData.append(key, value);
   return formData;
+};
+
+export const calculateMonthlyInstallment = (
+  amount: number,
+  interestRate: number,
+  loanDuration: number
+) => (+amount + +(amount * (interestRate / 100) * loanDuration)) / loanDuration;
+
+export const formatTwoDecimalPlaces = (num: number) =>
+  +(Math.round(num * 100) / 100).toFixed(2);
+
+export const capitalize = (s: string) => {
+  return s.toLowerCase().replace(/\b./g, function (a) {
+    return a.toUpperCase();
+  });
 };

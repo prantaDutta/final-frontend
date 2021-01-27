@@ -1,25 +1,21 @@
 import handler from "../../apiHandlers/handler";
-import { prisma } from "../../lib/prisma";
-import { ModifiedUserData } from "../../utils/randomTypes";
+import { client, q } from "../../lib/fauna";
+import { UserAuthValues } from "../../utils/randomTypes";
 
 export default handler.post(async (req, res) => {
-  if (req.token) {
-    const { id } = req.body;
-    const intId = parseInt(id);
-    const user = await prisma.users.findUnique({
-      where: {
-        id: intId,
-      },
-    });
-    if (user) {
-      const userData: ModifiedUserData = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      };
-      // console.log(user);
-      return res.status(200).json(userData);
-    }
-  }
+  // if (req.token) {
+  const { userId } = req.body;
+  const { data }: any = await client.query(
+    q.Get(q.Match(q.Index("search_by_id"), userId))
+  );
+  const { email, name, role }: UserAuthValues = data;
+
+  return res.status(200).json({
+    userId,
+    name,
+    email,
+    role,
+  });
+  // }
   return res.status(422).json({ ERROR: "Error" });
 });

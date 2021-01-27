@@ -1,54 +1,37 @@
-import bcrypt from "bcrypt";
-import cookie from "cookie";
-import { sign } from "jsonwebtoken";
+import { applySession } from "next-iron-session";
 import handler from "../../apiHandlers/handler";
-import { prisma } from "../../lib/prisma";
-import {
-  ACCESS_TOKEN_SECRET,
-  AUTH_TOKEN_NAME,
-  isProduction,
-} from "../../utils/constants";
+import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import {laravelApi} from "../../utils/api";
 
 export default handler.post(async (req, res) => {
-  console.log("body: ", req.body);
   const { email, password } = req.body.values;
   if (!email || !password) {
     return res.status(406).json({
       error: "Something Went Wrong",
     });
   }
-  const user = await prisma.users.findUnique({
-    where: {
-      email,
-    },
-  });
-  if (!user) {
-    return res.status(404).json({
-      email: "Email Doesn't Exist",
-    });
-  }
-  if (await bcrypt.compare(password, user.password)) {
-    // Password Match
-    const token = sign(user.id.toString(), ACCESS_TOKEN_SECRET);
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize(AUTH_TOKEN_NAME, token, {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: "strict",
-        maxAge: 60 * 60 * 24 * 3, // 3 days
-        path: "/",
-      })
-    );
+
+  try {
+    const res = await laravelApi(true).get('/sanctum/csrf-cookie');
+    console.log(res)
+    const {data} = await laravelApi().post('/login', req.body.values);
+    console.log('data', data)
+    const { id, name, email, role, verified } = data.data;
+    await applySession(req, res, NEXT_IRON_SESSION_CONFIG);
+    (req as any).session.set("user", data);
+    await (req as any).session.save();
+    // @ts-ignore
     return res.status(200).json({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      id,
+      name,
+      email,
+      role,
+      verified,
+    });
+  } catch (e) {
+    console.log(e.response)
+    return res.status(422).json({
+      email: "Incorrect Credentials",
     });
   }
-  // Password didn't match
-  return res.status(401).json({
-    password: "Incorrect Credentials",
-  });
 });

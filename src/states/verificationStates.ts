@@ -15,3 +15,8 @@ export const verificationFormValues = atom<VerificationFormValues | null>({
   key: "verificationStates",
   default: null,
 });
+
+export const verificationSubmitting = atom<boolean>({
+  key: "verification-state",
+  default: false,
+});
