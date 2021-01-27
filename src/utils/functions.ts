@@ -81,8 +81,6 @@ export const isEmptyObj = (obj: Record<any, any>) =>
 export const isObject = (obj: any) =>
   obj != null && obj.constructor.name === "Object";
 
-export const isServer = () => typeof window === "undefined";
-
 export const validateEmail = (email: string) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());

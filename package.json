@@ -10,7 +10,8 @@
     "migrate": "npx prisma migrate dev --preview-feature",
     "gen": "npx prisma generate",
     "open": "npx prisma studio",
-    "db:introspect": "npx prisma introspect"
+    "db:introspect": "npx prisma introspect",
+    "serve": "nodemon server.js"
   },
   "dependencies": {
     "@adoxyz/tailwindcss-named-colors": "^0.1.0",
