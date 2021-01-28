@@ -1,26 +1,31 @@
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import { LARAVEL_URL, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import {
+  isProduction,
+  LARAVEL_URL,
+  NEXT_IRON_SESSION_CONFIG,
+} from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import useSWR from "swr";
+import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 
 interface dashboardProps {
   user: ModifiedUserData;
 }
 
-// export interface DepositFormValues {
-//   name: string;
-//   email: string;
-//   phone: number;
-//   address: string;
-//   amount: number;
-// }
-
 const dashboard: React.FC<dashboardProps> = ({ user }) => {
-  const onClick = async (/* values: DepositFormValues */) => {
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => setMounted(true), []);
+  const { data, isValidating } = useSWR(
+    mounted ? `/user/get-all-deposits/${user.id}` : null
+  );
+  if (data && !isProduction) console.log("data: ", data);
+  const onClick = async () => {
     try {
       window.location.replace(`${LARAVEL_URL}/api/user/deposit`);
     } catch (e) {
@@ -40,6 +45,18 @@ const dashboard: React.FC<dashboardProps> = ({ user }) => {
           Deposit Money
         </button>
       </div>
+
+      {data ? (
+        <ReadyMadeTable
+          title="Latest Deposits"
+          data={data.transactions}
+          isValidating={isValidating}
+          header={DepositsTableHeader}
+          emptyMessage="You Never Deposited Any Money"
+        />
+      ) : (
+        <FullWidthReactLoader />
+      )}
     </DashboardLayout>
   );
 };
@@ -60,3 +77,22 @@ export const getServerSideProps = withIronSession(
 );
 
 export default dashboard;
+
+export const DepositsTableHeader = [
+  {
+    Header: "Transaction Id",
+    accessor: "transactionId",
+  },
+  {
+    Header: "Amount",
+    accessor: "amount",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
+  {
+    Header: "Transaction Type",
+    accessor: "transactionType",
+  },
+];

@@ -1,20 +1,17 @@
 import axios from "axios";
 import { logout } from "./auth";
-import { isServer } from "./constants";
+import { isServer, LARAVEL_URL } from "./constants";
 import { useRouter } from "next/router";
 
 export const laravelApi = (nonApiRoute = false) => {
   const api = axios.create({
-    baseURL: `http://localhost:8000${nonApiRoute ? "" : "/api"}`,
+    baseURL: `${LARAVEL_URL}${nonApiRoute ? "" : "/api"}`,
     withCredentials: true,
-    // headers: {
-    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    // }
   });
   api.interceptors.response.use(
     (response) => response,
     async (error) => {
-      if (error?.response?.status === 401) {
+      if (error.response.status === 401) {
         await logout();
         if (!isServer) {
           const router = useRouter();
@@ -36,7 +33,7 @@ export const laravelApi = (nonApiRoute = false) => {
 
       console.error(error);
 
-      return Promise?.reject({
+      return Promise.reject({
         status: error?.response?.status,
         errors: ["Oops!"],
       });

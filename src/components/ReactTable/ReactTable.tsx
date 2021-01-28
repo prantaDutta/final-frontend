@@ -13,7 +13,7 @@ interface TableProps {
   pagination?: boolean;
 }
 
-const Table: React.FC<TableProps> = ({
+const ReactTable: React.FC<TableProps> = ({
   columns,
   data,
   tableClass,
@@ -178,4 +178,4 @@ const Table: React.FC<TableProps> = ({
   );
 };
 
-export default Table;
+export default ReactTable;

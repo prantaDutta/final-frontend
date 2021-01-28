@@ -7,6 +7,7 @@ export type ModifiedUserData = {
   role: string;
   email: string;
   verified: string;
+  balance: number;
 };
 
 export type UserAuthValues = {

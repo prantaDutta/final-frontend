@@ -1,14 +1,16 @@
 import { ThreeDots } from "@agney/react-loading";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReactLoader from "../../../components/shared/ReactLoader";
-import Table from "../../../components/ReactTable/Table";
 import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
 import { redirectToLogin } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
+import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
+import DashboardTitle from "../../../components/shared/DashboardTitle";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -32,12 +34,10 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const { data, isValidating } = useSWR(
     mounted ? `/admin/loan-requests/${requestType}` : null
   );
-  const columns = useMemo(() => loanRequestsTableHeader, [data]);
-  const tableData = useMemo(() => data, [data]);
   return (
     <DashboardLayout data={user}>
-      <div className="p-4 flex justify-between">
-        <h1 className="text-3xl">Loan Requests</h1>
+      <div className="flex justify-between">
+        <DashboardTitle title="Loan Requests" />
         <button
           className="bg-primary p-3 w-1/3 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
@@ -58,28 +58,17 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
           )}
         </button>
       </div>
-      {!isValidating ? (
-        data && data.loans.length > 0 ? (
-          <Table
-            data={tableData.loans}
-            columns={columns}
-            tableClass="w-full shadow-lg bg-white text-center"
-            thClass="bg-primary font-semibold border px-8 py-4"
-            tdClass="font-semibold border px-8 py-4"
-            pagination={true}
-          />
-        ) : (
-          <p>No New Loan Requests</p>
-        )
-      ) : null}
-      {isValidating && (
-        <button
-          className="bg-transparent text-primary p-3 w-full tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-                  shadow-lg transition-css"
-        >
-          <ReactLoader component={<ThreeDots width="50" />} />
-        </button>
+
+      {data ? (
+        <ReadyMadeTable
+          title="All Loan Requests"
+          data={data.loans}
+          isValidating={isValidating}
+          header={loanRequestsTableHeader}
+          emptyMessage="No New Loan Requests"
+        />
+      ) : (
+        <FullWidthReactLoader />
       )}
     </DashboardLayout>
   );

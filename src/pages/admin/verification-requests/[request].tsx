@@ -4,7 +4,7 @@ import { withIronSession } from "next-iron-session";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR, { trigger } from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReactLoader from "../../../components/shared/ReactLoader";
 import {
@@ -126,7 +126,7 @@ const request: React.FC<requestProps> = ({ user, request }) => {
             );
             if (isProduction) console.log(data);
             setSubmitting(false);
-            await mutate(`/admin/verification-requests`);
+            await trigger(`/admin/verification-requests`);
             return router.push("/admin/verification-requests");
           }}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide

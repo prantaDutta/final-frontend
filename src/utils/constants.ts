@@ -5,6 +5,7 @@ export const BASE_URL = "http://localhost:3000";
 export const isServer = !process.browser;
 
 export const LARAVEL_URL = "http://localhost:8000";
+// export const LARAVEL_URL = "https://backend.test";
 
 export const SUPPORTED_IMAGE_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -23,7 +24,6 @@ export const NEXT_IRON_SESSION_CONFIG = {
   cookieOptions: {
     httpOnly: true,
     secure: isProduction,
-    // secure: isProduction,
     sameSite: "strict" as "strict",
     // sameSite: "none" as "none",
     maxAge: 60 * 60, // 2 hours
