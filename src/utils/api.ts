@@ -8,6 +8,7 @@ export const laravelApi = (nonApiRoute = false) => {
     baseURL: `${LARAVEL_URL}${nonApiRoute ? "" : "/api"}`,
     withCredentials: true,
   });
+
   api.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -31,7 +32,7 @@ export const laravelApi = (nonApiRoute = false) => {
         });
       }
 
-      console.error(error);
+      // console.error(error?.response);
 
       return Promise.reject({
         status: error?.response?.status,

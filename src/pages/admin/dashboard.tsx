@@ -22,8 +22,8 @@ const dashboard: React.FC<dashboardProps> = ({ user }) => {
 export const getServerSideProps = withIronSession(
   async (context: NextPageContext) => {
     const user = (context.req as any).session.get("user");
-    if (!user) {
-      redirectToLogin(context?.req, context?.res);
+    if (!user || user?.role !== "admin") {
+      await redirectToLogin(context?.req, context?.res);
       return { props: {} };
     }
 

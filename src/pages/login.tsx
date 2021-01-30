@@ -45,6 +45,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data });
+      if (data.role === "admin") return router.push("/admin/dashboard");
       return router.push("/dashboard");
     } catch (e) {
       if (!isProduction) console.log(e.response);

@@ -20,6 +20,7 @@ export type UserAuthValues = {
 
 export interface NextApiRequestExtended extends NextApiRequest {
   token: string | null;
+  session: any;
 }
 export interface linkArray {
   href: string;

@@ -6,6 +6,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { verify } from "jsonwebtoken";
 import { useRouter } from "next/router";
 import { ACCESS_TOKEN_SECRET, AUTH_TOKEN_NAME, BASE_URL } from "./constants";
+import { logout } from "./auth";
 
 export const verifyJWTToken = (accessToken: string) => {
   try {
@@ -29,16 +30,18 @@ export const checkingIfAuthenticated = async (cookie: string) => {
   return data;
 };
 
-export const redirectToLogin = (
+export const redirectToLogin = async (
   req: IncomingMessage | undefined,
   res: ServerResponse | undefined
 ) => {
   if (!req) {
     //  On client
+    await logout();
     const router = useRouter();
     return router.replace("/login");
   } else if (req) {
     // On Server
+    await logout();
     res?.writeHead(302, {
       Location: `${BASE_URL}/login`,
     });

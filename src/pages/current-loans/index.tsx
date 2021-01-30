@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import ReactLoader from "../../components/shared/ReactLoader";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { NewLoanFormValues } from "./new-loan";
 import { laravelApi } from "../../utils/api";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 
 interface currentLoansProps {
   user: ModifiedUserData;
@@ -47,13 +47,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
         <p className="text-xl font-semibold my-5">Your Loans</p>
         <div>
           {isValidating && !data ? (
-            <button
-              className="bg-transparent text-primary p-3 w-full tracking-wide
-                    font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-                    shadow-lg transition-css"
-            >
-              <ReactLoader component={<Grid width="50" />} />
-            </button>
+            <FullWidthReactLoader component={<Grid width="50" />} />
           ) : data && data.length > 0 ? (
             data.map((loanData: any) => {
               const {

@@ -2,58 +2,51 @@ import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import {
-  isProduction,
-  LARAVEL_URL,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../utils/constants";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import useSWR from "swr";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
+import { useRouter } from "next/router";
+import { TransactionsTableHeader } from "../deposits";
 
 interface dashboardProps {
   user: ModifiedUserData;
 }
 
-const dashboard: React.FC<dashboardProps> = ({ user }) => {
+const Withdrawals: React.FC<dashboardProps> = ({ user }) => {
+  const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, isValidating } = useSWR(
-    mounted ? `/user/get-all-deposits/${user.id}` : null
+    mounted ? `/user/get-all-withdrawals/${user.id}` : null
   );
   if (data && !isProduction) console.log("data: ", data);
-  const onClick = async () => {
-    try {
-      window.location.replace(`${LARAVEL_URL}/api/user/deposit`);
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
+
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle title="Deposit Money" />
+        <DashboardTitle title="Withdraw Money" />
         <button
-          onClick={onClick}
+          onClick={() => router.push("/withdrawals/withdraw")}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                   shadow-lg transition-css"
         >
-          Deposit Money
+          Withdraw Money
         </button>
       </div>
 
       {data ? (
         <ReadyMadeTable
-          title="Latest Deposits"
+          title="Latest Withdrawals"
           data={data.transactions}
           isValidating={isValidating}
           header={TransactionsTableHeader}
           pagination
-          emptyMessage="You Never Deposited Any Money"
+          emptyMessage="You have never Withdrawn any Money"
         />
       ) : (
         <FullWidthReactLoader />
@@ -77,23 +70,4 @@ export const getServerSideProps = withIronSession(
   NEXT_IRON_SESSION_CONFIG
 );
 
-export default dashboard;
-
-export const TransactionsTableHeader = [
-  {
-    Header: "Transaction Id",
-    accessor: "transactionId",
-  },
-  {
-    Header: "Amount",
-    accessor: "amount",
-  },
-  {
-    Header: "Status",
-    accessor: "status",
-  },
-  {
-    Header: "Transaction Type",
-    accessor: "transactionType",
-  },
-];
+export default Withdrawals;

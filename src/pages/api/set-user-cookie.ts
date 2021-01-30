@@ -8,11 +8,11 @@ export default handler.post(async (req, res) => {
   await applySession(req, res, NEXT_IRON_SESSION_CONFIG);
 
   if (data) {
-    (req as any).session.set("user", data);
+    req.session.set("user", data);
   } else {
-    (req as any).session.unset("user");
+    req.session.unset("user");
   }
-  await (req as any).session.save();
+  await req.session.save();
   // res.setHeader("cache-control", "no-store, max-age=0");
-  res.end();
+  return res.status(200).json("Session Changed");
 });

@@ -8,17 +8,15 @@ export const registerValidationSchema = Yup.object({
     .required("Required"),
   email: Yup.string()
     .email("Invalid email")
-    .test("Unique Email", "Email already been taken", function (value) {
-      return new Promise(async (resolve, _) => {
-        try {
-          await laravelApi().post("/unique-email", {
-            email: value,
-          });
-          resolve(false);
-        } catch (e) {
-          resolve(true);
-        }
-      });
+    .test("Unique Email", "Email already been taken", async function (value) {
+      try {
+        const res = await laravelApi().post("/unique-email", {
+          email: value,
+        });
+        console.log("res", res);
+        if (res.status === 200) return false;
+      } catch (e) {}
+      return true;
     })
     .required("Required"),
   password: Yup.string()

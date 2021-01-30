@@ -2,6 +2,7 @@ import { linkArray, SelectOptionsTypes } from "./randomTypes";
 import zilas from "../../jsons/zilas.json";
 import divisions from "../../jsons/divisions.json";
 import { capitalize } from "./functions";
+import { withdrawalMethodsArray } from "../pages/withdrawals/withdraw";
 
 export const sideBarLinks: linkArray[] = [
   {
@@ -159,3 +160,14 @@ export const numberTypes = (min: number, max: number) => {
 };
 
 export const verificationRequestTableHeader = ["Field Name", "Data"];
+
+export const withdrawalMethodsTypes = () => {
+  let arr: SelectOptionsTypes[] = [];
+  withdrawalMethodsArray.map((method) => {
+    arr.push({
+      value: method,
+      title: capitalize(method),
+    });
+  });
+  return arr;
+};

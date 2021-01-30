@@ -21,13 +21,24 @@ export const uuidFormatRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9
 
 export const NEXT_IRON_SESSION_CONFIG = {
   cookieName: "grayscale",
+  password: process.env.SECRET_COOKIE_PASSWORD!,
   cookieOptions: {
+    /*
+      working
+     */
     httpOnly: true,
     secure: isProduction,
     sameSite: "strict" as "strict",
     // sameSite: "none" as "none",
     maxAge: 60 * 60, // 2 hours
     path: "/",
+    /*
+     Not Working
+     */
+    // secure: true,
+    // httpOnly: true,
+    // sameSite: "strict",
+    // maxAge: 60 * 60, // 2 hours
+    // path: "/",
   },
-  password: process.env.APPLICATION_SECRET!,
 };

@@ -19,6 +19,7 @@ import { numberTypes } from "../../utils/constantsArray";
 import { laravelApi } from "../../utils/api";
 import { calculateSimpleInterest } from "../../utils/calculatingInterests";
 import { trigger } from "swr";
+import DashboardTitle from "../../components/shared/DashboardTitle";
 
 interface newLoanProps {
   user: ModifiedUserData;
@@ -93,9 +94,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   }
   return (
     <DashboardLayout data={user}>
-      <div className="flex justify-between">
-        <h1 className="text-3xl font-semibold">Apply For A New Loan</h1>
-      </div>
+      <DashboardTitle title="Apply For A New Loan" />
 
       {complete ? (
         <div className="px-4">

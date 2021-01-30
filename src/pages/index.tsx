@@ -8,6 +8,7 @@ import Layout from "../components/layouts/Layout";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { ModifiedUserData } from "../utils/randomTypes";
 import MobileApp from "./../components/indexPage/mobileApp";
+import React from "react";
 
 // This is the home page
 // the components of this page are in the components folder

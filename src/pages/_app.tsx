@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { AppProps /*, AppContext */ } from "next/app";
+import type { AppProps } from "next/app";
 import NextNprogress from "nextjs-progressbar";
 import React from "react";
 import { RecoilRoot } from "recoil";
@@ -10,6 +10,13 @@ import { laravelApi } from "../utils/api";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
+
+// axios.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     if (!isProduction) console.log("Axios Error", error?.response);
+//   }
+// );
 
 function MyApp({ Component, pageProps /* router */ }: AppProps) {
   return (

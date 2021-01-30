@@ -39,19 +39,21 @@ const Contact: React.FC<ContactProps> = ({}) => {
         email: yup
           .string()
           .email("Invalid email")
-          .test("Unique Email", "Email already been taken", function (value) {
-            return new Promise(async (resolve, _) => {
+          .test(
+            "Unique Email",
+            "Email already been taken",
+            async function (value) {
               try {
-                await laravelApi().post("/unique-email-excluding-id", {
+                await laravelApi().post("/user/unique-email-excluding-id", {
                   email: value,
                   id: userData?.id,
                 });
-                resolve(false);
+                return true;
               } catch (e) {
-                resolve(true);
+                return false;
               }
-            });
-          })
+            }
+          )
           .required("Required"),
         mobileNo: yup
           .number()
@@ -66,10 +68,10 @@ const Contact: React.FC<ContactProps> = ({}) => {
         zila: yup.string().required("Required"),
         zip_code: yup
           .number()
-          .typeError("Mobile No. must be a number")
+          .typeError("Zip must be a number")
           .test(
             "len",
-            "Mobile No must be 11 characters",
+            "Zip Code must be 4 characters",
             (val) => val?.toString().length === 4
           )
           .required("Required"),
