@@ -8,7 +8,7 @@ This is the project repository of our final Project.
 > Download backend repository from [here](https://github.com/prantaDutta/final-backend) 
 
 
-# How to run this file
+# How to run this project
 
 You need to have nodejs and yarn installed
 
