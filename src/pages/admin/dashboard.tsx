@@ -1,11 +1,11 @@
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import React from "react";
-import DashboardContent from "../../components/dashboard/DashboardContent";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
+import AdminDashboardContent from "../../components/dashboard/AdminDashboardContent";
 
 interface dashboardProps {
   user: ModifiedUserData;
@@ -14,7 +14,7 @@ interface dashboardProps {
 const dashboard: React.FC<dashboardProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
-      <DashboardContent />
+      <AdminDashboardContent />
     </DashboardLayout>
   );
 };

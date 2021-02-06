@@ -75,7 +75,8 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
         <main className="bg-white w-full mx-auto p-4 md:p-8 mt-5 rounded-lg shadow-2xl">
           <div className="mb-3 px-2 py-4 bg-gray-300 text-black rounded-lg">
             <p className="text-lg font-semibold">
-              *** Withdrawal Amount will be transferred to your Verified Number.
+              *** Withdrawal Amount will be transferred to your Verified Mobile
+              Number.
             </p>
           </div>
           <p className="pt-2 text-xl font-semibold">Enter the following Data</p>

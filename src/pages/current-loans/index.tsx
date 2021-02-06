@@ -1,4 +1,3 @@
-import { Grid } from "@agney/react-loading";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
@@ -8,9 +7,10 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToLogin } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
-import { NewLoanFormValues } from "./new-loan";
 import { laravelApi } from "../../utils/api";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
+import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
+import { Column } from "react-table";
 
 interface currentLoansProps {
   user: ModifiedUserData;
@@ -45,64 +45,18 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
       </div>
       <div className="mt-5">
         <p className="text-xl font-semibold my-5">Your Loans</p>
-        <div>
-          {isValidating && !data ? (
-            <FullWidthReactLoader component={<Grid width="50" />} />
-          ) : data && data.length > 0 ? (
-            data.map((loanData: any) => {
-              const {
-                amount,
-                interestRate,
-                loanDuration,
-                monthlyInstallment,
-              }: NewLoanFormValues = loanData;
-              return (
-                <table
-                  key={loanData.id}
-                  className="w-full shadow-lg bg-white text-center"
-                >
-                  <thead>
-                    <tr>
-                      {CurrentLoanTableHeader.map((header: string) => (
-                        <th
-                          key={header}
-                          className="bg-primary font-semibold border px-8 py-4 text-white"
-                        >
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr key={loanData.id}>
-                      <td className="font-semibold border px-8 py-4">
-                        {amount}
-                      </td>
-                      <td className="font-semibold border px-8 py-4">
-                        {interestRate}
-                      </td>
-                      <td className="font-semibold border px-8 py-4">
-                        {loanDuration}
-                      </td>
-                      <td className="font-semibold border px-8 py-4">
-                        {monthlyInstallment}
-                      </td>
-                      <td className="font-semibold border px-8 py-4">
-                        {loanData.loanMode}
-                      </td>
-                      <td className="font-semibold border px-8 py-4">N/A</td>
-                    </tr>
-                  </tbody>
-                </table>
-              );
-            })
-          ) : (
-            <p className="font-semibold font-xl">
-              You Don't Have Any Current Loans.
-            </p>
-          )}
-        </div>
+        {data ? (
+          <ReadyMadeTable
+            title="Current Loans"
+            data={data}
+            isValidating={isValidating}
+            header={LoanTableHeader}
+            pagination
+            emptyMessage="You Never Deposited Any Money"
+          />
+        ) : (
+          <FullWidthReactLoader />
+        )}
       </div>
     </DashboardLayout>
   );
@@ -125,11 +79,25 @@ export const getServerSideProps = withIronSession(
 
 export default currentLoans;
 
-export const CurrentLoanTableHeader = [
-  "Loan Amount",
-  "Loan Interest",
-  "Loan Duration",
-  "Monthly Installment",
-  "Loan Mode",
-  "Loan Period",
+export const LoanTableHeader: Column[] = [
+  {
+    Header: "Loan Amount",
+    accessor: "amount",
+  },
+  {
+    Header: "Interest Rate",
+    accessor: "interestRate",
+  },
+  {
+    Header: "Loan Duration",
+    accessor: "loanDuration",
+  },
+  {
+    Header: "Monthly Installment",
+    accessor: "monthlyInstallment",
+  },
+  {
+    Header: "Loan Mode",
+    accessor: "loanMode",
+  },
 ];

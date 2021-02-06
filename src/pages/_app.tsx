@@ -5,7 +5,7 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import "../styles/index.css";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, isProduction } from "../utils/constants";
 import { laravelApi } from "../utils/api";
 
 axios.defaults.baseURL = BASE_URL;
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
     <RecoilRoot>
       <SWRConfig
         value={{
-          dedupingInterval: 1000 * 60 * 5, // 5m
+          dedupingInterval: isProduction ? 2000 * 60 : 1000 * 60 * 5, // 5m
           fetcher: (url: string) =>
             laravelApi()
               .get(url)

@@ -33,9 +33,6 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
           <ReactTable
             data={tableData}
             columns={columns}
-            tableClass="w-full shadow-lg bg-white text-center"
-            thClass="bg-primary font-semibold border px-8 py-4"
-            tdClass="font-semibold border px-8 py-4 capitalize"
             pagination={pagination}
           />
         ) : (
@@ -46,7 +43,7 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
         <button
           className="bg-transparent text-primary p-3 w-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline
-                  shadow-lg transition-css"
+                  transition-css"
         >
           <ReactLoader />
         </button>

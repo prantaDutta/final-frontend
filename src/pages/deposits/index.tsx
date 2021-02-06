@@ -13,12 +13,13 @@ import DashboardTitle from "../../components/shared/DashboardTitle";
 import useSWR from "swr";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
+import { Column } from "react-table";
 
 interface dashboardProps {
   user: ModifiedUserData;
 }
 
-const dashboard: React.FC<dashboardProps> = ({ user }) => {
+const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, isValidating } = useSWR(
@@ -77,9 +78,9 @@ export const getServerSideProps = withIronSession(
   NEXT_IRON_SESSION_CONFIG
 );
 
-export default dashboard;
+export default Deposits;
 
-export const TransactionsTableHeader = [
+export const TransactionsTableHeader: Column[] = [
   {
     Header: "Transaction Id",
     accessor: "transactionId",

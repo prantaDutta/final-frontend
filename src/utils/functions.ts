@@ -7,6 +7,7 @@ import { verify } from "jsonwebtoken";
 import { useRouter } from "next/router";
 import { ACCESS_TOKEN_SECRET, AUTH_TOKEN_NAME, BASE_URL } from "./constants";
 import { logout } from "./auth";
+import { cache } from "swr";
 
 export const verifyJWTToken = (accessToken: string) => {
   try {
@@ -41,11 +42,15 @@ export const redirectToLogin = async (
     return router.replace("/login");
   } else if (req) {
     // On Server
-    await logout();
-    res?.writeHead(302, {
-      Location: `${BASE_URL}/login`,
-    });
-    return res?.end();
+    try {
+      await logout();
+      res?.writeHead(302, {
+        Location: `${BASE_URL}/login`,
+      });
+      return res?.end();
+    } catch (e) {
+      console.log(e.response);
+    }
   }
 };
 
@@ -143,4 +148,9 @@ export const capitalize = (s: string) => {
   return s.toLowerCase().replace(/\b./g, function (a) {
     return a.toUpperCase();
   });
+};
+
+export const clearSWRCache = async () => {
+  cache.clear();
+  await new Promise(requestAnimationFrame);
 };

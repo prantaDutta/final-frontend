@@ -16,12 +16,12 @@ interface TableProps {
 const ReactTable: React.FC<TableProps> = ({
   columns,
   data,
-  tableClass,
+  tableClass = "w-full shadow-lg bg-white text-center",
   theadClass,
   tbodyClass,
   trClass,
-  tdClass,
-  thClass,
+  tdClass = "font-semibold border px-8 py-4 capitalize",
+  thClass = "bg-primary font-semibold border px-8 py-4",
   pagination = false,
 }) => {
   const {
