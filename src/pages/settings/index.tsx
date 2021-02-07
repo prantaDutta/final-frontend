@@ -22,7 +22,7 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
 export const getServerSideProps = withIronSession(
   async (context: NextPageContext) => {
     const user = (context.req as any).session.get("user");
-    if (!user || user?.role !== "admin") {
+    if (!user) {
       await redirectToLogin(context?.req, context?.res);
       return { props: {} };
     }

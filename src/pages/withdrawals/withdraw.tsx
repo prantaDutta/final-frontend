@@ -24,6 +24,7 @@ interface withdrawProps {
 export type withdrawFormTypes = {
   amount: number;
   method: string;
+  trxID: string;
   password: string;
 };
 
@@ -53,7 +54,11 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
           .oneOf(withdrawalMethodsArray, "Invalid Payment Method Type")
           .required("Required"),
         password: Yup.string()
-          .min(6, "Password should be at least six letters")
+          .min(6, "Password should be at least six characters")
+          .required("Required"),
+        trxID: Yup.string()
+          .min(10, "TrxID should be at least ten characters")
+          .max(30, "Password should be less than thirty letters")
           .required("Required"),
       })
     ),
@@ -65,7 +70,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
       id: user?.id,
     });
     if (!isProduction) console.log("values", data);
-    await trigger(`/user/get-all-withdrawals/${user.id}`);
+    await trigger(`/user/get-all-withdrawals`);
     return router.push("/withdrawals");
   };
   return (
@@ -94,6 +99,14 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
               label="Select Withdrawal Method"
               error={errors.method?.message}
               options={withdrawalMethodsTypes()}
+              register={register}
+            />
+
+            <InputTextField
+              name="trxID"
+              label="Transaction Number / TrxID"
+              error={errors.trxID?.message}
+              placeholder="Enter TrxID"
               register={register}
             />
 

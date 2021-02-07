@@ -21,7 +21,7 @@ const ReactTable: React.FC<TableProps> = ({
   tbodyClass,
   trClass,
   tdClass = "font-semibold border px-8 py-4 capitalize",
-  thClass = "bg-primary font-semibold border px-8 py-4",
+  thClass = "bg-primary font-semibold border px-8 py-4 text-gray-100",
   pagination = false,
 }) => {
   const {

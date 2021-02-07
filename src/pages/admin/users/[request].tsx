@@ -2,16 +2,11 @@ import { ThreeDots } from "@agney/react-loading";
 import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import useSWR, { trigger } from "swr";
+import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReactLoader from "../../../components/shared/ReactLoader";
-import {
-  BASE_URL,
-  isProduction,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../../utils/constants";
+import { BASE_URL, NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
 import {
   downloadImage,
@@ -20,7 +15,7 @@ import {
   redirectToLogin,
 } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
-import { laravelApi } from "../../../utils/api";
+import MarkAsButton from "../../../components/shared/MarkAsButton";
 
 interface requestProps {
   user: ModifiedUserData;
@@ -84,10 +79,8 @@ const ShowImage: React.FC<ShowImageProps> = ({ name, url }) => {
 const request: React.FC<requestProps> = ({ user, request }) => {
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState<boolean>(false);
   let { data, isValidating } = useSWR(
-    mounted ? `/admin/verification-requests/${request}` : null
+    mounted ? `/admin/user/${request}` : null
   );
   let photos;
   if (data) {
@@ -118,27 +111,20 @@ const request: React.FC<requestProps> = ({ user, request }) => {
     <DashboardLayout data={user}>
       <div className="flex justify-between text-gray-900">
         <h1 className="text-3xl font-bold">Verification Check</h1>
-        <button
-          onClick={async () => {
-            setSubmitting(true);
-            await laravelApi().get(
-              `/admin/verification-requests/verified/${id}`
-            );
-            if (isProduction) console.log(data);
-            setSubmitting(false);
-            await trigger(`/admin/verification-requests`);
-            return router.push("/admin/verification-requests");
-          }}
-          className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-                  shadow-lg transition-css"
-        >
-          {submitting ? (
-            <ReactLoader component={<ThreeDots width="50" />} />
-          ) : (
-            "Mark As Verified"
-          )}
-        </button>
+        <MarkAsButton
+          title="Mark As Verified"
+          submitUrl={`/admin/user/verified/${id}`}
+          triggerUrl={`/admin/users`}
+          returnRoute={`/admin/users`}
+          classNames="bg-primary text-white p-3 w-1/4 hover:bg-primaryAccent"
+        />
+        <MarkAsButton
+          title="Mark As Unverified"
+          submitUrl={`/admin/user/unverified/${id}`}
+          triggerUrl={`/admin/users`}
+          returnRoute={`/admin/users`}
+          classNames="bg-red-600 text-white p-3 w-1/4 hover:bg-red-800"
+        />
       </div>
 
       {isValidating && !data ? (

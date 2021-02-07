@@ -25,8 +25,8 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
   const tableData = useMemo(() => data, [data]);
   return (
     <>
-      <div className="py-4">
-        <h1 className="text-3xl font-semibold">{title}</h1>
+      <div className="py-4 flex justify-between">
+        <h1 className="text-3xl font-semibold capitalize">{title}</h1>
       </div>
       {!isValidating ? (
         data && data.length > 0 ? (

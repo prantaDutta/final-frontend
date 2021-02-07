@@ -55,20 +55,20 @@ export const adminSidebarLinks: linkArray[] = [
       "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
   },
   {
-    href: "/admin/verification-requests",
-    label: "Verification Requests",
+    href: "/admin/users",
+    label: "Users",
     svgD:
       "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01",
   },
   {
-    href: "/admin/loan-requests",
-    label: "Loan Requests",
+    href: "/admin/loans",
+    label: "Loans",
     svgD:
       "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01",
   },
   {
-    href: "/admin/payments",
-    label: "Payment Information",
+    href: "/admin/transactions",
+    label: "Transactions",
     svgD: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12",
   },
   {

@@ -58,10 +58,10 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
         <p className=" font-medium md:font-2xl text-xl md:text-4xl text-center">
           Account Verification
         </p>
-        {verified !== "no" ? (
+        {verified !== "unverified" ? (
           <div className="mt-6">
             <p className="text-xl font-semibold">
-              {verified === "yes"
+              {verified === "verified"
                 ? "Your Account is already Verified"
                 : "Your Account Verification is Pending"}
             </p>
