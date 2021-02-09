@@ -21,7 +21,7 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({}) => {
 
       {data ? (
         <div className="grid grid-cols-2">
-          <Link href={`/current-loans`}>
+          <Link href={`/loans`}>
             <div className="mt-5">
               <DashboardBubble
                 title="Recent Loans"
@@ -42,29 +42,6 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({}) => {
       ) : (
         <FullWidthReactLoader />
       )}
-
-      {/*{data ? (*/}
-      {/*  <ReadyMadeTable*/}
-      {/*    title="Recent Loans"*/}
-      {/*    data={data.loans}*/}
-      {/*    isValidating={isValidating}*/}
-      {/*    header={LoanTableHeader}*/}
-      {/*    emptyMessage="No Loans Found"*/}
-      {/*  />*/}
-      {/*) : (*/}
-      {/*  <FullWidthReactLoader />*/}
-      {/*)}*/}
-      {/*{data ? (*/}
-      {/*  <ReadyMadeTable*/}
-      {/*    title="Recent Transactions"*/}
-      {/*    data={data.transactions}*/}
-      {/*    isValidating={isValidating}*/}
-      {/*    header={TransactionsTableHeader}*/}
-      {/*    emptyMessage="No Transactions Found"*/}
-      {/*  />*/}
-      {/*) : (*/}
-      {/*  <FullWidthReactLoader />*/}
-      {/*)}*/}
     </div>
   );
 };

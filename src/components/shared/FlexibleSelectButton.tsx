@@ -33,6 +33,7 @@ const FlexibleSelectButton: React.FC<FlexibleSelectButtonProps> = ({
               <option
                 className="bg-transparent font-semibold text-gray-600"
                 value={values.value}
+                key={values.value}
               >
                 {values.title}
               </option>

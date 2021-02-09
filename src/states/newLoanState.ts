@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { NewLoanFormValues } from "../pages/current-loans/new-loan";
+import { NewLoanFormValues } from "../pages/loans/new-loan";
 
 interface extendedNewLoanFormValues extends NewLoanFormValues {
   modifiedMonthlyInstallment: number;

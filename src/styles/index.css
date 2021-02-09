@@ -18,10 +18,15 @@ html {
 @tailwind utilities;
 /* Stop purging. */
 
-/* My own custom classses */
-/* Custorm Button */
+/* My own custom classes */
+/* Custom Button */
 .btn {
   @apply rounded-full tracking-wide
-        font-semibold focus:outline-none focus:ring-1 hover:bg-primaryAccent
+        font-semibold focus:outline-none focus:ring-1 focus:ring-primaryAccent hover:bg-primaryAccent
         shadow-lg transition-css disabled:opacity-50;
+}
+
+/* Edit Button */
+.edit-btn {
+    @apply rounded-2xl font-semibold px-8 py-1.5 uppercase tracking-wide bg-primary text-white focus:ring-2 focus:ring-primary focus:outline-none;
 }

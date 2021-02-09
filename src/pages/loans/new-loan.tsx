@@ -149,8 +149,8 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
                   if (!isProduction) console.log("data: ", data);
                   if (data) setFormState(null);
                   setSubmitting(false);
-                  await trigger("/user/all-loans");
-                  return router.push("/current-loans");
+                  await trigger("/user/loans");
+                  return router.push("/loans");
                 }}
                 className="bg-primary text-white p-3 w-1/4 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent

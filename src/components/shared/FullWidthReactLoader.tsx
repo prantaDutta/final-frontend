@@ -8,9 +8,8 @@ interface props {
 const FullWidthReactLoader: React.FC<props> = ({ component }) => {
   return (
     <button
-      className="bg-transparent text-primary p-3 w-full tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline
-                  shadow-lg transition-css"
+      className="bg-primary text-black p-3 mt-5 w-full tracking-wide rounded-lg
+                  font-semibold font-display shadow-lg"
     >
       <ReactLoader component={component} />
     </button>

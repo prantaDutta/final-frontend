@@ -1,5 +1,4 @@
 import axios from "axios";
-import { logout } from "./auth";
 import { isServer, LARAVEL_URL } from "./constants";
 import { useRouter } from "next/router";
 
@@ -13,7 +12,7 @@ export const laravelApi = (nonApiRoute = false) => {
     (response) => response,
     async (error) => {
       if (error.response.status === 401) {
-        await logout();
+        await axios.post("/api/set-user-cookie");
         if (!isServer) {
           const router = useRouter();
           return router.push("/login");

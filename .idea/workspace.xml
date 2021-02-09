@@ -5,29 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardBubble.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/MarkAsButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/transactions/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/Account.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/Personal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/Security.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/SettingsName.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings/SettingsTextField.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/states/settingsStates.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_0132e3b4259e4073b204a0c69b190212.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1d03e15ee87f06ea317f09d53c8873c2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3122352952f39563adc88a5ade581dae.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a75951294b3d7825e83080b0839269f5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ba115b491a5bbc0757c36d06121dff25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_fa5b13c13a2a03b68d5554c89895cbc5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReactTable/ReactTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactTable/ReactTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReactTable/ReadyMadeTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactTable/ReadyMadeTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/AdminDashboardContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/AdminDashboardContent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/loan-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/verification-requests/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[request].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/verification-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/shared/FullWidthReactLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/FullWidthReactLoader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/new-loan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/states/newLoanState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/newLoanState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/constantsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constantsArray.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +125,9 @@
       <workItem from="1612579539470" duration="11519000" />
       <workItem from="1612667504315" duration="681000" />
       <workItem from="1612668798804" duration="446000" />
-      <workItem from="1612669303645" duration="28796000" />
+      <workItem from="1612669303645" duration="29073000" />
+      <workItem from="1612756771198" duration="33102000" />
+      <workItem from="1612847776010" duration="15060000" />
     </task>
     <servers />
   </component>

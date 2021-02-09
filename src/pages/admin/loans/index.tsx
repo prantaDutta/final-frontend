@@ -41,7 +41,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
 
       {data ? (
         <ReadyMadeTable
-          title="All Loan Requests"
+          title={`${requestType} Loan Requests`}
           data={data.loans}
           pagination
           isValidating={isValidating}
