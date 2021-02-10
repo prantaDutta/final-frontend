@@ -3,6 +3,7 @@ import Layout from "../components/layouts/Layout";
 import InputTextField from "../components/ReactHookForm/InputTextField";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { ModifiedUserData } from "../utils/randomTypes";
+import React from "react";
 
 interface contactProps {
   user: ModifiedUserData;

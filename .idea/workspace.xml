@@ -5,26 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/settings/Account.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings/Personal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings/Security.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings/SettingsName.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings/SettingsTextField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/states/settingsStates.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/settings/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/FullWidthReactLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/FullWidthReactLoader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/current-loans/new-loan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/newLoanState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/newLoanState.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/404.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/404.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/dashboard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/constantsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constantsArray.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +115,7 @@
       <workItem from="1612668798804" duration="446000" />
       <workItem from="1612669303645" duration="29073000" />
       <workItem from="1612756771198" duration="33102000" />
-      <workItem from="1612847776010" duration="15060000" />
+      <workItem from="1612847776010" duration="27770000" />
     </task>
     <servers />
   </component>
