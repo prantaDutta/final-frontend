@@ -18,17 +18,17 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
   const [expand] = useRecoilState(personalExpand);
   // Following States will get the value of
   const [getAddress, setAddressValue] = useState(
-    data ? data.verification.address : ""
+    data ? data.verification?.address : ""
   );
   const [getDivision, setDivisionValue] = useState(
-    data ? data.verification.division : ""
+    data ? data.verification?.division : ""
   );
-  const [getZila, setZilaValue] = useState(data ? data.verification.zila : "");
+  const [getZila, setZilaValue] = useState(data ? data.verification?.zila : "");
   const [getZipCode, setZipCode] = useState(
-    data ? data.verification.zipCode : ""
+    data ? data.verification?.zipCode : ""
   );
   const [getMobileNo, setMobileNoValue] = useState(
-    data ? data.verification.mobileNo : ""
+    data ? data.verification?.mobileNo : ""
   );
   const [getEmail, setEmailValue] = useState(data ? data.user.email : "");
   const [showAddressField, setAddressField] = useState<boolean>(false);
@@ -98,15 +98,16 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                         className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                       >
                         <option value="">Choose One...</option>
-                        {createZilaTypes(getDivision).map((div) => (
-                          <option
-                            selected={div.value === getZila}
-                            value={div.value}
-                            key={div.value}
-                          >
-                            {div.title}
-                          </option>
-                        ))}
+                        {getDivision &&
+                          createZilaTypes(getDivision).map((div) => (
+                            <option
+                              selected={div.value === getZila}
+                              value={div.value}
+                              key={div.value}
+                            >
+                              {div.title}
+                            </option>
+                          ))}
                       </select>
                     </div>
 
@@ -131,7 +132,7 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                       zila: getZila,
                       zipCode: getZipCode,
                     }}
-                    triggerUrl={`/user`}
+                    settingsType="Personal"
                   />
                 </div>
               ) : (
@@ -139,7 +140,8 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                   <div>
                     <p className="text-lg font-bold">Address</p>
                     <p className="text-sm font-semibold text-gray-600">
-                      {data.verification.address} {data.verification.zipCode}
+                      {data?.verification?.address}{" "}
+                      {data?.verification?.zipCode}
                     </p>
                   </div>
                   <div className={`flex items-center`}>
@@ -173,7 +175,7 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                     postData={{
                       mobileNo: getMobileNo,
                     }}
-                    triggerUrl={`/user`}
+                    settingsType="Personal"
                   />
                 </form>
               ) : (
@@ -181,7 +183,7 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                   <div>
                     <p className="text-lg font-bold">Mobile No</p>
                     <p className="text-sm font-semibold text-gray-600">
-                      {data.verification.mobileNo}
+                      {data?.verification?.mobileNo}
                     </p>
                   </div>
                   <div className={`flex items-center`}>
@@ -215,7 +217,7 @@ const Personal: React.FC<PersonalProps> = ({ data }) => {
                     postData={{
                       email: getEmail,
                     }}
-                    triggerUrl={`/user`}
+                    settingsType="Personal"
                   />
                 </form>
               ) : (

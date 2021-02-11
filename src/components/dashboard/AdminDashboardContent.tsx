@@ -5,6 +5,7 @@ import { isProduction } from "../../utils/constants";
 import DashboardBubble from "./DashboardBubble";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import Link from "next/link";
+import { notify } from "../../utils/toasts";
 
 interface DashboardContentProps {}
 
@@ -15,8 +16,31 @@ const AdminDashboardContent: React.FC<DashboardContentProps> = ({}) => {
     mounted ? `/admin/dashboard-data` : null
   );
   if (data && !isProduction) console.log("data: ", data);
+  if (data) {
+    if (data.loans > 0) {
+      // Providing toastId to prevent duplicate toast
+      notify(`You have ${data.loans} Processing Loans`, {
+        type: "info",
+        toastId: "dashboard-loans",
+      });
+    }
+
+    if (data.withdrawals > 0) {
+      notify(`You have ${data.withdrawals} Processing Withdrawals`, {
+        type: "info",
+        toastId: "dashboard-withdrawals",
+      });
+    }
+
+    if (data.verifications > 0) {
+      notify(`You have ${data.verifications} Verifications Requests`, {
+        type: "info",
+        toastId: "dashboard-verifications",
+      });
+    }
+  }
   return (
-    <div className="">
+    <div>
       <DashboardTitle title="Dashboard" />
 
       {data ? (
@@ -50,29 +74,6 @@ const AdminDashboardContent: React.FC<DashboardContentProps> = ({}) => {
       ) : (
         <FullWidthReactLoader />
       )}
-
-      {/*{data ? (*/}
-      {/*  <ReadyMadeTable*/}
-      {/*    title="Verification Requests"*/}
-      {/*    data={data.verificationRequests}*/}
-      {/*    isValidating={isValidating}*/}
-      {/*    header={verificationRequestsTableHeader}*/}
-      {/*    emptyMessage="No Verification Requests Found"*/}
-      {/*  />*/}
-      {/*) : (*/}
-      {/*  <FullWidthReactLoader />*/}
-      {/*)}*/}
-      {/*{data ? (*/}
-      {/*  <ReadyMadeTable*/}
-      {/*    title="Loan Requests"*/}
-      {/*    data={data.loanRequests}*/}
-      {/*    isValidating={isValidating}*/}
-      {/*    header={LoanTableHeader}*/}
-      {/*    emptyMessage="No Loan Requests Found"*/}
-      {/*  />*/}
-      {/*) : (*/}
-      {/*  <FullWidthReactLoader />*/}
-      {/*)}*/}
     </div>
   );
 };

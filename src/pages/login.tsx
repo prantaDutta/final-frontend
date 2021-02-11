@@ -15,6 +15,7 @@ import { laravelApi } from "../utils/api";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
 import { loginValidationSchema } from "../validations/LoginFormValidation";
+import { notify } from "../utils/toasts";
 
 interface login2Props {
   user: ModifiedUserData;
@@ -45,10 +46,16 @@ const Login: React.FC<login2Props> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data });
+      notify(`Welcome back, ${data.name}`, {
+        type: "success",
+      });
       if (data.role === "admin") return router.push("/admin/dashboard");
       return router.push("/dashboard");
     } catch (e) {
       if (!isProduction) console.log(e.response);
+      notify("Invalid Credentials", {
+        type: "error",
+      });
       setError("email", {
         type: "manual",
         message: "Invalid Credentials",
@@ -104,7 +111,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
           </form>
           <div className="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
             Don't have an account ?{" "}
-            <Link href="/register">
+            <Link href={`/register`}>
               <a className="cursor-pointer text-primary hover:text-primaryAccent">
                 Sign Up
               </a>

@@ -59,7 +59,7 @@ const Account: React.FC<AccountProps> = ({ data }) => {
                     postData={{
                       language,
                     }}
-                    triggerUrl={`/user`}
+                    settingsType="Account"
                   />
                 </div>
               ) : (
@@ -108,10 +108,10 @@ const Account: React.FC<AccountProps> = ({ data }) => {
                   <SaveCancelButton
                     setField={setCloseAccountField}
                     submitUrl={`/user/account/close`}
-                    triggerUrl={`/user`}
                     postData={{
                       password,
                     }}
+                    settingsType="Account"
                   />
                 </div>
               ) : (

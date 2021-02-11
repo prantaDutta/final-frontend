@@ -5,6 +5,7 @@ import { isProduction } from "../../utils/constants";
 import DashboardBubble from "./DashboardBubble";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import Link from "next/link";
+import { notify } from "../../utils/toasts";
 
 interface DashboardContentProps {}
 
@@ -15,6 +16,22 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({}) => {
     mounted ? `/user/dashboard-data` : null
   );
   if (data && !isProduction) console.log("data: ", data);
+  if (data) {
+    if (data.ongoing > 0) {
+      // Providing toastId to prevent duplicate toast
+      notify(`You have ${data.ongoing} Ongoing Loans`, {
+        type: "info",
+        toastId: "dashboard-ongoing",
+      });
+    }
+
+    if (data.processing > 0) {
+      notify(`You have ${data.processing} Processing Loans`, {
+        type: "info",
+        toastId: "dashboard-processing",
+      });
+    }
+  }
   return (
     <div className="">
       <DashboardTitle title="Dashboard" />

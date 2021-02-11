@@ -3,21 +3,23 @@ import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import { laravelApi } from "../../utils/api";
 import { isProduction } from "../../utils/constants";
 import { trigger } from "swr";
+import { notify } from "../../utils/toasts";
 
 interface SaveCancelButtonProps {
   setField: React.Dispatch<React.SetStateAction<boolean>>;
   submitUrl: string;
   postData: {};
-  triggerUrl: string;
+  settingsType: string;
 }
 
 const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
   setField,
   submitUrl,
   postData,
-  triggerUrl,
+  settingsType,
 }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
+
   return isSubmitting ? (
     <FullWidthReactLoader />
   ) : (
@@ -32,10 +34,19 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
         type="button"
         onClick={async () => {
           setSubmitting(true);
-          const { data } = await laravelApi().post(submitUrl, postData);
-          if (!isProduction) console.log("data: ", data);
-          await trigger(triggerUrl);
+          // await mutate(
+          //   triggerUrl,
+          //   { ...data.verification, ...postData },
+          //   false
+          // );
+          const { data: asData } = await laravelApi().post(submitUrl, postData);
+          if (!isProduction) console.log("data: ", asData);
           setSubmitting(false);
+          await trigger("/user");
+          notify(`${settingsType} Settings Updated`, {
+            toastId: `${settingsType}-settings`,
+            type: "success",
+          });
         }}
         className="px-4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent"
       >

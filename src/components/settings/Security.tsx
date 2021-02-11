@@ -54,7 +54,7 @@ const Security: React.FC<SecurityProps> = ({ data }) => {
                       newPassword,
                       password_confirmation: confirmPassword,
                     }}
-                    triggerUrl={`/user`}
+                    settingsType="Security"
                   />
                 </div>
               ) : (

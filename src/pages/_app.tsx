@@ -7,6 +7,8 @@ import { SWRConfig } from "swr";
 import "../styles/index.css";
 import { BASE_URL, isProduction } from "../utils/constants";
 import { laravelApi } from "../utils/api";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -41,6 +43,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
         {/* <AnimatePresence exitBeforeEnter> */}
         {/* <motion.div key={router.route} {...pageMotionProps}> */}
         <Component {...pageProps} />
+        <ToastContainer transition={Slide} />
         {/* </motion.div> */}
         {/* </AnimatePresence> */}
       </SWRConfig>
@@ -48,6 +51,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
         {`
           body {
             background: #eee;
+            min-height: 100vh;
           }
         `}
       </style>
@@ -57,28 +61,28 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
 
 export default MyApp;
 
-// animation
-const pageVariants = {
-  pageInitial: {
-    // backgroundColor: "#eee",
-    // filter: `invert()`,
-    opacity: 0,
-  },
-  pageAnimate: {
-    // backgroundColor: "transparent",
-    // filter: ``,
-    opacity: 1,
-  },
-  pageExit: {
-    // backgroundColor: "#eee",
-    // filter: `invert()`,
-    opacity: 0,
-  },
-};
-
-export const pageMotionProps = {
-  initial: "pageInitial",
-  animate: "pageAnimate",
-  exit: "pageExit",
-  variants: pageVariants,
-};
+// //  animation
+// const pageVariants = {
+//   pageInitial: {
+//     // backgroundColor: "#eee",
+//     // filter: `invert()`,
+//     opacity: 0,
+//   },
+//   pageAnimate: {
+//     // backgroundColor: "transparent",
+//     // filter: ``,
+//     opacity: 1,
+//   },
+//   pageExit: {
+//     // backgroundColor: "#eee",
+//     // filter: `invert()`,
+//     opacity: 0,
+//   },
+// };
+//
+// export const pageMotionProps = {
+//   initial: "pageInitial",
+//   animate: "pageAnimate",
+//   exit: "pageExit",
+//   variants: pageVariants,
+// };

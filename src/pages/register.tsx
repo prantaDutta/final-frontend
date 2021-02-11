@@ -18,6 +18,7 @@ import { ModifiedUserData, RegisterFormValues } from "../utils/randomTypes";
 import { registerValidationSchema } from "../validations/RegisterFormValiadtion";
 import { laravelApi } from "../utils/api";
 import axios from "axios";
+import { notify } from "../utils/toasts";
 
 interface registerProps {
   user: ModifiedUserData;
@@ -51,9 +52,15 @@ const Register: React.FC<registerProps> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data: data });
+      notify(`Welcome, ${data.name}`, {
+        type: "success",
+      });
       await router.push("/verify");
     } catch (e) {
       if (!isProduction) console.log(e.response);
+      notify("Email Already Taken", {
+        type: "error",
+      });
       setError("email", {
         type: "manual",
         message: "Email Already Taken",
