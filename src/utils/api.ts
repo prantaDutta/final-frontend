@@ -14,27 +14,29 @@ export const laravelApi = (nonApiRoute = false) => {
       if (error.response.status === 401) {
         await axios.post("/api/set-user-cookie");
         if (!isServer) {
+          return location.reload();
+        } else {
           const router = useRouter();
-          return router.push("/login");
+          return router.reload();
         }
 
-        return Promise.reject({ status: 401, errors: ["Unauthorized"] });
+        // return Promise.reject({ status: 401, errors: ["Unauthorized"] });
       }
 
-      if (error?.response?.status === 422) {
-        let errors = Object?.values(error?.response?.data?.errors || {});
-
-        return Promise?.reject({
-          status: 422,
-          errorsRaw: errors,
-          errors: errors.reduce((error) => error),
-        });
-      }
+      // if (error?.response?.status === 422) {
+      //   let errors = Object?.values(error?.response?.data?.errors || {});
+      //
+      //   return Promise?.reject({
+      //     status: 422,
+      //     errorsRaw: errors,
+      //     errors: errors.reduce((error) => error),
+      //   });
+      // }
 
       // console.error(error?.response);
 
       return Promise.reject({
-        status: error?.response?.status,
+        status: error.response.status,
         errors: ["Oops!"],
       });
     }

@@ -1,35 +1,34 @@
-import axios from "axios";
 import crypto from "crypto";
 import dayjs from "dayjs";
 import FileSaver from "file-saver";
 import { IncomingMessage, ServerResponse } from "http";
-import { verify } from "jsonwebtoken";
+// import { verify } from "jsonwebtoken";
 import { useRouter } from "next/router";
-import { ACCESS_TOKEN_SECRET, AUTH_TOKEN_NAME, BASE_URL } from "./constants";
-import { logout } from "./auth";
 import { cache } from "swr";
+import { logout } from "./auth";
+import { BASE_URL } from "./constants";
 
-export const verifyJWTToken = (accessToken: string) => {
-  try {
-    var decoded = verify(accessToken, ACCESS_TOKEN_SECRET);
-    return decoded;
-  } catch (err) {
-    return err;
-  }
-};
+// export const verifyJWTToken = (accessToken: string) => {
+//   try {
+//     var decoded = verify(accessToken, ACCESS_TOKEN_SECRET);
+//     return decoded;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
 export function random32BitString() {
   return crypto.randomFillSync(Buffer.alloc(32)).toString("hex");
 }
 
-export const checkingIfAuthenticated = async (cookie: string) => {
-  let token = cookie.slice(`${AUTH_TOKEN_NAME}`.length + 1);
-  const tokenData = verifyJWTToken(token);
-  const { data } = await axios.post("/api/fetch-user-by-id", {
-    userId: tokenData.userId,
-  });
-  return data;
-};
+// export const checkingIfAuthenticated = async (cookie: string) => {
+//   let token = cookie.slice(`${AUTH_TOKEN_NAME}`.length + 1);
+//   const tokenData = verifyJWTToken(token);
+//   const { data } = await axios.post("/api/fetch-user-by-id", {
+//     userId: tokenData.userId,
+//   });
+//   return data;
+// };
 
 export const redirectToLogin = async (
   req: IncomingMessage | undefined,

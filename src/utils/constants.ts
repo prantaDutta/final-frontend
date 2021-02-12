@@ -5,15 +5,12 @@ export const BASE_URL = "http://localhost:3000";
 export const isServer = !process.browser;
 
 export const LARAVEL_URL = "http://localhost:8000";
+// export const LARAVEL_URL = "http://localhost";
 // export const LARAVEL_URL = "https://backend.test";
 
 export const SUPPORTED_IMAGE_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export const SUPPORTED_IMAGE_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-
-export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
-
-export const AUTH_TOKEN_NAME = process.env.AUTH_TOKEN_NAME!;
 
 export const FAUNA_ADMIN_KEY = process.env.FUANA_ADMIN_KEY!;
 

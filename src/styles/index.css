@@ -28,5 +28,5 @@ html {
 
 /* Edit Button */
 .edit-btn {
-    @apply rounded-2xl font-semibold px-8 py-1.5 uppercase tracking-wide bg-primary text-white focus:ring-2 focus:ring-primary focus:outline-none;
+    @apply rounded-2xl font-semibold px-8 py-1.5 uppercase tracking-wide bg-primary text-white cursor-pointer focus:ring-2 focus:ring-primary focus:outline-none;
 }

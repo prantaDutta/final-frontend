@@ -10,7 +10,7 @@ module.exports = {
   purge: false,
   theme: {
     extend: {
-      backgroundImage: (theme) => ({
+      backgroundImage: () => ({
         "header-img": "url('/background-1.jpg')",
         "intro-img": "url('/modern-background.jpg')",
         "new-bg": "url('/new-bg.png')",
@@ -43,6 +43,9 @@ module.exports = {
       colors: {
         primary: "#2caeba",
         primaryAccent: "#2c96ba",
+      },
+      spacing: {
+        0.5: "0.15rem",
       },
     },
   },

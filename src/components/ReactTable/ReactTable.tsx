@@ -2,7 +2,7 @@ import React from "react";
 import { Column, usePagination, useTable } from "react-table";
 
 interface TableProps {
-  columns: Column<{}>[];
+  columns: Column[];
   data: {}[];
   tableClass?: string;
   theadClass?: string;
@@ -104,7 +104,7 @@ const ReactTable: React.FC<TableProps> = ({
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-              ></path>
+              />
             </svg>
           </button>
           <button
@@ -169,7 +169,7 @@ const ReactTable: React.FC<TableProps> = ({
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M13 5l7 7-7 7M5 5l7 7-7 7"
-              ></path>
+              />
             </svg>
           </button>
         </div>

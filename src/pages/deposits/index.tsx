@@ -23,7 +23,7 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, isValidating } = useSWR(
-    mounted ? `/user/get-all-deposits/${user.id}` : null
+    mounted ? `/user/get-all-deposits` : null
   );
   if (data && !isProduction) console.log("data: ", data);
   const onClick = async () => {
