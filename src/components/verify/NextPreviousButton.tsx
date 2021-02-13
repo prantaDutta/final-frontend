@@ -6,6 +6,7 @@ import {
   verificationSubmitting,
 } from "../../states/verificationStates";
 import ReactLoader from "../shared/ReactLoader";
+import React from "react";
 
 interface NextPreviousButtonProps {
   nextDisabled: boolean;
@@ -18,8 +19,8 @@ const NextPreviousButton: React.FC<NextPreviousButtonProps> = ({
   const submitting = useRecoilValue(verificationSubmitting);
   const userData = useRecoilValue(authenticatedUserData);
   const isLastStep = () => {
-    if (userData?.role === "lender") return step === 2;
-    else if (userData?.role === "borrower") return step === 3;
+    if (userData?.role === "lender") return step === 3;
+    else if (userData?.role === "borrower") return step === 4;
     return false;
   };
   return (

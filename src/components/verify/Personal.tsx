@@ -71,7 +71,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
         <section>
           <h3 className="font-bold text-2xl">Personal Information</h3>
         </section>
-        <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex px-4">
             <InputTextField
               name="name"

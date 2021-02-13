@@ -5,32 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/verify/Address.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1a7df0aa5d6201ad936adadfa60b88f5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2dc4c16296fb9913002f974df18e4cc5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_34cd89da3a9dac4b1fdbf767e26bb3b9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_358cf7da86bcae4e42e59632e8eb5412.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3b94dacd7d466633c1c7bbb7cfb652c4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_428cc9d921d6a7bcab744d15e10977f7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_47ea9d75553056386b888321d33c5953.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_4f1451fac6736c0eb13e0a53ddf866b9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_5851afe715506c910fb6e47f076aa9ec.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_666c9bf1c951f94918e95a3793a13ff7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_67ccc98ade4daf1596db6329ffa106d7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_82d0cccd8fc06019da1135e82ac39674.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_83b9699a2209c366ed44b1c51a58b1d6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_848338bea396982adb59f9fed55d02ac.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8be0dd95bfaa42999d956ecad9dd03dd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ac85bc55fe349e6943617b631583e7d2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_ae802b75c2972b00bbd69adc05dd8603.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b00ab4af7864a8678e60464ac7b79e8e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f2ead3f3227a0fa0aa7f51641ad18b9e.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Images.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Images.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Papers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Papers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Personal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Personal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/StepperIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/randomTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/randomTypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +125,7 @@
       <workItem from="1613074947549" duration="1028000" />
       <workItem from="1613102911949" duration="8031000" />
       <workItem from="1613124264901" duration="15189000" />
-      <workItem from="1613190887136" duration="12209000" />
+      <workItem from="1613190887136" duration="15064000" />
     </task>
     <servers />
   </component>

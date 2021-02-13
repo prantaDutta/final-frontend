@@ -13,11 +13,6 @@ import { ContactVerificationFormValues } from "../../utils/randomTypes";
 import InputTextField from "../ReactHookForm/InputTextField";
 import NextPreviousButton from "./NextPreviousButton";
 import { laravelApi } from "../../utils/api";
-import InputSelectField from "../ReactHookForm/InputSelectField";
-import {
-  createDivisionsTypes,
-  createZilaTypes,
-} from "../../utils/constantsArray";
 import { notify } from "../../utils/toasts";
 import ReactLoader from "../shared/ReactLoader";
 import useSWR from "swr";
@@ -32,14 +27,12 @@ const Contact: React.FC<ContactProps> = ({}) => {
   const userData = useRecoilValue(authenticatedUserData);
   const [step, setStep] = useRecoilState(verificationStep);
   const {
-    watch,
     register,
     handleSubmit,
     errors,
   } = useForm<ContactVerificationFormValues>({
     resolver: yupResolver(
       object({
-        address: yup.string().required("Required"),
         email: yup
           .string()
           .email("Invalid email")
@@ -68,17 +61,6 @@ const Contact: React.FC<ContactProps> = ({}) => {
             (val) => val?.toString().length === 10
           )
           .required("Required"),
-        division: yup.string().required("Required"),
-        zila: yup.string().required("Required"),
-        zip_code: yup
-          .number()
-          .typeError("Zip must be a number")
-          .test(
-            "len",
-            "Zip Code must be 4 characters",
-            (val) => val?.toString().length === 4
-          )
-          .required("Required"),
       })
     ),
     mode: "onSubmit",
@@ -86,16 +68,12 @@ const Contact: React.FC<ContactProps> = ({}) => {
   });
   const onSubmit = async (values: ContactVerificationFormValues) => {
     // values.dateOfBirth = format(parseJSON(values.dateOfBirth), "MM/dd/yyyy");
-    const { email, address, mobileNo, division, zila, zip_code } = values;
+    const { email, mobileNo } = values;
     // setValues({ ...verificationValues ? , email, address, mobileNo });
     setValues({
       ...verificationValues!,
       email,
-      address,
       mobileNo,
-      division,
-      zila,
-      zip_code,
     });
     setStep(step + 1);
   };
@@ -112,7 +90,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
         <section>
           <h3 className="font-bold text-2xl">Contact Information</h3>
         </section>
-        <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex items-end px-4">
             <InputTextField
               halfWidth
@@ -183,48 +161,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
               {sending ? <ReactLoader /> : "Resend SMS"}
             </button>
           </div>
-          <div className="flex px-4">
-            <InputTextField
-              name="address"
-              defaultValue={verificationValues?.address}
-              label="Your Address"
-              error={errors.address?.message}
-              placeholder="Enter Your Address"
-              register={register}
-            />
-          </div>
-          <div className="flex px-4">
-            <InputSelectField
-              defaultValue={verificationValues?.division}
-              name="division"
-              halfWidth
-              label="Select Division"
-              error={errors.division?.message}
-              register={register}
-              options={createDivisionsTypes()}
-            />
-            <InputSelectField
-              defaultValue={verificationValues?.zila}
-              name="zila"
-              halfWidth
-              label="Select Zila"
-              error={errors.zila?.message}
-              register={register}
-              options={
-                watch("division") ? createZilaTypes(watch("division")) : null
-              }
-            />
-          </div>
-          <div className="flex px-4">
-            <InputTextField
-              defaultValue={verificationValues?.zip_code}
-              name="zip_code"
-              label="Zip Code"
-              error={errors.zip_code?.message}
-              register={register}
-              placeholder="i.e. 4000"
-            />
-          </div>
+
           <NextPreviousButton nextDisabled={!errors} />
         </form>
       </main>

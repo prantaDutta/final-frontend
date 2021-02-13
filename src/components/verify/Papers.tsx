@@ -48,7 +48,7 @@ const Papers: React.FC<PapersProps> = ({}) => {
         <section>
           <h3 className="font-bold text-2xl">Contact Information</h3>
         </section>
-        <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           <InputSelectField
             defaultValue={verificationValues?.borrowerType}
             name="borrowerType"

@@ -116,7 +116,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         <section>
           <h3 className="font-bold text-2xl">Verification Photos</h3>
         </section>
-        <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           <InputFileField
             name="nidOrPassport"
             label="Your Nid/Passport"

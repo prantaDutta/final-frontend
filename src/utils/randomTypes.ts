@@ -87,9 +87,12 @@ export type PersonalVerificationFormValues = {
 };
 
 export type ContactVerificationFormValues = {
-  address: string;
   email: string;
   mobileNo: number;
+};
+
+export type AddressVerificationFormValues = {
+  address: string;
   zila: string;
   zip_code: number;
   division: string;

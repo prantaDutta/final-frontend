@@ -17,6 +17,7 @@ import { verificationStep } from "../states/verificationStates";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { redirectToLogin } from "../utils/functions";
 import { ModifiedUserData } from "../utils/randomTypes";
+import Address from "../components/verify/Address";
 
 interface showVerifyComponentProps {
   step: number;
@@ -33,8 +34,10 @@ const ShowVerifyComponent: React.FC<showVerifyComponentProps> = ({
     case 1:
       return <Contact />;
     case 2:
-      return role === "lender" ? <Images /> : <Papers />;
+      return <Address />;
     case 3:
+      return role === "lender" ? <Images /> : <Papers />;
+    case 4:
       return <Images />;
     default:
       return <></>;
