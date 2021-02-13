@@ -58,12 +58,12 @@ const Register: React.FC<registerProps> = ({ user }) => {
       await router.push("/verify");
     } catch (e) {
       if (!isProduction) console.log(e.response);
-      notify("Email Already Taken", {
+      notify("Something Went Wrong, Please Try Again", {
         type: "error",
       });
-      setError("email", {
+      setError("name", {
         type: "manual",
-        message: "Email Already Taken",
+        message: "Something Went Wrong, Please Try Again",
       });
     }
 
@@ -140,7 +140,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
 
           <div className="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
             Already have an account ?{" "}
-            <Link href="/login">
+            <Link href={`/login`}>
               <a className="cursor-pointer text-primary hover:text-primaryAccent">
                 Log In
               </a>

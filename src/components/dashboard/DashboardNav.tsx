@@ -87,58 +87,59 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
         </button>
         {data && (
           <>
-            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute top-0 left-1/2 mt-1">
+            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1 z-auto">
               <span>{data?.count}</span>
             </div>
             {showNotificationsDiv && (
-              <div className="mt-2 py-2 w-80 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-72">
+              <div className="mt-2 py-2 w-80 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-72 z-10">
                 {data.notifications.length > 0 ? (
-                  data.notifications.map((notification: any, i: number) => (
-                    <div key={i}>
-                      <div className="block flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
-                        <svg
-                          className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                          />
-                        </svg>{" "}
-                        <h4 className="px-2">{notification.data.msg}</h4>
-                        <svg
-                          onClick={() => console.log("clicked")}
-                          className="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
+                  data.notifications.map((notification: any, i: number) => {
+                    return (
+                      <div key={notification.id}>
+                        <div className="block flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
+                          <svg
+                            className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                            />
+                          </svg>{" "}
+                          <h4 className="px-2">{notification.data.msg}</h4>
+                          <svg
+                            onClick={() => console.log("clicked")}
+                            className="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </div>
+                        {i <= data.notifications.length && <hr />}
+                        {i === data.notifications.length - 1 && (
+                          <p
+                            onClick={() => router.push("/notifications")}
+                            className="edit-btn text-center m-2"
+                          >
+                            All Notifications
+                          </p>
+                        )}
                       </div>
-                      {i !== 2 ? (
-                        <hr />
-                      ) : (
-                        <p
-                          onClick={() => router.push("/notifications")}
-                          className="edit-btn text-center m-2"
-                        >
-                          All Notifications
-                        </p>
-                      )}
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   // This is kinda unnecessary by the way
                   // This is for no notifications in the database

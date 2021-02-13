@@ -1,6 +1,7 @@
 import axios from "axios";
 import { isServer, LARAVEL_URL } from "./constants";
 import { useRouter } from "next/router";
+import { logout } from "./auth";
 
 export const laravelApi = (nonApiRoute = false) => {
   const api = axios.create({
@@ -11,34 +12,38 @@ export const laravelApi = (nonApiRoute = false) => {
   api.interceptors.response.use(
     (response) => response,
     async (error) => {
-      if (error.response.status === 401) {
-        await axios.post("/api/set-user-cookie");
-        if (!isServer) {
-          return location.reload();
-        } else {
-          const router = useRouter();
-          return router.reload();
+      try {
+        if (error.response.status === 401) {
+          await axios.post("/api/set-user-cookie");
+          if (!isServer) {
+            return location.reload();
+          } else {
+            const router = useRouter();
+            return router.reload();
+          }
+
+          // return Promise.reject({ status: 401, errors: ["Unauthorized"] });
         }
 
-        // return Promise.reject({ status: 401, errors: ["Unauthorized"] });
+        // if (error?.response?.status === 422) {
+        //   let errors = Object?.values(error?.response?.data?.errors || {});
+        //
+        //   return Promise?.reject({
+        //     status: 422,
+        //     errorsRaw: errors,
+        //     errors: errors.reduce((error) => error),
+        //   });
+        // }
+
+        // console.error(error?.response);
+
+        return Promise.reject({
+          status: error.response.status,
+          errors: ["Oops!"],
+        });
+      } catch (e) {
+        await logout();
       }
-
-      // if (error?.response?.status === 422) {
-      //   let errors = Object?.values(error?.response?.data?.errors || {});
-      //
-      //   return Promise?.reject({
-      //     status: 422,
-      //     errorsRaw: errors,
-      //     errors: errors.reduce((error) => error),
-      //   });
-      // }
-
-      // console.error(error?.response);
-
-      return Promise.reject({
-        status: error.response.status,
-        errors: ["Oops!"],
-      });
     }
   );
   return api;

@@ -59,7 +59,7 @@ const StepperIcons: React.FC<stepperIconsProps> = ({
 }) => {
   return (
     <>
-      <div className="flex items-center text-white relative">
+      <div className="flex items-center text-white relative z-0">
         <div className="rounded-full flex justify-center items-center transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-primary">
           {isDone ? (
             <svg

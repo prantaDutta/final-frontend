@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as yup from "yup";
@@ -18,6 +18,10 @@ import {
   createDivisionsTypes,
   createZilaTypes,
 } from "../../utils/constantsArray";
+import { notify } from "../../utils/toasts";
+import ReactLoader from "../shared/ReactLoader";
+import useSWR from "swr";
+import { isProduction } from "../../utils/constants";
 
 interface ContactProps {}
 
@@ -95,9 +99,13 @@ const Contact: React.FC<ContactProps> = ({}) => {
     });
     setStep(step + 1);
   };
-  // The following is necessary because getValues only gets the values
-  // in the next render
-  // useEffect(() => {}, [getValues("division")]);
+  const [sending, setSending] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => setMounted(true), []);
+  const { data: contactData } = useSWR(
+    mounted ? "/user/contact-verified" : null
+  );
+  if (!isProduction) console.log(contactData);
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -105,7 +113,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
           <h3 className="font-bold text-2xl">Contact Information</h3>
         </section>
         <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex px-4">
+          <div className="flex items-end px-4">
             <InputTextField
               halfWidth
               defaultValue={
@@ -121,7 +129,29 @@ const Contact: React.FC<ContactProps> = ({}) => {
               placeholder="youremail@email.com"
               register={register}
             />
-
+            <button
+              className={`px-2 py-1 rounded-full bg-primary
+                      text-xs text-gray-200 font-semibold capitalize mb-2 cursor-not-allowed`}
+            >
+              {mounted && contactData?.email ? "verified" : "unverified"}
+            </button>
+            <button
+              onClick={async () => {
+                setSending(true);
+                await laravelApi().post(`/send-email`, {
+                  email: userData?.email,
+                });
+                notify("Email Sent. Check Your Inbox", {
+                  type: "success",
+                });
+                setSending(false);
+              }}
+              className={`px-2 mx-4 py-1 rounded-full bg-primaryAccent text-xs text-gray-200 font-semibold capitalize mb-2`}
+            >
+              {sending ? <ReactLoader /> : "Resend Email"}
+            </button>
+          </div>
+          <div className="flex items-end px-4">
             <InputTextField
               defaultValue={verificationValues?.mobileNo}
               name="mobileNo"
@@ -131,6 +161,27 @@ const Contact: React.FC<ContactProps> = ({}) => {
               register={register}
               placeholder="i.e. 017XXXXXXXX"
             />
+            <button
+              className={`px-2 py-1 rounded-full bg-primary
+                      text-xs text-gray-200 font-semibold capitalize mb-2 cursor-not-allowed`}
+            >
+              {mounted && contactData?.mobileNo ? "verified" : "unverified"}
+            </button>
+            <button
+              onClick={async () => {
+                setSending(true);
+                await laravelApi().post(`/send-sms`, {
+                  email: userData?.email,
+                });
+                notify("SMS Sent. Check Your Inbox", {
+                  type: "success",
+                });
+                setSending(false);
+              }}
+              className={`px-2 mx-4 py-1 rounded-full bg-primaryAccent text-xs text-gray-200 font-semibold capitalize mb-2`}
+            >
+              {sending ? <ReactLoader /> : "Resend SMS"}
+            </button>
           </div>
           <div className="flex px-4">
             <InputTextField
