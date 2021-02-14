@@ -34,11 +34,6 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
         type="button"
         onClick={async () => {
           setSubmitting(true);
-          // await mutate(
-          //   triggerUrl,
-          //   { ...data.verification, ...postData },
-          //   false
-          // );
           const { data: asData } = await laravelApi().post(submitUrl, postData);
           if (!isProduction) console.log("data: ", asData);
           setSubmitting(false);

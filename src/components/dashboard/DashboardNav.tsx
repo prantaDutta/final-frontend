@@ -128,7 +128,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                             />
                           </svg>
                         </div>
-                        {i <= data.notifications.length && <hr />}
+                        {i < data.notifications.length - 1 && <hr />}
                         {i === data.notifications.length - 1 && (
                           <p
                             onClick={() => router.push("/notifications")}
