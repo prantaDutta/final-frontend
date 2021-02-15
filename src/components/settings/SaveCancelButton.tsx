@@ -42,6 +42,7 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
             toastId: `${settingsType}-settings`,
             type: "success",
           });
+          setField(false);
         }}
         className="px-4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent"
       >
