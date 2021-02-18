@@ -1,4 +1,3 @@
-import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -6,7 +5,7 @@ import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
-import { formatDate, redirectToLogin } from "../../../utils/functions";
+import { formatDate, redirectToPage } from "../../../utils/functions";
 import {
   ModifiedUserData,
   SelectOptionsTypes,
@@ -67,20 +66,17 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async (context: NextPageContext) => {
-    const user = (context.req as any).session.get("user");
-    if (!user) {
-      await redirectToLogin(context.req, context.res);
-      return { props: {} };
-    }
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    await redirectToPage(req, res, "/login");
+    return { props: {} };
+  }
 
-    return {
-      props: { user },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default WithdrawalRequests;
 

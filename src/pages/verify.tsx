@@ -15,7 +15,7 @@ import StepperIcons, {
 import { authenticatedUserData } from "../states/userStates";
 import { verificationStep } from "../states/verificationStates";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
-import { redirectToLogin } from "../utils/functions";
+import { redirectToPage } from "../utils/functions";
 import { ModifiedUserData } from "../utils/randomTypes";
 import Address from "../components/verify/Address";
 
@@ -108,7 +108,7 @@ export const getServerSideProps = withIronSession(
   async (context: NextPageContext) => {
     const user = (context.req as any).session.get("user");
     if (!user) {
-      await redirectToLogin(context?.req, context?.res);
+      await redirectToPage(context?.req, context?.res, "/login");
       return { props: {} };
     }
 

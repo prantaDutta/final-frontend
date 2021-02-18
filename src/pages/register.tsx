@@ -1,5 +1,6 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,18 +8,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
+import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
 import InputSelectField from "../components/ReactHookForm/InputSelectField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
 import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
+import { laravelApi } from "../utils/api";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { UserRole } from "../utils/constantsArray";
+import { redirectToPage } from "../utils/functions";
 import { ModifiedUserData, RegisterFormValues } from "../utils/randomTypes";
-import { registerValidationSchema } from "../validations/RegisterFormValiadtion";
-import { laravelApi } from "../utils/api";
-import axios from "axios";
 import { notify } from "../utils/toasts";
+import { registerValidationSchema } from "../validations/RegisterFormValiadtion";
 
 interface registerProps {
   user: ModifiedUserData;
@@ -105,8 +107,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
               register={register}
             />
 
-            <InputTextField
-              type="password"
+            <InputPasswordField
               name="password"
               label="Password"
               error={errors.password?.message}
@@ -114,8 +115,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
               register={register}
             />
 
-            <InputTextField
-              type="password"
+            <InputPasswordField
               name="password_confirmation"
               label="Password"
               error={errors.password_confirmation?.message}
@@ -152,14 +152,15 @@ const Register: React.FC<registerProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req }) => {
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
   const user = req.session.get("user");
-  if (!user) {
-    return { props: {} };
+  if (user) {
+    // return { props: {} };
+    await redirectToPage(req, res, "/dashboard");
   }
 
   return {
-    props: { user },
+    props: {},
   };
 }, NEXT_IRON_SESSION_CONFIG);
 

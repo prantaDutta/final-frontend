@@ -5,12 +5,17 @@ import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import React, { useState } from "react";
 import SettingsTextField from "./SettingsTextField";
 import SaveCancelButton from "./SaveCancelButton";
+import { mutateCallback } from "swr/dist/types";
 
 interface SecurityProps {
   data: any;
+  mutate: (
+    data?: Promise<any> | mutateCallback | any,
+    shouldRevalidate?: boolean
+  ) => Promise<any | undefined>;
 }
 
-const Security: React.FC<SecurityProps> = ({ data }) => {
+const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
   const [expand] = useRecoilState(securityExpand);
   const [showPasswordField, setPasswordField] = useState<boolean>(false);
   const [currentPassword, setCurrentPassword] = useState<string>("");
@@ -54,7 +59,8 @@ const Security: React.FC<SecurityProps> = ({ data }) => {
                       newPassword,
                       password_confirmation: confirmPassword,
                     }}
-                    settingsType="Security"
+                    mutate={mutate}
+                    toastMsg="Password Changed Successfully"
                   />
                 </div>
               ) : (

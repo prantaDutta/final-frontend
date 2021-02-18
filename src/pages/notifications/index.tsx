@@ -1,7 +1,6 @@
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { withIronSession } from "next-iron-session";
-import { NextPageContext } from "next";
-import { formatDate, redirectToLogin } from "../../utils/functions";
+import { formatDate, redirectToPage } from "../../utils/functions";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
@@ -43,20 +42,17 @@ const Notifications: React.FC<NotificationsProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async (context: NextPageContext) => {
-    const user = (context.req as any).session.get("user");
-    if (!user) {
-      await redirectToLogin(context?.req, context?.res);
-      return { props: {} };
-    }
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    await redirectToPage(req, res, "/login");
+    return { props: {} };
+  }
 
-    return {
-      props: { user },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default Notifications;
 

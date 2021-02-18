@@ -41,9 +41,9 @@ const NextPreviousButton: React.FC<NextPreviousButtonProps> = ({
       <button
         type="submit"
         disabled={nextDisabled}
-        className="bg-primary text-gray-100 p-3 w-1/3 rounded-full tracking-wide
+        className={`bg-primary text-gray-100 p-3 w-1/3 rounded-full tracking-wide
         font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-        shadow-lg transition-css disabled:opacity-50"
+        shadow-lg transition-css disabled:opacity-50`}
       >
         {isLastStep() ? (
           submitting ? (

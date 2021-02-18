@@ -3,10 +3,72 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputMobileNoField.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_163896ec7bd6a8524e241f875b89053a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1d8cdd7d3a45e47f3191d737ca013339.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_1de96dfc5924e3cb6668685823d15ebe.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_2b090e760faa8a6e586d3950f7287296.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_4b43d320e8983817e98a4709b396a750.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8e5421bfd86303258d4be5a0872eae85.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_8fe8d01a6e81ecfec4c3d34cb57a28d7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_9095f715cf801a6f4e62681eac5b93f0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_af3a00c8b9bf1e15ad601f5bc9df3ada.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b79a97b227e4cbdaac2c556bdf9aabc8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_c078b33f0b6f886502d786d6d8af653c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_cf97e9f03b0020d32d354a69f312c2e9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f764280904948bcb3cbd2606a4226baf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_facc8070cd464aa41626068d383fc1dd.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/settings/Account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/Account.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/settings/Personal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/Personal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/settings/Security.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/Security.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/verify/NextPreviousButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/about.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/about.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/settings/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/transactions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/transactions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[request].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deposits/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deposits/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/notifications/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/notifications/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/functions.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +185,9 @@
       <workItem from="1613400018045" duration="653000" />
       <workItem from="1613401619445" duration="136000" />
       <workItem from="1613401861447" duration="120000" />
-      <workItem from="1613402202666" duration="1562000" />
+      <workItem from="1613402202666" duration="23896000" />
+      <workItem from="1613481687269" duration="158000" />
+      <workItem from="1613527338514" duration="302000" />
     </task>
     <servers />
   </component>
@@ -143,6 +207,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="381" y="183" key="#Notifications" timestamp="1613480330872">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="381" y="183" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1613480330872" />
     <state x="275" y="4" key="#Plugins" timestamp="1613401985414">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -151,6 +219,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1613401980692" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1613461936599">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1613461936599" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1613401898604">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

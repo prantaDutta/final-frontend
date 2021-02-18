@@ -7,15 +7,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
+import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
 import ReactLoader from "../components/shared/ReactLoader";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
 import { laravelApi } from "../utils/api";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
+import { redirectToPage } from "../utils/functions";
 import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
-import { loginValidationSchema } from "../validations/LoginFormValidation";
 import { notify } from "../utils/toasts";
+import { loginValidationSchema } from "../validations/LoginFormValidation";
 
 interface login2Props {
   user: ModifiedUserData;
@@ -81,8 +83,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
               register={register}
             />
             <div className="mt-6">
-              <InputTextField
-                type="password"
+              <InputPasswordField
                 name="password"
                 label="Password"
                 error={errors.password?.message}
@@ -123,14 +124,15 @@ const Login: React.FC<login2Props> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req }) => {
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
   const user = req.session.get("user");
-  if (!user) {
-    return { props: {} };
+  if (user) {
+    // return { props: {} };
+    await redirectToPage(req, res, "/dashboard");
   }
 
   return {
-    props: { user },
+    props: {},
   };
 }, NEXT_IRON_SESSION_CONFIG);
 

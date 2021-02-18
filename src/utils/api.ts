@@ -40,6 +40,7 @@ export const laravelApi = (nonApiRoute = false) => {
         return Promise.reject({
           status: error.response.status,
           errors: ["Oops!"],
+          response: error.response,
         });
       } catch (e) {
         await logout();

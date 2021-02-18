@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import useSWR from "swr";
 import { authStatus } from "../../states/authStates";
 import { authenticatedUserData } from "../../states/userStates";
+import { verificationFormValues } from "../../states/verificationStates";
 import { logout } from "../../utils/auth";
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
 import { isProduction } from "../../utils/constants";
 
 interface MainContentNavProps {}
@@ -14,6 +15,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
   const router = useRouter();
   const [, toggleAuth] = useRecoilState(authStatus);
   const userData = useRecoilValue(authenticatedUserData);
+  const [, setVerifyData] = useRecoilState(verificationFormValues);
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data } = useSWR(mounted ? `/user/dashboard-notifications` : null);
@@ -87,7 +89,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
         </button>
         {data && (
           <>
-            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1 z-auto">
+            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1">
               <span>{data?.count}</span>
             </div>
             {showNotificationsDiv && (
@@ -96,7 +98,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                   data.notifications.map((notification: any, i: number) => {
                     return (
                       <div key={notification.id}>
-                        <div className="block flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
+                        <div className="flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
                           <svg
                             className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
                             fill="none"
@@ -143,7 +145,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                 ) : (
                   // This is kinda unnecessary by the way
                   // This is for no notifications in the database
-                  <div className="block flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
+                  <div className="flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
                     <svg
                       className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
                       fill="none"
@@ -168,20 +170,20 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
           </>
         )}
       </div>
-      <div className="p-4">
-        <h4 className="p-2 cursor-pointer rounded border-solid border-2 border-primary hover:bg-primaryAccent hover:text-white hover:border-0 active:bg-primaryAccent">
-          <button
-            disabled={startLoggingOut}
-            onClick={async () => {
-              setLoggingOut(true);
-              toggleAuth(false);
-              await logout();
-              return router.push("/");
-            }}
-          >
-            Log Out
-          </button>
-        </h4>
+      <div className="p-4 focus:outline-none focus:ring-1 focus:ring-primary">
+        <button
+          className="p-2 cursor-pointer rounded border-solid border-2 border-primary hover:bg-primaryAccent hover:text-white hover:border-0 active:bg-primaryAccent focus:outline-none focus:ring-0"
+          disabled={startLoggingOut}
+          onClick={async () => {
+            setLoggingOut(true);
+            toggleAuth(false);
+            setVerifyData(null);
+            await logout();
+            return router.push("/");
+          }}
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );

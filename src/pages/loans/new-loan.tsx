@@ -1,6 +1,5 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -12,14 +11,15 @@ import ReactLoader from "../../components/shared/ReactLoader";
 import Yup from "../../lib/yup";
 import { newLoanFormValues } from "../../states/newLoanState";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { formatTwoDecimalPlaces, redirectToLogin } from "../../utils/functions";
+import { formatTwoDecimalPlaces, redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import { numberTypes } from "../../utils/constantsArray";
 import { laravelApi } from "../../utils/api";
 import { calculateSimpleInterest } from "../../utils/calculatingInterests";
-import { trigger } from "swr";
+import { mutate } from "swr";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import { notify } from "../../utils/toasts";
 
 interface newLoanProps {
   user: ModifiedUserData;
@@ -142,15 +142,25 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
                   setSubmitting(true);
                   if (!isProduction)
                     console.log("Sending Values: ", newFormState);
-                  const { data } = await laravelApi().post("/user/new-loan", {
-                    values: newFormState,
-                    id: user.id,
-                  });
-                  if (!isProduction) console.log("data: ", data);
-                  if (data) setFormState(null);
-                  setSubmitting(false);
-                  await trigger("/user/loans");
-                  return router.push("/loans");
+                  try {
+                    const { data } = await laravelApi().post("/user/new-loan", {
+                      values: newFormState,
+                      id: user.id,
+                    });
+                    if (!isProduction) console.log("data: ", data);
+                    if (data) setFormState(null);
+                    setSubmitting(false);
+                    await mutate("/user/loans");
+                    notify("Your Loan Request is Accepted", {
+                      type: "success",
+                    });
+                    return router.push("/loans");
+                  } catch (e) {
+                    setSubmitting(false);
+                    notify(e?.response?.data?.error || "Something Went Wrong", {
+                      type: "success",
+                    });
+                  }
                 }}
                 className="bg-primary text-white p-3 w-1/4 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
@@ -238,19 +248,16 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async (context: NextPageContext) => {
-    const user = (context.req as any).session.get("user");
-    if (!user) {
-      await redirectToLogin(context?.req, context?.res);
-      return { props: {} };
-    }
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    await redirectToPage(req, res, "/login");
+    return { props: {} };
+  }
 
-    return {
-      props: { user },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default NewLoan;

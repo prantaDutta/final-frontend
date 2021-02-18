@@ -1,25 +1,30 @@
 import React, { useState } from "react";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
+import { trigger } from "swr";
+import { mutateCallback } from "swr/dist/types";
 import { laravelApi } from "../../utils/api";
 import { isProduction } from "../../utils/constants";
-import { trigger } from "swr";
 import { notify } from "../../utils/toasts";
+import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 
 interface SaveCancelButtonProps {
   setField: React.Dispatch<React.SetStateAction<boolean>>;
   submitUrl: string;
   postData: {};
-  settingsType: string;
+  toastMsg: string;
+  mutate: (
+    data?: Promise<any> | mutateCallback | any,
+    shouldRevalidate?: boolean
+  ) => Promise<any | undefined>;
 }
 
 const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
   setField,
   submitUrl,
   postData,
-  settingsType,
+  toastMsg,
+  mutate,
 }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
-
   return isSubmitting ? (
     <FullWidthReactLoader />
   ) : (
@@ -34,15 +39,26 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
         type="button"
         onClick={async () => {
           setSubmitting(true);
-          const { data: asData } = await laravelApi().post(submitUrl, postData);
-          if (!isProduction) console.log("data: ", asData);
+          try {
+            const { data: asData } = await laravelApi().post(
+              submitUrl,
+              postData
+            );
+            if (!isProduction) console.log("data: ", asData);
+            await mutate();
+            notify(toastMsg, {
+              type: "success",
+            });
+            setField(false);
+          } catch (e) {
+            console.log(e.response);
+            notify("Something's Wrong, Please Try Again", {
+              type: "warning",
+            });
+          }
           setSubmitting(false);
           await trigger("/user");
-          notify(`${settingsType} Settings Updated`, {
-            toastId: `${settingsType}-settings`,
-            type: "success",
-          });
-          setField(false);
+          // await mutate("/user/contact-verified");
         }}
         className="px-4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent"
       >

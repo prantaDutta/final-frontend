@@ -1,7 +1,6 @@
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import { withIronSession } from "next-iron-session";
-import { NextPageContext } from "next";
-import { formatDate, redirectToLogin } from "../../../utils/functions";
+import { formatDate, redirectToPage } from "../../../utils/functions";
 import {
   isProduction,
   NEXT_IRON_SESSION_CONFIG,
@@ -105,18 +104,14 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
 
 export default WithdrawalRequests;
 
-export const getServerSideProps = withIronSession(
-  async (context: NextPageContext) => {
-    const user = (context.req as any).session.get("user");
-    if (!user) {
-      await redirectToLogin(context?.req, context?.res);
-      return { props: {} };
-    }
-    const request: any = context.query.request;
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    await redirectToPage(req, res, "/login");
+    return { props: {} };
+  }
 
-    return {
-      props: { user, request },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);

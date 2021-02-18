@@ -1,4 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
@@ -9,18 +11,17 @@ import {
   verificationStep,
   verificationSubmitting,
 } from "../../states/verificationStates";
+import { laravelApi } from "../../utils/api";
+import { BASE_URL, isProduction } from "../../utils/constants";
 import { appendingFileToFormData } from "../../utils/functions";
 import { ImagesVerificationFormValues } from "../../utils/randomTypes";
+import { notify } from "../../utils/toasts";
 import {
   multipleImageValidation,
   singleImageValidation,
 } from "../../utils/vaidationSchema";
 import InputFileField from "../ReactHookForm/InputFileField";
 import NextPreviousButton from "./NextPreviousButton";
-import axios from "axios";
-import { BASE_URL, isProduction } from "../../utils/constants";
-import { useRouter } from "next/router";
-import { laravelApi } from "../../utils/api";
 
 interface ImagesProps {}
 
@@ -96,14 +97,25 @@ const Images: React.FC<ImagesProps> = ({}) => {
       // printing the values before sending
       if (!isProduction)
         console.log("Verification Values: ", totalVerificationValues);
-      const response = await laravelApi().post("/user/verify", {
-        values: totalVerificationValues,
-      });
-      if (!isProduction) console.log("Response: ", response);
-      setStep(0);
-      setSubmitting(false);
-      setValues(null);
-      return router.push("/dashboard");
+      try {
+        const response = await laravelApi().post("/user/verify", {
+          values: totalVerificationValues,
+        });
+        if (!isProduction) console.log("Response: ", response);
+        notify("Your Verification Request is Accepted", {
+          type: "success",
+        });
+        setStep(0);
+        setSubmitting(false);
+        setValues(null);
+        return router.push("/dashboard");
+      } catch (e) {
+        console.log(e.response);
+        setSubmitting(false);
+        notify("Something Went Wrong, Please Try Again", {
+          type: "error",
+        });
+      }
     } catch (e) {
       console.log(e);
     }

@@ -1,16 +1,21 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import { mutateCallback } from "swr/dist/types";
 import { accountExpand } from "../../states/settingsStates";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import SettingsName from "./SettingsName";
 import SaveCancelButton from "./SaveCancelButton";
-import Link from "next/link";
+import SettingsName from "./SettingsName";
 
 interface AccountProps {
   data: any;
+  mutate: (
+    data?: Promise<any> | mutateCallback | any,
+    shouldRevalidate?: boolean
+  ) => Promise<any | undefined>;
 }
 
-const Account: React.FC<AccountProps> = ({ data }) => {
+const Account: React.FC<AccountProps> = ({ data, mutate }) => {
   const [expand] = useRecoilState(accountExpand);
   const [showLanguageField, setLanguageField] = useState<boolean>(false);
   const [language, setLanguage] = useState<"English" | "বাংলা">("English");
@@ -41,13 +46,9 @@ const Account: React.FC<AccountProps> = ({ data }) => {
                     }
                     className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <option value="">Choose One...</option>
+                    <option defaultValue={language}>Choose One...</option>
                     {["English", "বাংলা"].map((lang) => (
-                      <option
-                        selected={lang === language}
-                        value={lang}
-                        key={lang}
-                      >
+                      <option value={lang} key={lang}>
                         {lang}
                       </option>
                     ))}
@@ -59,7 +60,8 @@ const Account: React.FC<AccountProps> = ({ data }) => {
                     postData={{
                       language,
                     }}
-                    settingsType="Account"
+                    mutate={mutate}
+                    toastMsg="Language Updated. Reloading, Please Wait"
                   />
                 </div>
               ) : (
@@ -111,7 +113,8 @@ const Account: React.FC<AccountProps> = ({ data }) => {
                     postData={{
                       password,
                     }}
-                    settingsType="Account"
+                    mutate={mutate}
+                    toastMsg="Password Changed Successfully"
                   />
                 </div>
               ) : (

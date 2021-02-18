@@ -22,6 +22,7 @@ const InputTextField: React.FC<InputTextFieldProps> = ({
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
       </label>
+
       <input
         className={`w-full bg-transparent text-md text-gray-500 font-semibold py-2 border-b focus:outline-none ${
           error
@@ -31,6 +32,7 @@ const InputTextField: React.FC<InputTextFieldProps> = ({
         {...props}
         ref={register}
       />
+
       <p className="text-red pt-2 font-semibold text-sm italic">
         {error ? error : " "}
       </p>

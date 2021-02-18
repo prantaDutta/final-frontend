@@ -1,5 +1,4 @@
 import { ThreeDots } from "@agney/react-loading";
-import { NextPageContext } from "next";
 import { withIronSession } from "next-iron-session";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -12,7 +11,7 @@ import {
   downloadImage,
   isObject,
   objectToArray,
-  redirectToLogin,
+  redirectToPage,
 } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import MarkAsButton from "../../../components/shared/MarkAsButton";
@@ -211,20 +210,16 @@ const request: React.FC<requestProps> = ({ user, request }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async (context: NextPageContext) => {
-    const user = (context.req as any).session.get("user");
-    if (!user) {
-      await redirectToLogin(context.req, context.res);
-      return { props: {} };
-    }
+export const getServerSideProps = withIronSession(async ({ req, res }) => {
+  const user = req.session.get("user");
+  if (!user) {
+    await redirectToPage(req, res, "/login");
+    return { props: {} };
+  }
 
-    const request: any = context.query.request;
-    return {
-      props: { user, request },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user },
+  };
+}, NEXT_IRON_SESSION_CONFIG);
 
 export default request;

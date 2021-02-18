@@ -2,6 +2,7 @@ import { withIronSession } from "next-iron-session";
 import Layout from "../components/layouts/Layout";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { ModifiedUserData } from "../utils/randomTypes";
+import React from "react";
 
 interface aboutProps {
   user: ModifiedUserData;

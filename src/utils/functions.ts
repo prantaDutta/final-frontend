@@ -30,21 +30,23 @@ export function random32BitString() {
 //   return data;
 // };
 
-export const redirectToLogin = async (
+// Redirecting to a specific page
+export const redirectToPage = async (
   req: IncomingMessage | undefined,
-  res: ServerResponse | undefined
+  res: ServerResponse | undefined,
+  url: string
 ) => {
   if (!req) {
     //  On client
     await logout();
     const router = useRouter();
-    return router.replace("/login");
+    return router.replace(url);
   } else if (req) {
     // On Server
     try {
       await logout();
       res?.writeHead(302, {
-        Location: `${BASE_URL}/login`,
+        Location: `${BASE_URL}${url}`,
       });
       return res?.end();
     } catch (e) {
