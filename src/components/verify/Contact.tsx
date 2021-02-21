@@ -124,6 +124,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
 
   const watchMobileNo = watch("mobileNo");
   const watchEmail = watch("email");
+  console.log("userdata: ", userData);
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -206,7 +207,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
           )}
           <div className={`flex items-end px-4`}>
             <InputMobileNoField
-              defaultValue={verificationValues?.mobileNo}
+              defaultValue={verificationValues?.mobileNo || userData?.mobileNo}
               name="mobileNo"
               halfWidth
               label="Your Mobile No."

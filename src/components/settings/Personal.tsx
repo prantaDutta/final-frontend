@@ -38,7 +38,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
     data ? data.verification?.zipCode : ""
   );
   const [getMobileNo, setMobileNoValue] = useState(
-    data ? data.verification?.mobileNo : ""
+    data ? data.user?.mobileNo : ""
   );
   const [getEmail, setEmailValue] = useState(data ? data.user.email : "");
   const [showAddressField, setAddressField] = useState<boolean>(false);
@@ -332,8 +332,8 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                   <div>
                     <p className="text-lg font-bold">Mobile No</p>
                     <p className="text-sm font-semibold text-gray-600">
-                      {data?.verification?.mobileNo
-                        ? "+880" + data?.verification?.mobileNo
+                      {data?.user?.mobileNo
+                        ? "+880" + data?.user?.mobileNo
                         : null}
                     </p>
                   </div>

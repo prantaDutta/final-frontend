@@ -98,16 +98,19 @@ const Images: React.FC<ImagesProps> = ({}) => {
       if (!isProduction)
         console.log("Verification Values: ", totalVerificationValues);
       try {
-        const response = await laravelApi().post("/user/verify", {
+        const {
+          data: { data },
+        } = await laravelApi().post("/user/verify", {
           values: totalVerificationValues,
         });
-        if (!isProduction) console.log("Response: ", response);
+        if (!isProduction) console.log("data: ", data);
         notify("Your Verification Request is Accepted", {
           type: "success",
         });
         setStep(0);
         setSubmitting(false);
         setValues(null);
+        await axios.post("/api/set-user-cookie", { data });
         return router.push("/dashboard");
       } catch (e) {
         console.log(e.response);

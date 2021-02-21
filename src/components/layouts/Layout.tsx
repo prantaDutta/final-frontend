@@ -22,9 +22,9 @@ const Layout: React.FC<LayoutProps> = ({ children, data }) => {
   }, [userData]);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Nav />
-      {children}
+      <div className="flex-grow">{children}</div>
       <Footer />
     </div>
   );

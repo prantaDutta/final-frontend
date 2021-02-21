@@ -8,6 +8,7 @@ export type ModifiedUserData = {
   email: string;
   verified: string;
   balance: number;
+  mobileNo: number;
 };
 
 export type UserAuthValues = {

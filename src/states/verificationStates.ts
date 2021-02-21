@@ -20,3 +20,8 @@ export const verificationSubmitting = atom<boolean>({
   key: "verification-state",
   default: false,
 });
+
+export const verificationWarning = atom<boolean>({
+  key: "verification-warning",
+  default: false,
+});

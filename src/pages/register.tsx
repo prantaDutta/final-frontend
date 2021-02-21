@@ -54,10 +54,10 @@ const Register: React.FC<registerProps> = ({ user }) => {
       toggleAuth(true);
       setUserData(data);
       await axios.post("/api/set-user-cookie", { data: data });
-      notify(`Welcome, ${data.name}`, {
-        type: "success",
+      notify(`Welcome, Verify Your Mobile No`, {
+        type: "warning",
       });
-      await router.push("/verify");
+      await router.push("/verify-mobile-no");
     } catch (e) {
       if (!isProduction) console.log(e.response);
       notify("Something Went Wrong, Please Try Again", {
