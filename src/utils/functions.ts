@@ -154,3 +154,43 @@ export const clearSWRCache = async () => {
   cache.clear();
   await new Promise(requestAnimationFrame);
 };
+
+export const distributeLenderAmount = (amount: number) => {
+  if (!amount || amount > 500) return [];
+  const divideBy = amount / 500;
+  let arr: number[] = [];
+  for (let i = 1; i >= divideBy; i++) {
+    arr.push(i * 500);
+  }
+  return arr;
+};
+
+export const getUniqueArray = (array: any[]) => {
+  var uniqueArray: any[] = [];
+
+  // Loop through array values
+  for (let i = 0; i < array.length; i++) {
+    if (uniqueArray.indexOf(array[i]) === -1) {
+      uniqueArray.push(array[i]);
+    }
+  }
+  return uniqueArray;
+};
+
+export function removeDuplicatesArray(inArray: any[]) {
+  var arr = inArray.concat(); // create a clone from inArray so not to change input array
+  //create the first cycle of the loop starting from element 0 or n
+  for (var i = 0; i < arr.length; ++i) {
+    //create the second cycle of the loop from element n+1
+    for (var j = i + 1; j < arr.length; ++j) {
+      //if the two elements are equal , then they are duplicate
+      if (arr[i].value === arr[j].value) {
+        arr.splice(j, 1); //remove the duplicated element
+      }
+      // if (arr[i].selected === arr[j].selected) {
+      //   console.log("checking ", arr[i], "and ", arr[j]);
+      // }
+    }
+  }
+  return arr;
+}

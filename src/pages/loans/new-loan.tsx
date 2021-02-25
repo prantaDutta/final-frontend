@@ -5,20 +5,20 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
+import { mutate } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
+import DashboardTitle from "../../components/shared/DashboardTitle";
 import ReactLoader from "../../components/shared/ReactLoader";
 import Yup from "../../lib/yup";
 import { newLoanFormValues } from "../../states/newLoanState";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { formatTwoDecimalPlaces, redirectToPage } from "../../utils/functions";
-import { ModifiedUserData } from "../../utils/randomTypes";
-import InputSelectField from "../../components/ReactHookForm/InputSelectField";
-import { numberTypes } from "../../utils/constantsArray";
 import { laravelApi } from "../../utils/api";
 import { calculateSimpleInterest } from "../../utils/calculatingInterests";
-import { mutate } from "swr";
-import DashboardTitle from "../../components/shared/DashboardTitle";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { numberTypes } from "../../utils/constantsArray";
+import { formatTwoDecimalPlaces, redirectToPage } from "../../utils/functions";
+import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
 
 interface newLoanProps {
@@ -235,7 +235,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
 
             <button
               type="submit"
-              className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full tracking-wide
+              className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                                 shadow-lg transition-css"
             >

@@ -1,15 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
 import { object } from "yup";
 import Layout from "../components/layouts/Layout";
 import InputMobileNoField from "../components/ReactHookForm/InputMobileNoField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
 import ReactLoader from "../components/shared/ReactLoader";
 import yup from "../lib/yup";
+import { authenticatedUserData } from "../states/userStates";
 import { laravelApi } from "../utils/api";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { redirectToPage } from "../utils/functions";
@@ -27,6 +30,7 @@ type VerifyMobileNoValues = {
 
 const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
   const router = useRouter();
+  const [, setUserData] = useRecoilState(authenticatedUserData);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [showOtpForm, setOtpForm] = useState<boolean>(false);
   const {
@@ -35,6 +39,7 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
     errors,
     watch,
     trigger,
+    setError,
   } = useForm<VerifyMobileNoValues>({
     resolver: yupResolver(
       object({
@@ -68,7 +73,14 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
         otp: values.otp,
       });
       if (!isProduction) console.log("data", data);
-      notify(`Your Mobile No Successfully Verified`, {
+
+      const {
+        data: { user },
+      } = await laravelApi().get("/user");
+      console.log("returned data: ", user);
+      setUserData(user);
+      await axios.post("/api/set-user-cookie", { data: user });
+      notify(`Your Mobile No is Successfully Verified`, {
         type: "success",
       });
       await router.push("/dashboard");
@@ -130,15 +142,22 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
                       if (!errors?.mobileNo) {
                         console.log("mobileNo: ", watchMobileNo);
                         setSubmitting(true);
-                        const { data } = await laravelApi().post(
-                          "/user/send-mobile-otp",
-                          {
-                            mobileNo: watchMobileNo,
-                          }
-                        );
-                        console.log("data: ", data);
+                        try {
+                          const { data } = await laravelApi().post(
+                            "/user/send-mobile-otp",
+                            {
+                              mobileNo: watchMobileNo,
+                            }
+                          );
+                          console.log("data: ", data);
+                          setOtpForm(true);
+                        } catch (e) {
+                          setError("mobileNo", {
+                            type: "manual",
+                            message: "Mobile No Already Taken",
+                          });
+                        }
                         setSubmitting(false);
-                        setOtpForm(true);
                       }
                     }}
                     className="bg-primary text-gray-100 p-3 my-4 w-full rounded-full tracking-wide
@@ -158,12 +177,15 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
 };
 
 export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
+  const user: ModifiedUserData = req.session.get("user");
   if (!user) {
     await redirectToPage(req, res, "/login");
     return { props: {} };
   }
 
+  if (!user?.mobileNo) {
+    await redirectToPage(req, res, "/dashboard");
+  }
   return {
     props: { user },
   };

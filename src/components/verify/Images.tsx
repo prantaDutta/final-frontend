@@ -107,7 +107,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         notify("Your Verification Request is Accepted", {
           type: "success",
         });
-        setStep(0);
+        setTimeout(() => setStep(0), 1000);
         setSubmitting(false);
         setValues(null);
         await axios.post("/api/set-user-cookie", { data });

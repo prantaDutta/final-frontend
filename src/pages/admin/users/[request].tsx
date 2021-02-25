@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
+import MarkAsButton from "../../../components/shared/MarkAsButton";
 import ReactLoader from "../../../components/shared/ReactLoader";
 import { BASE_URL, NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
@@ -14,12 +15,6 @@ import {
   redirectToPage,
 } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
-import MarkAsButton from "../../../components/shared/MarkAsButton";
-
-interface requestProps {
-  user: ModifiedUserData;
-  request: string;
-}
 
 interface ShowMultipleImageProps {
   photo: Array<any>;
@@ -75,11 +70,16 @@ const ShowImage: React.FC<ShowImageProps> = ({ name, url }) => {
   );
 };
 
-const request: React.FC<requestProps> = ({ user, request }) => {
+interface requestProps {
+  user: ModifiedUserData;
+  requestedUserId: string;
+}
+
+const request: React.FC<requestProps> = ({ user, requestedUserId }) => {
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
   let { data, isValidating } = useSWR(
-    mounted ? `/admin/user/${request}` : null
+    mounted ? `/admin/user/${requestedUserId}` : null
   );
   let photos;
   if (data) {
@@ -161,7 +161,7 @@ const request: React.FC<requestProps> = ({ user, request }) => {
                       {d[0]}
                     </td>
                     <td className="font-semibold border px-8 py-4 capitalize">
-                      {d[1]}
+                      {d[1].toString()}
                     </td>
                   </tr>
                 );
@@ -210,16 +210,20 @@ const request: React.FC<requestProps> = ({ user, request }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
+export const getServerSideProps = withIronSession(
+  async ({ req, res, query }) => {
+    const user = req.session.get("user");
+    if (!user) {
+      await redirectToPage(req, res, "/login");
+      return { props: {} };
+    }
 
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+    const requestedUserId: any = query.request;
+    return {
+      props: { user, requestedUserId },
+    };
+  },
+  NEXT_IRON_SESSION_CONFIG
+);
 
 export default request;

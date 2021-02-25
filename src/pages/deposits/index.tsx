@@ -1,43 +1,35 @@
 import { withIronSession } from "next-iron-session";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { Column } from "react-table";
+import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import {
-  isProduction,
-  LARAVEL_URL,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../utils/constants";
+import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
+import DashboardTitle from "../../components/shared/DashboardTitle";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import useSWR from "swr";
-import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { Column } from "react-table";
 
 interface dashboardProps {
   user: ModifiedUserData;
 }
 
 const Deposits: React.FC<dashboardProps> = ({ user }) => {
+  const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, isValidating } = useSWR(
     mounted ? `/user/get-all-deposits` : null
   );
   if (data && !isProduction) console.log("data: ", data);
-  const onClick = async () => {
-    try {
-      window.location.replace(`${LARAVEL_URL}/api/user/deposit`);
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
+
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
         <DashboardTitle title="Deposit Money" />
         <button
-          onClick={onClick}
+          onClick={() => router.push("/deposits/deposit-now")}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                   shadow-lg transition-css"
