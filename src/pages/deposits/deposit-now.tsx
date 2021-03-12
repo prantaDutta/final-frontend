@@ -125,7 +125,7 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
         return openPopUp();
       }
     }
-    notify("Please Select Atleast One Distributed Amount", {
+    notify("Please Select At least One Distributed Amount", {
       type: "error",
       toastId: "distributed-amount",
     });
