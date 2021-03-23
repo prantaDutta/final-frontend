@@ -1,4 +1,3 @@
-import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { withIronSession } from "next-iron-session";
@@ -11,7 +10,7 @@ import Layout from "../components/layouts/Layout";
 import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
 import InputSelectField from "../components/ReactHookForm/InputSelectField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/shared/ReactLoader";
+import SubmitButton from "../components/shared/SubmitButton";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
 import { laravelApi } from "../utils/api";
@@ -124,17 +123,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
             />
 
             <div className="mt-6">
-              <button
-                className="bg-primary text-gray-100 p-3 w-full rounded-full tracking-wide
-                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-                                shadow-lg transition-css"
-              >
-                {submitting ? (
-                  <ReactLoader component={<ThreeDots width="50" />} />
-                ) : (
-                  "Register"
-                )}
-              </button>
+              <SubmitButton submitting={submitting} title="Register" />
             </div>
           </form>
 

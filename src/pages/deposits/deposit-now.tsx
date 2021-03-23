@@ -14,12 +14,8 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import Yup from "../../lib/yup";
 import { authenticatedUserData } from "../../states/userStates";
 import { laravelApi } from "../../utils/api";
-import {
-  isProduction,
-  LARAVEL_URL,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../utils/constants";
-import { redirectToPage, removeDuplicatesArray } from "../../utils/functions";
+import { LARAVEL_URL, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
 
@@ -27,49 +23,57 @@ interface DepositNowProps {
   user: ModifiedUserData;
 }
 
-type singleDistributed = {
-  value: number;
-  selected: boolean;
-};
-
 type DepositNowValues = {
   amount: number;
+  maximumDistributedAmount: number;
 };
 
 const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   const router = useRouter();
-  // This is to re render the component
-  const [reRender, setReRender] = useState(false);
-  useEffect(() => {}, [reRender]);
   // setting up localstorage
-  const [distributedLenderArray, setDistributedLenderArray] = useLocalStorage<
-    singleDistributed[]
-  >("distributedLenderArray", []);
-
   const [lastDepositedAmount, setLastDepositedAmount] = useLocalStorage<
     number | string | null
   >("lastDepositedAmount", null);
+  const [
+    lastMaximumDistributedAmount,
+    setLastMaximumDistributedAmount,
+  ] = useLocalStorage<number | string | null>(
+    "lastMaximumDistributedAmount",
+    null
+  );
   const [, setUserData] = useRecoilState(authenticatedUserData);
   const [submitting, setSubmitting] = useState<boolean>(false);
-  // This array will save the selected array
-  const [distributedArray, setDistributedArray] = useState<singleDistributed[]>(
-    distributedLenderArray ? distributedLenderArray : []
-  );
 
-  // this array will map the checkboxes
-  // this will also merge with distributedLenderArray from localstorage
-  const [tempDistributedArray, setTempDistributedArray] = useState<
-    singleDistributed[]
-  >(distributedLenderArray ? distributedLenderArray : []);
-
-  const { register, watch, handleSubmit, errors } = useForm<DepositNowValues>({
-    mode: "onBlur",
+  const {
+    register,
+    watch,
+    handleSubmit,
+    errors,
+    setValue,
+  } = useForm<DepositNowValues>({
+    mode: "onChange",
     resolver: yupResolver(
       Yup.object({
         amount: Yup.number()
           .typeError("Amount must be a number")
-          .min(999.99, "Minimum Loan Amount is 1,000tk")
-          .max(50000, "Maximum Amount is 50.000tk.")
+          .min(999.99, "Minimum Deposit Amount is 1,000tk")
+          .max(50000, "Maximum Amount is 50,000tk")
+          .required("Required"),
+        maximumDistributedAmount: Yup.number()
+          .typeError("Maximum Distributed Amount must be a number")
+          .min(500, "Sorry, Maximum Distributed Amount must be over 500tk")
+          .max(
+            Yup.ref("amount") as any,
+            `Sorry, Amount Exceeds Deposited Amount`
+          )
+          .test(
+            "divisor-of-500",
+            "Amount Must be a multiplier of 500",
+            function (value) {
+              if (value && value >= 500) return value % 500 == 0;
+              return false;
+            }
+          )
           .required("Required"),
       })
     ),
@@ -79,12 +83,12 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   const openPopUp = async () => {
     setSubmitting(true);
     try {
-      var winObj = window.open(
+      const winObj = window.open(
         `${LARAVEL_URL}/api/user/deposit?amount=${watchAmount}`,
         "Deposit Money",
         "width=800,height=800,status=0,toolbar=0"
       );
-      var loop = setInterval(async function () {
+      const loop = setInterval(async function () {
         if (winObj?.closed) {
           clearInterval(loop);
           const {
@@ -105,51 +109,34 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
 
   // This function executes after user presses the submit button
   const onSubmit = async (values: DepositNowValues) => {
-    if (distributedArray.length > 0) {
-      console.log("tempDistributedArray", tempDistributedArray);
-      // Saving last deposited amount to the localstorage
-      setLastDepositedAmount(values.amount);
-      console.log("distributedLenderArray", distributedLenderArray);
-      // this final array will be saved to the database
-      let finalArray: number[] = [];
-      distributedLenderArray.forEach((arr: singleDistributed) => {
-        if (arr.selected) {
-          finalArray.push(arr.value);
-        }
+    const maximumDistributedAmount = values.maximumDistributedAmount;
+    setLastDepositedAmount(values.amount);
+    setLastMaximumDistributedAmount(maximumDistributedAmount);
+    console.log("values: ", values);
+
+    try {
+      await laravelApi().post("/user/save-loan-preferences", {
+        maximumDistributedAmount,
       });
-      if (!isProduction) console.log("final array: ", finalArray);
-      if (finalArray.length > 0) {
-        await laravelApi().post("/user/save-loan-preferences", {
-          distributedArray: finalArray,
-        });
-        return openPopUp();
-      }
+    } catch (e) {
+      notify("Please Select At least One Distributed Amount", {
+        type: "error",
+        toastId: "distributed-amount",
+      });
     }
-    notify("Please Select At least One Distributed Amount", {
-      type: "error",
-      toastId: "distributed-amount",
-    });
+    return openPopUp();
   };
   let watchAmount = watch("amount");
+  let temp: number;
 
   useEffect(() => {
-    if (watchAmount > 500) {
-      // maximum distributed amount is 5000
-      if (watchAmount > 5000) watchAmount = 5000;
-      let newArray: singleDistributed[] = [];
-      for (let i = 1; i <= watchAmount / 500; i++) {
-        newArray.push({
-          value: i * 500,
-          selected: false,
-        });
+    if (watchAmount && lastMaximumDistributedAmount !== watchAmount) {
+      if (watchAmount >= 1000) {
+        temp = watchAmount / 2;
+      } else if (watchAmount <= 500) {
+        temp = 500;
       }
-      // merging this array with the one in the localstorage
-      const mergedArray = removeDuplicatesArray([
-        ...distributedLenderArray,
-        ...newArray,
-      ]);
-      // saving merged array to temp array to loop through it
-      setTempDistributedArray(mergedArray);
+      setValue("maximumDistributedAmount", temp);
     }
   }, [watchAmount]);
 
@@ -166,58 +153,28 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
               <InputTextField
                 name="amount"
                 label="Deposit Amount"
-                defaultValue={lastDepositedAmount ? lastDepositedAmount : 1000}
+                defaultValue={
+                  lastDepositedAmount ? lastDepositedAmount : undefined
+                }
                 error={errors.amount?.message}
                 placeholder="Enter a amount between 1,000-50,000 tk"
                 register={register}
               />
             </div>
-            {watchAmount >= 500 && (
-              <div className="px-8 w-full mt-6">
-                <label className="text-md font-bold text-gray-700 tracking-wide">
-                  Select Distributed Amount
-                </label>
-                <div className="flex flex-wrap items-center justify-start">
-                  {tempDistributedArray.map((arr: any, i: number) => {
-                    return (
-                      <div
-                        className="flex items-center gap-4 my-2 px-4"
-                        key={i}
-                      >
-                        <input
-                          name={`distributedArray[${i}]`}
-                          value={arr.selected}
-                          // checked={arr.selected}
-                          className={`bg-transparent text-md text-gray-500 font-semibold py-2 border-b focus:outline-none border-red-600 focus:border-red-600"`}
-                          type="checkbox"
-                          ref={register}
-                          defaultChecked={distributedLenderArray[i].selected}
-                          // this onChange function sucks
-                          // First we get the checked value
-                          // then re-rendered the component to get the latest value
-                          // then changed the distributed array
-                          // then changed the lenderDistributedArray in the localstorage
-                          onChange={(e) => {
-                            tempDistributedArray[i].selected =
-                              e.currentTarget.checked;
-                            setReRender(!reRender);
-                            setDistributedArray([
-                              ...distributedArray,
-                              tempDistributedArray[i],
-                            ]);
-                            setDistributedLenderArray([
-                              ...distributedArray,
-                              tempDistributedArray[i],
-                            ]);
-                          }}
-                        />
-                        <p className="font-semibold">{arr.value}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+            <div className="px-4">
+              <InputTextField
+                name="maximumDistributedAmount"
+                label="Maximum Distributed Amount"
+                defaultValue={
+                  lastMaximumDistributedAmount
+                    ? lastMaximumDistributedAmount
+                    : undefined
+                }
+                error={errors.maximumDistributedAmount?.message}
+                placeholder="Enter the Maximum Distributed Amount"
+                register={register}
+              />
+            </div>
 
             <SubmitButton submitting={submitting} title="Deposit" />
           </form>

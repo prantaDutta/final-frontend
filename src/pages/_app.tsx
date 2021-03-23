@@ -2,13 +2,13 @@ import axios from "axios";
 import type { AppProps } from "next/app";
 import NextNprogress from "nextjs-progressbar";
 import React from "react";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import "../styles/index.css";
-import { BASE_URL, isProduction } from "../utils/constants";
 import { laravelApi } from "../utils/api";
-import { Slide, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL, isProduction } from "../utils/constants";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -52,6 +52,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
           body {
             background: #eee;
             min-height: 100vh;
+            font-family: "Nunito", monospace;
           }
         `}
       </style>

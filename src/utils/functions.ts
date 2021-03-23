@@ -50,7 +50,7 @@ export const redirectToPage = async (
       });
       return res?.end();
     } catch (e) {
-      console.log(e.response);
+      console.log("Something Happened when redirecting to login");
     }
   }
 };

@@ -1,15 +1,15 @@
-import { ModifiedUserData } from "../../utils/randomTypes";
 import { withIronSession } from "next-iron-session";
-import { formatDate, redirectToPage } from "../../utils/functions";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
-import useSWR, { trigger } from "swr";
 import { Cell, Column } from "react-table";
+import useSWR, { trigger } from "swr";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
+import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
+import DashboardTitle from "../../components/shared/DashboardTitle";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { laravelApi } from "../../utils/api";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { redirectToPage } from "../../utils/functions";
+import { ModifiedUserData } from "../../utils/randomTypes";
 
 interface NotificationsProps {
   user: ModifiedUserData;
@@ -61,10 +61,14 @@ export const NotificationsTableHeader: Column[] = [
     Header: "Notification",
     accessor: "data.msg",
   },
+  // {
+  //   Header: "Created At",
+  //   accessor: "updatedAt",
+  //   Cell: ({ value }: Cell) => formatDate(value, "MMM D, YYYY h:mm A"),
+  // },
   {
     Header: "Created At",
-    accessor: "updatedAt",
-    Cell: ({ value }: Cell) => formatDate(value, "MMM D, YYYY h:mm A"),
+    accessor: "diffForHumans",
   },
   {
     Header: "Action",
@@ -72,7 +76,7 @@ export const NotificationsTableHeader: Column[] = [
     Cell: ({ value }: Cell) => (
       <svg
         onClick={async () => {
-          await laravelApi().post(`/user/notification/${value}`);
+          await laravelApi().post(`/user/delete-single-notification/${value}`);
           await trigger("/user/get-all-notifications");
         }}
         className="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"

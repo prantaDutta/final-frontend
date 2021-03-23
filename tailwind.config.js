@@ -47,6 +47,9 @@ module.exports = {
       spacing: {
         0.5: "0.15rem",
       },
+      fontFamily: {
+        body: ["Nunito"],
+      },
     },
   },
   variants: {

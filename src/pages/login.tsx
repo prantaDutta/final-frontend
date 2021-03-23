@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import Layout from "../components/layouts/Layout";
 import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
 import InputTextField from "../components/ReactHookForm/InputTextField";
-import ReactLoader from "../components/shared/ReactLoader";
+import SubmitButton from "../components/shared/SubmitButton";
 import { authStatus } from "../states/authStates";
 import { authenticatedUserData } from "../states/userStates";
 import { laravelApi } from "../utils/api";
@@ -102,13 +102,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
                   Forgot Password?
                 </a>
               </div>
-              <button
-                className="bg-primary text-gray-100 p-3 w-full rounded-full tracking-wide
-                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
-                                shadow-lg transition-css"
-              >
-                {submitting ? <ReactLoader /> : "Log In"}
-              </button>
+              <SubmitButton submitting={submitting} title="Log In" />
             </div>
           </form>
           <div className="mt-6 text-sm font-display font-semibold text-gray-700 text-center">

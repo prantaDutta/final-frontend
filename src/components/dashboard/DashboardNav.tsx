@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useSWR from "swr";
 import { authStatus } from "../../states/authStates";
+import { newLoanFormValues } from "../../states/newLoanState";
 import { authenticatedUserData } from "../../states/userStates";
 import { verificationFormValues } from "../../states/verificationStates";
 import { logout } from "../../utils/auth";
-import { isProduction } from "../../utils/constants";
 
 interface MainContentNavProps {}
 
@@ -16,10 +16,11 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
   const [, toggleAuth] = useRecoilState(authStatus);
   const userData = useRecoilValue(authenticatedUserData);
   const [, setVerifyData] = useRecoilState(verificationFormValues);
+  const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues);
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data } = useSWR(mounted ? `/user/dashboard-notifications` : null);
-  if (!isProduction) console.log("data: ", data);
+  // if (!isProduction) console.log("data: ", data);
   const [showNotificationsDiv, setNotificationsDiv] = useState<boolean>(false);
   return (
     <div className="flex justify-end items-center bg-gray-200 pr-4">
@@ -98,7 +99,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                   data.notifications.map((notification: any, i: number) => {
                     return (
                       <div key={notification.id}>
-                        <div className="flex justify-start items-start px-4 py-2 text-gray-800 text-sm font-bold">
+                        <div className="flex justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
                           <svg
                             className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
                             fill="none"
@@ -113,7 +114,12 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                               d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
                             />
                           </svg>{" "}
-                          <h4 className="px-2">{notification.data.msg}</h4>
+                          <div className="p-2 mr-2">
+                            <h4>{notification.data.msg}</h4>
+                            <p className="text-primary text-center">
+                              {notification.diffForHumans}
+                            </p>
+                          </div>
                           <svg
                             onClick={() => console.log("clicked")}
                             className="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
@@ -178,6 +184,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
             setLoggingOut(true);
             toggleAuth(false);
             setVerifyData(null);
+            setNewLoanFormValues(null);
             await logout();
             return router.push("/");
           }}

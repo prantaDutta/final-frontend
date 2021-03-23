@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authStatus } from "../../states/authStates";
 import { authenticatedUserData } from "../../states/userStates";
-import { linkArray } from "../../utils/randomTypes";
 import { logout } from "../../utils/auth";
+import { linkArray } from "../../utils/randomTypes";
 
 export const links: linkArray[] = [
   { href: "/", label: "Home" },
@@ -45,7 +45,7 @@ export default function Nav() {
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
-                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >
@@ -63,7 +63,7 @@ export default function Nav() {
                     await logout();
                     return router.push("/");
                   }}
-                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >
