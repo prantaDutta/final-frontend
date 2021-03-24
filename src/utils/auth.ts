@@ -6,6 +6,6 @@ export const logout = async () => {
     await axios.post("/api/set-user-cookie");
     await laravelApi().post(`/logout`);
   } catch (e) {
-    console.log(e.response);
+    console.log("Error in Automatic Logging out from auth logout function");
   }
 };

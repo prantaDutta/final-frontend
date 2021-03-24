@@ -76,7 +76,7 @@ export default function Nav() {
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
-                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >

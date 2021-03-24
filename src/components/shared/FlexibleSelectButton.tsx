@@ -1,5 +1,5 @@
-import ReactLoader from "./ReactLoader";
 import React from "react";
+import ReactLoader from "./ReactLoader";
 
 interface FlexibleSelectButtonProps {
   isValidating?: boolean;
@@ -25,7 +25,7 @@ const FlexibleSelectButton: React.FC<FlexibleSelectButtonProps> = ({
       ) : (
         <select
           value={selectValue}
-          className="bg-transparent font-semibold text-white"
+          className="bg-transparent font-semibold text-white capitalize"
           onChange={(e) => setSelectValue(e.target.value as any)}
         >
           {selectArray.map((values: any) => {
