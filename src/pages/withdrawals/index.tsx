@@ -1,14 +1,14 @@
 import { withIronSession } from "next-iron-session";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
+import DashboardTitle from "../../components/shared/DashboardTitle";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import useSWR from "swr";
-import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { useRouter } from "next/router";
 import { TransactionsTableHeader } from "../deposits";
 
 interface dashboardProps {
@@ -19,9 +19,7 @@ const Withdrawals: React.FC<dashboardProps> = ({ user }) => {
   const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, isValidating } = useSWR(
-    mounted ? `/user/get-all-withdrawals` : null
-  );
+  const { data, mutate } = useSWR(mounted ? `/user/get-all-withdrawals` : null);
   if (data && !isProduction) console.log("data: ", data);
 
   return (
@@ -42,10 +40,11 @@ const Withdrawals: React.FC<dashboardProps> = ({ user }) => {
         <ReadyMadeTable
           title="Latest Withdrawals"
           data={data.transactions}
-          isValidating={isValidating}
+          isValidating={!data}
           header={TransactionsTableHeader}
           pagination
           emptyMessage="You have never Withdrawn any Money"
+          mutateData={() => mutate()}
         />
       ) : (
         <FullWidthReactLoader />

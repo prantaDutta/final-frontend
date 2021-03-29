@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
+import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
+import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
+import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
 import { formatDate, redirectToPage } from "../../../utils/functions";
 import {
   ModifiedUserData,
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
-import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import DashboardTitle from "../../../components/shared/DashboardTitle";
-import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -28,7 +28,7 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const [transactionStatus, setStatus] = useState<
     "Pending" | "Completed" | "Failed" | "Canceled" | "all"
   >("Pending");
-  const { data, isValidating } = useSWR(
+  const { data, mutate } = useSWR(
     mounted
       ? `/admin/transactions/${transactionType}/${transactionStatus}`
       : null
@@ -41,23 +41,24 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
           selectValue={transactionType}
           setSelectValue={setType}
           selectArray={selectTransactionType}
-          isValidating={isValidating}
+          isValidating={!data}
         />
         <FlexibleSelectButton
           selectValue={transactionStatus}
           setSelectValue={setStatus}
           selectArray={selectTransactionStatusTypes}
-          isValidating={isValidating}
+          isValidating={!data}
         />
       </div>
       {data ? (
         <ReadyMadeTable
           title={`Transactions (${transactionType})`}
           data={data.requests}
-          isValidating={isValidating}
+          isValidating={!data}
           header={AdminTransactionsTableHeader}
           pagination
           emptyMessage="You Don't have new Withdrawal Requests"
+          mutateData={() => mutate()}
         />
       ) : (
         <FullWidthReactLoader />

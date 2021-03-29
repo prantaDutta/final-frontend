@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import ReactTable from "./ReactTable";
-import ReactLoader from "../shared/ReactLoader";
+import React, { useMemo, useState } from "react";
 import { Column } from "react-table";
+import ReactLoader from "../shared/ReactLoader";
+import ReactTable from "./ReactTable";
 
 interface ReadyMadeTableProps {
   title: string;
@@ -10,6 +10,7 @@ interface ReadyMadeTableProps {
   header: Column[];
   pagination?: boolean;
   emptyMessage: string;
+  mutateData: () => void;
 }
 
 const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
@@ -18,15 +19,43 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
   isValidating,
   header,
   emptyMessage,
+  mutateData,
   pagination = false,
 }) => {
   // creating columns and header for react table
   const columns = useMemo(() => header, [data]);
   const tableData = useMemo(() => data, [data]);
+
+  const [refreshing, setRefreshing] = useState(false);
   return (
     <>
       <div className="py-4 flex justify-between">
         <h1 className="text-3xl font-semibold capitalize">{title}</h1>
+        <button
+          onClick={() => {
+            setRefreshing(true);
+            mutateData();
+            setTimeout(() => {
+              setRefreshing(false);
+            }, 1000);
+          }}
+          className="edit-btn bg-primary"
+        >
+          <svg
+            className={`w-6 h-6 ${refreshing && "animate-spin"}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+        </button>
       </div>
       {!isValidating ? (
         data && data.length > 0 ? (

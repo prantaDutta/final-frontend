@@ -18,10 +18,17 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
   const [, setVerifyData] = useRecoilState(verificationFormValues);
   const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues);
   const [mounted, setMounted] = useState<boolean>(false);
+  // for balance reload animation
+  const [animate, setAnimate] = useState(false);
   useEffect(() => setMounted(true), []);
   const { data } = useSWR(mounted ? `/user/dashboard-notifications` : null);
   // if (!isProduction) console.log("data: ", data);
   const [showNotificationsDiv, setNotificationsDiv] = useState<boolean>(false);
+
+  // Fetch current balance
+  const { data: balanceData, mutate } = useSWR(
+    mounted ? `/user/balance` : null
+  );
   return (
     <div className="flex justify-end items-center bg-gray-200 pr-4">
       {userData?.role !== "admin" && (
@@ -44,8 +51,42 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
           </div>
 
           <div>
-            <h4>Balance: </h4>
-            <h4 className="font-semibold">Tk. {userData?.balance}</h4>
+            <h4>Available Balance: </h4>
+            <h4 className="font-bold">
+              <div className="flex">
+                <p>
+                  Tk.{" "}
+                  {balanceData
+                    ? balanceData.balance.toFixed(2)
+                    : (0).toFixed(2)}
+                </p>
+                <button
+                  className="pl-4 focus:outline-none focus:ring-0"
+                  onClick={async () => {
+                    setAnimate(true);
+                    setTimeout(() => {
+                      setAnimate(false);
+                    }, 1000);
+                    await mutate();
+                  }}
+                >
+                  <svg
+                    className={`w-4 h-4 ${animate && "animate-spin"}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </h4>
           </div>
         </div>
       )}
@@ -68,7 +109,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
         </div>
         <div>
           <h4 className="">Welcome, </h4>
-          <h4 className="font-semibold">{userData?.name}</h4>
+          <h4 className="font-bold">{userData?.name}</h4>
         </div>
       </div>
       <div className="p-4 relative flex items-center">
@@ -90,9 +131,11 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
         </button>
         {data && (
           <>
-            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1">
-              <span>{data?.count}</span>
-            </div>
+            {data?.count > 0 && (
+              <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1">
+                <span>{data?.count}</span>
+              </div>
+            )}
             {showNotificationsDiv && (
               <div className="mt-2 py-2 w-80 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-72 z-10">
                 {data.notifications.length > 0 ? (
@@ -101,7 +144,7 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                       <div key={notification.id}>
                         <div className="flex justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
                           <svg
-                            className="w-6 h-6 inline mt-0.5 mr-2 text-primary"
+                            className="w-6 h-6"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -110,8 +153,8 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                              strokeWidth={2}
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>{" "}
                           <div className="p-2 mr-2">

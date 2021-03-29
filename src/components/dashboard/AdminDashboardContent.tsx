@@ -1,11 +1,11 @@
-import DashboardTitle from "../shared/DashboardTitle";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { isProduction } from "../../utils/constants";
-import DashboardBubble from "./DashboardBubble";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import Link from "next/link";
 import { notify } from "../../utils/toasts";
+import DashboardTitle from "../shared/DashboardTitle";
+import FullWidthReactLoader from "../shared/FullWidthReactLoader";
+import DashboardBubble from "./DashboardBubble";
 
 interface DashboardContentProps {}
 
@@ -45,28 +45,29 @@ const AdminDashboardContent: React.FC<DashboardContentProps> = ({}) => {
 
       {data ? (
         <div className="grid grid-cols-2">
-          <Link href={`/admin/loans`}>
-            <div className="mt-5">
-              <DashboardBubble
-                title="Loan Requests"
-                shorterTitle={`${data.loans} New Loan Request(s)`}
-              />
-            </div>
-          </Link>
-          <Link href={`/admin/transactions`}>
-            <div className="mt-5">
-              <DashboardBubble
-                title="Withdrawal Requests"
-                shorterTitle={`${data.withdrawals} New Withdrawal Request(s)`}
-              />
-            </div>
-          </Link>
-
           <Link href={`/admin/users`}>
             <div className="mt-5">
               <DashboardBubble
                 title="Verification Requests"
                 shorterTitle={`${data.verifications} New Verification Request(s)`}
+              />
+            </div>
+          </Link>
+
+          <Link href={`/admin/loans`}>
+            <div className="mt-5">
+              <DashboardBubble
+                title="Loan Requests"
+                shorterTitle={`${data.loans} New Loan(s)`}
+              />
+            </div>
+          </Link>
+
+          <Link href={`/admin/transactions`}>
+            <div className="mt-5">
+              <DashboardBubble
+                title="Withdrawal Requests"
+                shorterTitle={`${data.withdrawals} New Withdrawal Request(s)`}
               />
             </div>
           </Link>

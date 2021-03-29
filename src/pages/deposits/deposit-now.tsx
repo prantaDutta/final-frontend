@@ -1,10 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
 import { trigger } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
@@ -12,7 +10,6 @@ import DashboardTitle from "../../components/shared/DashboardTitle";
 import SubmitButton from "../../components/shared/SubmitButton";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Yup from "../../lib/yup";
-import { authenticatedUserData } from "../../states/userStates";
 import { laravelApi } from "../../utils/api";
 import { LARAVEL_URL, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToPage } from "../../utils/functions";
@@ -41,7 +38,7 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
     "lastMaximumDistributedAmount",
     null
   );
-  const [, setUserData] = useRecoilState(authenticatedUserData);
+  // const [, setUserData] = useRecoilState(authenticatedUserData);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {
@@ -91,12 +88,13 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
       const loop = setInterval(async function () {
         if (winObj?.closed) {
           clearInterval(loop);
-          const {
-            data: { user },
-          } = await laravelApi().get("/user");
-          console.log("returned data: ", user);
-          setUserData(user);
-          await axios.post("/api/set-user-cookie", { data: user });
+          // const {
+          //   data: { user },
+          // } = await laravelApi().get("/user");
+          // console.log("returned data: ", user);
+          // setUserData(user);
+          // await axios.post("/api/set-user-cookie", { data: user });
+          await trigger("/user/balance");
           await trigger("/user/get-all-deposits");
           return router.push("/deposits");
         }

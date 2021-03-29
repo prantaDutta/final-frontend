@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-import { ModifiedUserData } from "../../utils/randomTypes";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import { useForm } from "react-hook-form";
-import InputTextField from "../../components/ReactHookForm/InputTextField";
-import InputSelectField from "../../components/ReactHookForm/InputSelectField";
-import { withdrawalMethodsTypes } from "../../utils/constantsArray";
-import { withIronSession } from "next-iron-session";
-import { redirectToPage } from "../../utils/functions";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Yup from "../../lib/yup";
-import ReactLoader from "../../components/shared/ReactLoader";
-import { laravelApi } from "../../utils/api";
-import { trigger } from "swr";
+import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { trigger } from "swr";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
+import InputSelectField from "../../components/ReactHookForm/InputSelectField";
+import InputTextField from "../../components/ReactHookForm/InputTextField";
+import DashboardTitle from "../../components/shared/DashboardTitle";
+import ReactLoader from "../../components/shared/ReactLoader";
+import Yup from "../../lib/yup";
+import { laravelApi } from "../../utils/api";
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { withdrawalMethodsTypes } from "../../utils/constantsArray";
+import { redirectToPage } from "../../utils/functions";
+import { ModifiedUserData } from "../../utils/randomTypes";
 
 interface withdrawProps {
   user: ModifiedUserData;
@@ -69,6 +69,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
       id: user?.id,
     });
     if (!isProduction) console.log("values", data);
+    await trigger("/user/balance");
     await trigger(`/user/get-all-withdrawals`);
     return router.push("/withdrawals");
   };
@@ -120,7 +121,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
 
             <button
               type="submit"
-              className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full tracking-wide
+              className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
                                 shadow-lg transition-css"
             >

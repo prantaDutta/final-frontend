@@ -18,7 +18,7 @@ interface NotificationsProps {
 const Notifications: React.FC<NotificationsProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, isValidating } = useSWR(
+  const { data, mutate } = useSWR(
     mounted ? `/user/get-all-notifications` : null
   );
   if (data && !isProduction) console.log("data: ", data);
@@ -30,10 +30,11 @@ const Notifications: React.FC<NotificationsProps> = ({ user }) => {
         <ReadyMadeTable
           title="Latest Notifications"
           data={data.notifications}
-          isValidating={isValidating}
+          isValidating={!data}
           header={NotificationsTableHeader}
           pagination
           emptyMessage="You don't have any Notifications"
+          mutateData={() => mutate()}
         />
       ) : (
         <FullWidthReactLoader />

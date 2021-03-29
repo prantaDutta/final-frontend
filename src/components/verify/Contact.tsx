@@ -149,8 +149,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
               register={register}
             />
             <button
-              className={`px-2 py-1 rounded-full bg-primary
-                      text-xs text-gray-200 font-semibold capitalize mb-2 cursor-not-allowed`}
+              className={`chip p-1.5 bg-primary mx-4 mb-2 cursor-not-allowed`}
             >
               {contactData?.email ? "verified" : "unverified"}
             </button>
@@ -158,7 +157,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
             <div className="flex">
               <button
                 type="button"
-                className="px-2 mx-4 py-1 rounded-full bg-primaryAccent text-xs text-gray-200 font-semibold capitalize mb-2 focus:outline-none focus:ring-primaryAccent focus:ring-2"
+                className="chip p-1.5 bg-primaryAccent mb-2 mx-4"
                 onClick={() => setEmailOtp(true)}
               >
                 Enter Otp
@@ -168,15 +167,24 @@ const Contact: React.FC<ContactProps> = ({}) => {
                 onClick={async () => {
                   setEmailSending(true);
                   // setEmailOtp(true);
-                  await laravelApi().post(`/send-verify-email`, {
-                    email: watchEmail,
-                  });
-                  notify("Email Sent. Check Your Inbox", {
-                    type: "success",
-                  });
+                  try {
+                    await laravelApi().post(`/send-verify-email`, {
+                      email: watchEmail,
+                    });
+                    notify("Email Sent. Check Your Inbox", {
+                      type: "success",
+                    });
+                  } catch (e) {
+                    console.log("Error Sending Message");
+                    notify("Problem Sending Email. Please Try Again", {
+                      type: "error",
+                    });
+                  }
                   setEmailSending(false);
                 }}
-                className="px-2 mx-4 py-1 rounded-full bg-primaryAccent text-xs text-gray-200 font-semibold capitalize mb-2 focus:outline-none focus:ring-primaryAccent focus:ring-2"
+                className={`chip ${
+                  emailSending ? "p-0" : "p-1.5"
+                } mx-4 mb-2 bg-primaryAccent`}
               >
                 {emailSending ? <ReactLoader /> : "Resend Email"}
               </button>
@@ -216,7 +224,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
               placeholder="i.e. 17XXXXXXXX"
             />
             <button
-              className={`px-2 py-1 rounded-full bg-primary
+              className={`px-2 mx-4 py-1 rounded-full bg-primary
                       text-xs text-gray-200 font-semibold capitalize mb-2 cursor-not-allowed`}
             >
               {mounted && contactData?.mobileNo ? "verified" : "unverified"}

@@ -19,9 +19,7 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, isValidating } = useSWR(
-    mounted ? `/user/get-all-deposits` : null
-  );
+  const { data, mutate } = useSWR(mounted ? `/user/get-all-deposits` : null);
   if (data && !isProduction) console.log("data: ", data);
 
   return (
@@ -42,10 +40,11 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
         <ReadyMadeTable
           title="Latest Deposits"
           data={data.transactions}
-          isValidating={isValidating}
+          isValidating={!data}
           header={TransactionsTableHeader}
           pagination
           emptyMessage="You Never Deposited Any Money"
+          mutateData={() => mutate()}
         />
       ) : (
         <FullWidthReactLoader />

@@ -219,6 +219,7 @@ export const getServerSideProps = withIronSession(
     }
 
     const requestedUserId: any = query.request;
+
     return {
       props: { user, requestedUserId },
     };

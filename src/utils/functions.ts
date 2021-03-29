@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { cache } from "swr";
 import { logout } from "./auth";
 import { BASE_URL } from "./constants";
+import { SelectOptionsTypes } from "./randomTypes";
 
 // export const verifyJWTToken = (accessToken: string) => {
 //   try {
@@ -48,7 +49,7 @@ export const redirectToPage = async (
       res?.writeHead(302, {
         Location: `${BASE_URL}${url}`,
       });
-      return res?.end();
+      res?.end();
     } catch (e) {
       console.log("Something Happened when redirecting to login");
     }
@@ -177,7 +178,7 @@ export const getUniqueArray = (array: any[]) => {
   return uniqueArray;
 };
 
-export function removeDuplicatesArray(inArray: any[]) {
+export const removeDuplicatesArray = (inArray: any[]) => {
   var arr = inArray.concat(); // create a clone from inArray so not to change input array
   //create the first cycle of the loop starting from element 0 or n
   for (var i = 0; i < arr.length; ++i) {
@@ -193,4 +194,17 @@ export function removeDuplicatesArray(inArray: any[]) {
     }
   }
   return arr;
-}
+};
+
+export const createSelectOptionsFromArray = (options: string[]) => {
+  let newOptionsArray: SelectOptionsTypes[] = [];
+
+  options.map((option) => {
+    newOptionsArray.push({
+      title: capitalize(option),
+      value: option,
+    });
+  });
+
+  return newOptionsArray;
+};

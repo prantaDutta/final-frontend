@@ -8,7 +8,7 @@ import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { loanModeSelectTypes } from "../admin/loans";
@@ -23,11 +23,9 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   useEffect(() => setMounted(true), []);
   const [loanType, setLoanType] = useState<
     "processing" | "ongoing" | "finished" | "all"
-  >("ongoing");
-  const { data, isValidating } = useSWR(
-    mounted ? `/user/loans/${loanType}` : "null"
-  );
-  if (data && !isProduction) console.log("data: ", data);
+  >("all");
+  const { data, mutate } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
+  // if (data && !isProduction) console.log("data: ", data);
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
@@ -36,7 +34,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
           selectValue={loanType}
           setSelectValue={setLoanType}
           selectArray={loanModeSelectTypes}
-          isValidating={isValidating}
+          isValidating={!data}
         />
         {user.role === "borrower" && (
           <button
@@ -54,10 +52,11 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
           <ReadyMadeTable
             title={`${loanType} Loans`}
             data={data.loans}
-            isValidating={isValidating}
+            isValidating={!data}
             header={LoanTableHeader}
             pagination
             emptyMessage="No Loans Found"
+            mutateData={() => mutate()}
           />
         ) : (
           <FullWidthReactLoader />

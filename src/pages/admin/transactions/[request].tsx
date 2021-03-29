@@ -1,17 +1,17 @@
-import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import { withIronSession } from "next-iron-session";
-import { formatDate, redirectToPage } from "../../../utils/functions";
+import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+import DashboardLayout from "../../../components/layouts/DashboardLayout";
+import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
+import MarkAsButton from "../../../components/shared/MarkAsButton";
 import {
   isProduction,
   NEXT_IRON_SESSION_CONFIG,
 } from "../../../utils/constants";
-import { ModifiedUserData } from "../../../utils/randomTypes";
-import React, { useEffect, useState } from "react";
-import ErrorPage from "../../404";
-import useSWR from "swr";
-import MarkAsButton from "../../../components/shared/MarkAsButton";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
+import { formatDate, redirectToPage } from "../../../utils/functions";
+import { ModifiedUserData } from "../../../utils/randomTypes";
+import ErrorPage from "../../404";
 
 interface WithdrawalRequestProps {
   user: ModifiedUserData;
@@ -104,14 +104,19 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
 
 export default WithdrawalRequests;
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
+export const getServerSideProps = withIronSession(
+  async ({ req, res, query }) => {
+    const user = req.session.get("user");
+    if (!user) {
+      await redirectToPage(req, res, "/login");
+      return { props: {} };
+    }
 
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+    const request: string = query.request;
+
+    return {
+      props: { user, request },
+    };
+  },
+  NEXT_IRON_SESSION_CONFIG
+);
