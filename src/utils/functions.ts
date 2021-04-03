@@ -46,9 +46,13 @@ export const redirectToPage = async (
     // On Server
     try {
       await logout();
-      res?.writeHead(302, {
-        Location: `${BASE_URL}${url}`,
-      });
+      try {
+        res?.writeHead(302, {
+          Location: BASE_URL + url,
+        });
+      } catch (e) {
+        console.log("Error Redirecting in redirectToPage Function");
+      }
       res?.end();
     } catch (e) {
       console.log("Something Happened when redirecting to login");
@@ -207,4 +211,22 @@ export const createSelectOptionsFromArray = (options: string[]) => {
   });
 
   return newOptionsArray;
+};
+
+// n is the amount per line
+//tweak this to add more items per line
+export const divideAnArrayIntoMultipleParts = (arr: [], n: number) => {
+  const result = [[], [], []]; //we create it, then we'll fill it
+
+  const wordsPerLine = Math.ceil(arr.length / 3);
+
+  for (let line = 0; line < n; line++) {
+    for (let i = 0; i < wordsPerLine; i++) {
+      const value = arr[i + line * wordsPerLine];
+      if (!value) continue; //avoid adding "undefined" values
+      result[line].push(value);
+    }
+  }
+
+  return result;
 };

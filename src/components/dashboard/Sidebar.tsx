@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { adminSidebarLinks, sideBarLinks } from "../../utils/constantsArray";
 import React from "react";
+import { adminSidebarLinks, sideBarLinks } from "../../utils/constantsArray";
 
 interface SidebarProps {
   role?: string;
@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
               <Link href={link.href} key={link.label}>
                 <div className="flex items-center">
                   <svg
-                    className="w-5 h-5 inline-block mx-3 mt-0.5"
+                    className="w-5 h-5 inline-block mx-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

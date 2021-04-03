@@ -31,7 +31,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle title="Loans" />
+        <DashboardTitle backButton={false} title="Loans" />
         <FlexibleSelectButton
           selectValue={requestType}
           setSelectValue={setRequestType}
@@ -139,6 +139,25 @@ export const loanModeSelectTypes: SelectOptionsTypes[] = [
   {
     title: "Finished",
     value: "finished",
+  },
+  {
+    title: "all",
+    value: "all",
+  },
+];
+
+export const installmentStatusSelectTypes: SelectOptionsTypes[] = [
+  {
+    title: "Due",
+    value: "due",
+  },
+  {
+    title: "Unpaid",
+    value: "unpaid",
+  },
+  {
+    title: "Paid",
+    value: "paid",
   },
   {
     title: "all",

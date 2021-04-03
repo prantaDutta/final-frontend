@@ -39,10 +39,11 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
               setRefreshing(false);
             }, 1000);
           }}
-          className="edit-btn bg-primary"
+          className="edit-btn flex items-center bg-primary"
         >
+          <h4 className="capitalize px-2">Refresh</h4>
           <svg
-            className={`w-6 h-6 ${refreshing && "animate-spin"}`}
+            className={`w-4 h-4 ${refreshing && "animate-spin"}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

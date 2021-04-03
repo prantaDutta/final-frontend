@@ -25,7 +25,7 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle title="Deposit Money" />
+        <DashboardTitle backButton={false} title="Deposit Money" />
         <button
           onClick={() => router.push("/deposits/deposit-now")}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide

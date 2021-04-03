@@ -41,7 +41,7 @@ const AdminDashboardContent: React.FC<DashboardContentProps> = ({}) => {
   }
   return (
     <div>
-      <DashboardTitle title="Dashboard" />
+      <DashboardTitle backButton={false} title="Dashboard" />
 
       {data ? (
         <div className="grid grid-cols-2">

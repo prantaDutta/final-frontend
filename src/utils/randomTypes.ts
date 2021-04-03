@@ -112,3 +112,8 @@ export type ImagesVerificationFormValues = {
   salarySlip: Array<[File]>;
   employeeIdCard: Array<[File]>;
 };
+
+export type PenaltyData = {
+  day: number;
+  amount: number;
+};

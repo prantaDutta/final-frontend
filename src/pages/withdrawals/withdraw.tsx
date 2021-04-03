@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { trigger } from "swr";
+import useSWR, { trigger } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
@@ -37,6 +37,25 @@ export const withdrawalMethodsArray: [string, string, string, string] = [
 const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   const router = useRouter();
   const [isSubmitting, setSubmitting] = useState<boolean>();
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => setMounted(true), []);
+  const { data: balanceData, mutate } = useSWR(
+    mounted ? `/user/balance` : null
+  );
+
+  const submitHandler = async (values: withdrawFormTypes) => {
+    setSubmitting(true);
+    const { data } = await laravelApi().post("/user/withdraw", {
+      values,
+      id: user?.id,
+    });
+    if (!isProduction) console.log("values", data);
+    await mutate();
+    await trigger(`/user/get-all-withdrawals`);
+    return router.push("/withdrawals");
+  };
+
   const { register, handleSubmit, errors } = useForm<withdrawFormTypes>({
     resolver: yupResolver(
       Yup.object({
@@ -46,7 +65,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
           .test(
             "Insufficient Amount",
             "Oops, You don't have that much",
-            (value) => value! <= user?.balance
+            (value) => value! <= balanceData?.balance
           )
           .required("Required"),
         method: Yup.string()
@@ -62,17 +81,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
       })
     ),
   });
-  const submitHandler = async (values: withdrawFormTypes) => {
-    setSubmitting(true);
-    const { data } = await laravelApi().post("/user/withdraw", {
-      values,
-      id: user?.id,
-    });
-    if (!isProduction) console.log("values", data);
-    await trigger("/user/balance");
-    await trigger(`/user/get-all-withdrawals`);
-    return router.push("/withdrawals");
-  };
+
   return (
     <DashboardLayout data={user}>
       <DashboardTitle title="Withdraw Now" />
@@ -86,39 +95,42 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
           </div>
           <p className="pt-2 text-xl font-semibold">Enter the following Data</p>
           <form onSubmit={handleSubmit(submitHandler)}>
-            <InputTextField
-              name="amount"
-              label="Withdrawal Amount"
-              error={errors.amount?.message}
-              placeholder="Enter Amount (Min. 1000)"
-              register={register}
-            />
+            <div className="flex px-4">
+              <InputTextField
+                name="amount"
+                label="Withdrawal Amount"
+                error={errors.amount?.message}
+                placeholder="Enter Amount (Min. 1000)"
+                register={register}
+              />
 
-            <InputSelectField
-              name="method"
-              label="Select Withdrawal Method"
-              error={errors.method?.message}
-              options={withdrawalMethodsTypes()}
-              register={register}
-            />
+              <InputSelectField
+                name="method"
+                label="Select Withdrawal Method"
+                error={errors.method?.message}
+                options={withdrawalMethodsTypes()}
+                register={register}
+              />
+            </div>
 
-            <InputTextField
-              name="trxID"
-              label="Transaction Number / TrxID"
-              error={errors.trxID?.message}
-              placeholder="Enter TrxID"
-              register={register}
-            />
+            <div className="flex px-4">
+              <InputTextField
+                name="trxID"
+                label="Transaction Number / TrxID"
+                error={errors.trxID?.message}
+                placeholder="Enter TrxID"
+                register={register}
+              />
 
-            <InputTextField
-              name="password"
-              label="Your Password"
-              error={errors.password?.message}
-              placeholder="Enter Your Password"
-              type="password"
-              register={register}
-            />
-
+              <InputTextField
+                name="password"
+                label="Your Password"
+                error={errors.password?.message}
+                placeholder="Enter Your Password"
+                type="password"
+                register={register}
+              />
+            </div>
             <button
               type="submit"
               className="mt-5 bg-primary tracking-widest uppercase text-gray-100 p-3 w-full rounded-full

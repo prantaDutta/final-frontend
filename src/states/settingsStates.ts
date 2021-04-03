@@ -1,8 +1,9 @@
 import { atom } from "recoil";
+import { PenaltyData } from "../utils/randomTypes";
 
 export const personalExpand = atom<boolean>({
   key: "personal-expand",
-  default: false,
+  default: true,
 });
 
 export const accountExpand = atom<boolean>({
@@ -13,4 +14,14 @@ export const accountExpand = atom<boolean>({
 export const securityExpand = atom<boolean>({
   key: "security-expand",
   default: false,
+});
+
+export const administrationExpand = atom<boolean>({
+  key: "administration-expand",
+  default: false,
+});
+
+export const penaltyDataStates = atom<PenaltyData[] | null>({
+  key: "penalty-data",
+  default: null,
 });

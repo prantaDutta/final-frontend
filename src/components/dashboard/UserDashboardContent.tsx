@@ -1,11 +1,11 @@
-import DashboardTitle from "../shared/DashboardTitle";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { isProduction } from "../../utils/constants";
-import DashboardBubble from "./DashboardBubble";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import Link from "next/link";
 import { notify } from "../../utils/toasts";
+import DashboardTitle from "../shared/DashboardTitle";
+import FullWidthReactLoader from "../shared/FullWidthReactLoader";
+import DashboardBubble from "./DashboardBubble";
 
 interface DashboardContentProps {}
 
@@ -34,7 +34,7 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({}) => {
   }
   return (
     <div className="">
-      <DashboardTitle title="Dashboard" />
+      <DashboardTitle title="Dashboard" backButton={false} />
 
       {data ? (
         <div className="grid grid-cols-2">

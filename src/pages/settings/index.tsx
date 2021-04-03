@@ -1,15 +1,15 @@
 import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import Account from "../../components/settings/Account";
 import Personal from "../../components/settings/Personal";
+import Security from "../../components/settings/Security";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
-import useSWR from "swr";
-import Account from "../../components/settings/Account";
-import Security from "../../components/settings/Security";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 
 interface SettingsProps {
   user: ModifiedUserData;
@@ -21,7 +21,7 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
   const { data, mutate } = useSWR(mounted ? `/user/` : null);
   return (
     <DashboardLayout data={user}>
-      <DashboardTitle title="Settings" />
+      <DashboardTitle backButton={false} title="Settings" />
       {data ? (
         <>
           <Personal data={data} mutate={mutate} />

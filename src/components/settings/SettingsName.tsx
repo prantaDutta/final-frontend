@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import {
   accountExpand,
+  administrationExpand,
   personalExpand,
   securityExpand,
 } from "../../states/settingsStates";
@@ -22,6 +23,9 @@ const SettingsName: React.FC<SettingsNameProps> = ({
   const [personal, setPersonalExpand] = useRecoilState(personalExpand);
   const [account, setAccountExpand] = useRecoilState(accountExpand);
   const [security, setSecurityExpand] = useRecoilState(securityExpand);
+  const [administration, setAdministrationExpand] = useRecoilState(
+    administrationExpand
+  );
   return (
     <div
       onClick={() => {
@@ -29,14 +33,22 @@ const SettingsName: React.FC<SettingsNameProps> = ({
           setPersonalExpand(!personal);
           setAccountExpand(false);
           setSecurityExpand(false);
+          setAdministrationExpand(false);
         } else if (current === "account") {
           setPersonalExpand(false);
           setAccountExpand(!account);
           setSecurityExpand(false);
-        } else {
+          setAdministrationExpand(false);
+        } else if (current === "security") {
           setPersonalExpand(false);
           setAccountExpand(false);
           setSecurityExpand(!security);
+          setAdministrationExpand(false);
+        } else if (current === "administration") {
+          setPersonalExpand(false);
+          setAccountExpand(false);
+          setSecurityExpand(false);
+          setAdministrationExpand(!administration);
         }
       }}
       className={`mt-5 bg-primary text-white rounded-2xl px-3 flex justify-between items-center text-center cursor-pointer transition-css`}

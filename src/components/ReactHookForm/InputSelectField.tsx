@@ -23,22 +23,38 @@ const InputSelectField: React.FC<InputSelectFieldProps> = ({
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
       </label>
-      <select
-        className={`w-full text-md text-gray-500 font-semibold py-2 border-b focus:outline-none ${
-          error
-            ? "border-red-600 focus:border-red-600"
-            : "border-gray-300 focus:border-indigo-500"
-        }`}
-        {...props}
-        ref={register}
-      >
-        <option value="Default">Choose One...</option>
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.title}
-          </option>
-        ))}
-      </select>
+      <div className="flex justify-between items-center">
+        <select
+          className={`w-full text-md text-gray-500 font-semibold py-2 border-b focus:outline-none ${
+            error
+              ? "border-red-600 focus:border-red-600"
+              : "border-gray-300 focus:border-indigo-500"
+          }`}
+          {...props}
+          ref={register}
+        >
+          <option value="Default">Choose One...</option>
+          {options?.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.title}
+            </option>
+          ))}
+        </select>
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+          />
+        </svg>
+      </div>
 
       <p className="text-red pt-2 font-semibold text-sm italic">
         {error ? error : " "}

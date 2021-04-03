@@ -25,7 +25,7 @@ const Withdrawals: React.FC<dashboardProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle title="Withdraw Money" />
+        <DashboardTitle backButton={false} title="Withdraw Money" />
         <button
           onClick={() => router.push("/withdrawals/withdraw")}
           className="bg-primary text-white p-3 w-1/3 rounded-full tracking-wide

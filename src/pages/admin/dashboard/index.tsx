@@ -1,10 +1,10 @@
 import { withIronSession } from "next-iron-session";
 import React from "react";
+import AdminDashboardContent from "../../../components/dashboard/AdminDashboardContent";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
 import { redirectToPage } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
-import AdminDashboardContent from "../../../components/dashboard/AdminDashboardContent";
 
 interface dashboardProps {
   user: ModifiedUserData;
