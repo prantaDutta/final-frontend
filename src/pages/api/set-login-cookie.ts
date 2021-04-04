@@ -5,14 +5,15 @@ import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 export default handler.post(async (req, res) => {
   const { data } = req.body;
 
+  if (!data) {
+    res.status(422).json("User Data Not Found");
+  }
+
   await applySession(req, res, NEXT_IRON_SESSION_CONFIG);
 
-  if (data) {
-    req.session.set("user", data);
-  } else {
-    req.session.unset("user");
-  }
+  req.session.set("user", data);
+
   await req.session.save();
-  // res.setHeader("cache-control", "no-store, max-age=0");
-  return res.status(200).json("Session Changed");
+
+  res.status(200).json("Session Changed");
 });

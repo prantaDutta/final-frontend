@@ -79,7 +79,7 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
       } = await laravelApi().get("/user");
       console.log("returned data: ", user);
       setUserData(user);
-      await axios.post("/api/set-user-cookie", { data: user });
+      await axios.post("/api/set-login-cookie", { data: user });
       notify(`Your Mobile No is Successfully Verified`, {
         type: "success",
       });
@@ -183,7 +183,7 @@ export const getServerSideProps = withIronSession(async ({ req, res }) => {
     return { props: {} };
   }
 
-  if (!user?.mobileNo) {
+  if (user?.mobileNoVerified) {
     await redirectToPage(req, res, "/dashboard");
   }
   return {

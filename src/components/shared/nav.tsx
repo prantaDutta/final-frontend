@@ -30,6 +30,8 @@ export default function Nav() {
   const [auth, toggleAuth] = useRecoilState(authStatus);
   const userData = useRecoilValue(authenticatedUserData);
 
+  console.log("auth: ", auth);
+
   // rendering each nav items
   const NavItems: React.FC<NavItemsProps> = ({ links }) => {
     return (

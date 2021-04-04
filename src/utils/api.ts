@@ -1,7 +1,7 @@
 import axios from "axios";
-import { isServer, LARAVEL_URL } from "./constants";
 import { useRouter } from "next/router";
 import { logout } from "./auth";
+import { isServer, LARAVEL_URL } from "./constants";
 
 export const laravelApi = (nonApiRoute = false) => {
   const api = axios.create({
@@ -14,7 +14,7 @@ export const laravelApi = (nonApiRoute = false) => {
     async (error) => {
       try {
         if (error.response.status === 401) {
-          await axios.post("/api/set-user-cookie");
+          await axios.post("/api/set-login-cookie");
           if (!isServer) {
             return location.reload();
           } else {

@@ -47,7 +47,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
       if (!isProduction) console.log(data);
       toggleAuth(true);
       setUserData(data);
-      await axios.post("/api/set-user-cookie", { data });
+      await axios.post("/api/set-login-cookie", { data });
       notify(`Welcome back, ${data.name}`, {
         type: "success",
       });

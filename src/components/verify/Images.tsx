@@ -110,7 +110,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         setTimeout(() => setStep(0), 1000);
         setSubmitting(false);
         setValues(null);
-        await axios.post("/api/set-user-cookie", { data });
+        await axios.post("/api/set-login-cookie", { data });
         return router.push("/dashboard");
       } catch (e) {
         console.log(e.response);

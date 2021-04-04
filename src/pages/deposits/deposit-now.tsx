@@ -93,7 +93,7 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
           // } = await laravelApi().get("/user");
           // console.log("returned data: ", user);
           // setUserData(user);
-          // await axios.post("/api/set-user-cookie", { data: user });
+          // await axios.post("/api/set-login-cookie", { data: user });
           await trigger("/user/balance");
           await trigger("/user/get-all-deposits");
           return router.push("/deposits");

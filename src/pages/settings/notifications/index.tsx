@@ -2,14 +2,17 @@ import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR, { trigger } from "swr";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { laravelApi } from "../../utils/api";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { redirectToPage } from "../../utils/functions";
-import { ModifiedUserData } from "../../utils/randomTypes";
+import DashboardLayout from "../../../components/layouts/DashboardLayout";
+import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
+import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
+import { laravelApi } from "../../../utils/api";
+import {
+  isProduction,
+  NEXT_IRON_SESSION_CONFIG,
+} from "../../../utils/constants";
+import { redirectToPage } from "../../../utils/functions";
+import { ModifiedUserData } from "../../../utils/randomTypes";
 
 interface NotificationsProps {
   user: ModifiedUserData;

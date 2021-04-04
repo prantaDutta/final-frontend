@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { authenticatedUserData } from "../../states/userStates";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import MainContentNav from ".././dashboard/DashboardNav";
@@ -19,7 +20,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   useEffect(() => setUserData(data), []);
 
-  const [verifyWarning, setVerifyWarning] = useState<boolean>(
+  const [verifyWarning, setVerifyWarning] = useLocalStorage(
+    "verify-warning",
     data.verified === "unverified" ? true : false
   );
   return (

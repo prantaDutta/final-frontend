@@ -6,6 +6,7 @@ import { authStatus } from "../../states/authStates";
 import { newLoanFormValues } from "../../states/newLoanState";
 import { authenticatedUserData } from "../../states/userStates";
 import { verificationFormValues } from "../../states/verificationStates";
+import { laravelApi } from "../../utils/api";
 import { logout } from "../../utils/auth";
 
 interface MainContentNavProps {}
@@ -21,9 +22,14 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
   // for balance reload animation
   const [animate, setAnimate] = useState(false);
   useEffect(() => setMounted(true), []);
-  const { data } = useSWR(mounted ? `/user/dashboard-notifications` : null);
+  const { data, mutate: NotifyMutate } = useSWR(
+    mounted ? `/user/dashboard-notifications` : null
+  );
   // if (!isProduction) console.log("data: ", data);
   const [showNotificationsDiv, setNotificationsDiv] = useState<boolean>(false);
+
+  // console.log("Auth: ", getAuth());
+  // console.log("Auth");
 
   // Fetch current balance
   const { data: balanceData, mutate } = useSWR(
@@ -114,7 +120,23 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
       </div>
       <div className="p-4 relative flex items-center">
         <button
-          onClick={() => setNotificationsDiv(!showNotificationsDiv)}
+          onClick={async () => {
+            setNotificationsDiv(!showNotificationsDiv);
+            if (showNotificationsDiv) {
+              let notificationIds: any[] = [];
+              data.notifications.map((notification: any) => {
+                notificationIds.push(notification.id);
+              });
+              try {
+                await laravelApi().post("/user/mark-three-as-notified", {
+                  notificationIds,
+                });
+              } catch (e) {
+                console.log("Problem Marking Notifications as read");
+              }
+              NotifyMutate();
+            }
+          }}
           className="relative block border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
         >
           <svg
@@ -137,12 +159,12 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
               </div>
             )}
             {showNotificationsDiv && (
-              <div className="mt-2 py-2 w-80 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-72 z-10">
+              <div className="mt-2 py-2 w-max bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-72 z-10">
                 {data.notifications.length > 0 ? (
                   data.notifications.map((notification: any, i: number) => {
                     return (
                       <div key={notification.id}>
-                        <div className="flex justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
+                        <div className="flex flex-grow justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
                           <svg
                             className="w-6 h-6"
                             fill="none"
@@ -158,13 +180,14 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                             />
                           </svg>{" "}
                           <div className="p-2 mr-2">
-                            <h4>{notification.data.msg}</h4>
+                            <h4 className="whitespace-nowrap">
+                              {notification.data.msg}
+                            </h4>
                             <p className="text-primary text-center">
                               {notification.diffForHumans}
                             </p>
                           </div>
                           <svg
-                            onClick={() => console.log("clicked")}
                             className="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
                             fill="none"
                             stroke="currentColor"
@@ -182,7 +205,9 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
                         {i < data.notifications.length - 1 && <hr />}
                         {i === data.notifications.length - 1 && (
                           <p
-                            onClick={() => router.push("/notifications")}
+                            onClick={() =>
+                              router.push("/settings/notifications")
+                            }
                             className="edit-btn text-center m-2"
                           >
                             All Notifications

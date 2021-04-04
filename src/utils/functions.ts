@@ -41,22 +41,22 @@ export const redirectToPage = async (
     //  On client
     await logout();
     const router = useRouter();
-    return router.replace(url);
-  } else if (req) {
-    // On Server
+    return router.push(url);
+  }
+  // On Server
+  try {
+    await logout();
+    res?.setHeader("cache-control", "no-store, max-age=0");
     try {
-      await logout();
-      try {
-        res?.writeHead(302, {
-          Location: BASE_URL + url,
-        });
-      } catch (e) {
-        console.log("Error Redirecting in redirectToPage Function");
-      }
-      res?.end();
+      res?.writeHead(302, {
+        Location: BASE_URL + url,
+      });
     } catch (e) {
-      console.log("Something Happened when redirecting to login");
+      console.log("Error Redirecting in redirectToPage Function");
     }
+    res?.end();
+  } catch (e) {
+    console.log("Something Happened when redirecting to login");
   }
 };
 

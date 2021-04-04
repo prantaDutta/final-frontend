@@ -52,7 +52,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
       if (!isProduction) console.log(data);
       toggleAuth(true);
       setUserData(data);
-      await axios.post("/api/set-user-cookie", { data: data });
+      await axios.post("/api/set-login-cookie", { data: data });
       notify(`Welcome, Verify Your Mobile No`, {
         type: "warning",
       });
@@ -116,7 +116,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
 
             <InputPasswordField
               name="password_confirmation"
-              label="Password"
+              label="Confirm Password"
               error={errors.password_confirmation?.message}
               placeholder="Confirm Your Password"
               register={register}

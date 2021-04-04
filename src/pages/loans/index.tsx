@@ -8,8 +8,8 @@ import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
+import { logout } from "../../utils/auth";
 import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { loanModeSelectTypes } from "../admin/loans";
 
@@ -69,8 +69,15 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
 export const getServerSideProps = withIronSession(async ({ req, res }) => {
   const user = req.session.get("user");
   if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
+    // await redirectToPage(req, res, "/login");
+    // return { props: {} };
+    await logout();
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
   }
 
   return {
