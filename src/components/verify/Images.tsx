@@ -89,6 +89,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         data: formData,
         withCredentials: true,
       });
+      console.log("data: ", data);
       await laravelApi(true).get("/sanctum/csrf-cookie");
       const totalVerificationValues = {
         ...verificationValues,

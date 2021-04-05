@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authStatus } from "../../states/authStates";
+import { newLoanFormValues } from "../../states/newLoanState";
 import { authenticatedUserData } from "../../states/userStates";
+import { verificationFormValues } from "../../states/verificationStates";
 import { logout } from "../../utils/auth";
 import { linkArray } from "../../utils/randomTypes";
 
@@ -29,6 +31,8 @@ export default function Nav() {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [auth, toggleAuth] = useRecoilState(authStatus);
   const userData = useRecoilValue(authenticatedUserData);
+  const [, setVerifyData] = useRecoilState(verificationFormValues);
+  const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues);
 
   // rendering each nav items
   const NavItems: React.FC<NavItemsProps> = ({ links }) => {
@@ -60,7 +64,13 @@ export default function Nav() {
                   key={link.label}
                   onClick={async () => {
                     toggleAuth(false);
-                    await logout();
+                    setVerifyData(null);
+                    setNewLoanFormValues(null);
+                    try {
+                      await logout();
+                    } catch (e) {
+                      console.log("Problem Logging out from nav");
+                    }
                     return router.push("/");
                   }}
                   className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${

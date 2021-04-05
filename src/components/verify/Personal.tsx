@@ -36,7 +36,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
     resolver: yupResolver(
       object({
         id: yup.mixed().notRequired(),
-        name: yup.string().required("Required"),
+        name: yup.mixed().notRequired(),
         gender: yup
           .mixed()
           .oneOf(["male", "female"], "Gender should be Male or Female")
@@ -82,6 +82,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
                   ? userData.name
                   : ""
               }
+              disabled
               label="Your Full Name"
               error={errors.name?.message}
               placeholder="Enter Your Name"

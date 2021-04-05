@@ -1,7 +1,7 @@
-import handler from "../../apiHandlers/handler";
-import path from "path";
-import { promises as fs } from "fs";
 import formidable from "formidable";
+import { promises as fs } from "fs";
+import path from "path";
+import handler from "../../apiHandlers/handler";
 
 // we need to disable the default body parser
 // to parse form data
