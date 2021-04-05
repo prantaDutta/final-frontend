@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,10 +10,10 @@ import SubmitButton from "../../components/shared/SubmitButton";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Yup from "../../lib/yup";
 import { laravelApi } from "../../utils/api";
-import { LARAVEL_URL, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { redirectToPage } from "../../utils/functions";
+import { LARAVEL_URL } from "../../utils/constants";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
+import withAuth from "../../utils/withAuth";
 
 interface DepositNowProps {
   user: ModifiedUserData;
@@ -203,16 +202,9 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default DepositNow;

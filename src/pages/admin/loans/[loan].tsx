@@ -1,13 +1,12 @@
-import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import ShowDetails from "../../../components/shared/ShowDetails";
-import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
-import { objectToArray, redirectToPage } from "../../../utils/functions";
+import { objectToArray } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
 
 interface LoanProps {
@@ -39,21 +38,15 @@ const Loan: React.FC<LoanProps> = ({ user, loanId }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async ({ req, res, query }) => {
-    const user = req.session.get("user");
-    if (!user) {
-      await redirectToPage(req, res, "/login");
-      return { props: {} };
-    }
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user, query } = context;
 
-    const loanId: string = query.loan;
+  const loanId: string = query.loan;
 
-    return {
-      props: { user, loanId },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user, loanId },
+  };
+  return { props: { user } };
+});
 
 export default Loan;

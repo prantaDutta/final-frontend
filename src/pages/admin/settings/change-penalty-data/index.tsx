@@ -1,4 +1,3 @@
-import { withIronSession } from "next-iron-session";
 import React, { FormEvent, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
@@ -8,13 +7,10 @@ import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLo
 import SomeTable from "../../../../components/shared/SomeTable";
 import { penaltyDataStates } from "../../../../states/settingsStates";
 import { laravelApi } from "../../../../utils/api";
-import { NEXT_IRON_SESSION_CONFIG } from "../../../../utils/constants";
-import {
-  divideAnArrayIntoMultipleParts,
-  redirectToPage,
-} from "../../../../utils/functions";
+import { divideAnArrayIntoMultipleParts } from "../../../../utils/functions";
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import { notify } from "../../../../utils/toasts";
+import withAdminAuth from "../../../../utils/withAdminAuth";
 
 interface ChangePenaltyDataProps {
   user: ModifiedUserData;
@@ -72,16 +68,9 @@ const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default ChangePenaltyData;

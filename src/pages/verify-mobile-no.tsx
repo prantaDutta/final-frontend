@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -14,10 +13,10 @@ import ReactLoader from "../components/shared/ReactLoader";
 import yup from "../lib/yup";
 import { authenticatedUserData } from "../states/userStates";
 import { laravelApi } from "../utils/api";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
-import { redirectToPage } from "../utils/functions";
+import { isProduction } from "../utils/constants";
 import { ModifiedUserData } from "../utils/randomTypes";
 import { notify } from "../utils/toasts";
+import withAuth from "../utils/withAuth";
 
 interface VerifyMobileNoProps {
   user: ModifiedUserData;
@@ -176,19 +175,18 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user: ModifiedUserData = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
   if (user?.mobileNoVerified) {
-    await redirectToPage(req, res, "/dashboard");
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard",
+      },
+      props: {},
+    };
   }
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+  return { props: { user } };
+});
 
 export default VerifyMobileNo;

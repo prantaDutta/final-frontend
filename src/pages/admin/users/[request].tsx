@@ -1,20 +1,19 @@
 import { ThreeDots } from "@agney/react-loading";
-import { withIronSession } from "next-iron-session";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import MarkAsButton from "../../../components/shared/MarkAsButton";
 import ReactLoader from "../../../components/shared/ReactLoader";
-import { BASE_URL, NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
+import { BASE_URL } from "../../../utils/constants";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
 import {
   downloadImage,
   isObject,
   objectToArray,
-  redirectToPage,
 } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 
 interface ShowMultipleImageProps {
   photo: Array<any>;
@@ -210,21 +209,14 @@ const request: React.FC<requestProps> = ({ user, requestedUserId }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async ({ req, res, query }) => {
-    const user = req.session.get("user");
-    if (!user) {
-      await redirectToPage(req, res, "/login");
-      return { props: {} };
-    }
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user, query } = context;
 
-    const requestedUserId: any = query.request;
+  const requestedUserId: any = query.request;
 
-    return {
-      props: { user, requestedUserId },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user, requestedUserId },
+  };
+});
 
 export default request;

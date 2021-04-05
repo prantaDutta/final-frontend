@@ -43,8 +43,8 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
         />
         {/* <AnimatePresence exitBeforeEnter> */}
         {/* <motion.div key={router.route} {...pageMotionProps}> */}
-        <Component {...pageProps} />
         <RecoilExternalStatePortal />
+        <Component {...pageProps} />
         <ToastContainer transition={Slide} />
         {/* </motion.div> */}
         {/* </AnimatePresence> */}

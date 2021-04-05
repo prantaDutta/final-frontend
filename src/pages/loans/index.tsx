@@ -1,4 +1,3 @@
-import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Column } from "react-table";
@@ -8,9 +7,8 @@ import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { logout } from "../../utils/auth";
-import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
 import { ModifiedUserData } from "../../utils/randomTypes";
+import withAuth from "../../utils/withAuth";
 import { loanModeSelectTypes } from "../admin/loans";
 
 interface currentLoansProps {
@@ -66,24 +64,27 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    // await redirectToPage(req, res, "/login");
-    // return { props: {} };
-    await logout();
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
+// export const getServerSideProps = withIronSession(async ({ req }) => {
+//   const user = req.session.get("user");
+//   if (!user) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/login",
+//       },
+//       props: {},
+//     };
+//   }
 
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+//   return {
+//     props: { user },
+//   };
+// }, NEXT_IRON_SESSION_CONFIG);
+
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default currentLoans;
 

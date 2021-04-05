@@ -1,16 +1,13 @@
-import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import MarkAsButton from "../../../components/shared/MarkAsButton";
-import {
-  isProduction,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../../utils/constants";
+import { isProduction } from "../../../utils/constants";
 import { verificationRequestTableHeader } from "../../../utils/constantsArray";
-import { formatDate, redirectToPage } from "../../../utils/functions";
+import { formatDate } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
 
 interface WithdrawalRequestProps {
@@ -104,19 +101,11 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
 
 export default WithdrawalRequests;
 
-export const getServerSideProps = withIronSession(
-  async ({ req, res, query }) => {
-    const user = req.session.get("user");
-    if (!user) {
-      await redirectToPage(req, res, "/login");
-      return { props: {} };
-    }
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user, query } = context;
+  const request: string = query.request;
 
-    const request: string = query.request;
-
-    return {
-      props: { user, request },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user, request },
+  };
+});

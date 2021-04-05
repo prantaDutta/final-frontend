@@ -1,4 +1,3 @@
-import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
@@ -7,9 +6,8 @@ import Personal from "../../components/settings/Personal";
 import Security from "../../components/settings/Security";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
-import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
+import withAuth from "../../utils/withAuth";
 
 interface SettingsProps {
   user: ModifiedUserData;
@@ -35,16 +33,9 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default Settings;

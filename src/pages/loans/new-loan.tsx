@@ -1,6 +1,5 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,11 +14,12 @@ import Yup from "../../lib/yup";
 import { newLoanFormValues } from "../../states/newLoanState";
 import { laravelApi } from "../../utils/api";
 import { calculateSimpleInterest } from "../../utils/calculatingInterests";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { isProduction } from "../../utils/constants";
 import { numberTypes } from "../../utils/constantsArray";
-import { formatTwoDecimalPlaces, redirectToPage } from "../../utils/functions";
+import { formatTwoDecimalPlaces } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
+import withAuth from "../../utils/withAuth";
 
 interface newLoanProps {
   user: ModifiedUserData;
@@ -248,16 +248,9 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default NewLoan;

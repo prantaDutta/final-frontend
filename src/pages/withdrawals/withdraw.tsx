@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,10 +10,10 @@ import DashboardTitle from "../../components/shared/DashboardTitle";
 import ReactLoader from "../../components/shared/ReactLoader";
 import Yup from "../../lib/yup";
 import { laravelApi } from "../../utils/api";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../../utils/constants";
+import { isProduction } from "../../utils/constants";
 import { withdrawalMethodsTypes } from "../../utils/constantsArray";
-import { redirectToPage } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
+import withAuth from "../../utils/withAuth";
 
 interface withdrawProps {
   user: ModifiedUserData;
@@ -152,16 +151,9 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default Withdraw;

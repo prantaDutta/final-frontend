@@ -1,4 +1,3 @@
-import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR, { trigger } from "swr";
@@ -7,12 +6,9 @@ import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { laravelApi } from "../../../utils/api";
-import {
-  isProduction,
-  NEXT_IRON_SESSION_CONFIG,
-} from "../../../utils/constants";
-import { redirectToPage } from "../../../utils/functions";
+import { isProduction } from "../../../utils/constants";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAuth from "../../../utils/withAuth";
 
 interface NotificationsProps {
   user: ModifiedUserData;
@@ -46,17 +42,10 @@ const Notifications: React.FC<NotificationsProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default Notifications;
 

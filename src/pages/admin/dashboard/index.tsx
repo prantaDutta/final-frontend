@@ -1,10 +1,8 @@
-import { withIronSession } from "next-iron-session";
 import React from "react";
 import AdminDashboardContent from "../../../components/dashboard/AdminDashboardContent";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
-import { redirectToPage } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 
 interface dashboardProps {
   user: ModifiedUserData;
@@ -18,16 +16,9 @@ const dashboard: React.FC<dashboardProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default dashboard;

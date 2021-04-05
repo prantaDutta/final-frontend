@@ -1,13 +1,12 @@
-import { withIronSession } from "next-iron-session";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import ShowInstallmentDetails from "../../../components/shared/ShowInstallmentDetails";
-import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
-import { objectToArray, redirectToPage } from "../../../utils/functions";
+import { objectToArray } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
 
 interface InstallmentProps {
@@ -38,21 +37,13 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(
-  async ({ req, res, query }) => {
-    const user = req.session.get("user");
-    if (!user) {
-      await redirectToPage(req, res, "/login");
-      return { props: {} };
-    }
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user, query } = context;
+  const installmentId: string = query.installment;
 
-    const installmentId: string = query.installment;
-
-    return {
-      props: { user, installmentId },
-    };
-  },
-  NEXT_IRON_SESSION_CONFIG
-);
+  return {
+    props: { user, installmentId },
+  };
+});
 
 export default Installment;

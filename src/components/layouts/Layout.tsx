@@ -18,6 +18,9 @@ const Layout: React.FC<LayoutProps> = ({ children, data }) => {
     if (data) {
       setAuth(true);
       setUserData(data);
+    } else {
+      setAuth(false);
+      setUserData(null);
     }
   }, [userData]);
 

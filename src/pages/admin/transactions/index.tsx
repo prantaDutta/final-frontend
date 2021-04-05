@@ -1,4 +1,3 @@
-import { withIronSession } from "next-iron-session";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Cell, Column } from "react-table";
@@ -8,12 +7,12 @@ import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import { NEXT_IRON_SESSION_CONFIG } from "../../../utils/constants";
-import { formatDate, redirectToPage } from "../../../utils/functions";
+import { formatDate } from "../../../utils/functions";
 import {
   ModifiedUserData,
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
+import withAdminAuth from "../../../utils/withAdminAuth";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -67,17 +66,10 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   );
 };
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (!user) {
-    await redirectToPage(req, res, "/login");
-    return { props: {} };
-  }
-
-  return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+export const getServerSideProps = withAdminAuth(async (context) => {
+  const { user } = context;
+  return { props: { user } };
+});
 
 export default WithdrawalRequests;
 
