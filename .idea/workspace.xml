@@ -23,78 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/settings/LoanPreference.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/ShowDetailsInATableWithImages.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/ShowDetailsInATableWithLinks.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/SingleTableImageRow.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/SingleTableLinkRow.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useSessionStorage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/loan-installments.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/settings/change-interest-rate.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/loans.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/transactions.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/user-installments.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/deposits/[deposit].tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/loans/[loan]/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/loans/[loan]/loan-installments.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/withdrawals/[withdraw].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_3eadf6690c04522340172b15efbc9e73.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_976a3309f876ebbe87b61e3f5fad7f16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_a65039e0876521f5eb1f1b5036478e4c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_b35667317d98ff06951979ce55014a68.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_d8856687bc2b2256811dc42bded3153a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_eab542cb683d754026f125db68870ca3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/verificationPapers/upload_f09dc1ea9938e0f078bf34500df6645a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SpecialComponents/RecoilExternalStatePortal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/SpecialComponents/RecoilExternalStatePortal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReactHookForm/InputTextField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/AdminDashboardContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/AdminDashboardContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/UserDashboardContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/settings/Administration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/Administration.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/settings/Personal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/Personal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/SaveCancelButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/settings/SettingsName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/settings/SettingsName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/FlexibleSelectButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/MarkAsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/MarkAsButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/ShowDetails.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/ShowInstallmentDetails.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/SingleTableRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/SingleTableRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/WithAuth.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useUser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/installments/[installment].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/installments/[installment].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/installments/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/installments/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/[loan].tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[request].tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/set-login-cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/set-login-cookie.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/contact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/deposits/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deposits/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/installments/[installment].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/installments/[installment].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/installments/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/installments/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/settingsStates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/settingsStates.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/states/userStates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/states/userStates.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/getRecoilState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/getRecoilState.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/randomTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/randomTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/toasts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/toasts.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/withAdminAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/withAdminAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +190,7 @@
       <workItem from="1617766637804" duration="30971000" />
       <workItem from="1617857293177" duration="5658000" />
       <workItem from="1617863986823" duration="19363000" />
-      <workItem from="1617942191113" duration="11319000" />
+      <workItem from="1617942191113" duration="12633000" />
     </task>
     <servers />
   </component>
