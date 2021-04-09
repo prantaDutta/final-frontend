@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { trigger } from "swr";
 import { mutateCallback } from "swr/dist/types";
 import { laravelApi } from "../../utils/api";
-import { isProduction } from "../../utils/constants";
 import { notify } from "../../utils/toasts";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 
@@ -15,6 +14,7 @@ interface SaveCancelButtonProps {
     data?: Promise<any> | mutateCallback | any,
     shouldRevalidate?: boolean
   ) => Promise<any | undefined>;
+  disabled?: boolean
 }
 
 const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
@@ -23,6 +23,7 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
   postData,
   toastMsg,
   mutate,
+    disabled = false,
 }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   return isSubmitting ? (
@@ -37,14 +38,14 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
       </button>
       <button
         type="button"
+        disabled={disabled}
         onClick={async () => {
           setSubmitting(true);
           try {
-            const { data: asData } = await laravelApi().post(
+              await laravelApi().post(
               submitUrl,
               postData
             );
-            if (!isProduction) console.log("data: ", asData);
             await mutate();
             notify(toastMsg, {
               type: "success",
@@ -60,7 +61,7 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
           await trigger("/user");
           // await mutate("/user/contact-verified");
         }}
-        className="px-4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent"
+        className={`px - 4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent disabled:opacity-50 ${disabled && 'cursor-not-allowed'}`}
       >
         Save
       </button>

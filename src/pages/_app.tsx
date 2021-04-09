@@ -6,7 +6,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
-import { RecoilExternalStatePortal } from "../SpecialComponents/RecoilExternalStatePortal";
+import { RecoilExternalStatePortal  } from "../SpecialComponents/RecoilExternalStatePortal";
 import "../styles/index.css";
 import { laravelApi } from "../utils/api";
 import { BASE_URL, isProduction } from "../utils/constants";
@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
         />
         {/* <AnimatePresence exitBeforeEnter> */}
         {/* <motion.div key={router.route} {...pageMotionProps}> */}
-        <RecoilExternalStatePortal />
+        <RecoilExternalStatePortal  />
         <Component {...pageProps} />
         <ToastContainer transition={Slide} />
         {/* </motion.div> */}

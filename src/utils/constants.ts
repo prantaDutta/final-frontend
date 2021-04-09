@@ -2,7 +2,7 @@ export const isProduction = process.env.NODE_ENV === "production";
 
 export const BASE_URL = "http://localhost:3000";
 
-export const isServer = !process.browser;
+export const IS_SERVER = typeof window === "undefined";
 
 export const LARAVEL_URL = "http://localhost:8000";
 // export const LARAVEL_URL = "https://90430bee639f.ngrok.io";

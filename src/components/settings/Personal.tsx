@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { mutateCallback } from "swr/dist/types";
 import { personalExpand } from "../../states/settingsStates";
 import { laravelApi } from "../../utils/api";
-import { isProduction } from "../../utils/constants";
 import {
   createDivisionsTypes,
   createZilaTypes,
@@ -59,7 +58,6 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
   const { data: contactData } = useSWR(
     mounted ? "/user/contact-verified" : null
   );
-  if (!isProduction) console.log("contactData: ", contactData);
   return (
     <>
       {/* This component Shows and toggles the dropdown of personal details */}

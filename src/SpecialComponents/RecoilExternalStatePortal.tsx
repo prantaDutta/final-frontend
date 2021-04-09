@@ -4,7 +4,7 @@ import {
   RecoilValue,
   useRecoilCallback,
   useRecoilTransactionObserver_UNSTABLE,
-} from "recoil";
+} from 'recoil';
 
 /**
  * Returns a Recoil state value, from anywhere in the app.
@@ -17,7 +17,7 @@ import {
  * @example const lastCreatedUser = getRecoilExternalLoadable(lastCreatedUserState);
  */
 export let getRecoilExternalLoadable: <T>(
-  recoilValue: RecoilValue<T>
+    recoilValue: RecoilValue<T>,
 ) => Loadable<T> = () => null as any;
 
 /**
@@ -31,8 +31,8 @@ export let getRecoilExternalLoadable: <T>(
  * @example setRecoilExternalState(lastCreatedUserState, newUser)
  */
 export let setRecoilExternalState: <T>(
-  recoilState: RecoilState<T>,
-  valOrUpdater: ((currVal: T) => T) | T
+    recoilState: RecoilState<T>,
+    valOrUpdater: ((currVal: T) => T) | T,
 ) => void = () => null as any;
 
 /**
@@ -56,7 +56,9 @@ export function RecoilExternalStatePortal() {
   useRecoilCallback(({ set }) => {
     setRecoilExternalState = set;
 
-    return async () => {};
+    return async () => {
+
+    };
   })();
 
   return <></>;

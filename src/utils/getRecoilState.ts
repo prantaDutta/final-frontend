@@ -1,9 +1,8 @@
-// import { RecoilGetLoadable } from "../SpecialComponents/RecoilExternalStatePortal";
-// import { authStatus } from "../states/authStates";
+import {getRecoilExternalLoadable} from "../SpecialComponents/RecoilExternalStatePortal";
+import {authenticatedUserData} from "../states/userStates";
 
-// export const getAuth = () => {
-//   const auth = RecoilGetLoadable(authStatus).valueMaybe() || false;
-//   return auth;
-// };
+export const getAuthData = () => {
+    const data = getRecoilExternalLoadable(authenticatedUserData)
+    return data ? data.contents : null;
+};
 
-export default "hello";

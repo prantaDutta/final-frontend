@@ -1,13 +1,13 @@
 import crypto from "crypto";
 import dayjs from "dayjs";
 import FileSaver from "file-saver";
-import { IncomingMessage, ServerResponse } from "http";
+import {IncomingMessage, ServerResponse} from "http";
 // import { verify } from "jsonwebtoken";
-import { useRouter } from "next/router";
-import { cache } from "swr";
-import { logout } from "./auth";
-import { BASE_URL } from "./constants";
-import { SelectOptionsTypes } from "./randomTypes";
+import {useRouter} from "next/router";
+import {cache} from "swr";
+import {logout} from "./auth";
+import {BASE_URL} from "./constants";
+import {SelectOptionsTypes} from "./randomTypes";
 
 // export const verifyJWTToken = (accessToken: string) => {
 //   try {
@@ -19,7 +19,7 @@ import { SelectOptionsTypes } from "./randomTypes";
 // };
 
 export function random32BitString() {
-  return crypto.randomFillSync(Buffer.alloc(32)).toString("hex");
+    return crypto.randomFillSync(Buffer.alloc(32)).toString("hex");
 }
 
 // export const checkingIfAuthenticated = async (cookie: string) => {
@@ -33,86 +33,101 @@ export function random32BitString() {
 
 // Redirecting to a specific page
 export const redirectToPage = async (
-  req: IncomingMessage | undefined,
-  res: ServerResponse | undefined,
-  url: string
+    req: IncomingMessage | undefined,
+    res: ServerResponse | undefined,
+    url: string
 ) => {
-  if (!req) {
-    //  On client
-    await logout();
-    const router = useRouter();
-    return router.push(url);
-  }
-  // On Server
-  try {
-    await logout();
-    res?.setHeader("cache-control", "no-store, max-age=0");
-    try {
-      res?.writeHead(302, {
-        Location: BASE_URL + url,
-      });
-    } catch (e) {
-      console.log("Error Redirecting in redirectToPage Function");
+    if (!req) {
+        //  On client
+        await logout();
+        const router = useRouter();
+        return router.push(url);
     }
-    res?.end();
-  } catch (e) {
-    console.log("Something Happened when redirecting to login");
-  }
+    // On Server
+    try {
+        await logout();
+        res?.setHeader("cache-control", "no-store, max-age=0");
+        try {
+            res?.writeHead(302, {
+                Location: BASE_URL + url,
+            });
+        } catch (e) {
+            console.log("Error Redirecting in redirectToPage Function");
+        }
+        res?.end();
+    } catch (e) {
+        console.log("Something Happened when redirecting to login");
+    }
 };
 
 export const redirectToErrorPage = (
-  req: IncomingMessage | undefined,
-  res: ServerResponse | undefined
+    req: IncomingMessage | undefined,
+    res: ServerResponse | undefined
 ) => {
-  if (!req) {
-    //  On client
-    const router = useRouter();
-    return router.replace("/404");
-  } else if (req) {
-    // On Server
-    res?.writeHead(302, {
-      Location: `${BASE_URL}/404`,
-    });
-    return res?.end();
-  }
+    if (!req) {
+        //  On client
+        const router = useRouter();
+        return router.replace("/404");
+    } else if (req) {
+        // On Server
+        res?.writeHead(302, {
+            Location: `${BASE_URL}/404`,
+        });
+        return res?.end();
+    }
 };
 
 export const downloadImage = (url: string, name: string) =>
-  FileSaver.saveAs(url, name);
+    FileSaver.saveAs(url, name);
 
 export const formatDate = (date: Date, formatter: string) =>
-  dayjs(date).format(formatter);
+    dayjs(date).format(formatter);
 
 export const eighteenYearsBackFromNow = (formatter: string) =>
-  dayjs().subtract(18, "year").format(formatter);
+    dayjs().subtract(18, "year").format(formatter);
 
 export const objectToArray = (obj: Record<any, any>) =>
-  Object.keys(obj).map((key) => [key, obj[key]]);
+    Object.keys(obj).map((key) => [key, obj[key]]);
+
+export const objectToArrayAndExclude = (obj: Record<any, any>, excludeArr: any[] = []) => {
+    const arr = Object.keys(obj).map((key) => [key, obj[key]]);
+
+    arr.map((ar, i) => {
+        excludeArr.map((exArr) => {
+            if (exArr === ar[0]) {
+                arr.splice(i, 1);
+            }
+        })
+    });
+
+    return arr;
+}
+
 
 export const isEmptyObj = (obj: Record<any, any>) =>
-  Object.keys(obj).length === 0;
+    Object.keys(obj).length === 0;
 
 export const isObject = (obj: any) =>
-  obj != null && obj.constructor.name === "Object";
+    obj != null && obj.constructor.name === "Object";
 
 export const validateEmail = (email: string) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 };
 
 export const filesToObject = (files: [File]) => {
-  const fileLists = Array.from(files);
-  return { ...fileLists };
+    const fileLists = Array.from(files);
+    return {...fileLists};
 };
 
 export const fileToObject = (file: File) => {
-  var fileData = {
-    modified: file.lastModified,
-    name: file.name,
-    size: file.size,
-    type: file.type,
-  };
-  return fileData;
+    var fileData = {
+        modified: file.lastModified,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+    };
+    return fileData;
 };
 
 // export function formDataToObject(object: Object) {
@@ -122,111 +137,111 @@ export const fileToObject = (file: File) => {
 // }
 
 export const appendingFileToFormData = (
-  name: string,
-  files: [File][],
-  formData: FormData
+    name: string,
+    files: [File][],
+    formData: FormData
 ) => {
-  for (let i = 0; i < files.length; i++) {
-    formData.append(name, (files as any)[i]);
-  }
-  return formData;
+    for (let i = 0; i < files.length; i++) {
+        formData.append(name, (files as any)[i]);
+    }
+    return formData;
 };
 
 export const appendingFieldsToFormData = (
-  key: string,
-  value: any,
-  formData: FormData
+    key: string,
+    value: any,
+    formData: FormData
 ) => {
-  formData.append(key, value);
-  return formData;
+    formData.append(key, value);
+    return formData;
 };
 
 export const calculateMonthlyInstallment = (
-  amount: number,
-  interestRate: number,
-  loanDuration: number
+    amount: number,
+    interestRate: number,
+    loanDuration: number
 ) => (+amount + +(amount * (interestRate / 100) * loanDuration)) / loanDuration;
 
 export const formatTwoDecimalPlaces = (num: number) =>
-  +(Math.round(num * 100) / 100).toFixed(2);
+    +(Math.round(num * 100) / 100).toFixed(2);
 
 export const capitalize = (s: string) =>
-  s.toLowerCase().replace(/\b./g, function (a) {
-    return a.toUpperCase();
-  });
+    s.toLowerCase().replace(/\b./g, function (a) {
+        return a.toUpperCase();
+    });
 
 export const clearSWRCache = async () => {
-  cache.clear();
-  await new Promise(requestAnimationFrame);
+    cache.clear();
+    await new Promise(requestAnimationFrame);
 };
 
 export const distributeLenderAmount = (amount: number) => {
-  if (!amount || amount > 500) return [];
-  const divideBy = amount / 500;
-  let arr: number[] = [];
-  for (let i = 1; i >= divideBy; i++) {
-    arr.push(i * 500);
-  }
-  return arr;
+    if (!amount || amount > 500) return [];
+    const divideBy = amount / 500;
+    let arr: number[] = [];
+    for (let i = 1; i >= divideBy; i++) {
+        arr.push(i * 500);
+    }
+    return arr;
 };
 
 export const getUniqueArray = (array: any[]) => {
-  var uniqueArray: any[] = [];
+    var uniqueArray: any[] = [];
 
-  // Loop through array values
-  for (let i = 0; i < array.length; i++) {
-    if (uniqueArray.indexOf(array[i]) === -1) {
-      uniqueArray.push(array[i]);
+    // Loop through array values
+    for (let i = 0; i < array.length; i++) {
+        if (uniqueArray.indexOf(array[i]) === -1) {
+            uniqueArray.push(array[i]);
+        }
     }
-  }
-  return uniqueArray;
+    return uniqueArray;
 };
 
 export const removeDuplicatesArray = (inArray: any[]) => {
-  var arr = inArray.concat(); // create a clone from inArray so not to change input array
-  //create the first cycle of the loop starting from element 0 or n
-  for (var i = 0; i < arr.length; ++i) {
-    //create the second cycle of the loop from element n+1
-    for (var j = i + 1; j < arr.length; ++j) {
-      //if the two elements are equal , then they are duplicate
-      if (arr[i].value === arr[j].value) {
-        arr.splice(j, 1); //remove the duplicated element
-      }
-      // if (arr[i].selected === arr[j].selected) {
-      //   console.log("checking ", arr[i], "and ", arr[j]);
-      // }
+    var arr = inArray.concat(); // create a clone from inArray so not to change input array
+    //create the first cycle of the loop starting from element 0 or n
+    for (var i = 0; i < arr.length; ++i) {
+        //create the second cycle of the loop from element n+1
+        for (var j = i + 1; j < arr.length; ++j) {
+            //if the two elements are equal , then they are duplicate
+            if (arr[i].value === arr[j].value) {
+                arr.splice(j, 1); //remove the duplicated element
+            }
+            // if (arr[i].selected === arr[j].selected) {
+            //   console.log("checking ", arr[i], "and ", arr[j]);
+            // }
+        }
     }
-  }
-  return arr;
+    return arr;
 };
 
 export const createSelectOptionsFromArray = (options: string[]) => {
-  let newOptionsArray: SelectOptionsTypes[] = [];
+    let newOptionsArray: SelectOptionsTypes[] = [];
 
-  options.map((option) => {
-    newOptionsArray.push({
-      title: capitalize(option),
-      value: option,
+    options.map((option) => {
+        newOptionsArray.push({
+            title: capitalize(option),
+            value: option,
+        });
     });
-  });
 
-  return newOptionsArray;
+    return newOptionsArray;
 };
 
 // n is the amount per line
 //tweak this to add more items per line
 export const divideAnArrayIntoMultipleParts = (arr: [], n: number) => {
-  const result = [[], [], []]; //we create it, then we'll fill it
+    const result = [[], [], []]; //we create it, then we'll fill it
 
-  const wordsPerLine = Math.ceil(arr.length / 3);
+    const wordsPerLine = Math.ceil(arr.length / 3);
 
-  for (let line = 0; line < n; line++) {
-    for (let i = 0; i < wordsPerLine; i++) {
-      const value = arr[i + line * wordsPerLine];
-      if (!value) continue; //avoid adding "undefined" values
-      result[line].push(value);
+    for (let line = 0; line < n; line++) {
+        for (let i = 0; i < wordsPerLine; i++) {
+            const value = arr[i + line * wordsPerLine];
+            if (!value) continue; //avoid adding "undefined" values
+            result[line].push(value);
+        }
     }
-  }
 
-  return result;
+    return result;
 };

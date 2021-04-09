@@ -8,6 +8,7 @@ import DashboardTitle from "../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
+import LoanPreference from "../../components/settings/LoanPreference";
 
 interface SettingsProps {
   user: ModifiedUserData;
@@ -25,6 +26,9 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
           <Personal data={data} mutate={mutate} />
           <Account data={data} mutate={mutate} />
           <Security data={data} mutate={mutate} />
+          {user.role === 'lender' && (
+              <LoanPreference />
+          )}
         </>
       ) : (
         <FullWidthReactLoader />

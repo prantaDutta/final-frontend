@@ -1,49 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import ShowInstallmentDetails from "../../../components/shared/ShowInstallmentDetails";
-import { objectToArray } from "../../../utils/functions";
-import { ModifiedUserData } from "../../../utils/randomTypes";
+import {objectToArrayAndExclude} from "../../../utils/functions";
+import {ModifiedUserData} from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
+import ShowDetailsInATableWithLinks from "../../../components/shared/ShowDetailsInATableWithLinks";
 
 interface InstallmentProps {
-  user: ModifiedUserData;
-  installmentId: string;
+    user: ModifiedUserData;
+    installmentId: string;
 }
 
-const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
-  if (!installmentId) return <ErrorPage />;
+const Installment: React.FC<InstallmentProps> = ({user, installmentId}) => {
+    if (!installmentId) return <ErrorPage/>;
 
-  const [mounted, useMounted] = useState<boolean>(false);
-  useEffect(() => useMounted(true), []);
-  let { data } = useSWR(
-    mounted ? `/user/get-single-installment/${installmentId}` : null
-  );
+    const [mounted, useMounted] = useState<boolean>(false);
+    useEffect(() => useMounted(true), []);
+    let {data} = useSWR(
+        mounted ? `/user/get-single-installment/${installmentId}` : null
+    );
 
-  return (
-    <DashboardLayout data={user}>
-      <div className="flex justify-between">
-        <DashboardTitle title={`Installment Details`} />
-      </div>
-      {data ? (
-        <ShowInstallmentDetails dataArray={objectToArray(data.installment)} />
-      ) : (
-        <FullWidthReactLoader />
-      )}
-    </DashboardLayout>
-  );
+    return (
+        <DashboardLayout data={user}>
+            <div className="flex justify-between">
+                <DashboardTitle title={`Installment Details`}/>
+            </div>
+            {data ? (
+                <>
+                    <ShowDetailsInATableWithLinks
+                        title="Installment Data"
+                        dataArray={objectToArrayAndExclude(data.installment, ['id'])}
+                    />
+                    <ShowDetailsInATableWithLinks
+                        title="User Data"
+                        dataArray={objectToArrayAndExclude(data.user, ['id'])}
+                        urlArray={[`/admin/users/${data.user.id}`]}
+                    />
+                    <ShowDetailsInATableWithLinks
+                        title="Loan Data"
+                        dataArray={objectToArrayAndExclude(data.loan, ['id'])}
+                        urlArray={[`/admin/loans/${data.loan.id}`]}
+                    />
+                </>
+            ) : (
+                <FullWidthReactLoader/>
+            )}
+        </DashboardLayout>
+    );
 };
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user, query } = context;
-  const installmentId: string = query.installment;
+    const {user, query} = context;
+    const installmentId: string = query.installment;
 
-  return {
-    props: { user, installmentId },
-  };
+    return {
+        props: {user, installmentId},
+    };
 });
 
 export default Installment;

@@ -44,7 +44,7 @@ const index: React.FC<indexProps> = ({ user }) => {
             isValidating={!data}
             header={InstallmentTableHeader}
             pagination
-            emptyMessage="No Loans Found"
+            emptyMessage="No User Found"
             mutateData={() => mutate()}
           />
         ) : (

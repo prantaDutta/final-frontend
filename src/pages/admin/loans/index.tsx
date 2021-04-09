@@ -29,7 +29,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle backButton={false} title="Loans" />
+        <DashboardTitle backButton={false} title="User" />
         <FlexibleSelectButton
           selectValue={requestType}
           setSelectValue={setRequestType}
@@ -40,11 +40,11 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
 
       {data ? (
         <ReadyMadeTable
-          title={`${requestType} Loans`}
+          title={`${requestType} User`}
           data={data.loans}
           pagination
           isValidating={!data}
-          header={loanRequestsTableHeader}
+          header={AdminLoansTableHeader}
           emptyMessage="No New Loan Requests"
           mutateData={() => mutate()}
         />
@@ -62,23 +62,7 @@ export const getServerSideProps = withAdminAuth(async (context) => {
 
 export default LoanRequests;
 
-export const loanRequestsTableHeader = [
-  // {
-  //   Header: "Name",
-  //   accessor: (row: any) => {
-  //     let usersName = "";
-  //     const len = row.users.length;
-  //     row.users.forEach((user: any, i: number) => {
-  //       usersName += user.name;
-  //       console.log(len);
-  //       console.log(i);
-  //       if (i !== len - 1) {
-  //         usersName += ", ";
-  //       }
-  //     });
-  //     return usersName;
-  //   },
-  // },
+export const AdminLoansTableHeader = [
   {
     Header: "Amount",
     accessor: "amount",

@@ -19,7 +19,7 @@ interface InstallmentsProps {
 const Installments: React.FC<InstallmentsProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const [installmentStatus, setinstallmentStatus] = useState<
+  const [installmentStatus, setInstallmentStatus] = useState<
     "due" | "unpaid" | "paid" | "all"
   >("all");
   const { data, mutate } = useSWR(
@@ -31,7 +31,7 @@ const Installments: React.FC<InstallmentsProps> = ({ user }) => {
         <DashboardTitle backButton={false} title="Installments" />
         <FlexibleSelectButton
           selectValue={installmentStatus}
-          setSelectValue={setinstallmentStatus}
+          setSelectValue={setInstallmentStatus}
           selectArray={installmentStatusSelectTypes}
           isValidating={!data}
         />

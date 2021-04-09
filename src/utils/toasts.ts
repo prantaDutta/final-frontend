@@ -6,7 +6,7 @@ export const notify = (msg: string, options: ToastOptions) => {
 
 // if You can't provide a toastID
 //   if (!toast.isActive("dashboard-processing")) {
-//     notify(`You have ${data.processing} Processing Loans`, {
+//     notify(`You have ${data.processing} Processing User`, {
 //       type: "info",
 //       toastId: "dashboard-ongoing",
 //     });
