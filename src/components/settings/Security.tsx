@@ -1,18 +1,14 @@
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { securityExpand } from "../../states/settingsStates";
-import SettingsName from "./SettingsName";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import React, { useState } from "react";
-import SettingsTextField from "./SettingsTextField";
 import SaveCancelButton from "./SaveCancelButton";
-import { mutateCallback } from "swr/dist/types";
+import SettingsName from "./SettingsName";
+import SettingsTextField from "./SettingsTextField";
 
 interface SecurityProps {
   data: any;
-  mutate: (
-    data?: Promise<any> | mutateCallback | any,
-    shouldRevalidate?: boolean
-  ) => Promise<any | undefined>;
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
 }
 
 const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
@@ -32,10 +28,12 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
       {expand ? (
         data ? (
           <>
-            <div className="mt-5 px-12 py-4 rounded-xl border-2 border-gray-500">
+            <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
               {showPasswordField ? (
                 <div>
-                  <p className="text-lg font-bold">Change Password</p>
+                  <p className="text-sm md:text-lg font-semibold md:font-bold">
+                    Change Password
+                  </p>
                   <SettingsTextField
                     label="Current Password"
                     placeholder="Enter Your Current Password"
@@ -65,7 +63,9 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
                 </div>
               ) : (
                 <div className="flex justify-between items-center">
-                  <button className="text-lg font-bold">Password</button>
+                  <button className="text-sm md:text-lg font-semibold md:font-bold">
+                    Password
+                  </button>
 
                   <div className={`flex items-center`}>
                     <button

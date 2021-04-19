@@ -72,7 +72,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
           <h3 className="font-bold text-2xl">Personal Information</h3>
         </section>
         <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex px-4">
+          <div className="px-4">
             <InputTextField
               name="name"
               defaultValue={
@@ -89,7 +89,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
               register={register}
             />
           </div>
-          <div className="flex px-4">
+          <div className="md:flex px-4">
             <InputDateField
               name="dateOfBirth"
               halfWidth

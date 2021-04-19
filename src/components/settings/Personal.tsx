@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
-import { mutateCallback } from "swr/dist/types";
 import { personalExpand } from "../../states/settingsStates";
 import { laravelApi } from "../../utils/api";
 import {
@@ -16,10 +15,7 @@ import SettingsName from "./SettingsName";
 
 interface PersonalProps {
   data: any;
-  mutate: (
-    data?: Promise<any> | mutateCallback | any,
-    shouldRevalidate?: boolean
-  ) => Promise<any | undefined>;
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
 }
 
 const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
@@ -70,10 +66,12 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
       {expand ? (
         data ? (
           <>
-            <div className="mt-5 px-12 py-4 rounded-xl border-2 border-gray-500">
+            <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
               <div className="py-2">
-                <p className="text-lg font-bold">Name</p>
-                <p className="text-sm font-semibold text-gray-600">
+                <p className="text-sm md:text-lg font-semibold md:font-bold">
+                  Name
+                </p>
+                <p className="text-sm md:text-lg font-semibold text-gray-600">
                   {data.user.name}
                 </p>
               </div>
@@ -83,7 +81,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               {showAddressField ? (
                 <div>
                   {/* This form takes all the address values */}
-                  <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                  <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                     Address
                   </label>
                   <input
@@ -91,9 +89,9 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                     value={getAddress}
                     onChange={(e) => setAddressValue(e.target.value)}
                   />
-                  <div className="flex justify-between">
-                    <div className="w-1/4">
-                      <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                  <div className="md:flex justify-between">
+                    <div className="w-full md:w-1/4">
+                      <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                         Division
                       </label>
                       <select
@@ -110,8 +108,8 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                       </select>
                     </div>
 
-                    <div className="w-1/4">
-                      <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                    <div className="w-full md:w-1/4">
+                      <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                         Zila
                       </label>
                       <select
@@ -129,8 +127,8 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                       </select>
                     </div>
 
-                    <div className="w-1/4">
-                      <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                    <div className="w-full md:w-1/4">
+                      <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                         Zip Code
                       </label>
                       <input
@@ -157,8 +155,10 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-lg font-bold">Address</p>
-                    <p className="text-sm font-semibold text-gray-600">
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">
+                      Address
+                    </p>
+                    <p className="text-sm md:text-lg font-semibold text-gray-600">
                       {data?.verification?.address}{" "}
                       {data?.verification?.zipCode}
                     </p>
@@ -182,7 +182,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                   <label className="text-lg font-bold block w-full bg-transparent mt-2">
                     Email
                   </label>
-                  <div className="flex">
+                  <div className="md:flex">
                     <input
                       className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                       value={getEmail}
@@ -191,7 +191,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                     <button
                       type="button"
                       disabled={getEmail === data.user.email}
-                      className={`w-1/4 ml-4 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
+                      className={`w-full px-2 py-1 md:w-1/4 md:ml-4 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
                         getEmail === data.user.email && "cursor-not-allowed"
                       }`}
                       onClick={async () => {
@@ -234,17 +234,19 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-lg font-bold">Email</p>
-                    <p className="text-sm font-semibold text-gray-600">
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">
+                      Email
+                    </p>
+                    <p className="text-sm md:text-lg font-semibold text-gray-600">
                       {data.user.email}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <button
                       className={`px-2 py-1 rounded-full ${
-                        contactData?.email ? "bg-green" : "bg-red-600"
+                        contactData?.email ? "bg-green-500" : "bg-red-500"
                       } mx-2 mt-2
-                      text-xs text-gray-200 font-semibold capitalize cursor-not-allowed`}
+                      text-xs text-gray-200 font-semibold md:font-bold capitalize cursor-not-allowed`}
                     >
                       {contactData?.email ? "verified" : "unverified"}
                     </button>
@@ -264,19 +266,20 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               {/* When Mobile No Edit Button is clicked */}
               {showMobileField ? (
                 <div>
-                  <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                  <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                     Mobile No
                   </label>
-                  <div className="flex items-center">
-                    <div className="px-3 py-1 mr-2 bg-primary text-white font-semibold rounded-full">
-                      +880
+                  <div className="md:flex items-center">
+                    <div className="flex items-center">
+                      <div className="px-3 py-1 mr-2 bg-primary text-white font-semibold rounded-full">
+                        +880
+                      </div>
+                      <input
+                        className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={getMobileNo}
+                        onChange={(e) => setMobileNoValue(e.target.value)}
+                      />
                     </div>
-                    <input
-                      className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-                      value={getMobileNo}
-                      onChange={(e) => setMobileNoValue(e.target.value)}
-                    />
-
                     <button
                       onClick={async () => {
                         setSMSSending(true);
@@ -298,7 +301,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                         setSMSSending(false);
                       }}
                       disabled={getMobileNo === data?.verification?.mobileNo}
-                      className={`w-1/4 ml-2 py-2 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
+                      className={`w-full px-2 py-1 md:w-1/4 md:ml-4 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
                         getMobileNo === data?.verification?.mobileNo &&
                         "cursor-not-allowed"
                       }`}
@@ -328,8 +331,10 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-lg font-bold">Mobile No</p>
-                    <p className="text-sm font-semibold text-gray-600">
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">
+                      Mobile No
+                    </p>
+                    <p className="text-sm md:text-lg font-semibold text-gray-600">
                       {data?.user?.mobileNo
                         ? "+880" + data?.user?.mobileNo
                         : null}
@@ -338,7 +343,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                   <div className={`flex items-center`}>
                     <button
                       className={`px-2 py-1 rounded-full ${
-                        contactData?.mobileNo ? "bg-green" : "bg-red-600"
+                        contactData?.mobileNo ? "bg-green-500" : "bg-red-500"
                       } mx-2 mt-2
                       text-xs text-gray-200 font-semibold capitalize cursor-not-allowed`}
                     >

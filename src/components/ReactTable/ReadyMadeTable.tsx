@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Column } from "react-table";
 import ReactLoader from "../shared/ReactLoader";
-import ReactTable from "./ReactTable";
+import SvgIcon from "../shared/SvgIcon";
+import ResponsiveReactTable from "./ResponsiveReactTable";
 
 interface ReadyMadeTableProps {
   title: string;
@@ -29,8 +30,10 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
   const [refreshing, setRefreshing] = useState(false);
   return (
     <>
-      <div className="py-4 flex justify-between">
-        <h1 className="text-3xl font-semibold capitalize">{title}</h1>
+      <div className="md:py-4 flex justify-between">
+        <h1 className="text-xl md:text-3xl font-semibold capitalize">
+          {title}
+        </h1>
         <button
           onClick={() => {
             setRefreshing(true);
@@ -41,35 +44,26 @@ const ReadyMadeTable: React.FC<ReadyMadeTableProps> = ({
           }}
           className="edit-btn flex items-center bg-primary"
         >
-          <h4 className="capitalize px-2">Refresh</h4>
-          <svg
-            className={`w-4 h-4 ${refreshing && "animate-spin"}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-            />
-          </svg>
+          <h4 className="hidden md:block capitalize px-2">Refresh</h4>
+          <SvgIcon
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            classNames={`w-4 h-4 ${refreshing && "animate-spin"}`}
+          />
         </button>
       </div>
       {!isValidating ? (
         data && data.length > 0 ? (
-          <ReactTable
-            data={tableData}
-            columns={columns}
-            pagination={pagination}
-          />
+          <div className="mt-5 md:mt-0">
+            <ResponsiveReactTable
+              data={tableData}
+              columns={columns}
+              pagination={pagination}
+            />
+          </div>
         ) : (
           <p className="font-semibold font-xl">{emptyMessage}</p>
         )
-      ) : null}
-      {isValidating && (
+      ) : (
         <button
           className="bg-transparent text-primary p-3 w-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline

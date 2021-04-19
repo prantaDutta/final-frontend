@@ -46,17 +46,34 @@ module.exports = {
       },
       spacing: {
         0.5: "0.15rem",
+        75: "19rem",
       },
       fontFamily: {
         body: ["Nunito"],
       },
+      animation: {
+        expand: "expand 1s",
+      },
+      keyframes: {
+        expand: {
+          "0%": {
+            transform: "scale(1.2)",
+          },
+          "100%": {
+            transform: "scale(0.8)",
+          },
+        },
+      },
+      transitionProperty: {
+        height: "height",
+      },
     },
   },
   variants: {
-    animation: ["responsive", "motion-safe", "motion-reduce"],
     extend: {
       opacity: ["disabled"],
+      animation: ["responsive", "motion-safe", "motion-reduce"],
+      height: ["responsive", "hover", "focus"],
     },
   },
-  plugins: [require("@adoxyz/tailwindcss-named-colors")],
 };

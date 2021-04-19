@@ -17,7 +17,7 @@ const InputMobileNoField: React.FC<InputMobileNoFieldProps> = ({
   ...props
 }) => {
   return (
-    <div className={`mt-6 px-4 ${halfWidth ? "w-1/2" : "w-full"}`}>
+    <div className={`mt-6 px-4 ${halfWidth ? "md:w-1/2" : "w-full"}`}>
       {/*  h-24 add this class to reduce page shifting */}
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
@@ -39,7 +39,7 @@ const InputMobileNoField: React.FC<InputMobileNoFieldProps> = ({
         />
       </div>
 
-      <p className="text-red pt-2 font-semibold text-sm italic">
+      <p className="text-red-600 pt-2 font-semibold text-sm italic">
         {error ? error : " "}
       </p>
     </div>

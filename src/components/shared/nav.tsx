@@ -49,7 +49,7 @@ export default function Nav() {
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
-                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >
@@ -73,7 +73,7 @@ export default function Nav() {
                     }
                     return router.push("/");
                   }}
-                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >
@@ -86,7 +86,7 @@ export default function Nav() {
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
-                  className={`text-gray-600 block font-bold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
+                  className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
                     index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
                   } transition-css`}
                 >
@@ -103,15 +103,17 @@ export default function Nav() {
     <div className="font-bold md:flex md:justify-between md:items-center md:px-4 md:py-3 md:mt-1">
       <div className="flex items-center justify-between px-4 py-3 md:p-0">
         <div className="tracking-widest md:text-lg text-base font-semibold uppercase md:ml-10 ">
-          <span className="text-transparent bg-gradient-to-l bg-clip-text from-gray-300 via-gray-800 to-gray-300">
-            GrayScale
-          </span>
+          <Link href={`/`}>
+            <span className="text-transparent bg-gradient-to-l bg-clip-text from-gray-300 via-gray-800 to-gray-300 cursor-pointer">
+              GrayScale
+            </span>
+          </Link>
         </div>
         <div className="md:hidden">
           <button
             type="button"
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            className="md:hidden block text-gray-600 hover:text-gray-900 focus:text-gray-900 focus:outline-none"
+            className={`md:hidden block text-gray-600 hover:text-gray-900 focus:text-gray-900 focus:outline-none`}
           >
             <svg
               className="w-6 h-6"

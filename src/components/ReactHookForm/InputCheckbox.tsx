@@ -43,7 +43,7 @@ const InputCheckbox: React.FC<InputCheckboxProps> = ({
         <p className="font-semibold">{checkboxValue}</p>
       </div>
 
-      <p className="text-red pt-2 font-semibold text-sm italic">
+      <p className="text-red-600 pt-2 font-semibold text-sm italic">
         {error ? error : " "}
       </p>
     </div>

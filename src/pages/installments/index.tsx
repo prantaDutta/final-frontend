@@ -27,7 +27,7 @@ const index: React.FC<indexProps> = ({ user }) => {
   );
   return (
     <DashboardLayout data={user}>
-      <div className="flex justify-between">
+      <div className="flex justify-between my-2">
         <DashboardTitle backButton={false} title="Current Installments" />
         <FlexibleSelectButton
           selectValue={installmentStatus}

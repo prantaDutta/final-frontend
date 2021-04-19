@@ -8,7 +8,7 @@ interface ShowDetailsInATableWithLinksProps {
   dataArray: any[][];
   tableClass?: string;
   theadRowClass?: string;
-  tdClass?: string;
+  thClass?: string;
   urlArray?: string[];
   thDataArray?: string[];
   dataIsLink?: boolean;
@@ -31,12 +31,12 @@ const ShowDetailsInATableWithLinks: React.FC<ShowDetailsInATableWithLinksProps> 
   setSelectValue,
   // button end //
   thDataArray = ["name", "data"],
-  tableClass = "shadow-lg bg-white text-center mt-5 m-auto table-fixed w-full md:w-3/4",
-  theadRowClass = "bg-primary font-semibold border px-2 md:px-8 py-2 md:py-4 text-gray-100",
-  tdClass = "font-semibold border px-2 md:px-8 py-2 md:py-4 capitalize",
+  tableClass = "border-collapse table-auto w-full",
+  thClass = "p-3 font-semibold uppercase bg-primary text-white border border-gray-300 hidden lg:table-cell",
+  theadRowClass = "bg-primary font-semibold border px-8 py-4 text-gray-100",
 }) => {
   return (
-    <div className="my-2 md:my-5">
+    <div className="mt-5">
       <div className={`flex justify-around items-center`}>
         <h4 className="text-xl md:text-2xl font-semibold text-center">
           {title}
@@ -55,7 +55,7 @@ const ShowDetailsInATableWithLinks: React.FC<ShowDetailsInATableWithLinksProps> 
             <tr className={theadRowClass}>
               {thDataArray?.map((th, i) => {
                 return (
-                  <th key={i} className={tdClass}>
+                  <th key={i} className={thClass}>
                     {th}
                   </th>
                 );

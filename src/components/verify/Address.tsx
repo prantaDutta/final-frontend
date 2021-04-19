@@ -1,23 +1,23 @@
-import InputSelectField from "../ReactHookForm/InputSelectField";
-import {
-  createDivisionsTypes,
-  createZilaTypes,
-} from "../../utils/constantsArray";
-import InputTextField from "../ReactHookForm/InputTextField";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
-import NextPreviousButton from "./NextPreviousButton";
+import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
+import useSWR from "swr";
+import * as yup from "yup";
+import { object } from "yup";
 import {
   verificationFormValues,
   verificationStep,
 } from "../../states/verificationStates";
-import { useForm } from "react-hook-form";
-import { AddressVerificationFormValues } from "../../utils/randomTypes";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { object } from "yup";
-import useSWR from "swr";
 import { isProduction } from "../../utils/constants";
+import {
+  createDivisionsTypes,
+  createZilaTypes,
+} from "../../utils/constantsArray";
+import { AddressVerificationFormValues } from "../../utils/randomTypes";
+import InputSelectField from "../ReactHookForm/InputSelectField";
+import InputTextField from "../ReactHookForm/InputTextField";
+import NextPreviousButton from "./NextPreviousButton";
 
 interface AddressProps {}
 
@@ -77,7 +77,7 @@ const Address: React.FC<AddressProps> = ({}) => {
           <h3 className="font-bold text-2xl">Address Information</h3>
         </section>
         <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex px-4">
+          <div className="md:flex px-4">
             <InputTextField
               name="address"
               defaultValue={verificationValues?.address}
@@ -87,7 +87,7 @@ const Address: React.FC<AddressProps> = ({}) => {
               register={register}
             />
           </div>
-          <div className="flex px-4">
+          <div className="md:flex px-4">
             <InputSelectField
               defaultValue={verificationValues?.division}
               name="division"
@@ -109,7 +109,7 @@ const Address: React.FC<AddressProps> = ({}) => {
               }
             />
           </div>
-          <div className="flex px-4">
+          <div className="md:flex px-4">
             <InputTextField
               defaultValue={verificationValues?.zip_code}
               name="zip_code"

@@ -132,7 +132,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
           <h3 className="font-bold text-2xl">Contact Information</h3>
         </section>
         <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-end px-4">
+          <div className="md:flex items-end px-4">
             <InputTextField
               halfWidth
               defaultValue={
@@ -213,7 +213,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
               />
             </div>
           )}
-          <div className={`flex items-end px-4`}>
+          <div className={`md:flex items-end px-4`}>
             <InputMobileNoField
               defaultValue={verificationValues?.mobileNo || userData?.mobileNo}
               name="mobileNo"

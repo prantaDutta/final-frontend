@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { trigger } from "swr";
-import { mutateCallback } from "swr/dist/types";
 import { laravelApi } from "../../utils/api";
 import { notify } from "../../utils/toasts";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
@@ -10,11 +9,8 @@ interface SaveCancelButtonProps {
   submitUrl: string;
   postData: {};
   toastMsg: string;
-  mutate: (
-    data?: Promise<any> | mutateCallback | any,
-    shouldRevalidate?: boolean
-  ) => Promise<any | undefined>;
-  disabled?: boolean
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
+  disabled?: boolean;
 }
 
 const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
@@ -23,16 +19,16 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
   postData,
   toastMsg,
   mutate,
-    disabled = false,
+  disabled = false,
 }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   return isSubmitting ? (
     <FullWidthReactLoader />
   ) : (
-    <div className="flex justify-end my-4">
+    <div className="flex justify-between md:justify-end my-4">
       <button
         onClick={() => setField(false)}
-        className="px-4 mx-2 bg-red-700 text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primary"
+        className="mx-2 bg-red-700 text-white w-1/3 md:w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primary"
       >
         Cancel
       </button>
@@ -42,10 +38,7 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
         onClick={async () => {
           setSubmitting(true);
           try {
-              await laravelApi().post(
-              submitUrl,
-              postData
-            );
+            await laravelApi().post(submitUrl, postData);
             await mutate();
             notify(toastMsg, {
               type: "success",
@@ -61,7 +54,9 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
           await trigger("/user");
           // await mutate("/user/contact-verified");
         }}
-        className={`px - 4 ml-2 bg-primary text-white w-1/5 py-2 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent disabled:opacity-50 ${disabled && 'cursor-not-allowed'}`}
+        className={`md:ml-2 bg-primary text-white w-1/3 md:w-1/5 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent disabled:opacity-50 ${
+          disabled && "cursor-not-allowed"
+        }`}
       >
         Save
       </button>

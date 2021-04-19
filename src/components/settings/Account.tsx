@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { mutateCallback } from "swr/dist/types";
 import { accountExpand } from "../../states/settingsStates";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import SaveCancelButton from "./SaveCancelButton";
@@ -9,10 +8,7 @@ import SettingsName from "./SettingsName";
 
 interface AccountProps {
   data: any;
-  mutate: (
-    data?: Promise<any> | mutateCallback | any,
-    shouldRevalidate?: boolean
-  ) => Promise<any | undefined>;
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
 }
 
 const Account: React.FC<AccountProps> = ({ data, mutate }) => {
@@ -34,17 +30,17 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
       {expand ? (
         data ? (
           <>
-            <div className="mt-5 px-12 py-4 rounded-xl border-2 border-gray-500">
-              {showLanguageField ? (
+            <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
+              {/* {showLanguageField ? (
                 <div>
-                  <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                  <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                     Change Language
                   </label>
                   <select
                     onChange={(e) =>
                       setLanguage(e.target.value as "English" | "বাংলা")
                     }
-                    className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full bg-white font-semibold md:font-bold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option defaultValue={language}>Choose One...</option>
                     {["English", "বাংলা"].map((lang) => (
@@ -54,7 +50,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                     ))}
                   </select>
                   {/* Cancel Editing & Submitting the Data */}
-                  <SaveCancelButton
+              {/* <SaveCancelButton
                     setField={setLanguageField}
                     submitUrl={`/user/account/language`}
                     postData={{
@@ -67,8 +63,10 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between items-center">
                   <div>
-                    <button className="text-lg font-bold">Language</button>
-                    <button className="ml-5 text-lg font-semibold text-gray-600">
+                    <button className="text-sm md:text-lg font-semibold md:font-bold">
+                      Language
+                    </button>
+                    <button className="ml-5 text-sm md:text-lg font-semibold md:font-bold text-gray-600">
                       English
                     </button>
                   </div>
@@ -83,10 +81,10 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                   </div>
                 </div>
               )}
-              <hr className="border-gray-600 my-2" />
+              <hr className="border-gray-600 my-2" />  */}
               {showCloseAccountField ? (
                 <div className="">
-                  <p className="text-lg font-bold block w-full bg-transparent mt-5">
+                  <p className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-5">
                     Close Account
                   </p>
                   <p className="text-base font-semibold mt-2">
@@ -99,7 +97,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                     </Link>{" "}
                     on What happens to your account if you close it
                   </p>
-                  <label className="text-lg font-bold block w-full bg-transparent mt-2">
+                  <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
                     Your Password
                   </label>
                   <input
@@ -120,10 +118,10 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between items-center">
                   <div>
-                    <button className="text-lg font-bold">
+                    <button className="text-sm md:text-lg font-semibold md:font-bold">
                       Account Status
                     </button>
-                    <button className="ml-5 text-lg font-semibold text-gray-600 capitalize">
+                    <button className="ml-5 text-sm md:text-lg font-semibold md:font-bold text-gray-600 capitalize">
                       {data.user.verified}
                     </button>
                   </div>
@@ -131,7 +129,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                   <div className={`flex items-center`}>
                     <button
                       onClick={() => setCloseAccountField(true)}
-                      className="rounded-2xl font-semibold px-8 py-1.5 uppercase tracking-wide bg-primary text-white"
+                      className="rounded-lg font-semibold md:font-bold px-4 md:px-8 py-1.5 uppercase tracking-wide bg-primary text-white"
                     >
                       Close Account
                     </button>

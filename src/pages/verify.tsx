@@ -54,7 +54,7 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
   useEffect(() => changeUserData(user), [userData]);
   return (
     <DashboardLayout data={user}>
-      <div className="p-5">
+      <div className="p-2 md:p-5">
         <p className=" font-medium md:font-2xl text-xl md:text-4xl text-center">
           Account Verification
         </p>
@@ -65,15 +65,15 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
                 ? "Your Account is already Verified"
                 : "Your Account Verification is Pending"}
             </p>
-            <div className="flex">
+            <div className="md:flex my-2">
               <button
-                className="my-6 mr-6 btn bg-primary text-white p-3 w-1/4 block"
+                className="my-2 md:my-5 mr-5 px-4 py-2 rounded-lg bg-primary text-white"
                 onClick={() => router.push("/dashboard")}
               >
                 Go to Dashboard
               </button>
               <button
-                className="m-6 btn bg-primary text-white p-3 w-1/4 block"
+                className="my-2 md:my-5 mr-5 px-4 py-2 rounded-lg bg-primary text-white"
                 onClick={() => router.back()}
               >
                 Go Back

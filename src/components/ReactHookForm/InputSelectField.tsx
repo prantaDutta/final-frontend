@@ -19,7 +19,7 @@ const InputSelectField: React.FC<InputSelectFieldProps> = ({
   ...props
 }) => {
   return (
-    <div className={`mt-6 px-4 ${halfWidth ? "w-1/2" : "w-full"}`}>
+    <div className={`mt-6 px-4 ${halfWidth ? "md:w-1/2" : "w-full"}`}>
       <label className="text-md font-bold text-gray-700 tracking-wide">
         {label}
       </label>
@@ -56,7 +56,7 @@ const InputSelectField: React.FC<InputSelectFieldProps> = ({
         </svg>
       </div>
 
-      <p className="text-red pt-2 font-semibold text-sm italic">
+      <p className="text-red-600 pt-2 font-semibold text-sm italic">
         {error ? error : " "}
       </p>
     </div>

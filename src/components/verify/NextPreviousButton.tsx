@@ -1,4 +1,5 @@
 import { ThreeDots } from "@agney/react-loading";
+import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authenticatedUserData } from "../../states/userStates";
 import {
@@ -6,7 +7,6 @@ import {
   verificationSubmitting,
 } from "../../states/verificationStates";
 import ReactLoader from "../shared/ReactLoader";
-import React from "react";
 
 interface NextPreviousButtonProps {
   nextDisabled: boolean;
@@ -25,13 +25,15 @@ const NextPreviousButton: React.FC<NextPreviousButtonProps> = ({
   };
   return (
     <div
-      className={`flex ${step > 0 ? "justify-between" : "justify-end"} mt-8`}
+      className={`flex ${
+        step > 0 ? "justify-between" : "justify-end"
+      } mt-5 md:mt-8 md:px-2`}
     >
       {step > 0 && (
         <button
           type="button"
           onClick={() => setStep(step - 1)}
-          className="bg-primary text-gray-100 p-3 w-1/3 rounded-full tracking-wide
+          className="bg-primary text-gray-100 p-3 w-1/3 rounded-lg tracking-wide
           font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
           shadow-lg transition-css"
         >
@@ -41,7 +43,7 @@ const NextPreviousButton: React.FC<NextPreviousButtonProps> = ({
       <button
         type="submit"
         disabled={nextDisabled}
-        className={`bg-primary text-gray-100 p-3 w-1/3 rounded-full tracking-wide
+        className={`bg-primary text-gray-100 p-3 w-1/3 rounded-lg tracking-wide
         font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-primaryAccent
         shadow-lg transition-css disabled:opacity-50`}
       >

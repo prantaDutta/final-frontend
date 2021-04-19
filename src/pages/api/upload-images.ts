@@ -17,13 +17,16 @@ export default handler.put(async (req, res) => {
   await fs.mkdir(imagePath, { recursive: true });
   try {
     await new Promise((resolve, reject) => {
-      const form = new formidable.IncomingForm();
-      form.uploadDir = imagePath;
-      form.multiples = true;
-      form.keepExtensions = true;
-      // renaming the file first parameter is the file name
-      form.on("fileBegin", (filename, file) => {
-        form.emit("data", { name: "fileBegin", filename, value: file });
+      const form = new formidable({
+        multiples: true,
+        uploadDir: imagePath,
+        keepExtensions: true,
+      });
+      // renaming the file
+      // first parameter is the file name
+
+      form.on("fileBegin", (formname, file) => {
+        form.emit("data", { name: "fileBegin", formname, value: file });
       });
 
       // saving the file to the local folder
@@ -40,7 +43,7 @@ export default handler.put(async (req, res) => {
             fields[key] = temp;
           } else if ("path" in value) {
             // returns the filename and extension from the path
-            fields[key] = value.path.replace(/^.*[\\\/]/, "");
+            fields[key] = (value as any).path.replace(/^.*[\\\/]/, "");
           }
         }
         const verificationPhotos = {

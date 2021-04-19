@@ -80,7 +80,7 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({
         </button>
       </div>
 
-      <p className="text-red pt-2 font-semibold text-sm italic">
+      <p className="text-red-600 pt-2 font-semibold text-sm italic">
         {error ? error : " "}
       </p>
     </div>

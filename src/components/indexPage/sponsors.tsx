@@ -17,7 +17,7 @@ const Sponsors: React.FC<sponsorsProps> = ({}) => {
                 <div className="flex justify-center items-center mb-2 md:mb-4">
                   <Image
                     src={img.img}
-                    alt="Picture of the author"
+                    alt={`${img.img}`}
                     width="200"
                     height="200"
                     className="object-contain"

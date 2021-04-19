@@ -1,4 +1,5 @@
 import React from "react";
+import SvgIcon from "../shared/SvgIcon";
 
 interface svgIconsProps {
   svgD: string;
@@ -72,38 +73,15 @@ const StepperIcons: React.FC<stepperIconsProps> = ({
       <div className="flex items-center text-white relative z-0">
         <div className="rounded-full flex justify-center items-center transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-primary">
           {isDone ? (
-            <svg
-              className="w-6 h-6 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <SvgIcon
+              classNames="w-6 h-4 text-primary"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           ) : (
-            <svg
-              className="w-6 h-6 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={item.svgD}
-              />
-            </svg>
+            <SvgIcon classNames="w-6 h-6 text-primary" d={item.svgD} />
           )}
         </div>
-        <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-primary font-bold">
+        <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs uppercase text-primary font-bold">
           {item.label}
         </div>
       </div>

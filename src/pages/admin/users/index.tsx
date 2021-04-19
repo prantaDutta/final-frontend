@@ -79,7 +79,7 @@ export const verificationRequestsTableHeader: Column[] = [
     accessor: "id",
     Cell: ({ value }: Cell) => (
       <Link href={`/admin/users/${value}`}>
-        <span className="btn bg-primary text-white px-3 py-2">Check</span>
+        <span className="check">Check</span>
       </Link>
     ),
   },
