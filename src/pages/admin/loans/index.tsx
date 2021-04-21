@@ -29,7 +29,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">
-        <DashboardTitle backButton={false} title="User" />
+        <DashboardTitle backButton={false} title="Loans" />
         <FlexibleSelectButton
           selectValue={requestType}
           setSelectValue={setRequestType}
@@ -40,7 +40,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
 
       {data ? (
         <ReadyMadeTable
-          title={`${requestType} User`}
+          title={`${requestType} Loans`}
           data={data.loans}
           pagination
           isValidating={!data}
@@ -78,10 +78,6 @@ export const AdminLoansTableHeader = [
   {
     Header: "Loan Duration",
     accessor: "loanDuration",
-  },
-  {
-    Header: "Modified Monthly Installment",
-    accessor: "modifiedMonthlyInstallment",
   },
   {
     Header: "Loan Mode",
