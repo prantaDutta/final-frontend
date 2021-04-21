@@ -59,12 +59,12 @@ export const getServerSideProps = withAuth(async (context) => {
   };
 });
 
-export const generateLenderIdArray = (arr: string[]) => {
-  let newArr: string[] = [];
+// export const generateLenderIdArray = (arr: string[]) => {
+//   let newArr: string[] = [];
 
-  arr.map((ar) => {
-    newArr.push(`/admin/users/${ar}`);
-  });
+//   arr.forEach((ar) => {
+//     newArr.push(`/admin/users/${ar}`);
+//   });
 
-  return newArr;
-};
+//   return newArr;
+// };

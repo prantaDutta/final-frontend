@@ -9,6 +9,7 @@ import { ModifiedUserData } from "../../utils/randomTypes";
 import Sidebar from ".././dashboard/Sidebar";
 import MainContentNav from "../dashboard/DashboardNav";
 import SvgIcon from "../shared/SvgIcon";
+
 interface DashboardLayoutProps {
   data: ModifiedUserData;
 }
@@ -36,14 +37,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   return (
     <>
-      <div
-        className={`${
-          !showSidebar ? "block" : "hidden"
-        } md:hidden flex justify-between`}
-      >
+      <div className={`md:hidden flex justify-between`}>
         <button
-          className="p-3 text-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-1"
-          onClick={() => setSidebar(true)}
+          onClick={() => setSidebar(!showSidebar)}
+          className="p-3 text-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-0"
         >
           <SvgIcon d={`M4 6h16M4 12h16M4 18h16`} />
         </button>
@@ -68,16 +65,22 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           />
         </button>
       </div>
-      <div className={`md:grid md:grid-cols-5`}>
-        <Sidebar role={data?.role} />
-        <div
-          className={`${
-            showSidebar ? "hidden" : "block"
-          } col-span-4  bg-gray-300 min-h-screen`}
-        >
+      <div
+        className={`md:grid md:grid-cols-5 relative`}
+        onClick={() => setSidebar(false)}
+      >
+        <div className="hidden md:block">
+          <Sidebar role={data?.role} />
+        </div>
+        <div className="md:hidden">
+          <Sidebar role={data?.role} />
+        </div>
+        <div className={`col-span-4 bg-gray-300 min-h-screen`}>
           <MainContentNav />
           {mounted && verifyWarning === "unverified" && (
-            <div className="flex justify-center items-center text-center mt-2">
+            <div
+              className={`flex justify-center items-center text-center mt-2`}
+            >
               <button
                 type="button"
                 className="px-4 py-2 mt-5 md:mt-0 rounded-lg bg-primary flex items-center focus:outline-none focus:ring-0"
@@ -92,25 +95,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                   className="text-red px-4"
                   onClick={() => setVerifyWarning("verified")}
                 >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <SvgIcon d="M6 18L18 6M6 6l12 12" classNames="w-4 h-4" />
                 </span>
               </button>
             </div>
           )}
-          <div className="grid grid-cols-3 gap-8 mx-5 md:mx-16">
+          <div
+            className={`grid grid-cols-3 gap-8 mx-5 md:mx-16  ${
+              showSidebar ? "opacity-30 z-0" : "z-30"
+            }`}
+          >
             <div className="col-start-1 col-span-4">
               <div className="text-gray-900 md:px-5 pt-4 md:py-5">
                 {children}

@@ -39,7 +39,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
           {user.role === "borrower" && (
             <button
               onClick={() => router.push("/loans/new-loan")}
-              className="btn-primary"
+              className="primary-btn"
             >
               New Loan
             </button>

@@ -22,7 +22,7 @@ import NextPreviousButton from "./NextPreviousButton";
 
 interface ContactProps {}
 
-const Contact: React.FC<ContactProps> = ({}) => {
+const Contact: React.FC<ContactProps> = () => {
   const [verificationValues, setValues] = useRecoilState(
     verificationFormValues
   );
@@ -247,7 +247,7 @@ const Contact: React.FC<ContactProps> = ({}) => {
                       type: "success",
                     });
                   } catch (e) {
-                    notify("Otp Invalid Or Expired", {
+                    notify("Problem Sending sms. Try Again", {
                       type: "error",
                     });
                   }

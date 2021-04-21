@@ -11,7 +11,7 @@ import DashboardBubble from "./DashboardBubble";
 
 interface DashboardContentProps {}
 
-const UserDashboardContent: React.FC<DashboardContentProps> = ({}) => {
+const UserDashboardContent: React.FC<DashboardContentProps> = () => {
   const shouldNotifyValue = useRecoilValue(shouldNotify);
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
