@@ -138,7 +138,7 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   }, [watchAmount]);
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Deposit Now`}>
       <DashboardTitle title="Deposit Now" />
       <main className="bg-white w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
         <section>

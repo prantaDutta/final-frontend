@@ -1,4 +1,5 @@
 import { withIronSession } from "next-iron-session";
+import React from "react";
 import Introduction from "../components/indexPage/introduction";
 import ProvideBorrowers from "../components/indexPage/provideBorrowers";
 import ProvideInvestors from "../components/indexPage/provideInvestors";
@@ -8,7 +9,6 @@ import Layout from "../components/layouts/Layout";
 import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
 import { ModifiedUserData } from "../utils/randomTypes";
 import MobileApp from "./../components/indexPage/mobileApp";
-import React from "react";
 
 // This is the home page
 // the components of this page are in the components folder
@@ -18,7 +18,7 @@ interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ user }) => {
   return (
-    <Layout data={user}>
+    <Layout data={user} title="Lend And Borrow">
       <Introduction />
       <ProvideInvestors />
       <ProvideBorrowers />

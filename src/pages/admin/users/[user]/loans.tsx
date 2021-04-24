@@ -20,7 +20,7 @@ const Loans: React.FC<LoansProps> = ({ user, userId }) => {
     mounted ? `/admin/user/loans/${userId}` : null
   );
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`User Loan Details`}>
       <DashboardTitle title={`User Loans`} backButton />
       {data ? (
         <ReadyMadeTable

@@ -19,7 +19,7 @@ const Settings: React.FC<dashboardProps> = ({ user }) => {
   useEffect(() => setMounted(true), []);
   const { data, mutate, isValidating } = useSWR(mounted ? `/admin/` : null);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Settings`}>
       <DashboardTitle backButton={false} title="Settings" />
       {!isValidating ? (
         <>

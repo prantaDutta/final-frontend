@@ -22,7 +22,7 @@ const UserLoan: React.FC<UserLoanProps> = ({ user, loanId }) => {
   let { data } = useSWR(mounted ? `/user/get-single-loan/${loanId}` : null);
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Loan Details`}>
       <DashboardTitle title={`Loan Details`} />
       {data ? (
         <>

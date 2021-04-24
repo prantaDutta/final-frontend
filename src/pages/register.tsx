@@ -72,7 +72,7 @@ const Register: React.FC<registerProps> = ({ user }) => {
   };
 
   return (
-    <Layout data={user}>
+    <Layout data={user} title={`Register Now`}>
       <div className="pb-3 px-2 md:px-0">
         <main className="bg-white max-w-lg mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
           <section>

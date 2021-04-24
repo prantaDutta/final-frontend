@@ -30,7 +30,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   //   return <DashboardError />;
   // }
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`User Loans`}>
       <div className="flex justify-between">
         <DashboardTitle backButton={false} title="Loans" />
         <FlexibleSelectButton

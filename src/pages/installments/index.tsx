@@ -19,19 +19,19 @@ interface indexProps {
 const index: React.FC<indexProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const [installmentStatus, setinstallmentStatus] = useState<
+  const [installmentStatus, setInstallmentStatus] = useState<
     "due" | "unpaid" | "paid" | "all"
   >("all");
   const { data, mutate } = useSWR(
     mounted ? `/user/get-all-installments/${installmentStatus}` : "null"
   );
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Installments`}>
       <div className="flex justify-between my-2">
         <DashboardTitle backButton={false} title="Current Installments" />
         <FlexibleSelectButton
           selectValue={installmentStatus}
-          setSelectValue={setinstallmentStatus}
+          setSelectValue={setInstallmentStatus}
           selectArray={installmentStatusSelectTypes}
           isValidating={!data}
         />

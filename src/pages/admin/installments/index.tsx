@@ -26,7 +26,7 @@ const Installments: React.FC<InstallmentsProps> = ({ user }) => {
     mounted ? `/admin/installments/${installmentStatus}` : null
   );
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Installments`}>
       <div className="flex justify-between">
         <DashboardTitle backButton={false} title="Installments" />
         <FlexibleSelectButton

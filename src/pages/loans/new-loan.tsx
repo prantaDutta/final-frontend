@@ -94,7 +94,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   useEffect(() => setMounted(true), []);
   const { data } = useSWR(mounted ? `/user/get-default-interest-rate` : null);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Apply For A New Loan`}>
       <DashboardTitle title="Apply For A New Loan" />
 
       {complete ? (

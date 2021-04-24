@@ -49,9 +49,15 @@ const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
     }
     setSubmitting(false);
   };
-  mutate();
+  // So that it runs automatically
+  useEffect(() => {
+    (async function () {
+      await mutate();
+    })();
+  }, []);
+
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Change Interest Rate`}>
       <DashboardTitle title={`Change Default Interest Rate`} backButton />
       {data ? (
         <div className="bg-white w-full mx-auto p-4 md:p-8 mt-5 rounded-lg shadow-2xl">

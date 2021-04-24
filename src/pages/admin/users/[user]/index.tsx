@@ -36,7 +36,7 @@ const user: React.FC<userProps> = ({ user, userId }) => {
   }, [data]);
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`User Details`}>
       <div className="md:flex justify-between">
         <DashboardTitle title={`User Details`} backButton={true} />
         {data && (

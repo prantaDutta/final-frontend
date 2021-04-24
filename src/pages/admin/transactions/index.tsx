@@ -33,7 +33,7 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
       : null
   );
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Transactions`}>
       <div className="flex justify-between">
         <DashboardTitle backButton={false} title="Loan Requests" />
         <FlexibleSelectButton

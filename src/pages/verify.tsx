@@ -53,7 +53,7 @@ const Verify: React.FC<verifyProps> = ({ user }) => {
   const icons = role === "lender" ? lenderIcons : borrowerIcons;
   useEffect(() => changeUserData(user), [userData]);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Verify Your Account Now`}>
       <div className="p-2 md:p-5">
         <p className=" font-medium md:font-2xl text-xl md:text-4xl text-center">
           Account Verification

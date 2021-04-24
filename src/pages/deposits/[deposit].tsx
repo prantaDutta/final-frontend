@@ -24,7 +24,7 @@ const Deposit: React.FC<DepositProps> = ({user, depositId}) => {
     );
 
     return (
-        <DashboardLayout data={user}>
+        <DashboardLayout data={user} title={`Deposit Details`}>
             <DashboardTitle title={`Deposit Details`} backButton/>
 
             {data ? (

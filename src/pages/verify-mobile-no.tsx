@@ -94,7 +94,7 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
   console.log("errors: ", errors);
   const watchMobileNo = watch("mobileNo");
   return (
-    <Layout data={user}>
+    <Layout data={user} title={`Verify Mobile No.`}>
       <div className="flex h-8vh">
         <div className="m-auto">
           <div className="bg-white max-w-lg mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">

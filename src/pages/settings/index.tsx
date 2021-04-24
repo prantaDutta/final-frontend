@@ -19,7 +19,7 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
   useEffect(() => setMounted(true), []);
   const { data, mutate } = useSWR(mounted ? `/user/` : null);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Settings`}>
       <DashboardTitle backButton={false} title="Settings" />
       {data ? (
         <>
