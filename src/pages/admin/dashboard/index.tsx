@@ -18,7 +18,7 @@ const dashboard: React.FC<dashboardProps> = ({user, alert}) => {
     const [, setShouldNotify] = useRecoilState(shouldNotify);
     useEffect(() => setShouldNotify(alert), [])
     return (
-        <DashboardLayout data={user}>
+        <DashboardLayout data={user} title={`Admin Dashboard`}>
             <AdminDashboardContent/>
         </DashboardLayout>
     );

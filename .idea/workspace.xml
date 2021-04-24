@@ -22,7 +22,56 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="" />
+    <list default="true" id="3ae6fa82-6b80-40a0-9bd4-1e629495c4e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/pages/_document.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/_offline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/DashboardLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/about.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/about.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/dashboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/installments/[installment].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/installments/[installment].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/installments/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/installments/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/loan-installments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/[loan]/loan-installments.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/settings/change-interest-rate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/settings/change-interest-rate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/settings/change-penalty-data/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/settings/change-penalty-data/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/settings/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/transactions/[request].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/transactions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/transactions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[user]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[user]/loans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/loans.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[user]/transactions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/transactions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/[user]/user-installments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/[user]/user-installments.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deposits/[deposit].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deposits/[deposit].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deposits/deposit-now.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deposits/deposit-now.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deposits/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deposits/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/installments/[installment].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/installments/[installment].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/installments/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/installments/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/[loan]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/[loan]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/[loan]/loan-installments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/[loan]/loan-installments.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/loans/new-loan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/settings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/settings/notifications/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/notifications/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify-mobile-no.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify-mobile-no.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/verify.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/verify.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/[withdraw].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/[withdraw].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/withdrawals/withdraw.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,8 +80,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -71,10 +120,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.last.introduce.type" value="LET" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/withdrawals" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="G:\laragon\bin\nodejs\node-v14.15.0\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="ts.external.directory.path" value="G:\Development\final-project\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -93,15 +142,13 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -187,6 +234,7 @@
       <workItem from="1617857293177" duration="5658000" />
       <workItem from="1617863986823" duration="19363000" />
       <workItem from="1617942191113" duration="12915000" />
+      <workItem from="1619270966232" duration="7947000" />
     </task>
     <servers />
   </component>

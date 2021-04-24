@@ -27,7 +27,7 @@ const VerificationRequests: React.FC<VerificationRequestsProps> = ({
   >("pending");
   const { data, mutate } = useSWR(mounted ? `/admin/users/${verified}` : null);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Users`}>
       <div className="flex justify-between">
         <DashboardTitle backButton={false} title="Users" />
         <FlexibleSelectButton

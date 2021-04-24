@@ -24,7 +24,7 @@ const Installment: React.FC<InstallmentProps> = ({user, installmentId}) => {
     );
 
     return (
-        <DashboardLayout data={user}>
+        <DashboardLayout data={user} title={`Installment Details`}>
             <div className="flex justify-between">
                 <DashboardTitle title={`Installment Details`}/>
             </div>

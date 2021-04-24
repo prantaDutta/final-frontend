@@ -19,7 +19,7 @@ const UserInstallments: React.FC<UserInstallmentsProps> =
         useEffect(() => setMounted(true), []);
         const {data, mutate} = useSWR(mounted ? `/admin/user/user-installments/${userId}` : null)
         return (
-            <DashboardLayout data={user}>
+            <DashboardLayout data={user} title={`User Installments`}>
                 <DashboardTitle title={`User Installments`} backButton />
                 {data ? (
                     <ReadyMadeTable

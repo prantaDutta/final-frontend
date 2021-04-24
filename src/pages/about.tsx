@@ -10,7 +10,7 @@ interface aboutProps {
 
 const about: React.FC<aboutProps> = ({ user }) => {
   return (
-    <Layout data={user}>
+    <Layout data={user} title={`About Grayscale`}>
       <div className="text-center text-gray-600">
         <h2 className="text-4xl font-bold">About GrayScale</h2>
         <div className="bg-white mt-10 md:mx-56">

@@ -23,7 +23,7 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   if (data && !isProduction) console.log("data: ", data);
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Deposits`}>
       <div className="flex justify-between my-2">
         <DashboardTitle backButton={false} title="Deposit Money" />
         <button

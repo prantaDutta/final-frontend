@@ -18,10 +18,10 @@ interface ChangePenaltyDataProps {
 
 const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
   const { data } = useSWR("/admin/get-penalty-data");
-  const [penaltyDataValue, setPenalyData] = useRecoilState(penaltyDataStates);
+  const [penaltyDataValue, setPenaltyData] = useRecoilState(penaltyDataStates);
   useEffect(() => {
     if (data) {
-      setPenalyData(data.penaltyData);
+      setPenaltyData(data.penaltyData);
     }
   }, [data]);
 
@@ -36,13 +36,13 @@ const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
         type: "success",
       });
     } catch (e) {
-      notify("Somthing went Wrong. Please Try Again", {
+      notify("Something went Wrong. Please Try Again", {
         type: "error",
       });
     }
   };
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Change Penalty Data`}>
       <DashboardTitle backButton={true} title="Change Penalty Data" />
       {penaltyDataValue ? (
         <form onSubmit={handleSubmit}>

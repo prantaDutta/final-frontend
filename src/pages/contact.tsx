@@ -27,7 +27,7 @@ const contact: React.FC<contactProps> = ({ user }) => {
     }
   };
   return (
-    <Layout data={user}>
+    <Layout data={user} title={`Contact Grayscale Team`}>
       <div className="grid md:grid-cols-2 gap-5 text-gray-600 md:mx-16 mt-6 md:mt-12">
         <div className="hidden md:block text-center">
           <h2 className="text-xl md:text-3xl font-bold tracking-wide">

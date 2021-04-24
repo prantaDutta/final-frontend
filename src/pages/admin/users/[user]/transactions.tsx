@@ -19,7 +19,7 @@ const Transactions: React.FC<TransactionsProps> =
         useEffect(() => setMounted(true), []);
         const {data, mutate} = useSWR(mounted ? `/admin/user/transactions/${userId}` : null)
         return (
-            <DashboardLayout data={user}>
+            <DashboardLayout data={user} title={`User Transaction Details`}>
                 <DashboardTitle title={`User Transactions`} backButton/>
                 {data ? (
                     <ReadyMadeTable

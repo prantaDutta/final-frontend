@@ -24,7 +24,7 @@ const withdraw: React.FC<withdrawProps> = ({user, withdrawId}) => {
     );
 
     return (
-        <DashboardLayout data={user}>
+        <DashboardLayout data={user} title={`Withdrawal Details`}>
             <DashboardTitle title={`Withdrawal Details`} backButton/>
 
             {data ? (

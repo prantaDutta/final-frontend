@@ -22,7 +22,7 @@ const Loan: React.FC<LoanProps> = ({ user, loanId }) => {
   let { data } = useSWR(mounted ? `/admin/get-single-loan/${loanId}` : null);
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Loan Details`}>
       <div className="md:flex justify-between">
         <DashboardTitle title={`Loan Details`} />
         {/* {data && data.loan.loanMode === "failed" && (

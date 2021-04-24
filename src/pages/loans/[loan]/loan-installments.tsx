@@ -21,7 +21,7 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> =
         useEffect(() => setMounted(true), []);
         const {data, mutate} = useSWR(mounted ? `/user/loans/loan-installments/${loanId}` : null)
         return (
-            <DashboardLayout data={user}>
+            <DashboardLayout data={user} title={`Loan Installment Details`}>
                 <DashboardTitle title={`User Loan Installments`} backButton/>
                 {data ? (
                     <ReadyMadeTable

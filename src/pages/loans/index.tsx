@@ -26,7 +26,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   const { data, mutate } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
   // if (data && !isProduction) console.log("data: ", data);
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`All Loans`}>
       <div className="md:flex justify-between">
         <DashboardTitle backButton={false} title="Current Loans" />
         <div className="md:w-1/2 flex justify-between my-2">

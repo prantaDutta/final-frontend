@@ -25,7 +25,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> =
         useEffect(() => useMounted(true), []);
         const {data} = useSWR(mounted ? `/admin/transaction/${request}` : null);
         return (
-            <DashboardLayout data={user}>
+            <DashboardLayout data={user} title={`Transaction Details`}>
                 <div className="flex justify-between text-gray-900">
                     <DashboardTitle title={`Transaction Details`} backButton/>
                     {data && data.transaction.transactionType === 'withdraw' && (

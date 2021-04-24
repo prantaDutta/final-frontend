@@ -82,7 +82,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   });
 
   return (
-    <DashboardLayout data={user}>
+    <DashboardLayout data={user} title={`Withdraw Now`}>
       <DashboardTitle title="Withdraw Now" />
       {user?.verified !== "yes" ? (
         <main className="bg-white w-full mx-auto p-4 md:p-8 mt-5 rounded-lg shadow-2xl">
