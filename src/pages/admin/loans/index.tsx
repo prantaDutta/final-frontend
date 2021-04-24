@@ -23,9 +23,12 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const [requestType, setRequestType] = useState<
     "failed" | "processing" | "ongoing" | "finished" | "all"
   >("failed");
-  const { data, mutate } = useSWR(
+  const { data, mutate /* , error*/ } = useSWR(
     mounted ? `/admin/loans/${requestType}` : null
   );
+  // if (error) {
+  //   return <DashboardError />;
+  // }
   return (
     <DashboardLayout data={user}>
       <div className="flex justify-between">

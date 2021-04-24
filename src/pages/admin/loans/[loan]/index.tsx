@@ -25,11 +25,14 @@ const Loan: React.FC<LoanProps> = ({ user, loanId }) => {
     <DashboardLayout data={user}>
       <div className="md:flex justify-between">
         <DashboardTitle title={`Loan Details`} />
-        {data && data.loan.loanMode === "failed" && (
-          <button className="px-4 py-2 bg-primary text-white rounded-lg font-semibold focus:outline-none focus:ring-0">
+        {/* {data && data.loan.loanMode === "failed" && (
+          <button
+            onClick={() => router.push(`/admin/loans/${loanId}/distribute`)}
+            className="px-4 py-2 bg-primary text-white rounded-lg font-semibold focus:outline-none focus:ring-0"
+          >
             Do Something
           </button>
-        )}
+        )} */}
       </div>
       {data ? (
         <>

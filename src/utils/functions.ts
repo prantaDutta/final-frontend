@@ -211,12 +211,12 @@ export const removeDuplicatesArray = (inArray: any[]) => {
   return arr;
 };
 
-export const createSelectOptionsFromArray = (options: string[]) => {
+export const createSelectOptionsFromArray = (options: string[] | number[]) => {
   let newOptionsArray: SelectOptionsTypes[] = [];
 
   options.map((option) => {
     newOptionsArray.push({
-      title: capitalize(option),
+      title: typeof option === "string" ? capitalize(option) : option,
       value: option,
     });
   });

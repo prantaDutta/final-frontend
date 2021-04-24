@@ -4,7 +4,7 @@ import SvgIcon from "./SvgIcon";
 
 interface FlexibleSelectButtonProps {
   isValidating?: boolean;
-  selectValue: string;
+  selectValue: string | number;
   setSelectValue: React.Dispatch<React.SetStateAction<any>>;
   selectArray: {}[];
 }

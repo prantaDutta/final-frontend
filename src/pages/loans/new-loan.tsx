@@ -1,10 +1,10 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { mutate } from "swr";
+import useSWR, { mutate } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
@@ -44,11 +44,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
           .typeError("Amount must be a number")
           .min(999.99, "Minimum Loan Amount is 1000tk")
           .required("Required"),
-        interestRate: Yup.number()
-          .typeError("Amount must be a number")
-          .min(5, "Minimum Interest Rate is 5%")
-          .max(15, "Maximum Interest Rate is 15%")
-          .required("Required"),
+        interestRate: Yup.mixed().notRequired(),
         loanDuration: Yup.number()
           .typeError("Loan Duration must be a number")
           .min(1, "Minimum Loan Duration is 1 Months")
@@ -92,6 +88,11 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
       calculateSimpleInterest(+amount, +interestRate, +loanDuration)
     );
   }
+
+  // Getting the default interest rate
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => setMounted(true), []);
+  const { data } = useSWR(mounted ? `/user/get-default-interest-rate` : null);
   return (
     <DashboardLayout data={user}>
       <DashboardTitle title="Apply For A New Loan" />
@@ -143,11 +144,10 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
                   if (!isProduction)
                     console.log("Sending Values: ", newFormState);
                   try {
-                    const { data } = await laravelApi().post("/user/new-loan", {
+                    await laravelApi().post("/user/new-loan", {
                       values: newFormState,
                       id: user.id,
                     });
-                    if (!isProduction) console.log("data: ", data);
                     if (data) setFormState(null);
                     setSubmitting(false);
                     await mutate("/user/loans");
@@ -192,15 +192,13 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
                 register={register}
               />
 
-              <InputSelectField
+              <InputTextField
                 name="interestRate"
                 halfWidth
-                defaultValue={
-                  newFormState ? newFormState.interestRate : undefined
-                }
+                value={data ? data.interestRate : 7}
                 label="Your Desired Interest Rate (in %)"
                 error={errors.interestRate?.message}
-                options={numberTypes(5, 15)}
+                readOnly
                 register={register}
               />
             </div>

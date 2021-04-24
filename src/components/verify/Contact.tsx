@@ -256,7 +256,9 @@ const Contact: React.FC<ContactProps> = () => {
                 setSMSSending(false);
               }}
               type="button"
-              className="px-2 mx-4 py-1 rounded-full bg-primaryAccent text-xs text-gray-200 font-semibold capitalize mb-2 focus:outline-none focus:ring-primaryAccent focus:ring-2"
+              className={`chip ${
+                smsSending ? "p-0" : "p-1.5"
+              } mx-4 mb-2 bg-primaryAccent`}
             >
               {smsSending ? <ReactLoader /> : "Send OTP"}
             </button>
