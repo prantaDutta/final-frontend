@@ -3,25 +3,29 @@ import Layout from "../components/layouts/Layout";
 import {NEXT_IRON_SESSION_CONFIG} from "../utils/constants";
 import {ModifiedUserData} from "../utils/randomTypes";
 import React from "react";
+import ErrorComponent from "../components/shared/ErrorComponent";
 
 interface offlineProps {
     user: ModifiedUserData;
+    code?: number;
+    errorMsg?: string;
+    description?: string;
 }
 
-const about: React.FC<offlineProps> = ({user}) => {
-    return (
-        <Layout data={user} title={`Oops, You are Offline`}>
-            <div className="text-center text-gray-600">
-                <h2 className="text-4xl font-bold">Offline GrayScale</h2>
-                <div className="bg-white mt-10 md:mx-56">
-                    <p className="p-2">
-                        Sorry, Right Now You are Offline. Please check your internet connection
-                    </p>
+const Offline: React.FC<offlineProps> =
+    ({
+         user, code = 503,
+         errorMsg = "Oops! You are Offline",
+         description = "Please check your internet connection and reload the page",
+     }) => {
+        return (
+            <Layout data={user} title={`Oops, You are Offline`}>
+                <div className={``}>
+                    <ErrorComponent code={code} errorMsg={errorMsg} description={description}/>
                 </div>
-            </div>
-        </Layout>
-    );
-};
+            </Layout>
+        );
+    };
 
 export const getServerSideProps = withIronSession(async ({req}) => {
     const user = req.session.get("user");
@@ -34,4 +38,4 @@ export const getServerSideProps = withIronSession(async ({req}) => {
     };
 }, NEXT_IRON_SESSION_CONFIG);
 
-export default about;
+export default Offline;

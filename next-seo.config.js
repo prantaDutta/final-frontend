@@ -23,11 +23,7 @@ export default {
             href: '/icons/icon-192x192.png',
             sizes: '192x192',
             type: "image/png"
-        },
-        {
-            rel: 'manifest',
-            href: '/manifest.json'
-        },
+        }
     ],
     additionalMetaTags: [
         {

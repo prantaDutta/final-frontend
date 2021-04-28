@@ -8,7 +8,9 @@ class MyDocument extends Document {
     render() {
         return (
             <Html>
-                <Head lang={`en-US`} />
+                <Head lang={`en-US`}>
+                    <link rel="manifest" href='./manifest.json'/>
+                </Head>
                 <body>
                 <Main />
                 <NextScript />
