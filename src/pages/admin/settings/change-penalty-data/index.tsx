@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 import DashboardLayout from "../../../../components/layouts/DashboardLayout";
@@ -11,13 +11,19 @@ import { divideAnArrayIntoMultipleParts } from "../../../../utils/functions";
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import { notify } from "../../../../utils/toasts";
 import withAdminAuth from "../../../../utils/withAdminAuth";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface ChangePenaltyDataProps {
   user: ModifiedUserData;
 }
 
 const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
-  const { data } = useSWR("/admin/get-penalty-data");
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => setMounted(true), []);
+  const { data, error } = useSWR(mounted ? "/admin/get-penalty-data" : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   const [penaltyDataValue, setPenaltyData] = useRecoilState(penaltyDataStates);
   useEffect(() => {
     if (data) {

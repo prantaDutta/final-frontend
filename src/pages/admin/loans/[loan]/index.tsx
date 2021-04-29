@@ -8,6 +8,7 @@ import { objectToArrayAndExclude } from "../../../../utils/functions";
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import withAdminAuth from "../../../../utils/withAdminAuth";
 import ErrorPage from "../../../404";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface LoanProps {
   user: ModifiedUserData;
@@ -19,8 +20,10 @@ const Loan: React.FC<LoanProps> = ({ user, loanId }) => {
 
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
-  let { data } = useSWR(mounted ? `/admin/get-single-loan/${loanId}` : null);
-
+  const { data, error } = useSWR(mounted ? `/admin/get-single-loan/${loanId}` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Loan Details`}>
       <div className="md:flex justify-between">

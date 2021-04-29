@@ -14,6 +14,9 @@ import { isProduction } from "../../utils/constants";
 import { withdrawalMethodsTypes } from "../../utils/constantsArray";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
+import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
+import ErrorComponent from "../../components/shared/ErrorComponent";
+import FetchError from "../../components/shared/FetchError";
 
 interface withdrawProps {
   user: ModifiedUserData;
@@ -39,9 +42,13 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => setMounted(true), []);
-  const { data: balanceData, mutate } = useSWR(
+  const { data: balanceData, mutate, error } = useSWR(
     mounted ? `/user/balance` : null
   );
+
+  if (error) {
+    return <FetchError user={user}/>
+  }
 
   const submitHandler = async (values: withdrawFormTypes) => {
     setSubmitting(true);
@@ -84,7 +91,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   return (
     <DashboardLayout data={user} title={`Withdraw Now`}>
       <DashboardTitle title="Withdraw Now" />
-      {user?.verified !== "yes" ? (
+      {user?.verified === "verified" ? (
         <main className="bg-white w-full mx-auto p-4 md:p-8 mt-5 rounded-lg shadow-2xl">
           <div className="mb-3 px-2 py-4 bg-gray-300 text-black rounded-lg">
             <p className="text-lg font-semibold">
@@ -142,9 +149,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
         </main>
       ) : (
         <div className="my-5">
-          <p className="font-semibold font-2xl">
-            Sorry, You need to verify your account to request withdrawals.
-          </p>
+          <VerifyAccountFirst />
         </div>
       )}
     </DashboardLayout>

@@ -1,4 +1,5 @@
 import IndexPageSection from "./IndexPageSection";
+import React from "react";
 
 interface provideInvestorsProps {}
 
@@ -13,7 +14,7 @@ const ProvideInvestors: React.FC<provideInvestorsProps> = ({}) => {
                 className="bg-gray-200 text-gray-700 shadow-md p-3 md:p-5 mt-10 text-center cursor-pointer rounded-md hover:shadow-2xl transition-css"
                 key={investor.title}
               >
-                <h4 className="font-semibold text-2xl">{investor.title}</h4>
+                <p className="font-semibold text-2xl">{investor.title}</p>
                 <p className="font-normal text-lg mt-5">{investor.content}</p>
               </div>
             );

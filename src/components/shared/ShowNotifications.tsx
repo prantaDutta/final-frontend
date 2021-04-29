@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import SvgIcon from "./SvgIcon";
+import React from "react";
 
 interface ShowNotificationsProps {
   data: any;
@@ -13,8 +14,8 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
         data.notifications.map((notification: any, i: number) => {
           return (
             <div
-              className="mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-75 z-10"
-              key={notification.id}
+              className="mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-75 z-10 max-w-md"
+              key={i}
             >
               <div className="flex flex-grow justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
                 <SvgIcon
@@ -47,7 +48,7 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
       ) : (
         // This is kinda unnecessary by the way
         // This is for no notifications in the database
-        <div className="mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-56 z-10">
+        <div className="mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-75 z-10 max-w-md">
           <div className="flex flex-grow justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
             <SvgIcon
               classNames="w-6 h-6 inline mt-0.5 text-primary cursor-pointer"

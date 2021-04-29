@@ -11,6 +11,7 @@ import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import { loanModeSelectTypes } from "../admin/loans";
+import FetchError from "../../components/shared/FetchError";
 
 interface currentLoansProps {
   user: ModifiedUserData;
@@ -23,8 +24,10 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   const [loanType, setLoanType] = useState<
     "processing" | "ongoing" | "finished" | "all"
   >("all");
-  const { data, mutate } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
-  // if (data && !isProduction) console.log("data: ", data);
+  const { data, mutate, error } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`All Loans`}>
       <div className="md:flex justify-between">

@@ -1,4 +1,6 @@
 import IndexPageSection from "./IndexPageSection";
+import SvgIcon from "../shared/SvgIcon";
+import React from "react";
 
 interface mobileAppProps {}
 
@@ -7,7 +9,7 @@ const MobileApp: React.FC<mobileAppProps> = ({}) => {
     <IndexPageSection title="Our Brand New Mobile App">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
         <div className="col-span-1 lg:col-span-1 text-left pl-0 md:pl-16 pt-8 md:pt-10">
-          <img src="/android-screen.png" className="h-full w-full object-fit" />
+          <img alt={`Android App Image`} src="/android-screen.png" className="h-full w-full object-fit" />
         </div>
         <div className="col-span-1 md:col-span-1 lg:col-span-2 text-left md:pl-32 pt-4 md:pt-10">
           <div>
@@ -22,20 +24,9 @@ const MobileApp: React.FC<mobileAppProps> = ({}) => {
               features.map((f) => {
                 return (
                   <div className="flex mt-4" key={f.title}>
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                      ></path>
-                    </svg>
+                    <SvgIcon
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    />
                     <p className="ml-8">{f.title}</p>
                   </div>
                 );

@@ -11,6 +11,7 @@ import { formatDate } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
 import { installmentStatusSelectTypes } from "../loans";
+import FetchError from "../../../components/shared/FetchError";
 
 interface InstallmentsProps {
   user: ModifiedUserData;
@@ -22,9 +23,12 @@ const Installments: React.FC<InstallmentsProps> = ({ user }) => {
   const [installmentStatus, setInstallmentStatus] = useState<
     "due" | "unpaid" | "paid" | "all"
   >("all");
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     mounted ? `/admin/installments/${installmentStatus}` : null
   );
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Installments`}>
       <div className="flex justify-between">

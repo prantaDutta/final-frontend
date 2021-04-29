@@ -12,6 +12,7 @@ import {
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -23,12 +24,12 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const [requestType, setRequestType] = useState<
     "failed" | "processing" | "ongoing" | "finished" | "all"
   >("failed");
-  const { data, mutate /* , error*/ } = useSWR(
+  const { data, mutate , error} = useSWR(
     mounted ? `/admin/loans/${requestType}` : null
   );
-  // if (error) {
-  //   return <DashboardError />;
-  // }
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`User Loans`}>
       <div className="flex justify-between">

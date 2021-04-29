@@ -1,4 +1,6 @@
 import IndexPageSection from "./IndexPageSection";
+import SvgIcon from "../shared/SvgIcon";
+import React from "react";
 
 interface provideBorrowersProps {}
 
@@ -14,22 +16,12 @@ const ProvideBorrowers: React.FC<provideBorrowersProps> = ({}) => {
                 key={borrower.title}
               >
                 <div className="flex justify-center items-center mb-3 md:mb-4">
-                  <svg
-                    className="w-12 h-12 inline-block text-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={borrower.d}
-                    ></path>
-                  </svg>
+                  <SvgIcon
+                    classNames="w-12 h-12 inline-block text-primary"
+                    d={borrower.d}
+                    />
                 </div>
-                <h4 className="font-semibold text-2xl">{borrower.title}</h4>
+                <p className="font-semibold text-2xl">{borrower.title}</p>
                 <p className="font-normal text-lg mt-5">{borrower.content}</p>
               </div>
             );

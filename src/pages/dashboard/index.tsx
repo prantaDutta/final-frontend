@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import UserDashboardContent from "../../components/dashboard/UserDashboardContent";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import {ModifiedUserData} from "../../utils/randomTypes";
@@ -7,6 +7,8 @@ import {applySession} from "next-iron-session";
 import {NEXT_IRON_SESSION_CONFIG} from "../../utils/constants";
 import {useRecoilState} from "recoil";
 import {shouldNotify} from "../../states/userStates";
+import useSWR from "swr";
+import FetchError from "../../components/shared/FetchError";
 
 interface dashboardProps {
     user: ModifiedUserData;
@@ -15,10 +17,20 @@ interface dashboardProps {
 
 const dashboard: React.FC<dashboardProps> = ({user, alert}) => {
     const [, setShouldNotify] = useRecoilState(shouldNotify);
-    useEffect(() => setShouldNotify(alert), [])
+    const [mounted, setMounted] = useState<boolean>(false);
+    useEffect(() => {
+        setMounted(true)
+        setShouldNotify(alert)
+    }, []);
+    const { data , error } = useSWR(
+        mounted ? `/user/dashboard-data` : null
+    );
+    if (error) {
+        return <FetchError user={user}/>
+    }
     return (
         <DashboardLayout data={user} title={`User Dashboard`}>
-            <UserDashboardContent/>
+            <UserDashboardContent data={data} />
         </DashboardLayout>
     );
 };

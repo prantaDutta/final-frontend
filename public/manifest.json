@@ -5,6 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#2caeba",
+  "background_color": "#eeeeee",
   "description": "Best P2P service in Bangladesh",
   "icons": [
     {
@@ -15,7 +16,8 @@
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

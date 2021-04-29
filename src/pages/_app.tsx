@@ -50,7 +50,7 @@ function MyApp({Component, pageProps /* router */}: AppProps) {
                 {/* <motion.div key={router.route} {...pageMotionProps}> */}
                 {/* Default Configuration for SEO */}
                 <Head>
-                    <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+                    <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=yes, viewport-fit=cover' />
                 </Head>
                 <DefaultSeo {...SEO} />
                 <RecoilExternalStatePortal/>

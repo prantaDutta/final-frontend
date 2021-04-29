@@ -12,6 +12,7 @@ import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
 import withAuth from "../../utils/withAuth";
 import ErrorPage from "../404";
+import FetchError from "../../components/shared/FetchError";
 
 interface InstallmentProps {
   user: ModifiedUserData;
@@ -25,10 +26,13 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
 
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
-  let { data } = useSWR(
+  const { data,error } = useSWR(
     mounted ? `/user/get-single-installment/${installmentId}` : null
   );
 
+  if (error) {
+    return <FetchError user={user}/>
+  }
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   return (

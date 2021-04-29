@@ -9,6 +9,7 @@ import withAuth from "../../../utils/withAuth";
 import {Cell, Column} from "react-table";
 import {formatDate} from "../../../utils/functions";
 import Link from "next/link";
+import FetchError from "../../../components/shared/FetchError";
 
 interface LoanInstallmentsProps {
     user: ModifiedUserData
@@ -19,7 +20,10 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> =
     ({user, loanId}) => {
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
-        const {data, mutate} = useSWR(mounted ? `/user/loans/loan-installments/${loanId}` : null)
+        const {data, mutate, error} = useSWR(mounted ? `/user/loans/loan-installments/${loanId}` : null)
+        if (error) {
+            return <FetchError user={user}/>
+        }
         return (
             <DashboardLayout data={user} title={`Loan Installment Details`}>
                 <DashboardTitle title={`User Loan Installments`} backButton/>

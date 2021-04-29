@@ -9,6 +9,7 @@ import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import LoanPreference from "../../components/settings/LoanPreference";
+import FetchError from "../../components/shared/FetchError";
 
 interface SettingsProps {
   user: ModifiedUserData;
@@ -17,7 +18,10 @@ interface SettingsProps {
 const Settings: React.FC<SettingsProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(mounted ? `/user/` : null);
+  const { data, mutate, error } = useSWR(mounted ? `/user/` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Settings`}>
       <DashboardTitle backButton={false} title="Settings" />

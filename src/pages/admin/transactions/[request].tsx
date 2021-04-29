@@ -9,6 +9,7 @@ import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
 import ShowDetailsInATableWithLinks from "../../../components/shared/ShowDetailsInATableWithLinks";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 
 interface WithdrawalRequestProps {
     user: ModifiedUserData;
@@ -23,7 +24,10 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> =
         if (!request) return <ErrorPage/>;
         const [mounted, useMounted] = useState<boolean>(false);
         useEffect(() => useMounted(true), []);
-        const {data} = useSWR(mounted ? `/admin/transaction/${request}` : null);
+        const {data, error} = useSWR(mounted ? `/admin/transaction/${request}` : null);
+        if (error) {
+            return <FetchError user={user}/>
+        }
         return (
             <DashboardLayout data={user} title={`Transaction Details`}>
                 <div className="flex justify-between text-gray-900">

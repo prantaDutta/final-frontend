@@ -7,6 +7,7 @@ import useSWR from "swr";
 import ReadyMadeTable from "../../../../components/ReactTable/ReadyMadeTable";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import {AdminInstallmentTableHeader} from "../../installments";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface UserInstallmentsProps {
     user: ModifiedUserData
@@ -17,7 +18,10 @@ const UserInstallments: React.FC<UserInstallmentsProps> =
     ({user, userId}) => {
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
-        const {data, mutate} = useSWR(mounted ? `/admin/user/user-installments/${userId}` : null)
+        const {data, mutate, error} = useSWR(mounted ? `/admin/user/user-installments/${userId}` : null)
+        if (error) {
+            return <FetchError user={user}/>
+        }
         return (
             <DashboardLayout data={user} title={`User Installments`}>
                 <DashboardTitle title={`User Installments`} backButton />

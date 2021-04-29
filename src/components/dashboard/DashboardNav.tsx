@@ -15,7 +15,7 @@ import SvgIcon from "../shared/SvgIcon";
 
 interface MainContentNavProps {}
 
-const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
+const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
   const [startLoggingOut, setLoggingOut] = useState<boolean>(false);
   const router = useRouter();
   const [, toggleAuth] = useRecoilState(authStatus);
@@ -192,4 +192,4 @@ const MainContentNav: React.FC<MainContentNavProps> = ({}) => {
   );
 };
 
-export default MainContentNav;
+export default DashboardNav;

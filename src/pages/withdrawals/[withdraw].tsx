@@ -8,6 +8,8 @@ import {ModifiedUserData} from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import ErrorPage from "../404";
 import ShowDetailsInATableWithLinks from "../../components/shared/ShowDetailsInATableWithLinks";
+import ErrorComponent from "../../components/shared/ErrorComponent";
+import FetchError from "../../components/shared/FetchError";
 
 interface withdrawProps {
     user: ModifiedUserData;
@@ -19,9 +21,13 @@ const withdraw: React.FC<withdrawProps> = ({user, withdrawId}) => {
 
     const [mounted, useMounted] = useState<boolean>(false);
     useEffect(() => useMounted(true), []);
-    let {data} = useSWR(
+    const {data, error} = useSWR(
         mounted ? `/user/get-single-transaction/withdraw/${withdrawId}` : null
     );
+
+    if (error) {
+        return <FetchError user={user}/>
+    }
 
     return (
         <DashboardLayout data={user} title={`Withdrawal Details`}>

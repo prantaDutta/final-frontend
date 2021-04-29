@@ -9,6 +9,7 @@ import DashboardTitle from "../../../components/shared/DashboardTitle";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface dashboardProps {
   user: ModifiedUserData;
@@ -17,11 +18,14 @@ interface dashboardProps {
 const Settings: React.FC<dashboardProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate, isValidating } = useSWR(mounted ? `/admin/` : null);
+  const { data, mutate, error } = useSWR(mounted ? `/admin/` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Settings`}>
       <DashboardTitle backButton={false} title="Settings" />
-      {!isValidating ? (
+      {data ? (
         <>
           <Personal mutate={mutate} data={data} />
           <Account mutate={mutate} data={data} />

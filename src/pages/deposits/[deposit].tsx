@@ -8,6 +8,7 @@ import {ModifiedUserData} from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import ErrorPage from "../404";
 import ShowDetailsInATableWithLinks from "../../components/shared/ShowDetailsInATableWithLinks";
+import FetchError from "../../components/shared/FetchError";
 
 interface DepositProps {
     user: ModifiedUserData;
@@ -19,10 +20,13 @@ const Deposit: React.FC<DepositProps> = ({user, depositId}) => {
 
     const [mounted, useMounted] = useState<boolean>(false);
     useEffect(() => useMounted(true), []);
-    let {data} = useSWR(
+    const {data, error} = useSWR(
         mounted ? `/user/get-single-transaction/deposit/${depositId}` : null
     );
 
+    if (error) {
+        return <FetchError user={user}/>
+    }
     return (
         <DashboardLayout data={user} title={`Deposit Details`}>
             <DashboardTitle title={`Deposit Details`} backButton/>

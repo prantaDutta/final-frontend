@@ -13,6 +13,7 @@ import {
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -27,11 +28,14 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const [transactionStatus, setStatus] = useState<
     "Pending" | "Completed" | "Failed" | "Canceled" | "all"
   >("Pending");
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     mounted
       ? `/admin/transactions/${transactionType}/${transactionStatus}`
       : null
   );
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Transactions`}>
       <div className="flex justify-between">

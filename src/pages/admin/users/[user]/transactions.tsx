@@ -7,6 +7,7 @@ import useSWR from "swr";
 import ReadyMadeTable from "../../../../components/ReactTable/ReadyMadeTable";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import {AdminTransactionsTableHeader} from "../../transactions";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface TransactionsProps {
     user: ModifiedUserData
@@ -17,7 +18,10 @@ const Transactions: React.FC<TransactionsProps> =
     ({user, userId}) => {
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
-        const {data, mutate} = useSWR(mounted ? `/admin/user/transactions/${userId}` : null)
+        const {data, mutate, error} = useSWR(mounted ? `/admin/user/transactions/${userId}` : null)
+        if (error) {
+            return <FetchError user={user}/>
+        }
         return (
             <DashboardLayout data={user} title={`User Transaction Details`}>
                 <DashboardTitle title={`User Transactions`} backButton/>

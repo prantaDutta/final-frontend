@@ -12,6 +12,7 @@ import {
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -25,7 +26,10 @@ const VerificationRequests: React.FC<VerificationRequestsProps> = ({
   const [verified, setVerified] = useState<
     "pending" | "verified" | "unverified" | "all"
   >("pending");
-  const { data, mutate } = useSWR(mounted ? `/admin/users/${verified}` : null);
+  const { data, mutate, error } = useSWR(mounted ? `/admin/users/${verified}` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Users`}>
       <div className="flex justify-between">

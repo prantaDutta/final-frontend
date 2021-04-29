@@ -9,16 +9,10 @@ import DashboardTitle from "../shared/DashboardTitle";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import DashboardBubble from "./DashboardBubble";
 
-interface DashboardContentProps {}
+interface DashboardContentProps {data?: any}
 
-const AdminDashboardContent: React.FC<DashboardContentProps> = ({}) => {
-  const [mounted, setMounted] = useState<boolean>(false);
+const AdminDashboardContent: React.FC<DashboardContentProps> = ({data}) => {
   const shouldNotifyValue = useRecoilValue(shouldNotify);
-  useEffect(() => setMounted(true), []);
-  const { data /* , isValidating */ } = useSWR(
-    mounted ? `/admin/dashboard-data` : null
-  );
-  if (data && !isProduction) console.log("data: ", data);
   if (data && shouldNotifyValue) {
     if (data.loans > 0) {
       // Providing toastId to prevent duplicate toast

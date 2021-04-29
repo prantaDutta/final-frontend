@@ -8,17 +8,15 @@ import { notify } from "../../utils/toasts";
 import DashboardTitle from "../shared/DashboardTitle";
 import FullWidthReactLoader from "../shared/FullWidthReactLoader";
 import DashboardBubble from "./DashboardBubble";
+import FetchError from "../shared/FetchError";
 
-interface DashboardContentProps {}
+interface DashboardContentProps {
+  data?: any
+}
 
-const UserDashboardContent: React.FC<DashboardContentProps> = () => {
+const UserDashboardContent: React.FC<DashboardContentProps> = ({data}) => {
   const shouldNotifyValue = useRecoilValue(shouldNotify);
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data /* ,isValidating */ } = useSWR(
-    mounted ? `/user/dashboard-data` : null
-  );
-  if (data && !isProduction) console.log("data: ", data);
+
   if (data && shouldNotifyValue) {
     if (data.ongoing > 0) {
       // Providing toastId to prevent duplicate toast

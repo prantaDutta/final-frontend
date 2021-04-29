@@ -12,6 +12,7 @@ import {
   SelectOptionsTypes,
 } from "../../../../utils/randomTypes";
 import withAdminAuth from "../../../../utils/withAdminAuth";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface userProps {
   user: ModifiedUserData;
@@ -21,12 +22,13 @@ interface userProps {
 const user: React.FC<userProps> = ({ user, userId }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const { data } = useSWR(mounted ? `/admin/user/${userId}` : null);
-
+  const { data, error } = useSWR(mounted ? `/admin/user/${userId}` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   const [pendingData, setPendingData] = useState<"pending" | "verified">(
     "verified"
   );
-
   useEffect(() => {
     if (data && data.user.verified === "pending") {
       setPendingData("pending");

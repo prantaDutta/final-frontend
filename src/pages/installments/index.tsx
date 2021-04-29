@@ -11,6 +11,7 @@ import { formatDate } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import { installmentStatusSelectTypes } from "../admin/loans";
+import FetchError from "../../components/shared/FetchError";
 
 interface indexProps {
   user: ModifiedUserData;
@@ -22,9 +23,12 @@ const index: React.FC<indexProps> = ({ user }) => {
   const [installmentStatus, setInstallmentStatus] = useState<
     "due" | "unpaid" | "paid" | "all"
   >("all");
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     mounted ? `/user/get-all-installments/${installmentStatus}` : "null"
   );
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Installments`}>
       <div className="flex justify-between my-2">

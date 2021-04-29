@@ -10,6 +10,7 @@ import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { isProduction } from "../../utils/constants";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
+import FetchError from "../../components/shared/FetchError";
 
 interface dashboardProps {
   user: ModifiedUserData;
@@ -19,9 +20,10 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(mounted ? `/user/get-all-deposits` : null);
-  if (data && !isProduction) console.log("data: ", data);
-
+  const { data, mutate, error } = useSWR(mounted ? `/user/get-all-deposits` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Deposits`}>
       <div className="flex justify-between my-2">

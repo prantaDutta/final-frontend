@@ -7,6 +7,7 @@ import useSWR from "swr";
 import ReadyMadeTable from "../../../../components/ReactTable/ReadyMadeTable";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import {AdminInstallmentTableHeader} from "../../installments";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface LoanInstallmentsProps {
     user: ModifiedUserData
@@ -17,7 +18,10 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> =
     ({user, loanId}) => {
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
-        const {data, mutate} = useSWR(mounted ? `/admin/user/loan-installments/${loanId}` : null)
+        const {data, mutate, error} = useSWR(mounted ? `/admin/user/loan-installments/${loanId}` : null)
+        if (error) {
+            return <FetchError user={user}/>
+        }
         return (
             <DashboardLayout data={user} title={`Loan Installments`}>
                 <DashboardTitle title={`User LoanInstallments`} backButton />

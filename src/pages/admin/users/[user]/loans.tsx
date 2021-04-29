@@ -7,6 +7,7 @@ import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLo
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import withAdminAuth from "../../../../utils/withAdminAuth";
 import { AdminLoansTableHeader } from "../../loans";
+import FetchError from "../../../../components/shared/FetchError";
 
 interface LoansProps {
   user: ModifiedUserData;
@@ -16,9 +17,12 @@ interface LoansProps {
 const Loans: React.FC<LoansProps> = ({ user, userId }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     mounted ? `/admin/user/loans/${userId}` : null
   );
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`User Loan Details`}>
       <DashboardTitle title={`User Loans`} backButton />

@@ -8,6 +8,7 @@ import {ModifiedUserData} from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
 import ErrorPage from "../../404";
 import ShowDetailsInATableWithLinks from "../../../components/shared/ShowDetailsInATableWithLinks";
+import FetchError from "../../../components/shared/FetchError";
 
 interface InstallmentProps {
     user: ModifiedUserData;
@@ -19,10 +20,13 @@ const Installment: React.FC<InstallmentProps> = ({user, installmentId}) => {
 
     const [mounted, useMounted] = useState<boolean>(false);
     useEffect(() => useMounted(true), []);
-    let {data} = useSWR(
+    const {data, error} = useSWR(
         mounted ? `/user/get-single-installment/${installmentId}` : null
     );
 
+    if (error) {
+        return <FetchError user={user}/>
+    }
     return (
         <DashboardLayout data={user} title={`Installment Details`}>
             <div className="flex justify-between">

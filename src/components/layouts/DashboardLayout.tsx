@@ -7,7 +7,7 @@ import {mainNav, openSidebar} from "../../states/dashboardStates";
 import {authenticatedUserData} from "../../states/userStates";
 import {ModifiedUserData} from "../../utils/randomTypes";
 import Sidebar from ".././dashboard/Sidebar";
-import MainContentNav from "../dashboard/DashboardNav";
+import DashboardNav from "../dashboard/DashboardNav";
 import SvgIcon from "../shared/SvgIcon";
 import {NextSeo} from "next-seo";
 
@@ -25,15 +25,21 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     const [, setUserData] = useRecoilState(authenticatedUserData);
 
     const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setUserData(data);
-        setMounted(true);
-    }, []);
 
     const [verifyWarning, setVerifyWarning] = useSessionStorage(
         "verify-warning",
-        data.verified === "unverified" ? "unverified" : "verified"
+        "verified",
     );
+
+    useEffect(() => {
+        setUserData(data);
+        setMounted(true);
+        if (data.verified === 'unverified') {
+            setVerifyWarning('unverified');
+        } else {
+            setVerifyWarning('verified');
+        }
+    }, []);
 
     const [showSidebar, setSidebar] = useRecoilState(openSidebar);
     const [showMainNav, setMainNav] = useRecoilState(mainNav);
@@ -83,7 +89,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     <Sidebar role={data?.role}/>
                 </div>
                 <div className={`col-span-4 bg-gray-300 min-h-screen`}>
-                    <MainContentNav/>
+                    <DashboardNav/>
                     {mounted && verifyWarning === "unverified" && (
                         <div
                             className={`flex justify-center items-center text-center mt-2`}

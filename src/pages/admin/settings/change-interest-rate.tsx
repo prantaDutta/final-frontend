@@ -12,6 +12,7 @@ import { numberTypes } from "../../../utils/constantsArray";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import { notify } from "../../../utils/toasts";
 import withAdminAuth from "../../../utils/withAdminAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface ChangeInterestRateProps {
   user: ModifiedUserData;
@@ -25,7 +26,10 @@ const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
   const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(mounted ? `/admin/get-interest-rate` : null);
+  const { data, mutate, error } = useSWR(mounted ? `/admin/get-interest-rate` : null);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   const [submitting, setSubmitting] = useState(false);
   const {
     register,

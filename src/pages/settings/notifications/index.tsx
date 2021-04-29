@@ -9,6 +9,7 @@ import { laravelApi } from "../../../utils/api";
 import { isProduction } from "../../../utils/constants";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAuth from "../../../utils/withAuth";
+import FetchError from "../../../components/shared/FetchError";
 
 interface NotificationsProps {
   user: ModifiedUserData;
@@ -17,10 +18,12 @@ interface NotificationsProps {
 const Notifications: React.FC<NotificationsProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     mounted ? `/user/get-all-notifications` : null
   );
-  if (data && !isProduction) console.log("data: ", data);
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`All Notifications`}>
       <DashboardTitle title="Notifications" />

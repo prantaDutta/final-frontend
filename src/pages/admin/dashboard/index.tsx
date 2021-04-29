@@ -1,12 +1,14 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import AdminDashboardContent from "../../../components/dashboard/AdminDashboardContent";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import {ModifiedUserData} from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {shouldNotify} from "../../../states/userStates";
-import {NEXT_IRON_SESSION_CONFIG} from "../../../utils/constants";
+import {isProduction, NEXT_IRON_SESSION_CONFIG} from "../../../utils/constants";
 import {applySession} from "next-iron-session";
+import useSWR from "swr";
+import FetchError from "../../../components/shared/FetchError";
 
 
 interface dashboardProps {
@@ -15,11 +17,19 @@ interface dashboardProps {
 }
 
 const dashboard: React.FC<dashboardProps> = ({user, alert}) => {
+    const [mounted, setMounted] = useState<boolean>(false);
+    useEffect(() => setMounted(true), []);
+    const { data, error } = useSWR(
+        mounted ? `/admin/dashboard-data` : null
+    );
+    if (error) {
+        return <FetchError user={user}/>
+    }
     const [, setShouldNotify] = useRecoilState(shouldNotify);
     useEffect(() => setShouldNotify(alert), [])
     return (
         <DashboardLayout data={user} title={`Admin Dashboard`}>
-            <AdminDashboardContent/>
+            <AdminDashboardContent data={data} />
         </DashboardLayout>
     );
 };

@@ -8,6 +8,7 @@ import { objectToArrayAndExclude } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAuth from "../../../utils/withAuth";
 import ErrorPage from "../../404";
+import FetchError from "../../../components/shared/FetchError";
 
 interface UserLoanProps {
   user: ModifiedUserData;
@@ -19,8 +20,11 @@ const UserLoan: React.FC<UserLoanProps> = ({ user, loanId }) => {
 
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
-  let { data } = useSWR(mounted ? `/user/get-single-loan/${loanId}` : null);
+  let { data, error} = useSWR(mounted ? `/user/get-single-loan/${loanId}` : null);
 
+  if (error) {
+    return <FetchError user={user}/>
+  }
   return (
     <DashboardLayout data={user} title={`Loan Details`}>
       <DashboardTitle title={`Loan Details`} />
