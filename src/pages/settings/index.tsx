@@ -19,7 +19,7 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, mutate, error } = useSWR(mounted ? `/user/` : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

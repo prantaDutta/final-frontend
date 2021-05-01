@@ -12,6 +12,7 @@ import { laravelApi } from "../../utils/api";
 import { logout } from "../../utils/auth";
 import ShowNotifications from "../shared/ShowNotifications";
 import SvgIcon from "../shared/SvgIcon";
+import FloatingNotification from "../shared/FloatingNotifications";
 
 interface MainContentNavProps {}
 
@@ -94,7 +95,7 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
             <h4 className="font-bold">{userData?.name}</h4>
           </div>
         </div>
-        <div className="p-4 relative flex items-center">
+        <div className="p-4 relative flex items-center max-w-full">
           <button
             onClick={async () => {
               setNotificationsDiv(!showNotificationsDiv);
@@ -103,14 +104,14 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                 data.notifications.map((notification: any) => {
                   notificationIds.push(notification.id);
                 });
-                try {
-                  await laravelApi().post("/user/mark-three-as-notified", {
-                    notificationIds,
-                  });
-                } catch (e) {
-                  console.log("Problem Marking Notifications as read");
-                }
-                await NotifyMutate();
+                // try {
+                //   await laravelApi().post("/user/mark-three-as-notified", {
+                //     notificationIds,
+                //   });
+                // } catch (e) {
+                //   console.log("Problem Marking Notifications as read");
+                // }
+                // await NotifyMutate();
               }
             }}
             className="relative block border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
@@ -127,7 +128,8 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                   <span>{data?.count}</span>
                 </div>
               )}
-              {showNotificationsDiv && <ShowNotifications data={data} />}
+              {/*{showNotificationsDiv && <ShowNotifications data={data} />}*/}
+              {showNotificationsDiv && <FloatingNotification data={data} />}
             </>
           )}
         </div>

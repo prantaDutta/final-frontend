@@ -22,7 +22,7 @@ const UserLoan: React.FC<UserLoanProps> = ({ user, loanId }) => {
   useEffect(() => useMounted(true), []);
   let { data, error} = useSWR(mounted ? `/user/get-single-loan/${loanId}` : null);
 
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

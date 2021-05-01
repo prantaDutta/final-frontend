@@ -46,7 +46,7 @@ const Withdraw: React.FC<withdrawProps> = ({ user }) => {
     mounted ? `/user/balance` : null
   );
 
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
 

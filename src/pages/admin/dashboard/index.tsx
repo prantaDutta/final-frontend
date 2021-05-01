@@ -22,7 +22,7 @@ const dashboard: React.FC<dashboardProps> = ({user, alert}) => {
     const { data, error } = useSWR(
         mounted ? `/admin/dashboard-data` : null
     );
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
     const [, setShouldNotify] = useRecoilState(shouldNotify);

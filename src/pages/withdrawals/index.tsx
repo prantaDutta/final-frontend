@@ -23,7 +23,7 @@ const Withdrawals: React.FC<dashboardProps> = ({user}) => {
     const {data, mutate, error} = useSWR(mounted ? `/user/get-all-withdrawals` : null);
     if (data && !isProduction) console.log("data: ", data);
 
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
     return (

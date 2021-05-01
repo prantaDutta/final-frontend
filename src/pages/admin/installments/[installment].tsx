@@ -24,7 +24,7 @@ const Installment: React.FC<InstallmentProps> = ({user, installmentId}) => {
         mounted ? `/user/get-single-installment/${installmentId}` : null
     );
 
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
     return (

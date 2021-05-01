@@ -19,7 +19,7 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> =
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
         const {data, mutate, error} = useSWR(mounted ? `/admin/user/loan-installments/${loanId}` : null)
-        if (error) {
+        if (mounted && error) {
             return <FetchError user={user}/>
         }
         return (

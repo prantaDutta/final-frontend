@@ -21,7 +21,7 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, mutate, error } = useSWR(mounted ? `/user/get-all-deposits` : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

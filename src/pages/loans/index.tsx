@@ -25,7 +25,7 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
     "processing" | "ongoing" | "finished" | "all"
   >("all");
   const { data, mutate, error } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

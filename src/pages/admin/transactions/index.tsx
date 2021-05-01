@@ -33,13 +33,13 @@ const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
       ? `/admin/transactions/${transactionType}/${transactionStatus}`
       : null
   );
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (
     <DashboardLayout data={user} title={`Transactions`}>
       <div className="flex justify-between">
-        <DashboardTitle backButton={false} title="Loan Requests" />
+        <DashboardTitle backButton={false} title="Transactions" />
         <FlexibleSelectButton
           selectValue={transactionType}
           setSelectValue={setType}

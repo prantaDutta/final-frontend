@@ -26,7 +26,7 @@ const index: React.FC<indexProps> = ({ user }) => {
   const { data, mutate, error } = useSWR(
     mounted ? `/user/get-all-installments/${installmentStatus}` : "null"
   );
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

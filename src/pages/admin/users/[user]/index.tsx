@@ -23,7 +23,7 @@ const user: React.FC<userProps> = ({ user, userId }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const { data, error } = useSWR(mounted ? `/admin/user/${userId}` : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   const [pendingData, setPendingData] = useState<"pending" | "verified">(

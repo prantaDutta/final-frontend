@@ -27,7 +27,7 @@ const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const { data, mutate , error} = useSWR(
     mounted ? `/admin/loans/${requestType}` : null
   );
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

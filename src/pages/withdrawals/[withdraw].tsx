@@ -25,7 +25,7 @@ const withdraw: React.FC<withdrawProps> = ({user, withdrawId}) => {
         mounted ? `/user/get-single-transaction/withdraw/${withdrawId}` : null
     );
 
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
 

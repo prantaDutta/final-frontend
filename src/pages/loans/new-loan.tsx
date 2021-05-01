@@ -95,7 +95,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data , error} = useSWR(mounted ? `/user/get-default-interest-rate` : null);
-  if (error || user.role !== 'borrower') {
+  if (mounted && error || user.role !== 'borrower') {
     return <FetchError user={user}/>
   }
   return (

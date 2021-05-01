@@ -24,7 +24,7 @@ const Deposit: React.FC<DepositProps> = ({user, depositId}) => {
         mounted ? `/user/get-single-transaction/deposit/${depositId}` : null
     );
 
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
     return (

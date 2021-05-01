@@ -25,7 +25,7 @@ const dashboard: React.FC<dashboardProps> = ({user, alert}) => {
     const { data , error } = useSWR(
         mounted ? `/user/dashboard-data` : null
     );
-    if (error) {
+    if (mounted && error) {
         return <FetchError user={user}/>
     }
     return (

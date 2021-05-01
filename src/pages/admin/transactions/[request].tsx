@@ -25,7 +25,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> =
         const [mounted, useMounted] = useState<boolean>(false);
         useEffect(() => useMounted(true), []);
         const {data, error} = useSWR(mounted ? `/admin/transaction/${request}` : null);
-        if (error) {
+        if (mounted && error) {
             return <FetchError user={user}/>
         }
         return (
@@ -41,7 +41,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> =
                                 returnRoute={`/admin/transactions`}
                                 successMsg={`Successfully Marked as Paid`}
                                 failedMsg={`Something Went Wrong. Please Try Again`}
-                                classNames="bg-primary text-white p-3 w-1/4 hover:bg-primaryAccent"
+                                classNames={`edit-btn disabled:opacity-50`}
                             />
                             <MarkAsButton
                                 title="Mark As Failed"
@@ -50,7 +50,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> =
                                 returnRoute={`/admin/transactions`}
                                 successMsg={`Successfully Marked as Failed`}
                                 failedMsg={`Something Went Wrong. Please Try Again`}
-                                classNames="bg-red-600 text-white p-3 w-1/4 hover:bg-red-800"
+                                classNames={`edit-btn disabled:opacity-50`}
                             />
                         </>
                     )}

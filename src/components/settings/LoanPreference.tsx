@@ -44,7 +44,7 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
                   defaultValue={
                     data ? data.loanPreference.maximumDistributedAmount : ""
                   }
-                  label="Your Desired Interest Rate (in %)"
+                  label="Change Maximum Distributed Amount"
                   error={errors.maximumDistributedAmount?.message}
                   options={generatingMaximumDistributedAmounts()}
                   register={register}

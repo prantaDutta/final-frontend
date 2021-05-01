@@ -27,7 +27,7 @@ const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, mutate, error } = useSWR(mounted ? `/admin/get-interest-rate` : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   const [submitting, setSubmitting] = useState(false);

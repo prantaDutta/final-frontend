@@ -19,7 +19,7 @@ const UserInstallments: React.FC<UserInstallmentsProps> =
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
         const {data, mutate, error} = useSWR(mounted ? `/admin/user/user-installments/${userId}` : null)
-        if (error) {
+        if (mounted && error) {
             return <FetchError user={user}/>
         }
         return (

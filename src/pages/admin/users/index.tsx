@@ -27,7 +27,7 @@ const VerificationRequests: React.FC<VerificationRequestsProps> = ({
     "pending" | "verified" | "unverified" | "all"
   >("pending");
   const { data, mutate, error } = useSWR(mounted ? `/admin/users/${verified}` : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

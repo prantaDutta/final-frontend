@@ -20,7 +20,7 @@ const Loans: React.FC<LoansProps> = ({ user, userId }) => {
   const { data, mutate, error } = useSWR(
     mounted ? `/admin/user/loans/${userId}` : null
   );
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (

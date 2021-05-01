@@ -21,7 +21,7 @@ const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => setMounted(true), []);
   const { data, error } = useSWR(mounted ? "/admin/get-penalty-data" : null);
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   const [penaltyDataValue, setPenaltyData] = useRecoilState(penaltyDataStates);

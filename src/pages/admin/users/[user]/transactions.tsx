@@ -19,7 +19,7 @@ const Transactions: React.FC<TransactionsProps> =
         const [mounted, setMounted] = useState(false);
         useEffect(() => setMounted(true), []);
         const {data, mutate, error} = useSWR(mounted ? `/admin/user/transactions/${userId}` : null)
-        if (error) {
+        if (mounted && error) {
             return <FetchError user={user}/>
         }
         return (

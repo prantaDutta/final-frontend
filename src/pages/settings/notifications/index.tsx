@@ -21,7 +21,7 @@ const Notifications: React.FC<NotificationsProps> = ({ user }) => {
   const { data, mutate, error } = useSWR(
     mounted ? `/user/get-all-notifications` : null
   );
-  if (error) {
+  if (mounted && error) {
     return <FetchError user={user}/>
   }
   return (
