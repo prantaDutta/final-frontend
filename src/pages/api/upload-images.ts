@@ -13,7 +13,7 @@ export const config = {
 
 export default handler.put(async (req, res) => {
   // creating the directory
-  const imagePath = path.join(`./public/uploads/verificationPapers/`);
+  const imagePath = path.join(`./public/uploads/`);
   await fs.mkdir(imagePath, { recursive: true });
   try {
     await new Promise((resolve, reject) => {

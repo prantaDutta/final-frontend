@@ -9,7 +9,6 @@ import {
   verificationFormValues,
   verificationStep,
 } from "../../states/verificationStates";
-import { isProduction } from "../../utils/constants";
 import { Gender } from "../../utils/constantsArray";
 import { eighteenYearsBackFromNow } from "../../utils/functions";
 import { PersonalVerificationFormValues } from "../../utils/randomTypes";
@@ -100,9 +99,7 @@ const Personal: React.FC<PersonalProps> = ({}) => {
               defaultValue={
                 verificationValues?.dateOfBirth
                   ? verificationValues?.dateOfBirth
-                  : isProduction
-                  ? (new Date().toString() as any)
-                  : eighteenYearsBackFromNow("YYYY-MM-DD").toString()
+                  : (eighteenYearsBackFromNow("YYYY-MM-DD").toString() as any)
                 // new Date().toString()
               }
             />

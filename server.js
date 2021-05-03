@@ -22,28 +22,31 @@
 //   });
 // });
 
-const {createServer} = require('http')
-const {join} = require('path')
-const {parse} = require('url')
-const next = require('next')
+const { createServer } = require("http");
+const { join } = require("path");
+const { parse } = require("url");
+const next = require("next");
 
-const app = next({dev: process.env.NODE_ENV !== 'production'})
-const handle = app.getRequestHandler()
+const app = next({ dev: process.env.NODE_ENV !== "production" });
+const handle = app.getRequestHandler();
 
-app.prepare()
-    .then(() => {
-        createServer(async (req, res) => {
-            const parsedUrl = parse(req.url, true)
-            const {pathname} = parsedUrl
+app.use(express.static(path.join(__dirname, "public")));
 
-            if (pathname === '/sw.js' || /^\/(workbox|worker|fallback)-\w+\.js$/.test(pathname)) {
-                const filePath = join(__dirname, '.next', pathname)
-                await app.serveStatic(req, res, filePath)
-            } else {
-                await handle(req, res, parsedUrl)
-            }
-        })
-            .listen(3000, () => {
-                console.log(`> Ready on http://localhost:${3000}`)
-            })
-    })
+app.prepare().then(() => {
+  createServer(async (req, res) => {
+    const parsedUrl = parse(req.url, true);
+    const { pathname } = parsedUrl;
+
+    if (
+      pathname === "/sw.js" ||
+      /^\/(workbox|worker|fallback)-\w+\.js$/.test(pathname)
+    ) {
+      const filePath = join(__dirname, ".next", pathname);
+      await app.serveStatic(req, res, filePath);
+    } else {
+      await handle(req, res, parsedUrl);
+    }
+  }).listen(3000, () => {
+    console.log(`> Ready on http://localhost:${3000}`);
+  });
+});
