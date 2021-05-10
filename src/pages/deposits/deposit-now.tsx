@@ -1,20 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { trigger } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
 import DashboardTitle from "../../components/shared/DashboardTitle";
 import SubmitButton from "../../components/shared/SubmitButton";
+import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Yup from "../../lib/yup";
-import { laravelApi } from "../../utils/api";
 import { LARAVEL_URL } from "../../utils/constants";
 import { ModifiedUserData } from "../../utils/randomTypes";
-import { notify } from "../../utils/toasts";
 import withAuth from "../../utils/withAuth";
-import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
 
 interface DepositNowProps {
   user: ModifiedUserData;
@@ -52,11 +50,11 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   });
 
   // This function opens a popup for user to deposit money
-  const openPopUp = async () => {
+  const openPopUp = async (amount: number) => {
     setSubmitting(true);
     try {
       const winObj = window.open(
-        `${LARAVEL_URL}/api/user/deposit?amount=${watchAmount}`,
+        `${LARAVEL_URL}/api/user/deposit?amount=${amount}`,
         "Deposit Money",
         "width=800,height=800,status=0,toolbar=0"
       );
@@ -76,10 +74,10 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
 
   // This function executes after user presses the submit button
   const onSubmit = async (values: DepositNowValues) => {
+    console.log;
     setLastDepositedAmount(values.amount);
-    return openPopUp();
+    return openPopUp(values.amount);
   };
-  let watchAmount = watch("amount");
   return (
     <DashboardLayout data={user} title={`Deposit Now`}>
       <DashboardTitle title="Deposit Now" />
