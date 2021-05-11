@@ -26,7 +26,7 @@ const Settings: React.FC<dashboardProps> = ({ user }) => {
       {data ? (
         <>
           <Personal mutate={mutate} data={data} />
-          <Account mutate={mutate} data={data} />
+          {user.role !== "admin" && <Account data={data} mutate={mutate} />}
           <Security mutate={mutate} data={data} />
           <Administration />
         </>

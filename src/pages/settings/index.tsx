@@ -26,7 +26,7 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
       {data ? (
         <>
           <Personal data={data} mutate={mutate} />
-          {user.role !== "admin" && <Account data={data} mutate={mutate} />}
+          <Account data={data} mutate={mutate} />
           <Security data={data} mutate={mutate} />
           {user.role === "lender" && <LoanPreference />}
         </>
