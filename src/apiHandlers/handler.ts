@@ -9,6 +9,6 @@ export default nextConnect<NextApiRequestExtended, NextApiResponse>({
       .json({ error: `Sorry Something Happened! ${error.message}` });
   },
   onNoMatch(req, res) {
-    res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+    res.status(405).json({ error: `${req.method} Method is Not Allowed` });
   },
 });

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import ReactLoader from "../../components/shared/ReactLoader";
 import ShowDetailsInATableWithLinks from "../../components/shared/ShowDetailsInATableWithLinks";
@@ -12,7 +13,6 @@ import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
 import withAuth from "../../utils/withAuth";
 import ErrorPage from "../404";
-import FetchError from "../../components/shared/FetchError";
 
 interface InstallmentProps {
   user: ModifiedUserData;
@@ -26,12 +26,14 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
 
   const [mounted, useMounted] = useState<boolean>(false);
   useEffect(() => useMounted(true), []);
-  const { data,error } = useSWR(
-    mounted ? `/user/get-single-installment/${installmentId}` : null
+  const { data, error } = useSWR(
+    `/user/get-single-installment/${installmentId}`
   );
 
   if (mounted && error) {
-    return <FetchError user={user}/>
+    setTimeout(() => {
+      return <FetchError user={user} />;
+    }, 5000);
   }
   const [submitting, setSubmitting] = useState<boolean>(false);
 
@@ -66,9 +68,12 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
                       return router.push("/installments");
                     } catch (e) {
                       console.log(e);
-                      notify("Please Deposit First.", {
-                        type: "error",
-                      });
+                      notify(
+                        e?.response?.data?.error || "Something Went Wrong",
+                        {
+                          type: "error",
+                        }
+                      );
                     }
                     setSubmitting(false);
                   }}
