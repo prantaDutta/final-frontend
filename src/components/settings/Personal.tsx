@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 import { personalExpand } from "../../states/settingsStates";
@@ -49,11 +49,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
   const [emailSending, setEmailSending] = useState<boolean>(false);
   const [smsSending, setSMSSending] = useState<boolean>(false);
 
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data: contactData } = useSWR(
-    mounted ? "/user/contact-verified" : null
-  );
+  const { data: contactData } = useSWR("/user/contact-verified");
   return (
     <>
       {/* This component Shows and toggles the dropdown of personal details */}

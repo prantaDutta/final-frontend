@@ -13,11 +13,8 @@ interface AccountProps {
 
 const Account: React.FC<AccountProps> = ({ data, mutate }) => {
   const [expand] = useRecoilState(accountExpand);
-  const [showLanguageField, setLanguageField] = useState<boolean>(false);
-  const [language, setLanguage] = useState<"English" | "বাংলা">("English");
-  const [showCloseAccountField, setCloseAccountField] = useState<boolean>(
-    false
-  );
+  const [showCloseAccountField, setCloseAccountField] =
+    useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   return (
     <>
@@ -31,57 +28,6 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
         data ? (
           <>
             <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
-              {/* {showLanguageField ? (
-                <div>
-                  <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
-                    Change Language
-                  </label>
-                  <select
-                    onChange={(e) =>
-                      setLanguage(e.target.value as "English" | "বাংলা")
-                    }
-                    className="w-full bg-white font-semibold md:font-bold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    <option defaultValue={language}>Choose One...</option>
-                    {["English", "বাংলা"].map((lang) => (
-                      <option value={lang} key={lang}>
-                        {lang}
-                      </option>
-                    ))}
-                  </select>
-                  {/* Cancel Editing & Submitting the Data */}
-              {/* <SaveCancelButton
-                    setField={setLanguageField}
-                    submitUrl={`/user/account/language`}
-                    postData={{
-                      language,
-                    }}
-                    mutate={mutate}
-                    toastMsg="Language Updated. Reloading, Please Wait"
-                  />
-                </div>
-              ) : (
-                <div className="flex justify-between items-center">
-                  <div>
-                    <button className="text-sm md:text-lg font-semibold md:font-bold">
-                      Language
-                    </button>
-                    <button className="ml-5 text-sm md:text-lg font-semibold md:font-bold text-gray-600">
-                      English
-                    </button>
-                  </div>
-
-                  <div className={`flex items-center`}>
-                    <button
-                      onClick={() => setLanguageField(true)}
-                      className="edit-btn"
-                    >
-                      Change
-                    </button>
-                  </div>
-                </div>
-              )}
-              <hr className="border-gray-600 my-2" />  */}
               {showCloseAccountField ? (
                 <div className="">
                   <p className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-5">

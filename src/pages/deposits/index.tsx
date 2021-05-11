@@ -1,16 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { isProduction } from "../../utils/constants";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
-import FetchError from "../../components/shared/FetchError";
 
 interface dashboardProps {
   user: ModifiedUserData;
@@ -18,11 +17,9 @@ interface dashboardProps {
 
 const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const router = useRouter();
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(mounted ? `/user/get-all-deposits` : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, mutate, error } = useSWR(`/user/get-all-deposits`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Deposits`}>

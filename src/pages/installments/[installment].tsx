@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../components/shared/DashboardTitle";
@@ -23,14 +23,11 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
   if (!installmentId) return <ErrorPage />;
 
   const router = useRouter();
-
-  const [mounted, useMounted] = useState<boolean>(false);
-  useEffect(() => useMounted(true), []);
   const { data, error } = useSWR(
     `/user/get-single-installment/${installmentId}`
   );
 
-  if (mounted && error) {
+  if (error) {
     setTimeout(() => {
       return <FetchError user={user} />;
     }, 5000);

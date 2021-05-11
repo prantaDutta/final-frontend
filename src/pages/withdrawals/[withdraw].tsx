@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../components/shared/DashboardTitle";
@@ -17,14 +17,11 @@ interface withdrawProps {
 
 const withdraw: React.FC<withdrawProps> = ({ user, withdrawId }) => {
   if (!withdrawId) return <ErrorPage />;
-
-  const [mounted, useMounted] = useState<boolean>(false);
-  useEffect(() => useMounted(true), []);
   const { data, error } = useSWR(
-    mounted ? `/user/get-single-transaction/withdraw/${withdrawId}` : null
+    `/user/get-single-transaction/withdraw/${withdrawId}`
   );
 
-  if (mounted && error) {
+  if (error) {
     return <FetchError user={user} />;
   }
 

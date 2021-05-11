@@ -1,33 +1,30 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { formatDate } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import { installmentStatusSelectTypes } from "../admin/loans";
-import FetchError from "../../components/shared/FetchError";
 
 interface indexProps {
   user: ModifiedUserData;
 }
 
 const index: React.FC<indexProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const [installmentStatus, setInstallmentStatus] = useState<
-    "due" | "unpaid" | "paid" | "all"
-  >("all");
+  const [installmentStatus, setInstallmentStatus] =
+    useState<"due" | "unpaid" | "paid" | "all">("all");
   const { data, mutate, error } = useSWR(
-    mounted ? `/user/get-all-installments/${installmentStatus}` : "null"
+    `/user/get-all-installments/${installmentStatus}`
   );
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Installments`}>

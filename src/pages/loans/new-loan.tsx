@@ -1,7 +1,7 @@
 import { ThreeDots } from "@agney/react-loading";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import useSWR, { mutate } from "swr";
@@ -9,6 +9,7 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import ReactLoader from "../../components/shared/ReactLoader";
 import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
 import Yup from "../../lib/yup";
@@ -21,7 +22,6 @@ import { formatTwoDecimalPlaces } from "../../utils/functions";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import { notify } from "../../utils/toasts";
 import withAuth from "../../utils/withAuth";
-import FetchError from "../../components/shared/FetchError";
 
 interface newLoanProps {
   user: ModifiedUserData;
@@ -92,11 +92,9 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
   }
 
   // Getting the default interest rate
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data , error} = useSWR(mounted ? `/user/get-default-interest-rate` : null);
-  if (mounted && error || user.role !== 'borrower') {
-    return <FetchError user={user}/>
+  const { data, error } = useSWR(`/user/get-default-interest-rate`);
+  if (error || user.role !== "borrower") {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Apply For A New Loan`}>

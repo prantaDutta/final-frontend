@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
@@ -17,12 +17,7 @@ type LoanPreferenceFormProps = {
 const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
   const [expand] = useRecoilState(loanPreferenceExpand);
   const [showPreferenceField, setPreferenceField] = useState(false);
-
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate } = useSWR(
-    mounted ? `/user/get-loan-preferences` : null
-  );
+  const { data, mutate } = useSWR(`/user/get-loan-preferences`);
   const { register, errors, watch } = useForm<LoanPreferenceFormProps>({});
 
   return (

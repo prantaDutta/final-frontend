@@ -1,8 +1,9 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 import DashboardLayout from "../../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../../components/shared/DashboardTitle";
+import FetchError from "../../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import SomeTable from "../../../../components/shared/SomeTable";
 import { penaltyDataStates } from "../../../../states/settingsStates";
@@ -11,18 +12,15 @@ import { divideAnArrayIntoMultipleParts } from "../../../../utils/functions";
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import { notify } from "../../../../utils/toasts";
 import withAdminAuth from "../../../../utils/withAdminAuth";
-import FetchError from "../../../../components/shared/FetchError";
 
 interface ChangePenaltyDataProps {
   user: ModifiedUserData;
 }
 
 const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, error } = useSWR(mounted ? "/admin/get-penalty-data" : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, error } = useSWR("/admin/get-penalty-data");
+  if (error) {
+    return <FetchError user={user} />;
   }
   const [penaltyDataValue, setPenaltyData] = useRecoilState(penaltyDataStates);
   useEffect(() => {

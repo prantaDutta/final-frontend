@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useSWR from "swr";
@@ -107,11 +107,7 @@ const Contact: React.FC<ContactProps> = () => {
   };
   const [emailSending, setEmailSending] = useState<boolean>(false);
   const [smsSending, setSMSSending] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data: contactData, mutate } = useSWR(
-    mounted ? "/user/contact-verified" : null
-  );
+  const { data: contactData, mutate } = useSWR("/user/contact-verified");
   if (!isProduction) console.log("contactData: ", contactData);
 
   // showing or not showing email otp or mobile otp input fields
@@ -227,7 +223,7 @@ const Contact: React.FC<ContactProps> = () => {
               className={`px-2 mx-4 py-1 rounded-full bg-primary
                       text-xs text-gray-200 font-semibold capitalize mb-2 cursor-not-allowed`}
             >
-              {mounted && contactData?.mobileNo ? "verified" : "unverified"}
+              {contactData?.mobileNo ? "verified" : "unverified"}
             </button>
 
             <button

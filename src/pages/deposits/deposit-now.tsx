@@ -30,13 +30,7 @@ const DepositNow: React.FC<DepositNowProps> = ({ user }) => {
   >("lastDepositedAmount", null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  const {
-    register,
-    watch,
-    handleSubmit,
-    errors,
-    setValue,
-  } = useForm<DepositNowValues>({
+  const { register, handleSubmit, errors } = useForm<DepositNowValues>({
     mode: "onChange",
     resolver: yupResolver(
       Yup.object({

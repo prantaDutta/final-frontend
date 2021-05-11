@@ -1,10 +1,11 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { formatDate } from "../../../utils/functions";
@@ -13,28 +14,23 @@ import {
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
-import FetchError from "../../../components/shared/FetchError";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
 }
 
 const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const [transactionType, setType] = useState<"deposit" | "withdraw" | "all">(
-    "withdraw"
-  );
-  const [transactionStatus, setStatus] = useState<
-    "Pending" | "Completed" | "Failed" | "Canceled" | "all"
-  >("Pending");
+  const [transactionType, setType] =
+    useState<"deposit" | "withdraw" | "all">("withdraw");
+  const [transactionStatus, setStatus] =
+    useState<"Pending" | "Completed" | "Failed" | "Canceled" | "all">(
+      "Pending"
+    );
   const { data, mutate, error } = useSWR(
-    mounted
-      ? `/admin/transactions/${transactionType}/${transactionStatus}`
-      : null
+    `/admin/transactions/${transactionType}/${transactionStatus}`
   );
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Transactions`}>

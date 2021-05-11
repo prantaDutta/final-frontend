@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../../components/shared/DashboardTitle";
+import FetchError from "../../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../../../utils/randomTypes";
 import withAdminAuth from "../../../../utils/withAdminAuth";
 import { AdminLoansTableHeader } from "../../loans";
-import FetchError from "../../../../components/shared/FetchError";
 
 interface LoansProps {
   user: ModifiedUserData;
@@ -15,13 +15,9 @@ interface LoansProps {
 }
 
 const Loans: React.FC<LoansProps> = ({ user, userId }) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(
-    mounted ? `/admin/user/loans/${userId}` : null
-  );
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, mutate, error } = useSWR(`/admin/user/loans/${userId}`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`User Loan Details`}>

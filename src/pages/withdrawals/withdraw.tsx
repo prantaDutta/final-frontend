@@ -1,22 +1,21 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWR, { trigger } from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import InputSelectField from "../../components/ReactHookForm/InputSelectField";
 import InputTextField from "../../components/ReactHookForm/InputTextField";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import ReactLoader from "../../components/shared/ReactLoader";
+import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
 import Yup from "../../lib/yup";
 import { laravelApi } from "../../utils/api";
 import { isProduction } from "../../utils/constants";
 import { withdrawalMethodsTypes } from "../../utils/constantsArray";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
-import VerifyAccountFirst from "../../components/shared/VerifyAccountFirst";
-import ErrorComponent from "../../components/shared/ErrorComponent";
-import FetchError from "../../components/shared/FetchError";
 
 interface withdrawProps {
   user: ModifiedUserData;
@@ -39,15 +38,10 @@ export const withdrawalMethodsArray: [string, string, string, string] = [
 const Withdraw: React.FC<withdrawProps> = ({ user }) => {
   const router = useRouter();
   const [isSubmitting, setSubmitting] = useState<boolean>();
-  const [mounted, setMounted] = useState<boolean>(false);
+  const { data: balanceData, mutate, error } = useSWR(`/user/balance`);
 
-  useEffect(() => setMounted(true), []);
-  const { data: balanceData, mutate, error } = useSWR(
-    mounted ? `/user/balance` : null
-  );
-
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  if (error) {
+    return <FetchError user={user} />;
   }
 
   const submitHandler = async (values: withdrawFormTypes) => {

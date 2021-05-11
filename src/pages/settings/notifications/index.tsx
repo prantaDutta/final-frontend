@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Cell, Column } from "react-table";
 import useSWR, { trigger } from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { laravelApi } from "../../../utils/api";
-import { isProduction } from "../../../utils/constants";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAuth from "../../../utils/withAuth";
-import FetchError from "../../../components/shared/FetchError";
 
 interface NotificationsProps {
   user: ModifiedUserData;
 }
 
 const Notifications: React.FC<NotificationsProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(
-    mounted ? `/user/get-all-notifications` : null
-  );
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, mutate, error } = useSWR(`/user/get-all-notifications`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`All Notifications`}>
@@ -57,11 +52,6 @@ export const NotificationsTableHeader: Column[] = [
     Header: "Notification",
     accessor: "data.msg",
   },
-  // {
-  //   Header: "Created At",
-  //   accessor: "updatedAt",
-  //   Cell: ({ value }: Cell) => formatDate(value, "MMM D, YYYY h:mm A"),
-  // },
   {
     Header: "Created At",
     accessor: "diffForHumans",

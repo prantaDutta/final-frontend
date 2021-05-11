@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import Account from "../../../components/settings/Account";
@@ -6,21 +6,19 @@ import Administration from "../../../components/settings/Administration";
 import Personal from "../../../components/settings/Personal";
 import Security from "../../../components/settings/Security";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
-import FetchError from "../../../components/shared/FetchError";
 
 interface dashboardProps {
   user: ModifiedUserData;
 }
 
 const Settings: React.FC<dashboardProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(mounted ? `/admin/` : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, mutate, error } = useSWR(`/admin/`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Settings`}>

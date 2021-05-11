@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import ShowDetailsInATableWithLinks from "../../../components/shared/ShowDetailsInATableWithLinks";
 import { objectToArrayAndExclude } from "../../../utils/functions";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import withAuth from "../../../utils/withAuth";
 import ErrorPage from "../../404";
-import FetchError from "../../../components/shared/FetchError";
 
 interface UserLoanProps {
   user: ModifiedUserData;
@@ -17,13 +17,10 @@ interface UserLoanProps {
 
 const UserLoan: React.FC<UserLoanProps> = ({ user, loanId }) => {
   if (!loanId) return <ErrorPage />;
+  let { data, error } = useSWR(`/user/get-single-loan/${loanId}`);
 
-  const [mounted, useMounted] = useState<boolean>(false);
-  useEffect(() => useMounted(true), []);
-  let { data, error} = useSWR(mounted ? `/user/get-single-loan/${loanId}` : null);
-
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Loan Details`}>
@@ -62,13 +59,3 @@ export const getServerSideProps = withAuth(async (context) => {
     props: { user, loanId },
   };
 });
-
-// export const generateLenderIdArray = (arr: string[]) => {
-//   let newArr: string[] = [];
-
-//   arr.forEach((ar) => {
-//     newArr.push(`/admin/users/${ar}`);
-//   });
-
-//   return newArr;
-// };

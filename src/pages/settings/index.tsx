@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import Account from "../../components/settings/Account";
@@ -16,10 +16,8 @@ interface SettingsProps {
 }
 
 const Settings: React.FC<SettingsProps> = ({ user }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(mounted ? `/user/` : null);
-  if (mounted && error) {
+  const { data, mutate, error } = useSWR(`/user/`);
+  if (error) {
     return <FetchError user={user} />;
   }
   return (

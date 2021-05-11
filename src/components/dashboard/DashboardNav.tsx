@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useSWR from "swr";
 import { authStatus } from "../../states/authStates";
@@ -8,11 +8,9 @@ import { mainNav } from "../../states/dashboardStates";
 import { newLoanFormValues } from "../../states/newLoanState";
 import { authenticatedUserData } from "../../states/userStates";
 import { verificationFormValues } from "../../states/verificationStates";
-import { laravelApi } from "../../utils/api";
 import { logout } from "../../utils/auth";
-import ShowNotifications from "../shared/ShowNotifications";
-import SvgIcon from "../shared/SvgIcon";
 import FloatingNotification from "../shared/FloatingNotifications";
+import SvgIcon from "../shared/SvgIcon";
 
 interface MainContentNavProps {}
 
@@ -23,20 +21,16 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
   const userData = useRecoilValue(authenticatedUserData);
   const [, setVerifyData] = useRecoilState(verificationFormValues);
   const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues);
-  const [mounted, setMounted] = useState<boolean>(false);
   // for balance reload animation
   const [animate, setAnimate] = useState(false);
-  useEffect(() => setMounted(true), []);
   const { data, mutate: NotifyMutate } = useSWR(
-    mounted ? `/user/dashboard-notifications` : null
+    `/user/dashboard-notifications`
   );
   // if (!isProduction) console.log("data: ", data);
   const [showNotificationsDiv, setNotificationsDiv] = useState<boolean>(false);
 
   // Fetch current balance
-  const { data: balanceData, mutate } = useSWR(
-    mounted ? `/user/balance` : null
-  );
+  const { data: balanceData, mutate } = useSWR(`/user/balance`);
   const [showMainNav] = useRecoilState(mainNav);
 
   return (

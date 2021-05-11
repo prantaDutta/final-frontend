@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../components/shared/DashboardTitle";
+import FetchError from "../../components/shared/FetchError";
 import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
 import { ModifiedUserData } from "../../utils/randomTypes";
 import withAuth from "../../utils/withAuth";
 import { loanModeSelectTypes } from "../admin/loans";
-import FetchError from "../../components/shared/FetchError";
 
 interface currentLoansProps {
   user: ModifiedUserData;
@@ -19,14 +19,11 @@ interface currentLoansProps {
 
 const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   const router = useRouter();
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const [loanType, setLoanType] = useState<
-    "processing" | "ongoing" | "finished" | "all"
-  >("all");
-  const { data, mutate, error } = useSWR(mounted ? `/user/loans/${loanType}` : "null");
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const [loanType, setLoanType] =
+    useState<"processing" | "ongoing" | "finished" | "all">("all");
+  const { data, mutate, error } = useSWR(`/user/loans/${loanType}`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`All Loans`}>

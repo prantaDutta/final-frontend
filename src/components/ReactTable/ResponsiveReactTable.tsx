@@ -34,7 +34,7 @@ const ResponsiveReactTable: React.FC<ResponsiveTableProps> = ({
     previousPage,
     canNextPage,
     canPreviousPage,
-    pageOptions,
+    // pageOptions,
     state,
     gotoPage,
     pageCount,

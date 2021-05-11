@@ -1,10 +1,11 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell, Column } from "react-table";
 import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import {
@@ -12,7 +13,6 @@ import {
   SelectOptionsTypes,
 } from "../../../utils/randomTypes";
 import withAdminAuth from "../../../utils/withAdminAuth";
-import FetchError from "../../../components/shared/FetchError";
 
 interface VerificationRequestsProps {
   user: ModifiedUserData;
@@ -21,14 +21,11 @@ interface VerificationRequestsProps {
 const VerificationRequests: React.FC<VerificationRequestsProps> = ({
   user,
 }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const [verified, setVerified] = useState<
-    "pending" | "verified" | "unverified" | "all"
-  >("pending");
-  const { data, mutate, error } = useSWR(mounted ? `/admin/users/${verified}` : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const [verified, setVerified] =
+    useState<"pending" | "verified" | "unverified" | "all">("pending");
+  const { data, mutate, error } = useSWR(`/admin/users/${verified}`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   return (
     <DashboardLayout data={user} title={`Users`}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import DashboardLayout from "../../../../components/layouts/DashboardLayout";
 import DashboardTitle from "../../../../components/shared/DashboardTitle";
+import FetchError from "../../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
 import MarkAsButton from "../../../../components/shared/MarkAsButton";
 import ShowDetailsInATableWithImages from "../../../../components/shared/ShowDetailsInATableWithImages";
@@ -12,7 +13,6 @@ import {
   SelectOptionsTypes,
 } from "../../../../utils/randomTypes";
 import withAdminAuth from "../../../../utils/withAdminAuth";
-import FetchError from "../../../../components/shared/FetchError";
 
 interface userProps {
   user: ModifiedUserData;
@@ -20,15 +20,12 @@ interface userProps {
 }
 
 const user: React.FC<userProps> = ({ user, userId }) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const { data, error } = useSWR(mounted ? `/admin/user/${userId}` : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+  const { data, error } = useSWR(`/admin/user/${userId}`);
+  if (error) {
+    return <FetchError user={user} />;
   }
-  const [pendingData, setPendingData] = useState<"pending" | "verified">(
-    "verified"
-  );
+  const [pendingData, setPendingData] =
+    useState<"pending" | "verified">("verified");
   useEffect(() => {
     if (data && data.user.verified === "pending") {
       setPendingData("pending");

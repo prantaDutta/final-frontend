@@ -5,6 +5,7 @@ import useSWR from "swr";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import InputSelectField from "../../../components/ReactHookForm/InputSelectField";
 import DashboardTitle from "../../../components/shared/DashboardTitle";
+import FetchError from "../../../components/shared/FetchError";
 import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
 import SubmitButton from "../../../components/shared/SubmitButton";
 import { laravelApi } from "../../../utils/api";
@@ -12,7 +13,6 @@ import { numberTypes } from "../../../utils/constantsArray";
 import { ModifiedUserData } from "../../../utils/randomTypes";
 import { notify } from "../../../utils/toasts";
 import withAdminAuth from "../../../utils/withAdminAuth";
-import FetchError from "../../../components/shared/FetchError";
 
 interface ChangeInterestRateProps {
   user: ModifiedUserData;
@@ -24,18 +24,14 @@ export type changeInterestRateFields = {
 
 const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
   const router = useRouter();
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data, mutate, error } = useSWR(mounted ? `/admin/get-interest-rate` : null);
-  if (mounted && error) {
-    return <FetchError user={user}/>
+
+  const { data, mutate, error } = useSWR(`/admin/get-interest-rate`);
+  if (error) {
+    return <FetchError user={user} />;
   }
   const [submitting, setSubmitting] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    errors,
-  } = useForm<changeInterestRateFields>();
+  const { register, handleSubmit, errors } =
+    useForm<changeInterestRateFields>();
   const submitHandler = async (values: changeInterestRateFields) => {
     setSubmitting(true);
     try {
