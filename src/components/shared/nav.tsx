@@ -1,38 +1,39 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { authStatus } from "../../states/authStates";
-import { newLoanFormValues } from "../../states/newLoanState";
-import { authenticatedUserData } from "../../states/userStates";
-import { verificationFormValues } from "../../states/verificationStates";
-import { logout } from "../../utils/auth";
-import { linkArray } from "../../utils/randomTypes";
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { authStatus } from '../../states/authStates'
+import { newLoanFormValues } from '../../states/newLoanState'
+import { authenticatedUserData } from '../../states/userStates'
+import { verificationFormValues } from '../../states/verificationStates'
+import { logout } from '../../utils/auth'
+import { linkArray } from '../../utils/randomTypes'
 
 export const links: linkArray[] = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/#", label: "Log Out" },
-  { href: "/login", label: "Log In" },
-  { href: "/register", label: "Register" },
-];
+  { href: '/', label: 'Home' },
+  // { href: "/about", label: "About" },
+  { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/#', label: 'Log Out' },
+  { href: '/login', label: 'Log In' },
+  { href: '/register', label: 'Register' },
+]
 
 // d attribute value of hamburger menu and cross sign
-const menu = ["M4 6h16M4 12h16M4 18h16", "M6 18L18 6M6 6l12 12"];
+const menu = ['M4 6h16M4 12h16M4 18h16', 'M6 18L18 6M6 6l12 12']
 
 export interface NavItemsProps {
-  links: linkArray[];
+  links: linkArray[]
 }
 
 export default function Nav() {
-  const router = useRouter();
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const [auth, toggleAuth] = useRecoilState(authStatus);
-  const userData = useRecoilValue(authenticatedUserData);
-  const [, setVerifyData] = useRecoilState(verificationFormValues);
-  const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues);
+  const router = useRouter()
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
+  const [auth, toggleAuth] = useRecoilState(authStatus)
+  const userData = useRecoilValue(authenticatedUserData)
+  const [, setVerifyData] = useRecoilState(verificationFormValues)
+  const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues)
 
   // rendering each nav items
   const NavItems: React.FC<NavItemsProps> = ({ links }) => {
@@ -40,64 +41,64 @@ export default function Nav() {
       <>
         {links.map((link, index) => {
           // not rendering item 5 & 6 when authenticated
-          if (auth && (index === 5 || index === 6)) return null;
+          if (auth && (index === 5 || index === 6)) return null
           // not rendering item 3 & 4 when not authenticated
-          else if (!auth && (index === 3 || index === 4)) return null;
-          else if (link.label === "Dashboard") {
-            if (userData?.role === "admin") link.href = "/admin/dashboard";
+          else if (!auth && (index === 3 || index === 4)) return null
+          else if (link.label === 'Dashboard') {
+            if (userData?.role === 'admin') link.href = '/admin/dashboard'
             return (
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
                   className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
-                    index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
+                    index === 0 ? '' : 'mt-1 md:mt-0 md:ml-2'
                   } transition-css`}
                 >
                   {link.label}
                 </a>
               </Link>
-            );
-          } else if (link.label === "Log Out")
+            )
+          } else if (link.label === 'Log Out')
             return (
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
                   onClick={async () => {
-                    toggleAuth(false);
-                    setVerifyData(null);
-                    setNewLoanFormValues(null);
+                    toggleAuth(false)
+                    setVerifyData(null)
+                    setNewLoanFormValues(null)
                     try {
-                      await logout();
+                      await logout()
                     } catch (e) {
-                      console.log("Problem Logging out from nav");
+                      console.log('Problem Logging out from nav')
                     }
-                    return router.push("/");
+                    return router.push('/')
                   }}
                   className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
-                    index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
+                    index === 0 ? '' : 'mt-1 md:mt-0 md:ml-2'
                   } transition-css`}
                 >
                   {link.label}
                 </a>
               </Link>
-            );
+            )
           else
             return (
               <Link href={link.href} key={link.label}>
                 <a
                   key={link.label}
                   className={`text-gray-600 block font-semibold md:text-lg text-base px-2 py-1 hover:text-primary hover:border-primary border-b-2 border-transparent ${
-                    index === 0 ? "" : "mt-1 md:mt-0 md:ml-2"
+                    index === 0 ? '' : 'mt-1 md:mt-0 md:ml-2'
                   } transition-css`}
                 >
                   {link.label}
                 </a>
               </Link>
-            );
+            )
         })}
       </>
-    );
-  };
+    )
+  }
 
   return (
     <div className="font-bold md:flex md:justify-between md:items-center md:px-4 md:py-3 md:mt-1">
@@ -135,12 +136,12 @@ export default function Nav() {
 
       <div
         className={`${
-          isDrawerOpen ? "block" : "hidden"
+          isDrawerOpen ? 'block' : 'hidden'
         } px-2 pt-2 pb-4 uppercase md:flex md:p-0 lg:mr-8 md:ml-5`}
       >
         {/* Rendering every nav items from links array */}
         <NavItems links={links} />
       </div>
     </div>
-  );
+  )
 }
