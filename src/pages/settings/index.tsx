@@ -1,24 +1,24 @@
-import React from "react";
-import useSWR from "swr";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-import Account from "../../components/settings/Account";
-import LoanPreference from "../../components/settings/LoanPreference";
-import Personal from "../../components/settings/Personal";
-import Security from "../../components/settings/Security";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import FetchError from "../../components/shared/FetchError";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { ModifiedUserData } from "../../utils/randomTypes";
-import withAuth from "../../utils/withAuth";
+import React from 'react'
+import useSWR from 'swr'
+import DashboardLayout from '../../components/layouts/DashboardLayout'
+import Account from '../../components/settings/Account'
+import LoanPreference from '../../components/settings/LoanPreference'
+import Personal from '../../components/settings/Personal'
+import Security from '../../components/settings/Security'
+import DashboardTitle from '../../components/shared/DashboardTitle'
+import FetchError from '../../components/shared/FetchError'
+import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
+import { ModifiedUserData } from '../../utils/randomTypes'
+import withAuth from '../../utils/withAuth'
 
 interface SettingsProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const Settings: React.FC<SettingsProps> = ({ user }) => {
-  const { data, mutate, error } = useSWR(`/user/`);
+  const { data, mutate, error } = useSWR(`/user/`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Settings`}>
@@ -28,18 +28,18 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
           <Personal data={data} mutate={mutate} />
           <Account data={data} mutate={mutate} />
           <Security data={data} mutate={mutate} />
-          {user.role === "lender" && <LoanPreference />}
+          {user.role === 'lender' && <LoanPreference />}
         </>
       ) : (
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withAuth(async (context) => {
-  const { user } = context;
-  return { props: { user } };
-});
+  const { user } = context
+  return { props: { user } }
+})
 
-export default Settings;
+export default Settings

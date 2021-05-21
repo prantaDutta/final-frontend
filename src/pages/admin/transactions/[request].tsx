@@ -1,35 +1,32 @@
-import React from "react";
-import useSWR from "swr";
-import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import DashboardTitle from "../../../components/shared/DashboardTitle";
-import FetchError from "../../../components/shared/FetchError";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import MarkAsButton from "../../../components/shared/MarkAsButton";
-import ShowDetailsInATableWithLinks from "../../../components/shared/ShowDetailsInATableWithLinks";
-import { objectToArrayAndExclude } from "../../../utils/functions";
-import { ModifiedUserData } from "../../../utils/randomTypes";
-import withAdminAuth from "../../../utils/withAdminAuth";
-import ErrorPage from "../../404";
+import React from 'react'
+import useSWR from 'swr'
+import DashboardLayout from '../../../components/layouts/DashboardLayout'
+import DashboardTitle from '../../../components/shared/DashboardTitle'
+import FetchError from '../../../components/shared/FetchError'
+import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import MarkAsButton from '../../../components/shared/MarkAsButton'
+import ShowDetailsInATableWithLinks from '../../../components/shared/ShowDetailsInATableWithLinks'
+import { objectToArrayAndExclude } from '../../../utils/functions'
+import { ModifiedUserData } from '../../../utils/randomTypes'
+import withAdminAuth from '../../../utils/withAdminAuth'
+import ErrorPage from '../../404'
 
 interface WithdrawalRequestProps {
-  user: ModifiedUserData;
-  request: string;
+  user: ModifiedUserData
+  request: string
 }
 
-const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
-  user,
-  request,
-}) => {
-  if (!request) return <ErrorPage />;
-  const { data, error } = useSWR(`/admin/transaction/${request}`);
+const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({ user, request }) => {
+  if (!request) return <ErrorPage />
+  const { data, error } = useSWR(`/admin/transaction/${request}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Transaction Details`}>
       <div className="flex justify-between text-gray-900">
         <DashboardTitle title={`Transaction Details`} backButton />
-        {data && data.transaction.transactionType === "withdraw" && (
+        {data && data.transaction.transactionType === 'withdraw' && (
           <>
             <MarkAsButton
               title="Mark As Successful"
@@ -57,8 +54,8 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
           <ShowDetailsInATableWithLinks
             title="Transactions Data"
             dataArray={[
-              ...objectToArrayAndExclude(data.transaction, ["id"]),
-              ...objectToArrayAndExclude(data.transactionDetail, ["id"]),
+              ...objectToArrayAndExclude(data.transaction, ['id']),
+              ...objectToArrayAndExclude(data.transactionDetail, ['id'])
             ]}
           />
           <ShowDetailsInATableWithLinks
@@ -71,16 +68,16 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
-export default WithdrawalRequests;
+export default WithdrawalRequests
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user, query } = context;
-  const request: string = query.request;
+  const { user, query } = context
+  const request: string = query.request
 
   return {
-    props: { user, request },
-  };
-});
+    props: { user, request }
+  }
+})

@@ -1,5 +1,5 @@
 export enum LoanMode {
-  Processing = "processing",
-  Ongoing = "ongoing",
-  Finished = "finished",
+  Processing = 'processing',
+  Ongoing = 'ongoing',
+  Finished = 'finished'
 }

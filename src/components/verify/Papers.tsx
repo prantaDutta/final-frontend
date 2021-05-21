@@ -4,10 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import { object } from 'yup'
 import yup from '../../lib/yup'
-import {
-  verificationFormValues,
-  verificationStep,
-} from '../../states/verificationStates'
+import { verificationFormValues, verificationStep } from '../../states/verificationStates'
 import { BorrowerTypes } from '../../utils/constantsArray'
 import { PapersVerificationFormValues } from '../../utils/randomTypes'
 import InputSelectField from '../ReactHookForm/InputSelectField'
@@ -17,19 +14,15 @@ interface PapersProps {}
 
 const Papers: React.FC<PapersProps> = ({}) => {
   const [verificationValues, setValues] = useRecoilState(verificationFormValues)
-  const { register, handleSubmit, errors } =
-    useForm<PapersVerificationFormValues>({
-      resolver: yupResolver(
-        object({
-          borrowerType: yup
-            .mixed()
-            .oneOf(['salaried', 'self'], 'You have to select a type')
-            .required('Required'),
-        })
-      ),
-      mode: 'onTouched',
-      reValidateMode: 'onBlur',
-    })
+  const { register, handleSubmit, errors } = useForm<PapersVerificationFormValues>({
+    resolver: yupResolver(
+      object({
+        borrowerType: yup.mixed().oneOf(['salaried', 'self'], 'You have to select a type').required('Required')
+      })
+    ),
+    mode: 'onTouched',
+    reValidateMode: 'onBlur'
+  })
   const [step, setStep] = useRecoilState(verificationStep)
 
   const onSubmit = async (values: PapersVerificationFormValues) => {

@@ -1,45 +1,31 @@
-import React, { InputHTMLAttributes, useState } from "react";
-import { RefReturn } from "../../utils/randomTypes";
+import React, { InputHTMLAttributes, useState } from 'react'
+import { RefReturn } from '../../utils/randomTypes'
 
 type InputPasswordFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
-  component?: string;
-  error?: string | undefined | null;
-  register?: () => RefReturn;
-  halfWidth?: boolean;
-};
+  label: string
+  component?: string
+  error?: string | undefined | null
+  register?: () => RefReturn
+  halfWidth?: boolean
+}
 
-const InputPasswordField: React.FC<InputPasswordFieldProps> = ({
-  error,
-  label,
-  halfWidth,
-  register,
-  ...props
-}) => {
-  const [eye, toggleEye] = useState<boolean>(false);
+const InputPasswordField: React.FC<InputPasswordFieldProps> = ({ error, label, halfWidth, register, ...props }) => {
+  const [eye, toggleEye] = useState<boolean>(false)
   return (
-    <div className={`mt-6 px-4 ${halfWidth ? "w-1/2" : "w-full"}`}>
+    <div className={`mt-6 px-4 ${halfWidth ? 'w-1/2' : 'w-full'}`}>
       {/*  h-24 add this class to reduce page shifting */}
-      <label className="text-md font-bold text-gray-700 tracking-wide">
-        {label}
-      </label>
+      <label className="text-md font-bold text-gray-700 tracking-wide">{label}</label>
 
       <div className="flex">
         <input
-          type={!eye ? "password" : "text"}
+          type={!eye ? 'password' : 'text'}
           className={`w-full bg-transparent text-md text-gray-500 font-semibold py-2 border-b focus:outline-none ${
-            error
-              ? "border-red-600 focus:border-red-600"
-              : "border-gray-300 focus:border-indigo-500"
+            error ? 'border-red-600 focus:border-red-600' : 'border-gray-300 focus:border-indigo-500'
           }`}
           {...props}
           ref={register}
         />
-        <button
-          type="button"
-          className="focus:outline-none focus:ring-0"
-          onClick={() => toggleEye(!eye)}
-        >
+        <button type="button" className="focus:outline-none focus:ring-0" onClick={() => toggleEye(!eye)}>
           {eye ? (
             <svg
               className="w-4 h-4"
@@ -48,12 +34,7 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -80,11 +61,9 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({
         </button>
       </div>
 
-      <p className="text-red-600 pt-2 font-semibold text-sm italic">
-        {error ? error : " "}
-      </p>
+      <p className="text-red-600 pt-2 font-semibold text-sm italic">{error ? error : ' '}</p>
     </div>
-  );
-};
+  )
+}
 
-export default InputPasswordField;
+export default InputPasswordField

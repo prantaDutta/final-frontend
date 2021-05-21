@@ -1,8 +1,8 @@
-import { toast, ToastOptions } from "react-toastify";
+import { toast, ToastOptions } from 'react-toastify'
 
 export const notify = (msg: string, options: ToastOptions) => {
-  toast(msg, { ...options });
-};
+  toast(msg, { ...options })
+}
 
 // if You can't provide a toastID
 //   if (!toast.isActive("dashboard-processing")) {

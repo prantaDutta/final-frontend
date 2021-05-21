@@ -1,55 +1,44 @@
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import useSWR from "swr";
-import { personalExpand } from "../../states/settingsStates";
-import { laravelApi } from "../../utils/api";
-import {
-  createDivisionsTypes,
-  createZilaTypes,
-} from "../../utils/constantsArray";
-import { notify } from "../../utils/toasts";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import ReactLoader from "../shared/ReactLoader";
-import SaveCancelButton from "./SaveCancelButton";
-import SettingsName from "./SettingsName";
+import React, { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import useSWR from 'swr'
+import { personalExpand } from '../../states/settingsStates'
+import { laravelApi } from '../../utils/api'
+import { createDivisionsTypes, createZilaTypes } from '../../utils/constantsArray'
+import { notify } from '../../utils/toasts'
+import FullWidthReactLoader from '../shared/FullWidthReactLoader'
+import ReactLoader from '../shared/ReactLoader'
+import SaveCancelButton from './SaveCancelButton'
+import SettingsName from './SettingsName'
 
 interface PersonalProps {
-  data: any;
-  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
+  data: any
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>
 }
 
 const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
   // To Expand the Personal Details Tab
-  const [expand] = useRecoilState(personalExpand);
+  const [expand] = useRecoilState(personalExpand)
   // Following States will get the value of
-  const [getAddress, setAddressValue] = useState(
-    data ? data.verification?.address : ""
-  );
-  const [getDivision, setDivisionValue] = useState(
-    data ? data.verification?.division : ""
-  );
-  const [getZila, setZilaValue] = useState(data ? data.verification?.zila : "");
-  const [getZipCode, setZipCode] = useState(
-    data ? data.verification?.zipCode : ""
-  );
-  const [getMobileNo, setMobileNoValue] = useState(
-    data ? data.user?.mobileNo : ""
-  );
-  const [getEmail, setEmailValue] = useState(data ? data.user.email : "");
-  const [showAddressField, setAddressField] = useState<boolean>(false);
-  const [showMobileField, setMobileField] = useState<boolean>(false);
-  const [showEmailField, setEmailField] = useState<boolean>(false);
+  const [getAddress, setAddressValue] = useState(data ? data.verification?.address : '')
+  const [getDivision, setDivisionValue] = useState(data ? data.verification?.division : '')
+  const [getZila, setZilaValue] = useState(data ? data.verification?.zila : '')
+  const [getZipCode, setZipCode] = useState(data ? data.verification?.zipCode : '')
+  const [getMobileNo, setMobileNoValue] = useState(data ? data.user?.mobileNo : '')
+  const [getEmail, setEmailValue] = useState(data ? data.user.email : '')
+  const [showAddressField, setAddressField] = useState<boolean>(false)
+  const [showMobileField, setMobileField] = useState<boolean>(false)
+  const [showEmailField, setEmailField] = useState<boolean>(false)
 
-  const [showEmailOtpField, setEmailOtpField] = useState<boolean>(false);
-  const [emailOtpValue, setEmailOtpValue] = useState<string>("");
+  const [showEmailOtpField, setEmailOtpField] = useState<boolean>(false)
+  const [emailOtpValue, setEmailOtpValue] = useState<string>('')
 
-  const [showMobileOtpField, setMobileOtpField] = useState<boolean>(false);
-  const [mobileOtpValue, setMobileOtpValue] = useState<string>("");
+  const [showMobileOtpField, setMobileOtpField] = useState<boolean>(false)
+  const [mobileOtpValue, setMobileOtpValue] = useState<string>('')
 
-  const [emailSending, setEmailSending] = useState<boolean>(false);
-  const [smsSending, setSMSSending] = useState<boolean>(false);
+  const [emailSending, setEmailSending] = useState<boolean>(false)
+  const [smsSending, setSMSSending] = useState<boolean>(false)
 
-  const { data: contactData } = useSWR("/user/contact-verified");
+  const { data: contactData } = useSWR('/user/contact-verified')
   return (
     <>
       {/* This component Shows and toggles the dropdown of personal details */}
@@ -64,12 +53,8 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
           <>
             <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
               <div className="py-2">
-                <p className="text-sm md:text-lg font-semibold md:font-bold">
-                  Name
-                </p>
-                <p className="text-sm md:text-lg font-semibold text-gray-600">
-                  {data.user.name}
-                </p>
+                <p className="text-sm md:text-lg font-semibold md:font-bold">Name</p>
+                <p className="text-sm md:text-lg font-semibold text-gray-600">{data.user.name}</p>
               </div>
 
               <hr className="border-gray-600 my-2" />
@@ -142,7 +127,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                       address: getAddress,
                       division: getDivision,
                       zila: getZila,
-                      zipCode: getZipCode,
+                      zipCode: getZipCode
                     }}
                     toastMsg="Address Updated"
                     mutate={mutate}
@@ -151,19 +136,13 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-sm md:text-lg font-semibold md:font-bold">
-                      Address
-                    </p>
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">Address</p>
                     <p className="text-sm md:text-lg font-semibold text-gray-600">
-                      {data?.verification?.address}{" "}
-                      {data?.verification?.zipCode}
+                      {data?.verification?.address} {data?.verification?.zipCode}
                     </p>
                   </div>
                   <div className={`flex items-center`}>
-                    <button
-                      onClick={() => setAddressField(true)}
-                      className="edit-btn"
-                    >
+                    <button onClick={() => setAddressField(true)} className="edit-btn">
                       Edit
                     </button>
                   </div>
@@ -175,9 +154,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               {/* When Email Edit Button is clicked */}
               {showEmailField ? (
                 <form>
-                  <label className="text-lg font-bold block w-full bg-transparent mt-2">
-                    Email
-                  </label>
+                  <label className="text-lg font-bold block w-full bg-transparent mt-2">Email</label>
                   <div className="md:flex">
                     <input
                       className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -188,22 +165,22 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                       type="button"
                       disabled={getEmail === data.user.email}
                       className={`w-full px-2 py-1 md:w-1/4 md:ml-4 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
-                        getEmail === data.user.email && "cursor-not-allowed"
+                        getEmail === data.user.email && 'cursor-not-allowed'
                       }`}
                       onClick={async () => {
-                        setEmailSending(true);
-                        console.log("email: ", getEmail);
+                        setEmailSending(true)
+                        console.log('email: ', getEmail)
                         await laravelApi().post(`/send-verify-email`, {
-                          email: getEmail,
-                        });
-                        setEmailOtpField(true);
-                        notify("Email Sent. Check Your Inbox", {
-                          type: "success",
-                        });
-                        setEmailSending(false);
+                          email: getEmail
+                        })
+                        setEmailOtpField(true)
+                        notify('Email Sent. Check Your Inbox', {
+                          type: 'success'
+                        })
+                        setEmailSending(false)
                       }}
                     >
-                      {emailSending ? <ReactLoader /> : "Send Otp"}
+                      {emailSending ? <ReactLoader /> : 'Send Otp'}
                     </button>
                   </div>
 
@@ -221,7 +198,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                     submitUrl={`/user/verify-email-otp`}
                     postData={{
                       otp: emailOtpValue,
-                      email: getEmail,
+                      email: getEmail
                     }}
                     toastMsg="Email Successfully Updated"
                     mutate={mutate}
@@ -230,27 +207,18 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-sm md:text-lg font-semibold md:font-bold">
-                      Email
-                    </p>
-                    <p className="text-sm md:text-lg font-semibold text-gray-600">
-                      {data.user.email}
-                    </p>
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">Email</p>
+                    <p className="text-sm md:text-lg font-semibold text-gray-600">{data.user.email}</p>
                   </div>
                   <div className="flex items-center">
                     <button
-                      className={`px-2 py-1 rounded-full ${
-                        contactData?.email ? "bg-green-500" : "bg-red-500"
-                      } mx-2 mt-2
+                      className={`px-2 py-1 rounded-full ${contactData?.email ? 'bg-green-500' : 'bg-red-500'} mx-2 mt-2
                       text-xs text-gray-200 font-semibold md:font-bold capitalize cursor-not-allowed`}
                     >
-                      {contactData?.email ? "verified" : "unverified"}
+                      {contactData?.email ? 'verified' : 'unverified'}
                     </button>
 
-                    <button
-                      onClick={() => setEmailField(true)}
-                      className="edit-btn"
-                    >
+                    <button onClick={() => setEmailField(true)} className="edit-btn">
                       Edit
                     </button>
                   </div>
@@ -267,9 +235,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                   </label>
                   <div className="md:flex items-center">
                     <div className="flex items-center">
-                      <div className="px-3 py-1 mr-2 bg-primary text-white font-semibold rounded-full">
-                        +880
-                      </div>
+                      <div className="px-3 py-1 mr-2 bg-primary text-white font-semibold rounded-full">+880</div>
                       <input
                         className="w-full bg-white font-semibold pl-5 my-2 rounded-lg py-2 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                         value={getMobileNo}
@@ -278,31 +244,30 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                     </div>
                     <button
                       onClick={async () => {
-                        setSMSSending(true);
+                        setSMSSending(true)
 
                         try {
                           await laravelApi().post(`/user/send-mobile-otp`, {
-                            mobileNo: getMobileNo,
-                          });
-                          notify("You Will receive an OTP in a minute", {
-                            type: "success",
-                          });
+                            mobileNo: getMobileNo
+                          })
+                          notify('You Will receive an OTP in a minute', {
+                            type: 'success'
+                          })
                         } catch (e) {
-                          notify("Otp Invalid Or Expired", {
-                            type: "error",
-                          });
+                          notify('Otp Invalid Or Expired', {
+                            type: 'error'
+                          })
                         }
-                        setMobileOtpField(true);
+                        setMobileOtpField(true)
 
-                        setSMSSending(false);
+                        setSMSSending(false)
                       }}
                       disabled={getMobileNo === data?.verification?.mobileNo}
                       className={`w-full px-2 py-1 md:w-1/4 md:ml-4 my-2 rounded-lg bg-primaryAccent text-gray-200 font-semibold capitalize focus:outline-none focus:ring-primaryAccent focus:ring-2 disabled:opacity-50 ${
-                        getMobileNo === data?.verification?.mobileNo &&
-                        "cursor-not-allowed"
+                        getMobileNo === data?.verification?.mobileNo && 'cursor-not-allowed'
                       }`}
                     >
-                      {smsSending ? <ReactLoader /> : "Send OTP"}
+                      {smsSending ? <ReactLoader /> : 'Send OTP'}
                     </button>
                   </div>
                   {/* Cancel Editing & Submitting the Data */}
@@ -318,7 +283,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
                     submitUrl={`/user/verify-mobile-no`}
                     postData={{
                       otp: mobileOtpValue,
-                      mobileNo: getMobileNo,
+                      mobileNo: getMobileNo
                     }}
                     toastMsg="Mobile No Updated Successfully"
                     mutate={mutate}
@@ -327,28 +292,21 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between py-2">
                   <div>
-                    <p className="text-sm md:text-lg font-semibold md:font-bold">
-                      Mobile No
-                    </p>
+                    <p className="text-sm md:text-lg font-semibold md:font-bold">Mobile No</p>
                     <p className="text-sm md:text-lg font-semibold text-gray-600">
-                      {data?.user?.mobileNo
-                        ? "+880" + data?.user?.mobileNo
-                        : null}
+                      {data?.user?.mobileNo ? '+880' + data?.user?.mobileNo : null}
                     </p>
                   </div>
                   <div className={`flex items-center`}>
                     <button
                       className={`px-2 py-1 rounded-full ${
-                        contactData?.mobileNo ? "bg-green-500" : "bg-red-500"
+                        contactData?.mobileNo ? 'bg-green-500' : 'bg-red-500'
                       } mx-2 mt-2
                       text-xs text-gray-200 font-semibold capitalize cursor-not-allowed`}
                     >
-                      {contactData?.mobileNo ? "verified" : "unverified"}
+                      {contactData?.mobileNo ? 'verified' : 'unverified'}
                     </button>
-                    <button
-                      onClick={() => setMobileField(true)}
-                      className="edit-btn"
-                    >
+                    <button onClick={() => setMobileField(true)} className="edit-btn">
                       Edit
                     </button>
                   </div>
@@ -361,7 +319,7 @@ const Personal: React.FC<PersonalProps> = ({ data, mutate }) => {
         )
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Personal;
+export default Personal

@@ -1,27 +1,27 @@
-import { atom } from "recoil";
-import { VerificationFormValues } from "../utils/randomTypes";
+import { atom } from 'recoil'
+import { VerificationFormValues } from '../utils/randomTypes'
 
 export const nextButtonDisabled = atom<boolean>({
-  key: "next-disabled",
-  default: false,
-});
+  key: 'next-disabled',
+  default: false
+})
 
 export const verificationStep = atom<number>({
-  key: "verificationStep",
-  default: 0,
-});
+  key: 'verificationStep',
+  default: 0
+})
 
 export const verificationFormValues = atom<VerificationFormValues | null>({
-  key: "verificationStates",
-  default: null,
-});
+  key: 'verificationStates',
+  default: null
+})
 
 export const verificationSubmitting = atom<boolean>({
-  key: "verification-state",
-  default: false,
-});
+  key: 'verification-state',
+  default: false
+})
 
 export const verificationWarning = atom<boolean>({
-  key: "verification-warning",
-  default: false,
-});
+  key: 'verification-warning',
+  default: false
+})

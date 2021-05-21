@@ -1,5 +1,5 @@
-import Image from "next/image";
-import IndexPageSection from "./IndexPageSection";
+import Image from 'next/image'
+import IndexPageSection from './IndexPageSection'
 
 interface sponsorsProps {}
 
@@ -10,40 +10,31 @@ const Sponsors: React.FC<sponsorsProps> = ({}) => {
         {images &&
           images.map((img) => {
             return (
-              <div
-                className="p-2 md:pt-4 lg:pt-4 mt-3 md:mt-5 text-center"
-                key={img.img}
-              >
+              <div className="p-2 md:pt-4 lg:pt-4 mt-3 md:mt-5 text-center" key={img.img}>
                 <div className="flex justify-center items-center mb-2 md:mb-4">
-                  <Image
-                    src={img.img}
-                    alt={`${img.img}`}
-                    width="200"
-                    height="200"
-                    className="object-contain"
-                  ></Image>
+                  <Image src={img.img} alt={`${img.img}`} width="200" height="200" className="object-contain"></Image>
                 </div>
               </div>
-            );
+            )
           })}
       </div>
     </IndexPageSection>
-  );
-};
+  )
+}
 
 const images = [
   {
-    img: "/bkash.png",
+    img: '/bkash.png'
   },
   {
-    img: "/nogod.png",
+    img: '/nogod.png'
   },
   {
-    img: "/rocket.png",
+    img: '/rocket.png'
   },
   {
-    img: "/sure_cash_logo.png",
-  },
-];
+    img: '/sure_cash_logo.png'
+  }
+]
 
-export default Sponsors;
+export default Sponsors

@@ -17,7 +17,7 @@ export const links: linkArray[] = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/#', label: 'Log Out' },
   { href: '/login', label: 'Log In' },
-  { href: '/register', label: 'Register' },
+  { href: '/register', label: 'Register' }
 ]
 
 // d attribute value of hamburger menu and cross sign
@@ -134,11 +134,7 @@ export default function Nav() {
         </div>
       </div>
 
-      <div
-        className={`${
-          isDrawerOpen ? 'block' : 'hidden'
-        } px-2 pt-2 pb-4 uppercase md:flex md:p-0 lg:mr-8 md:ml-5`}
-      >
+      <div className={`${isDrawerOpen ? 'block' : 'hidden'} px-2 pt-2 pb-4 uppercase md:flex md:p-0 lg:mr-8 md:ml-5`}>
         {/* Rendering every nav items from links array */}
         <NavItems links={links} />
       </div>

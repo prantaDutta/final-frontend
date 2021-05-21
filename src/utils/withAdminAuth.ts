@@ -1,33 +1,33 @@
-import { NextPageContext } from "next";
-import { Handler } from "next-iron-session";
-import withSession from "../lib/session";
-import { ModifiedUserData } from "./randomTypes";
-import {logout} from "./auth";
+import { NextPageContext } from 'next'
+import { Handler } from 'next-iron-session'
+import withSession from '../lib/session'
+import { ModifiedUserData } from './randomTypes'
+import { logout } from './auth'
 
 function _withAdminAuth(handler: any) {
   return async (context: NextPageContext) => {
-    const { req } = context;
-    const user: ModifiedUserData = (req as any).session.get("user");
-    if (!user || user.role !== "admin") {
-      await logout();
+    const { req } = context
+    const user: ModifiedUserData = (req as any).session.get('user')
+    if (!user || user.role !== 'admin') {
+      await logout()
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login'
         },
-        props: {},
-      };
+        props: {}
+      }
     }
 
     const newCtx = {
       ...context,
-      user,
-    };
+      user
+    }
 
-    return handler(newCtx);
-  };
+    return handler(newCtx)
+  }
 }
 
 export default function withAdminAuth(handler: Handler) {
-  return withSession(_withAdminAuth(handler));
+  return withSession(_withAdminAuth(handler))
 }

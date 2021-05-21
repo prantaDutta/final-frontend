@@ -1,71 +1,69 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { withIronSession } from "next-iron-session";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import Layout from "../components/layouts/Layout";
-import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
-import InputTextField from "../components/ReactHookForm/InputTextField";
-import SubmitButton from "../components/shared/SubmitButton";
-import { authStatus } from "../states/authStates";
-import { authenticatedUserData } from "../states/userStates";
-import { laravelApi } from "../utils/api";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
-import { redirectToPage } from "../utils/functions";
-import { LoginFormValues, ModifiedUserData } from "../utils/randomTypes";
-import { notify } from "../utils/toasts";
-import { loginValidationSchema } from "../validations/LoginFormValidation";
+import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
+import { withIronSession } from 'next-iron-session'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import Layout from '../components/layouts/Layout'
+import InputPasswordField from '../components/ReactHookForm/InputPasswordField'
+import InputTextField from '../components/ReactHookForm/InputTextField'
+import SubmitButton from '../components/shared/SubmitButton'
+import { authStatus } from '../states/authStates'
+import { authenticatedUserData } from '../states/userStates'
+import { laravelApi } from '../utils/api'
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from '../utils/constants'
+import { redirectToPage } from '../utils/functions'
+import { LoginFormValues, ModifiedUserData } from '../utils/randomTypes'
+import { notify } from '../utils/toasts'
+import { loginValidationSchema } from '../validations/LoginFormValidation'
 
 interface login2Props {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const Login: React.FC<login2Props> = ({ user }) => {
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const { register, handleSubmit, errors, setError } = useForm<LoginFormValues>(
-    {
-      resolver: yupResolver(loginValidationSchema),
-      mode: "onTouched",
-      reValidateMode: "onBlur",
-    }
-  );
-  const router = useRouter();
-  const [, toggleAuth] = useRecoilState(authStatus);
-  const [, setUserData] = useRecoilState(authenticatedUserData);
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const { register, handleSubmit, errors, setError } = useForm<LoginFormValues>({
+    resolver: yupResolver(loginValidationSchema),
+    mode: 'onTouched',
+    reValidateMode: 'onBlur'
+  })
+  const router = useRouter()
+  const [, toggleAuth] = useRecoilState(authStatus)
+  const [, setUserData] = useRecoilState(authenticatedUserData)
 
   const onSubmit = async (values: LoginFormValues) => {
-    setSubmitting(true);
+    setSubmitting(true)
 
-    await laravelApi(true).get("/sanctum/csrf-cookie");
+    await laravelApi(true).get('/sanctum/csrf-cookie')
     try {
       const {
-        data: { data },
-      } = await laravelApi().post("/login", values);
-      if (!isProduction) console.log(data);
-      toggleAuth(true);
-      setUserData(data);
-      await axios.post("/api/set-login-cookie", { data });
+        data: { data }
+      } = await laravelApi().post('/login', values)
+      if (!isProduction) console.log(data)
+      toggleAuth(true)
+      setUserData(data)
+      await axios.post('/api/set-login-cookie', { data })
       notify(`Welcome back, ${data.name}`, {
-        type: "success",
-      });
-      if (!data.mobileNoVerified) return router.push("/verify-mobile-no");
-      if (data.role === "admin") return router.push("/admin/dashboard");
-      return router.push("/dashboard");
+        type: 'success'
+      })
+      if (!data.mobileNoVerified) return router.push('/verify-mobile-no')
+      if (data.role === 'admin') return router.push('/admin/dashboard')
+      return router.push('/dashboard')
     } catch (e) {
-      if (!isProduction) console.log(e.response);
-      notify("Invalid Credentials", {
-        type: "error",
-      });
-      setError("email", {
-        type: "manual",
-        message: "Invalid Credentials",
-      });
+      if (!isProduction) console.log(e.response)
+      notify('Invalid Credentials', {
+        type: 'error'
+      })
+      setError('email', {
+        type: 'manual',
+        message: 'Invalid Credentials'
+      })
     }
-    setSubmitting(false);
-  };
+    setSubmitting(false)
+  }
   return (
     <Layout data={user} title={`Log In to Your Account`}>
       <div className="pb-3 px-2 md:px-0">
@@ -106,28 +104,26 @@ const Login: React.FC<login2Props> = ({ user }) => {
             </div>
           </form>
           <div className="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
-            Don't have an account ?{" "}
+            Don't have an account ?{' '}
             <Link href={`/register`}>
-              <a className="cursor-pointer text-primary hover:text-primaryAccent">
-                Sign Up
-              </a>
+              <a className="cursor-pointer text-primary hover:text-primaryAccent">Sign Up</a>
             </Link>
           </div>
         </main>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
+  const user = req.session.get('user')
   if (user) {
-    await redirectToPage(req, res, "/dashboard");
+    await redirectToPage(req, res, '/dashboard')
   }
 
   return {
-    props: {},
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+    props: {}
+  }
+}, NEXT_IRON_SESSION_CONFIG)
 
-export default Login;
+export default Login

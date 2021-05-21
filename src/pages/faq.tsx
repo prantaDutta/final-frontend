@@ -17,18 +17,14 @@ const faq: React.FC<faqProps> = ({ user }) => {
   return (
     <Layout data={user} title={`FAQs`}>
       <div className="my-2 mx-auto max-w-lg">
-        <h2 className="px-4 py-2 font-bold text-2xl text-center text-primary">
-          FREQUENTLY ASKED QUESTION
-        </h2>
+        <h2 className="px-4 py-2 font-bold text-2xl text-center text-primary">FREQUENTLY ASKED QUESTION</h2>
         <div className="flex justify-between my-5">
           {faqSections.map((section) => {
             return (
               <button
                 onClick={() => setActive(section)}
                 className={`px-4 py-2 mx-2 font-semibold text-lg rounded-md capitalize transition-css focus:outline-none focus:ring-0 ${
-                  active === section
-                    ? 'bg-primary text-white'
-                    : 'text-primary hover:bg-primary hover:text-white'
+                  active === section ? 'bg-primary text-white' : 'text-primary hover:bg-primary hover:text-white'
                 }`}
                 key={section}
               >
@@ -52,7 +48,7 @@ export const getServerSideProps = withIronSession(async ({ req, res }) => {
   }
 
   return {
-    props: {},
+    props: {}
   }
 }, NEXT_IRON_SESSION_CONFIG)
 

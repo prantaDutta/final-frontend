@@ -1,11 +1,11 @@
-import { atom } from "recoil";
+import { atom } from 'recoil'
 
 export const openSidebar = atom<boolean>({
-  key: "open-sidebar",
-  default: false,
-});
+  key: 'open-sidebar',
+  default: false
+})
 
 export const mainNav = atom<boolean>({
-  key: "show-main-nav",
-  default: false,
-});
+  key: 'show-main-nav',
+  default: false
+})

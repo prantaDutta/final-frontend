@@ -1,28 +1,23 @@
-import React from "react";
-import useSWR from "swr";
-import DashboardLayout from "../../../../components/layouts/DashboardLayout";
-import ReadyMadeTable from "../../../../components/ReactTable/ReadyMadeTable";
-import DashboardTitle from "../../../../components/shared/DashboardTitle";
-import FetchError from "../../../../components/shared/FetchError";
-import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
-import { ModifiedUserData } from "../../../../utils/randomTypes";
-import withAdminAuth from "../../../../utils/withAdminAuth";
-import { AdminInstallmentTableHeader } from "../../installments";
+import React from 'react'
+import useSWR from 'swr'
+import DashboardLayout from '../../../../components/layouts/DashboardLayout'
+import ReadyMadeTable from '../../../../components/ReactTable/ReadyMadeTable'
+import DashboardTitle from '../../../../components/shared/DashboardTitle'
+import FetchError from '../../../../components/shared/FetchError'
+import FullWidthReactLoader from '../../../../components/shared/FullWidthReactLoader'
+import { ModifiedUserData } from '../../../../utils/randomTypes'
+import withAdminAuth from '../../../../utils/withAdminAuth'
+import { AdminInstallmentTableHeader } from '../../installments'
 
 interface LoanInstallmentsProps {
-  user: ModifiedUserData;
-  loanId: string;
+  user: ModifiedUserData
+  loanId: string
 }
 
-const LoanInstallments: React.FC<LoanInstallmentsProps> = ({
-  user,
-  loanId,
-}) => {
-  const { data, mutate, error } = useSWR(
-    `/admin/user/loan-installments/${loanId}`
-  );
+const LoanInstallments: React.FC<LoanInstallmentsProps> = ({ user, loanId }) => {
+  const { data, mutate, error } = useSWR(`/admin/user/loan-installments/${loanId}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Loan Installments`}>
@@ -41,17 +36,17 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> = ({
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
-export default LoanInstallments;
+export default LoanInstallments
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user, query } = context;
+  const { user, query } = context
 
-  const loanId: any = query.loan;
+  const loanId: any = query.loan
 
   return {
-    props: { user, loanId },
-  };
-});
+    props: { user, loanId }
+  }
+})

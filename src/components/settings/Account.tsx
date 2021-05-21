@@ -1,21 +1,20 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { accountExpand } from "../../states/settingsStates";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import SaveCancelButton from "./SaveCancelButton";
-import SettingsName from "./SettingsName";
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { accountExpand } from '../../states/settingsStates'
+import FullWidthReactLoader from '../shared/FullWidthReactLoader'
+import SaveCancelButton from './SaveCancelButton'
+import SettingsName from './SettingsName'
 
 interface AccountProps {
-  data: any;
-  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
+  data: any
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>
 }
 
 const Account: React.FC<AccountProps> = ({ data, mutate }) => {
-  const [expand] = useRecoilState(accountExpand);
-  const [showCloseAccountField, setCloseAccountField] =
-    useState<boolean>(false);
-  const [password, setPassword] = useState<string>("");
+  const [expand] = useRecoilState(accountExpand)
+  const [showCloseAccountField, setCloseAccountField] = useState<boolean>(false)
+  const [password, setPassword] = useState<string>('')
   return (
     <>
       <SettingsName
@@ -36,11 +35,8 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                   <p className="text-base font-semibold mt-2">
                     Please Read Our
                     <Link href="https://google.com">
-                      <span className="text-blue cursor-pointer font-bold">
-                        {" "}
-                        Guidelines
-                      </span>
-                    </Link>{" "}
+                      <span className="text-blue cursor-pointer font-bold"> Guidelines</span>
+                    </Link>{' '}
                     on What happens to your account if you close it
                   </p>
                   <label className="text-sm md:text-lg font-semibold md:font-bold block w-full bg-transparent mt-2">
@@ -55,7 +51,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
                     setField={setCloseAccountField}
                     submitUrl={`/user/account/close`}
                     postData={{
-                      password,
+                      password
                     }}
                     mutate={mutate}
                     toastMsg="Password Changed Successfully"
@@ -64,9 +60,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
               ) : (
                 <div className="flex justify-between items-center">
                   <div>
-                    <button className="text-sm md:text-lg font-semibold md:font-bold">
-                      Account Status
-                    </button>
+                    <button className="text-sm md:text-lg font-semibold md:font-bold">Account Status</button>
                     <button className="ml-5 text-sm md:text-lg font-semibold md:font-bold text-gray-600 capitalize">
                       {data.user.verified}
                     </button>
@@ -89,7 +83,7 @@ const Account: React.FC<AccountProps> = ({ data, mutate }) => {
         )
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Account;
+export default Account

@@ -1,8 +1,8 @@
-import ReactLoader from "./ReactLoader";
-import React, { ReactElement } from "react";
+import ReactLoader from './ReactLoader'
+import React, { ReactElement } from 'react'
 
 interface props {
-  component?: ReactElement;
+  component?: ReactElement
 }
 
 const FullWidthReactLoader: React.FC<props> = ({ component }) => {
@@ -13,7 +13,7 @@ const FullWidthReactLoader: React.FC<props> = ({ component }) => {
     >
       <ReactLoader component={component} />
     </button>
-  );
-};
+  )
+}
 
-export default FullWidthReactLoader;
+export default FullWidthReactLoader

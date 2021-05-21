@@ -1,60 +1,59 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import useSWR from "swr";
-import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import InputSelectField from "../../../components/ReactHookForm/InputSelectField";
-import DashboardTitle from "../../../components/shared/DashboardTitle";
-import FetchError from "../../../components/shared/FetchError";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import SubmitButton from "../../../components/shared/SubmitButton";
-import { laravelApi } from "../../../utils/api";
-import { numberTypes } from "../../../utils/constantsArray";
-import { ModifiedUserData } from "../../../utils/randomTypes";
-import { notify } from "../../../utils/toasts";
-import withAdminAuth from "../../../utils/withAdminAuth";
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import useSWR from 'swr'
+import DashboardLayout from '../../../components/layouts/DashboardLayout'
+import InputSelectField from '../../../components/ReactHookForm/InputSelectField'
+import DashboardTitle from '../../../components/shared/DashboardTitle'
+import FetchError from '../../../components/shared/FetchError'
+import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import SubmitButton from '../../../components/shared/SubmitButton'
+import { laravelApi } from '../../../utils/api'
+import { numberTypes } from '../../../utils/constantsArray'
+import { ModifiedUserData } from '../../../utils/randomTypes'
+import { notify } from '../../../utils/toasts'
+import withAdminAuth from '../../../utils/withAdminAuth'
 
 interface ChangeInterestRateProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 export type changeInterestRateFields = {
-  interestRate: string | number;
-};
+  interestRate: string | number
+}
 
 const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const { data, mutate, error } = useSWR(`/admin/get-interest-rate`);
+  const { data, mutate, error } = useSWR(`/admin/get-interest-rate`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
-  const [submitting, setSubmitting] = useState(false);
-  const { register, handleSubmit, errors } =
-    useForm<changeInterestRateFields>();
+  const [submitting, setSubmitting] = useState(false)
+  const { register, handleSubmit, errors } = useForm<changeInterestRateFields>()
   const submitHandler = async (values: changeInterestRateFields) => {
-    setSubmitting(true);
+    setSubmitting(true)
     try {
       await laravelApi().post(`/admin/update-interest-rate`, {
-        interestRate: values.interestRate,
-      });
+        interestRate: values.interestRate
+      })
       notify(`Successfully Updated Interest Rate`, {
-        type: "success",
-      });
-      await router.push("/admin/settings");
+        type: 'success'
+      })
+      await router.push('/admin/settings')
     } catch (e) {
       notify(`Something Went Wrong. Try Again`, {
-        type: "error",
-      });
+        type: 'error'
+      })
     }
-    setSubmitting(false);
-  };
+    setSubmitting(false)
+  }
   // So that it runs automatically
   useEffect(() => {
-    (async function () {
-      await mutate();
-    })();
-  }, []);
+    ;(async function () {
+      await mutate()
+    })()
+  }, [])
 
   return (
     <DashboardLayout data={user} title={`Change Interest Rate`}>
@@ -79,12 +78,12 @@ const ChangeInterestRate: React.FC<ChangeInterestRateProps> = ({ user }) => {
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
-export default ChangeInterestRate;
+export default ChangeInterestRate
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user } = context;
-  return { props: { user } };
-});
+  const { user } = context
+  return { props: { user } }
+})

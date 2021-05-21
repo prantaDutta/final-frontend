@@ -1,75 +1,56 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import useSWR from "swr";
-import * as yup from "yup";
-import { object } from "yup";
-import {
-  verificationFormValues,
-  verificationStep,
-} from "../../states/verificationStates";
-import { isProduction } from "../../utils/constants";
-import {
-  createDivisionsTypes,
-  createZilaTypes,
-} from "../../utils/constantsArray";
-import { AddressVerificationFormValues } from "../../utils/randomTypes";
-import InputSelectField from "../ReactHookForm/InputSelectField";
-import InputTextField from "../ReactHookForm/InputTextField";
-import NextPreviousButton from "./NextPreviousButton";
+import { yupResolver } from '@hookform/resolvers/yup'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import useSWR from 'swr'
+import * as yup from 'yup'
+import { object } from 'yup'
+import { verificationFormValues, verificationStep } from '../../states/verificationStates'
+import { isProduction } from '../../utils/constants'
+import { createDivisionsTypes, createZilaTypes } from '../../utils/constantsArray'
+import { AddressVerificationFormValues } from '../../utils/randomTypes'
+import InputSelectField from '../ReactHookForm/InputSelectField'
+import InputTextField from '../ReactHookForm/InputTextField'
+import NextPreviousButton from './NextPreviousButton'
 
 interface AddressProps {}
 
 const Address: React.FC<AddressProps> = ({}) => {
-  const [verificationValues, setValues] = useRecoilState(
-    verificationFormValues
-  );
-  const [step, setStep] = useRecoilState(verificationStep);
-  const {
-    watch,
-    register,
-    handleSubmit,
-    errors,
-  } = useForm<AddressVerificationFormValues>({
+  const [verificationValues, setValues] = useRecoilState(verificationFormValues)
+  const [step, setStep] = useRecoilState(verificationStep)
+  const { watch, register, handleSubmit, errors } = useForm<AddressVerificationFormValues>({
     resolver: yupResolver(
       object({
-        address: yup.string().required("Required"),
-        division: yup.string().required("Required"),
-        zila: yup.string().required("Required"),
+        address: yup.string().required('Required'),
+        division: yup.string().required('Required'),
+        zila: yup.string().required('Required'),
         zip_code: yup
           .number()
-          .typeError("Zip must be a number")
-          .test(
-            "len",
-            "Zip Code must be 4 characters",
-            (val) => val?.toString().length === 4
-          )
-          .required("Required"),
+          .typeError('Zip must be a number')
+          .test('len', 'Zip Code must be 4 characters', (val) => val?.toString().length === 4)
+          .required('Required')
       })
     ),
-    mode: "onSubmit",
-    reValidateMode: "onBlur",
-  });
+    mode: 'onSubmit',
+    reValidateMode: 'onBlur'
+  })
   const onSubmit = async (values: AddressVerificationFormValues) => {
     // values.dateOfBirth = format(parseJSON(values.dateOfBirth), "MM/dd/yyyy");
-    const { address, division, zila, zip_code } = values;
+    const { address, division, zila, zip_code } = values
     // setValues({ ...verificationValues ? , email, address, mobileNo });
     setValues({
       ...verificationValues!,
       address,
       division,
       zila,
-      zip_code,
-    });
-    setStep(step + 1);
-  };
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => setMounted(true), []);
-  const { data: contactData } = useSWR(
-    mounted ? "/user/contact-verified" : null
-  );
-  if (!isProduction) console.log(contactData);
+      zip_code
+    })
+    setStep(step + 1)
+  }
+  const [mounted, setMounted] = useState<boolean>(false)
+  useEffect(() => setMounted(true), [])
+  const { data: contactData } = useSWR(mounted ? '/user/contact-verified' : null)
+  if (!isProduction) console.log(contactData)
   return (
     <div className="pb-3 px-2 md:px-0 mt-10">
       <main className="bg-white max-w-full mx-auto p-4 md:p-8 my-5 rounded-lg shadow-2xl">
@@ -104,9 +85,7 @@ const Address: React.FC<AddressProps> = ({}) => {
               label="Select Zila"
               error={errors.zila?.message}
               register={register}
-              options={
-                watch("division") ? createZilaTypes(watch("division")) : null
-              }
+              options={watch('division') ? createZilaTypes(watch('division')) : null}
             />
           </div>
           <div className="md:flex px-4">
@@ -123,7 +102,7 @@ const Address: React.FC<AddressProps> = ({}) => {
         </form>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Address;
+export default Address

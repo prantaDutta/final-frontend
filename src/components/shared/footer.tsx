@@ -7,7 +7,7 @@ const Footer: React.FC<footerProps> = ({}) => {
         &copy; GrayScale 2020
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

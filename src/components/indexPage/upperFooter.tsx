@@ -1,4 +1,4 @@
-import IndexPageSection from "./IndexPageSection";
+import IndexPageSection from './IndexPageSection'
 
 interface upperFooterProps {}
 
@@ -6,49 +6,22 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
   return (
     <IndexPageSection title="Connect With Us">
       <div className="flex justify-center items-center py-6">
-        <svg
-          width="48"
-          height="48"
-          className="ml-3 md:ml-6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"
-            fill="#3B5998"
-          />
+        <svg width="48" height="48" className="ml-3 md:ml-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z" fill="#3B5998" />
           <path
             d="M26.502 38.111V25.054h3.604l.478-4.5h-4.082l.006-2.252c0-1.173.111-1.802 1.797-1.802h2.253V12h-3.605c-4.33 0-5.854 2.183-5.854 5.854v2.701H18.4v4.5h2.7V38.11H26.5z"
             fill="#fff"
           />
         </svg>
-        <svg
-          width="48"
-          height="48"
-          className="ml-3 md:ml-6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"
-            fill="#55ACEE"
-          />
+        <svg width="48" height="48" className="ml-3 md:ml-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z" fill="#55ACEE" />
           <path
             d="M23.281 19.508l.05.83-.839-.102c-3.055-.39-5.724-1.712-7.99-3.932l-1.109-1.101-.285.813c-.604 1.814-.218 3.729 1.04 5.017.672.712.521.813-.637.39-.403-.136-.756-.238-.79-.187-.117.119.286 1.661.605 2.271.437.848 1.326 1.678 2.3 2.17l.823.39-.974.016c-.94 0-.974.017-.873.373.336 1.102 1.662 2.271 3.14 2.78l1.04.356-.906.542a9.45 9.45 0 01-4.5 1.254c-.755.017-1.376.085-1.376.136 0 .17 2.048 1.118 3.24 1.491 3.576 1.102 7.823.627 11.013-1.254 2.266-1.339 4.532-4 5.59-6.576.57-1.373 1.141-3.881 1.141-5.084 0-.78.05-.882.99-1.814.555-.542 1.075-1.135 1.176-1.305.168-.322.151-.322-.705-.034-1.427.509-1.629.441-.923-.322.52-.542 1.141-1.525 1.141-1.813 0-.05-.252.034-.537.186-.302.17-.974.424-1.477.577l-.907.288-.823-.56c-.453-.305-1.09-.644-1.426-.745-.857-.238-2.166-.204-2.938.068-2.099.762-3.425 2.728-3.274 4.88z"
             fill="#fff"
           />
         </svg>
-        <svg
-          width="48"
-          height="48"
-          className="ml-3 md:ml-6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"
-            fill="#0077B5"
-          />
+        <svg width="48" height="48" className="ml-3 md:ml-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z" fill="#0077B5" />
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -56,20 +29,8 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
             fill="#fff"
           />
         </svg>
-        <svg
-          width="48"
-          height="48"
-          className="ml-3 md:ml-6"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 75.8 74.9"
-        >
-          <radialGradient
-            id="a"
-            cx=".583"
-            cy="73.079"
-            r="132.615"
-            gradientUnits="userSpaceOnUse"
-          >
+        <svg width="48" height="48" className="ml-3 md:ml-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.8 74.9">
+          <radialGradient id="a" cx=".583" cy="73.079" r="132.615" gradientUnits="userSpaceOnUse">
             <stop offset="0" stopColor="#f4ec55" />
             <stop offset=".241" stopColor="#e48242" />
             <stop offset=".346" stopColor="#d66863" />
@@ -86,17 +47,8 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
             <path d="M38.2 26.9c-5.6 0-10.1 4.5-10.1 10.1s4.5 10.1 10.1 10.1S48.3 42.6 48.3 37s-4.5-10.1-10.1-10.1m0 16.6c-3.6 0-6.6-2.9-6.6-6.6 0-3.6 2.9-6.6 6.6-6.6 3.6 0 6.6 2.9 6.6 6.6 0 3.7-2.9 6.6-6.6 6.6M51.1 26.5c0 1.3-1.1 2.4-2.4 2.4-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4 1.3 0 2.4 1.1 2.4 2.4" />
           </g>
         </svg>
-        <svg
-          width="48"
-          height="48"
-          className="ml-3 md:ml-6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"
-            fill="red"
-          />
+        <svg width="48" height="48" className="ml-3 md:ml-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z" fill="red" />
           <path
             d="M36.265 18.073c-.294-1.13-1.162-2.021-2.263-2.324C32.005 15.2 24 15.2 24 15.2s-8.005 0-10.002.55c-1.101.302-1.969 1.192-2.263 2.323-.535 2.05-.535 6.327-.535 6.327s0 4.277.535 6.327c.294 1.13 1.162 2.021 2.263 2.324C15.995 33.6 24 33.6 24 33.6s8.005 0 10.002-.55c1.101-.302 1.969-1.192 2.263-2.323.535-2.05.535-6.327.535-6.327s0-4.277-.535-6.327z"
             fill="#fff"
@@ -106,28 +58,20 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-center pt-5 grid-gap-2">
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">
-            GrayScale
-          </h4>
+          <h4 className="font-semibold md:font-semibold text-xl md:text-base">GrayScale</h4>
           <p className="text-md font-base mt-2">
-            GrayScale is one of the fastest growing peer to peer (P2P) lending
-            platforms in Bangladesh. It connects investors or lenders looking
-            for high returns with creditworthy borrowers looking for short term
-            personal loans.
+            GrayScale is one of the fastest growing peer to peer (P2P) lending platforms in Bangladesh. It connects
+            investors or lenders looking for high returns with creditworthy borrowers looking for short term personal
+            loans.
           </p>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">
-            Quick Links
-          </h4>
+          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Quick Links</h4>
           <div className="text-md font-base mt-2">
             {quickLinks &&
               quickLinks.map((link) => {
                 return (
-                  <div
-                    className="flex my-1.5 justify-center items-center"
-                    key={link.title}
-                  >
+                  <div className="flex my-1.5 justify-center items-center" key={link.title}>
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -135,23 +79,16 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 5l7 7-7 7"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                     </svg>
                     <p>{link.title}</p>
                   </div>
-                );
+                )
               })}
           </div>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">
-            Address
-          </h4>
+          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Address</h4>
 
           <div className="flex my-3 justify-center items-center">
             <svg
@@ -167,12 +104,7 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
                 strokeWidth="2"
                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
               />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <p>Chattogram, Bangladesh</p>
           </div>
@@ -229,12 +161,8 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
           </div>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0 font-normal">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">
-            Subscribe
-          </h4>
-          <p className="text-md font-base mt-2">
-            Subscribe to our newsletter for latest updates
-          </p>
+          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Subscribe</h4>
+          <p className="text-md font-base mt-2">Subscribe to our newsletter for latest updates</p>
           <div className="mt-2 flex justify-center items-center">
             <svg
               className="w-6 h-6 mr-3 mt-3"
@@ -256,31 +184,29 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
               className="bg-transparent border-b-2 border-gray-600 px-4 py-1"
             />
           </div>
-          <button className="px-4 py-1 rounded-xl mt-2 bg-primary text-white hover:bg-primaryAccent">
-            Subscribe
-          </button>
+          <button className="px-4 py-1 rounded-xl mt-2 bg-primary text-white hover:bg-primaryAccent">Subscribe</button>
         </div>
       </div>
     </IndexPageSection>
-  );
-};
+  )
+}
 
 const quickLinks = [
   {
-    title: "Lend Now",
+    title: 'Lend Now'
   },
   {
-    title: "Borrow Now",
+    title: 'Borrow Now'
   },
   {
-    title: "FAQ",
+    title: 'FAQ'
   },
   {
-    title: "Contact Us",
+    title: 'Contact Us'
   },
   {
-    title: "About Us",
-  },
-];
+    title: 'About Us'
+  }
+]
 
-export default UpperFooter;
+export default UpperFooter

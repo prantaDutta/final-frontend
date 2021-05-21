@@ -6,19 +6,13 @@ interface ShowSectionsProps {
 }
 
 const ShowSections: React.FC<ShowSectionsProps> = ({ active }) => {
-  const updatedQuestions = faqQandA.filter((ques) =>
-    ques.section.includes(active)
-  )
+  const updatedQuestions = faqQandA.filter((ques) => ques.section.includes(active))
   const [expand, setExpand] = useState(0)
   return (
     <div className="px-4 py-2">
       {updatedQuestions.map((fq, i) => {
         return (
-          <div
-            key={fq.id}
-            onClick={() => setExpand(i)}
-            className="cursor-pointer"
-          >
+          <div key={fq.id} onClick={() => setExpand(i)} className="cursor-pointer">
             <h3 className="font-semibold text-xl">
               {i + 1}. {fq.question}
             </h3>
@@ -34,9 +28,7 @@ const ShowSections: React.FC<ShowSectionsProps> = ({ active }) => {
                 })}
               </div>
             )}
-            {i + 1 !== updatedQuestions.length && (
-              <hr className="border-b border-gray-300 my-2" />
-            )}
+            {i + 1 !== updatedQuestions.length && <hr className="border-b border-gray-300 my-2" />}
           </div>
         )
       })}

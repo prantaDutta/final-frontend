@@ -1,31 +1,31 @@
-import { NextSeo } from "next-seo";
-import React, { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { authStatus } from "../../states/authStates";
-import { authenticatedUserData } from "../../states/userStates";
-import { ModifiedUserData } from "../../utils/randomTypes";
-import Footer from ".././shared/footer";
-import Nav from ".././shared/nav";
+import { NextSeo } from 'next-seo'
+import React, { useEffect } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { authStatus } from '../../states/authStates'
+import { authenticatedUserData } from '../../states/userStates'
+import { ModifiedUserData } from '../../utils/randomTypes'
+import Footer from '.././shared/footer'
+import Nav from '.././shared/nav'
 
 interface LayoutProps {
-  data?: ModifiedUserData;
-  title?: string;
-  description?: string;
+  data?: ModifiedUserData
+  title?: string
+  description?: string
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, data, title }) => {
-  const [userData, setUserData] = useRecoilState(authenticatedUserData);
-  const setAuth = useSetRecoilState(authStatus);
+  const [userData, setUserData] = useRecoilState(authenticatedUserData)
+  const setAuth = useSetRecoilState(authStatus)
 
   useEffect(() => {
     if (data) {
-      setAuth(true);
-      setUserData(data);
+      setAuth(true)
+      setUserData(data)
     } else {
-      setAuth(false);
-      setUserData(null);
+      setAuth(false)
+      setUserData(null)
     }
-  }, [userData]);
+  }, [userData])
 
   return (
     <>
@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children, data, title }) => {
         <Footer />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

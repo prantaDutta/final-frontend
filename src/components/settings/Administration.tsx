@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { administrationExpand } from "../../states/settingsStates";
-import SettingsName from "./SettingsName";
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useRecoilValue } from 'recoil'
+import { administrationExpand } from '../../states/settingsStates'
+import SettingsName from './SettingsName'
 
 interface AdministrationProps {}
 
 const Administration: React.FC<AdministrationProps> = () => {
-  const router = useRouter();
-  const expand = useRecoilValue(administrationExpand);
+  const router = useRouter()
+  const expand = useRecoilValue(administrationExpand)
   return (
     <>
       {/* This component Shows and toggles the dropdown of personal details */}
@@ -22,7 +22,7 @@ const Administration: React.FC<AdministrationProps> = () => {
         <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
           <div className="py-2">
             <button
-              onClick={() => router.push("/admin/settings/change-penalty-data")}
+              onClick={() => router.push('/admin/settings/change-penalty-data')}
               className="edit-btn w-full md:w-1/2"
             >
               Change Penalty Data
@@ -30,9 +30,7 @@ const Administration: React.FC<AdministrationProps> = () => {
           </div>
           <div className="py-2">
             <button
-              onClick={() =>
-                router.push("/admin/settings/change-interest-rate")
-              }
+              onClick={() => router.push('/admin/settings/change-interest-rate')}
               className="edit-btn w-full md:w-1/2"
             >
               Change Default Interest Rate
@@ -41,7 +39,7 @@ const Administration: React.FC<AdministrationProps> = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Administration;
+export default Administration

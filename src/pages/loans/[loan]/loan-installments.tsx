@@ -1,30 +1,25 @@
-import Link from "next/link";
-import React from "react";
-import { Cell, Column } from "react-table";
-import useSWR from "swr";
-import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
-import DashboardTitle from "../../../components/shared/DashboardTitle";
-import FetchError from "../../../components/shared/FetchError";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import { formatDate } from "../../../utils/functions";
-import { ModifiedUserData } from "../../../utils/randomTypes";
-import withAuth from "../../../utils/withAuth";
+import Link from 'next/link'
+import React from 'react'
+import { Cell, Column } from 'react-table'
+import useSWR from 'swr'
+import DashboardLayout from '../../../components/layouts/DashboardLayout'
+import ReadyMadeTable from '../../../components/ReactTable/ReadyMadeTable'
+import DashboardTitle from '../../../components/shared/DashboardTitle'
+import FetchError from '../../../components/shared/FetchError'
+import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import { formatDate } from '../../../utils/functions'
+import { ModifiedUserData } from '../../../utils/randomTypes'
+import withAuth from '../../../utils/withAuth'
 
 interface LoanInstallmentsProps {
-  user: ModifiedUserData;
-  loanId: string;
+  user: ModifiedUserData
+  loanId: string
 }
 
-const LoanInstallments: React.FC<LoanInstallmentsProps> = ({
-  user,
-  loanId,
-}) => {
-  const { data, mutate, error } = useSWR(
-    `/user/loans/loan-installments/${loanId}`
-  );
+const LoanInstallments: React.FC<LoanInstallmentsProps> = ({ user, loanId }) => {
+  const { data, mutate, error } = useSWR(`/user/loans/loan-installments/${loanId}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Loan Installment Details`}>
@@ -43,50 +38,50 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> = ({
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
-export default LoanInstallments;
+export default LoanInstallments
 
 export const getServerSideProps = withAuth(async (context) => {
-  const { user, query } = context;
+  const { user, query } = context
 
-  const loanId: any = query.loan;
+  const loanId: any = query.loan
 
   return {
-    props: { user, loanId },
-  };
-});
+    props: { user, loanId }
+  }
+})
 
 export const UserInstallmentTableHeader: Column[] = [
   {
-    Header: "Amount",
-    accessor: "amount",
+    Header: 'Amount',
+    accessor: 'amount'
   },
   {
-    Header: "Status",
-    accessor: "status",
+    Header: 'Status',
+    accessor: 'status'
   },
   {
-    Header: "Penalty Amount",
-    accessor: "penaltyAmount",
+    Header: 'Penalty Amount',
+    accessor: 'penaltyAmount'
   },
   {
-    Header: "Total Amount",
-    accessor: "totalAmount",
+    Header: 'Total Amount',
+    accessor: 'totalAmount'
   },
   {
-    Header: "Due Date",
-    accessor: "dueDate",
-    Cell: ({ value }: Cell) => formatDate(value, "MMM D, YYYY"),
+    Header: 'Due Date',
+    accessor: 'dueDate',
+    Cell: ({ value }: Cell) => formatDate(value, 'MMM D, YYYY')
   },
   {
-    Header: "Action",
-    accessor: "id",
+    Header: 'Action',
+    accessor: 'id',
     Cell: ({ value }: Cell) => (
       <Link href={`/installments/${value}`}>
         <span className="btn bg-primary text-white px-3 py-2">Check</span>
       </Link>
-    ),
-  },
-];
+    )
+  }
+]

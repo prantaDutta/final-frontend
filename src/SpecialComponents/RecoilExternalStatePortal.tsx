@@ -1,10 +1,4 @@
-import {
-  Loadable,
-  RecoilState,
-  RecoilValue,
-  useRecoilCallback,
-  useRecoilTransactionObserver_UNSTABLE,
-} from 'recoil';
+import { Loadable, RecoilState, RecoilValue, useRecoilCallback, useRecoilTransactionObserver_UNSTABLE } from 'recoil'
 
 /**
  * Returns a Recoil state value, from anywhere in the app.
@@ -16,9 +10,7 @@ import {
  *
  * @example const lastCreatedUser = getRecoilExternalLoadable(lastCreatedUserState);
  */
-export let getRecoilExternalLoadable: <T>(
-    recoilValue: RecoilValue<T>,
-) => Loadable<T> = () => null as any;
+export let getRecoilExternalLoadable: <T>(recoilValue: RecoilValue<T>) => Loadable<T> = () => null as any
 
 /**
  * Sets a Recoil state value, from anywhere in the app.
@@ -30,10 +22,8 @@ export let getRecoilExternalLoadable: <T>(
  *
  * @example setRecoilExternalState(lastCreatedUserState, newUser)
  */
-export let setRecoilExternalState: <T>(
-    recoilState: RecoilState<T>,
-    valOrUpdater: ((currVal: T) => T) | T,
-) => void = () => null as any;
+export let setRecoilExternalState: <T>(recoilState: RecoilState<T>, valOrUpdater: ((currVal: T) => T) | T) => void =
+  () => null as any
 
 /**
  * Utility component allowing to use the Recoil state outside of a React component.
@@ -49,17 +39,15 @@ export function RecoilExternalStatePortal() {
   // We need to update the getRecoilExternalLoadable every time there's a new snapshot
   // Otherwise we will load old values from when the component was mounted
   useRecoilTransactionObserver_UNSTABLE(({ snapshot }) => {
-    getRecoilExternalLoadable = snapshot.getLoadable;
-  });
+    getRecoilExternalLoadable = snapshot.getLoadable
+  })
 
   // We only need to assign setRecoilExternalState once because it's not temporally dependent like "get" is
   useRecoilCallback(({ set }) => {
-    setRecoilExternalState = set;
+    setRecoilExternalState = set
 
-    return async () => {
+    return async () => {}
+  })()
 
-    };
-  })();
-
-  return <></>;
+  return <></>
 }

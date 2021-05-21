@@ -6,20 +6,13 @@ import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import { object } from 'yup'
 import yup from '../../lib/yup'
-import {
-  verificationFormValues,
-  verificationStep,
-  verificationSubmitting,
-} from '../../states/verificationStates'
+import { verificationFormValues, verificationStep, verificationSubmitting } from '../../states/verificationStates'
 import { laravelApi } from '../../utils/api'
 import { BASE_URL, isProduction } from '../../utils/constants'
 import { appendingFileToFormData } from '../../utils/functions'
 import { ImagesVerificationFormValues } from '../../utils/randomTypes'
 import { notify } from '../../utils/toasts'
-import {
-  multipleImageValidation,
-  singleImageValidation,
-} from '../../utils/vaidationSchema'
+import { multipleImageValidation, singleImageValidation } from '../../utils/vaidationSchema'
 import InputFileField from '../ReactHookForm/InputFileField'
 import NextPreviousButton from './NextPreviousButton'
 
@@ -32,40 +25,39 @@ const Images: React.FC<ImagesProps> = ({}) => {
   const [, setStep] = useRecoilState(verificationStep)
   const [, setSubmitting] = useRecoilState(verificationSubmitting)
   const [verificationValues, setValues] = useRecoilState(verificationFormValues)
-  const { control, handleSubmit, errors } =
-    useForm<ImagesVerificationFormValues>({
-      resolver: yupResolver(
-        object({
-          nidOrPassport: singleImageValidation,
-          addressProof: singleImageValidation,
-          recentPhoto: singleImageValidation,
-          bankAccountStatements: multipleImageValidation,
-          businessProof: yup.lazy(() => {
-            if (verificationValues?.borrowerType === 'self') {
-              return singleImageValidation
-            } else {
-              return yup.mixed().notRequired()
-            }
-          }),
-          salarySlip: yup.lazy(() => {
-            if (verificationValues?.borrowerType === 'salaried') {
-              return singleImageValidation
-            } else {
-              return yup.mixed().notRequired()
-            }
-          }),
-          employeeIdCard: yup.lazy(() => {
-            if (verificationValues?.borrowerType === 'salaried') {
-              return singleImageValidation
-            } else {
-              return yup.mixed().notRequired()
-            }
-          }),
+  const { control, handleSubmit, errors } = useForm<ImagesVerificationFormValues>({
+    resolver: yupResolver(
+      object({
+        nidOrPassport: singleImageValidation,
+        addressProof: singleImageValidation,
+        recentPhoto: singleImageValidation,
+        bankAccountStatements: multipleImageValidation,
+        businessProof: yup.lazy(() => {
+          if (verificationValues?.borrowerType === 'self') {
+            return singleImageValidation
+          } else {
+            return yup.mixed().notRequired()
+          }
+        }),
+        salarySlip: yup.lazy(() => {
+          if (verificationValues?.borrowerType === 'salaried') {
+            return singleImageValidation
+          } else {
+            return yup.mixed().notRequired()
+          }
+        }),
+        employeeIdCard: yup.lazy(() => {
+          if (verificationValues?.borrowerType === 'salaried') {
+            return singleImageValidation
+          } else {
+            return yup.mixed().notRequired()
+          }
         })
-      ),
-      mode: 'onChange',
-      reValidateMode: 'onChange',
-    })
+      })
+    ),
+    mode: 'onChange',
+    reValidateMode: 'onChange'
+  })
   // the updated value is available on the next render in recoil state
   // That's why we have to use useEffect
   useEffect(() => {}, [complete])
@@ -82,26 +74,25 @@ const Images: React.FC<ImagesProps> = ({}) => {
       const { data } = await axios(`${BASE_URL}/api/upload-images`, {
         method: 'PUT',
         data: formData,
-        withCredentials: true,
+        withCredentials: true
       })
       console.log('data: ', data)
       await laravelApi(true).get('/sanctum/csrf-cookie')
       const totalVerificationValues = {
         ...verificationValues,
-        verificationPhotos: data,
+        verificationPhotos: data
       }
       // printing the values before sending
-      if (!isProduction)
-        console.log('Verification Values: ', totalVerificationValues)
+      if (!isProduction) console.log('Verification Values: ', totalVerificationValues)
       try {
         const {
-          data: { data },
+          data: { data }
         } = await laravelApi().post('/user/verify', {
-          values: totalVerificationValues,
+          values: totalVerificationValues
         })
         if (!isProduction) console.log('data: ', data)
         notify('Your Verification Request is Accepted', {
-          type: 'success',
+          type: 'success'
         })
         setTimeout(() => setStep(0), 2000)
         setSubmitting(false)
@@ -112,7 +103,7 @@ const Images: React.FC<ImagesProps> = ({}) => {
         console.log(e.response)
         setSubmitting(false)
         notify('Something Went Wrong, Please Try Again', {
-          type: 'error',
+          type: 'error'
         })
       }
     } catch (e) {

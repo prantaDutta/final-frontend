@@ -20,9 +20,9 @@
 
 export const calculateSimpleInterest = (p: number, r: number, t: number) => {
   // A = P (1 + r/n) ^ nt
-  r = r / 100; // this will transform 8% to 0.08
+  r = r / 100 // this will transform 8% to 0.08
   // uncomment this line to calculate interests monthly
   // return (p + (p * r * t)) / t;
   // prettier-ignore
   return (p + (p * r)) / t;
-};
+}

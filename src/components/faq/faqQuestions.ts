@@ -6,11 +6,8 @@ const faqQuestions = [
     question: 'Can I Lend through Grayscale?',
     answer: {
       heading: 'You can if you are',
-      lines: [
-        'At least 18 years old',
-        'Are a Bangladeshi national with identity proof and address proof',
-      ],
-    },
+      lines: ['At least 18 years old', 'Are a Bangladeshi national with identity proof and address proof']
+    }
   },
   {
     id: 2,
@@ -18,17 +15,13 @@ const faqQuestions = [
     question: 'Can I Borrow through Grayscale?',
     answer: {
       heading: 'You can if you are',
-      lines: [
-        'At least 18 years old',
-        'Are a Bangladeshi national with identity proof and address proof',
-      ],
-    },
+      lines: ['At least 18 years old', 'Are a Bangladeshi national with identity proof and address proof']
+    }
   },
   {
     id: 3,
     section: 'lender-borrower',
-    question:
-      'What documents do I need to give at the time of their registration?',
+    question: 'What documents do I need to give at the time of their registration?',
     answer: {
       heading: 'We would require soft copies of the below documents',
       lines: [
@@ -36,9 +29,9 @@ const faqQuestions = [
         'Current address proof ',
         '3 months bank statement as on date',
         'Recent photograph',
-        '3 Months Salary Slip (if you are an salaried individual)',
-      ],
-    },
+        '3 Months Salary Slip (if you are an salaried individual)'
+      ]
+    }
   },
   {
     id: 4,
@@ -46,8 +39,8 @@ const faqQuestions = [
     question: 'What is the process for getting a loan through Grayscale?',
     answer: {
       heading: 'A loan can be acquired in 2 simple steps',
-      lines: ['Verify Your Account', 'Apply for a Loan'],
-    },
+      lines: ['Verify Your Account', 'Apply for a Loan']
+    }
   },
   {
     id: 5,
@@ -55,27 +48,17 @@ const faqQuestions = [
     question: 'What is the process for lending a loan through Grayscale?',
     answer: {
       heading: 'A loan can be acquired in 2 simple steps',
-      lines: [
-        'Verify Your Account',
-        'Deposit Some Money',
-        'Set a maximum distributed amount(optional, default is 500)',
-      ],
-    },
+      lines: ['Verify Your Account', 'Deposit Some Money', 'Set a maximum distributed amount(optional, default is 500)']
+    }
   },
   {
     id: 6,
     section: 'lender-borrower',
     question: 'What documents can I submit for my current address proof?',
     answer: {
-      heading:
-        'You can submit any of the following documents as your current address proof:',
-      lines: [
-        'Driving License',
-        'Passport',
-        'Electricity bill (< 3 months old)',
-        'LPG bill (< 3 months old)',
-      ],
-    },
+      heading: 'You can submit any of the following documents as your current address proof:',
+      lines: ['Driving License', 'Passport', 'Electricity bill (< 3 months old)', 'LPG bill (< 3 months old)']
+    }
   },
   {
     id: 7,
@@ -84,8 +67,8 @@ const faqQuestions = [
     answer: {
       heading:
         'Grayscale strives to reduce the turnaround time in funding your loan requirement. As part of that attempt, we only need soft/digital copies of your documents at the time of registration.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 8,
@@ -94,8 +77,8 @@ const faqQuestions = [
     answer: {
       heading:
         'We offer loans from tk.1,000 to tk.50,000 for tenures of 5 - 15 months. The interest rate is default to 7%. But it may change from time to time',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 9,
@@ -104,8 +87,8 @@ const faqQuestions = [
     answer: {
       heading:
         'For every loan, Grayscale charges a small 2% of the loan amount. This amount will be added to the total loan amount',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 10,
@@ -114,18 +97,17 @@ const faqQuestions = [
     answer: {
       heading:
         'Your loan requirement is funded only by registered Lenders. One or mulitple lenders will be funding your loan. Grayscale takes care of all the documentation, collection and co-ordination activities. For you, Grayscale remains the point of contact for any requirement with respect to your loan.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 11,
     section: 'borrower',
     question: 'Can I pay an early installment?',
     answer: {
-      heading:
-        'Yes, you can. Just go to the installment and click "pay now". You won\'t be charged any extra fees.',
-      lines: [],
-    },
+      heading: 'Yes, you can. Just go to the installment and click "pay now". You won\'t be charged any extra fees.',
+      lines: []
+    }
   },
   {
     id: 12,
@@ -134,8 +116,8 @@ const faqQuestions = [
     answer: {
       heading:
         "No, you can't. You can only request only one loan at a given time. But if you successfully completed all of the current loan installment then you can request for another loan.",
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 13,
@@ -143,8 +125,8 @@ const faqQuestions = [
     question: 'Can a borrower be an investor as well?',
     answer: {
       heading: "Right now, you cant't. But don't worry, we are working on it",
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 14,
@@ -153,13 +135,8 @@ const faqQuestions = [
     answer: {
       heading:
         "We are using SSLCommerz as a payment gateway. Just go to 'deposits' and then click 'deposit now'. Then type the amount and press 'submit'. A new popup window will open. Just check if every details is alright. If so, click 'pay now'. Then select the payment method. You will receive an OTP. Type it and press submit. If your balance doesn't update automatically, just click refresh icon beside your balance. You can any of the following as a payment method",
-      lines: [
-        'Bkash Mobile Banking',
-        'Nogod Mobile Banking',
-        'Rocket Mobile Banking',
-        'Visa, Mastercard, AmEx etc.',
-      ],
-    },
+      lines: ['Bkash Mobile Banking', 'Nogod Mobile Banking', 'Rocket Mobile Banking', 'Visa, Mastercard, AmEx etc.']
+    }
   },
   {
     id: 15,
@@ -168,8 +145,8 @@ const faqQuestions = [
     answer: {
       heading:
         'You can invest as much as you want. There is no limit. Just deposit the money and you will receive the loan in regular basis.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 16,
@@ -178,18 +155,17 @@ const faqQuestions = [
     answer: {
       heading:
         'Lenders carries the risk of the loan. Our algorithm is designed in a way so that so that the amount will be distributed to as many lenders as possible. This reduces risk to a single lender.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 17,
     section: 'lender',
     question: 'What are the fees and charges at Grayscale?',
     answer: {
-      heading:
-        "As a lender, you don't have to pay any fees at all. Not even when you are withdrawing.",
-      lines: [],
-    },
+      heading: "As a lender, you don't have to pay any fees at all. Not even when you are withdrawing.",
+      lines: []
+    }
   },
   {
     id: 18,
@@ -198,8 +174,8 @@ const faqQuestions = [
     answer: {
       heading:
         "Actually, we don't think lenders and borrowers should know each other. But grayscle keeps track of every loans and their lenders and borrowers.",
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 19,
@@ -208,8 +184,8 @@ const faqQuestions = [
     answer: {
       heading:
         'Investments are repaid on monthly installments and investors cannot ask for prepayment from any borrower.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 20,
@@ -218,8 +194,8 @@ const faqQuestions = [
     answer: {
       heading:
         'Actually you can only withdraw from your balance. Once the system assigned you with a loan, it will auto detect the distributed amount from your balance',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 21,
@@ -227,8 +203,8 @@ const faqQuestions = [
     question: 'Can an investor be a borrower as well?',
     answer: {
       heading: "Right now, you cant't. But don't worry, we are working on it",
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 22,
@@ -237,8 +213,8 @@ const faqQuestions = [
     answer: {
       heading:
         'GrayScale is one of the fastest growing peer to peer (P2P) lending platforms in Bangladesh. It connects investors or lenders looking for high returns with creditworthy borrowers looking for short term personal loans.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 23,
@@ -247,8 +223,8 @@ const faqQuestions = [
     answer: {
       heading:
         "Our system uses something we call distributed lending process. When a borrower asks for a loan, our system will distribute that loan amount and assign it to multiple lenders. For example, if the loan amount is 5000, it may be divided into 2000, 2000, 500, 500. Now keep in mind that, it might also get divided into some other amount. But those amouts must be a divisible of 500 and sums up the loan amount. Then our system will fetch the lenders who has more money than those distributed amounts. Then it will deduct those money from the lenders and add it to the borrower's wallet. That's how our system works.",
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 24,
@@ -257,8 +233,8 @@ const faqQuestions = [
     answer: {
       heading:
         'As soon as you got a loan, you will be notified through your email and phone number. Also, you wil get a notification in your dashboard.',
-      lines: [],
-    },
+      lines: []
+    }
   },
   {
     id: 25,
@@ -267,9 +243,9 @@ const faqQuestions = [
     answer: {
       heading:
         'As soon as your loans gets approaved, you will be notified through your email and phone number. Also, you wil get a notification in your dashboard.',
-      lines: [],
-    },
-  },
+      lines: []
+    }
+  }
 ]
 
 export default faqQuestions

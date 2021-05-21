@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil'
 
 export const authStatus = atom<boolean>({
-  key: "auth-status",
-  default: false,
-});
+  key: 'auth-status',
+  default: false
+})

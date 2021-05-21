@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { securityExpand } from "../../states/settingsStates";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import SaveCancelButton from "./SaveCancelButton";
-import SettingsName from "./SettingsName";
-import SettingsTextField from "./SettingsTextField";
+import React, { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { securityExpand } from '../../states/settingsStates'
+import FullWidthReactLoader from '../shared/FullWidthReactLoader'
+import SaveCancelButton from './SaveCancelButton'
+import SettingsName from './SettingsName'
+import SettingsTextField from './SettingsTextField'
 
 interface SecurityProps {
-  data: any;
-  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
+  data: any
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>
 }
 
 const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
-  const [expand] = useRecoilState(securityExpand);
-  const [showPasswordField, setPasswordField] = useState<boolean>(false);
-  const [currentPassword, setCurrentPassword] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [expand] = useRecoilState(securityExpand)
+  const [showPasswordField, setPasswordField] = useState<boolean>(false)
+  const [currentPassword, setCurrentPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
   return (
     <>
       <SettingsName
@@ -31,9 +31,7 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
             <div className="mt-5 px-8 md:px-12 py-4 rounded-xl border-2 border-gray-500">
               {showPasswordField ? (
                 <div>
-                  <p className="text-sm md:text-lg font-semibold md:font-bold">
-                    Change Password
-                  </p>
+                  <p className="text-sm md:text-lg font-semibold md:font-bold">Change Password</p>
                   <SettingsTextField
                     label="Current Password"
                     placeholder="Enter Your Current Password"
@@ -55,7 +53,7 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
                     postData={{
                       currentPassword,
                       newPassword,
-                      password_confirmation: confirmPassword,
+                      password_confirmation: confirmPassword
                     }}
                     mutate={mutate}
                     toastMsg="Password Changed Successfully"
@@ -63,15 +61,10 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
                 </div>
               ) : (
                 <div className="flex justify-between items-center">
-                  <button className="text-sm md:text-lg font-semibold md:font-bold">
-                    Password
-                  </button>
+                  <button className="text-sm md:text-lg font-semibold md:font-bold">Password</button>
 
                   <div className={`flex items-center`}>
-                    <button
-                      onClick={() => setPasswordField(true)}
-                      className="edit-btn"
-                    >
+                    <button onClick={() => setPasswordField(true)} className="edit-btn">
                       Change Password
                     </button>
                   </div>
@@ -84,7 +77,7 @@ const Security: React.FC<SecurityProps> = ({ data, mutate }) => {
         )
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Security;
+export default Security

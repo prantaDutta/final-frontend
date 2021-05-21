@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import useSWR from "swr";
-import { loanPreferenceExpand } from "../../states/settingsStates";
-import { SelectOptionsTypes } from "../../utils/randomTypes";
-import InputSelectField from "../ReactHookForm/InputSelectField";
-import SaveCancelButton from "./SaveCancelButton";
-import SettingsName from "./SettingsName";
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import useSWR from 'swr'
+import { loanPreferenceExpand } from '../../states/settingsStates'
+import { SelectOptionsTypes } from '../../utils/randomTypes'
+import InputSelectField from '../ReactHookForm/InputSelectField'
+import SaveCancelButton from './SaveCancelButton'
+import SettingsName from './SettingsName'
 
 interface LoanPreferenceProps {}
 
 type LoanPreferenceFormProps = {
-  maximumDistributedAmount: string;
-};
+  maximumDistributedAmount: string
+}
 
 const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
-  const [expand] = useRecoilState(loanPreferenceExpand);
-  const [showPreferenceField, setPreferenceField] = useState(false);
-  const { data, mutate } = useSWR(`/user/get-loan-preferences`);
-  const { register, errors, watch } = useForm<LoanPreferenceFormProps>({});
+  const [expand] = useRecoilState(loanPreferenceExpand)
+  const [showPreferenceField, setPreferenceField] = useState(false)
+  const { data, mutate } = useSWR(`/user/get-loan-preferences`)
+  const { register, errors, watch } = useForm<LoanPreferenceFormProps>({})
 
   return (
     <>
@@ -36,9 +36,7 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
               <form className="bg-white w-full mx-auto p-4 md:p-8 mt-5 rounded-lg shadow-2xl">
                 <InputSelectField
                   name="maximumDistributedAmount"
-                  defaultValue={
-                    data ? data.loanPreference.maximumDistributedAmount : ""
-                  }
+                  defaultValue={data ? data.loanPreference.maximumDistributedAmount : ''}
                   label="Change Maximum Distributed Amount"
                   error={errors.maximumDistributedAmount?.message}
                   options={generatingMaximumDistributedAmounts()}
@@ -49,17 +47,14 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
                   setField={setPreferenceField}
                   submitUrl={`/user/save-loan-preferences`}
                   postData={{
-                    maximumDistributedAmount: watch("maximumDistributedAmount"),
+                    maximumDistributedAmount: watch('maximumDistributedAmount')
                   }}
                   toastMsg={`Loan Preference Updated`}
                   mutate={mutate}
                 />
               </form>
             ) : (
-              <button
-                onClick={() => setPreferenceField(!showPreferenceField)}
-                className="edit-btn"
-              >
+              <button onClick={() => setPreferenceField(!showPreferenceField)} className="edit-btn">
                 Change Maximum Distributed Amount
               </button>
             )}
@@ -67,20 +62,20 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default LoanPreference;
+export default LoanPreference
 
 export const generatingMaximumDistributedAmounts = () => {
-  let arr: SelectOptionsTypes[] = [];
-  let rand = 500;
+  let arr: SelectOptionsTypes[] = []
+  let rand = 500
   for (let i = 0; i < 10; i++) {
     arr.push({
       value: rand,
-      title: rand,
-    });
-    rand += 500;
+      title: rand
+    })
+    rand += 500
   }
-  return arr;
-};
+  return arr
+}

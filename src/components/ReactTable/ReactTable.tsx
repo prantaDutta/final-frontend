@@ -1,28 +1,28 @@
-import React from "react";
-import { Column, usePagination, useTable } from "react-table";
+import React from 'react'
+import { Column, usePagination, useTable } from 'react-table'
 
 interface TableProps {
-  columns: Column[];
-  data: {}[];
-  tableClass?: string;
-  theadClass?: string;
-  tbodyClass?: string;
-  trClass?: string;
-  tdClass?: string;
-  thClass?: string;
-  pagination?: boolean;
+  columns: Column[]
+  data: {}[]
+  tableClass?: string
+  theadClass?: string
+  tbodyClass?: string
+  trClass?: string
+  tdClass?: string
+  thClass?: string
+  pagination?: boolean
 }
 
 const ReactTable: React.FC<TableProps> = ({
   columns,
   data,
-  tableClass = "w-full shadow-lg bg-white text-center",
+  tableClass = 'w-full shadow-lg bg-white text-center',
   theadClass,
   tbodyClass,
   trClass,
-  tdClass = "font-semibold border px-8 py-4 capitalize",
-  thClass = "bg-primary font-semibold border px-8 py-4 text-gray-100",
-  pagination = false,
+  tdClass = 'font-semibold border px-8 py-4 capitalize',
+  thClass = 'bg-primary font-semibold border px-8 py-4 text-gray-100',
+  pagination = false
 }) => {
   const {
     getTableBodyProps,
@@ -38,18 +38,18 @@ const ReactTable: React.FC<TableProps> = ({
     gotoPage,
     pageCount,
     prepareRow,
-    setPageSize,
+    setPageSize
   } = useTable(
     {
       columns,
       data,
       initialState: {
-        pageSize: 5,
-      },
+        pageSize: 5
+      }
     },
     usePagination
-  );
-  const { pageIndex, pageSize } = state;
+  )
+  const { pageIndex, pageSize } = state
 
   return (
     <>
@@ -59,7 +59,7 @@ const ReactTable: React.FC<TableProps> = ({
             <tr {...headerGroup.getHeaderGroupProps()} className={trClass}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()} className={thClass}>
-                  {column.render("Header")}
+                  {column.render('Header')}
                 </th>
               ))}
             </tr>
@@ -67,31 +67,24 @@ const ReactTable: React.FC<TableProps> = ({
         </thead>
         <tbody {...getTableBodyProps()} className={tbodyClass}>
           {page.map((row, i) => {
-            prepareRow(row);
+            prepareRow(row)
             return (
-              <tr
-                {...row.getRowProps()}
-                className={`${i % 2 != 0 ? "bg-gray-300" : ""} cursor-pointer`}
-              >
+              <tr {...row.getRowProps()} className={`${i % 2 != 0 ? 'bg-gray-300' : ''} cursor-pointer`}>
                 {row.cells.map((cell) => {
                   return (
                     <td className={tdClass} {...cell.getCellProps()}>
-                      {cell.render("Cell")}
+                      {cell.render('Cell')}
                     </td>
-                  );
+                  )
                 })}
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
       {pagination && (
         <div className="flex justify-between mt-5">
-          <button
-            className="p-2 w-1/5"
-            disabled={!canPreviousPage}
-            onClick={() => gotoPage(0)}
-          >
+          <button className="p-2 w-1/5" disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
             <svg
               className="w-6 h-6 mx-auto"
               fill="none"
@@ -99,12 +92,7 @@ const ReactTable: React.FC<TableProps> = ({
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
             </svg>
           </button>
           <button
@@ -115,10 +103,10 @@ const ReactTable: React.FC<TableProps> = ({
             Previous
           </button>
           <button className="p-2 w-1/5">
-            Page{" "}
+            Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
-            </strong>{" "}
+            </strong>{' '}
           </button>
           <div className="p-2 w-1/5 flex">
             <p>Go to Page: </p>
@@ -126,10 +114,8 @@ const ReactTable: React.FC<TableProps> = ({
               type="number"
               defaultValue={pageIndex + 1}
               onChange={(e) => {
-                const pageNumber = e.target.value
-                  ? Number(e.target.value) - 1
-                  : 0;
-                gotoPage(pageNumber);
+                const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
+                gotoPage(pageNumber)
               }}
               className="w-1/5 text-center bg-transparent"
             />
@@ -152,11 +138,7 @@ const ReactTable: React.FC<TableProps> = ({
           >
             Next
           </button>
-          <button
-            className="p-2 w-1/5"
-            disabled={!canNextPage}
-            onClick={() => gotoPage(pageCount - 1)}
-          >
+          <button className="p-2 w-1/5" disabled={!canNextPage} onClick={() => gotoPage(pageCount - 1)}>
             <svg
               className="w-6 h-6 mx-auto"
               fill="none"
@@ -164,18 +146,13 @@ const ReactTable: React.FC<TableProps> = ({
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 5l7 7-7 7M5 5l7 7-7 7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ReactTable;
+export default ReactTable

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { trigger } from "swr";
-import { laravelApi } from "../../utils/api";
-import { notify } from "../../utils/toasts";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
+import React, { useState } from 'react'
+import { trigger } from 'swr'
+import { laravelApi } from '../../utils/api'
+import { notify } from '../../utils/toasts'
+import FullWidthReactLoader from '../shared/FullWidthReactLoader'
 
 interface SaveCancelButtonProps {
-  setField: React.Dispatch<React.SetStateAction<boolean>>;
-  submitUrl: string;
-  postData: {};
-  toastMsg: string;
-  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>;
-  disabled?: boolean;
+  setField: React.Dispatch<React.SetStateAction<boolean>>
+  submitUrl: string
+  postData: {}
+  toastMsg: string
+  mutate: (data?: any, shouldRevalidate?: boolean) => Promise<any>
+  disabled?: boolean
 }
 
 const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
@@ -19,9 +19,9 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
   postData,
   toastMsg,
   mutate,
-  disabled = false,
+  disabled = false
 }) => {
-  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const [isSubmitting, setSubmitting] = useState<boolean>(false)
   return isSubmitting ? (
     <FullWidthReactLoader />
   ) : (
@@ -36,32 +36,32 @@ const SaveCancelButton: React.FC<SaveCancelButtonProps> = ({
         type="button"
         disabled={disabled}
         onClick={async () => {
-          setSubmitting(true);
+          setSubmitting(true)
           try {
-            await laravelApi().post(submitUrl, postData);
-            await mutate();
+            await laravelApi().post(submitUrl, postData)
+            await mutate()
             notify(toastMsg, {
-              type: "success",
-            });
-            setField(false);
+              type: 'success'
+            })
+            setField(false)
           } catch (e) {
-            console.log(e.response);
+            console.log(e.response)
             notify("Something's Wrong, Please Try Again", {
-              type: "warning",
-            });
+              type: 'warning'
+            })
           }
-          setSubmitting(false);
-          await trigger("/user");
+          setSubmitting(false)
+          await trigger('/user')
           // await mutate("/user/contact-verified");
         }}
         className={`md:ml-2 bg-primary text-white w-1/3 md:w-1/5 rounded-lg font-semibold focus:ring-1 focus:outline-none focus:ring-primaryAccent disabled:opacity-50 ${
-          disabled && "cursor-not-allowed"
+          disabled && 'cursor-not-allowed'
         }`}
       >
         Save
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default SaveCancelButton;
+export default SaveCancelButton

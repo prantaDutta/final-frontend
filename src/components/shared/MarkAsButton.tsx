@@ -1,20 +1,20 @@
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { trigger } from "swr";
-import { laravelApi } from "../../utils/api";
-import { isProduction } from "../../utils/constants";
-import { notify } from "../../utils/toasts";
-import ReactLoader from "./ReactLoader";
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { trigger } from 'swr'
+import { laravelApi } from '../../utils/api'
+import { isProduction } from '../../utils/constants'
+import { notify } from '../../utils/toasts'
+import ReactLoader from './ReactLoader'
 
 interface MarkAsButtonProps {
-  title: string;
-  submitUrl: string;
-  triggerUrl?: string;
-  returnRoute?: string;
-  classNames?: string;
-  successMsg: string;
-  failedMsg?: string;
-  disabled?: boolean;
+  title: string
+  submitUrl: string
+  triggerUrl?: string
+  returnRoute?: string
+  classNames?: string
+  successMsg: string
+  failedMsg?: string
+  disabled?: boolean
 }
 
 const MarkAsButton: React.FC<MarkAsButtonProps> = ({
@@ -24,32 +24,32 @@ const MarkAsButton: React.FC<MarkAsButtonProps> = ({
   returnRoute,
   successMsg,
   disabled = false,
-  failedMsg = "Something Went Wrong, Please Try Again",
-  classNames = "w-1/3 md:w-1/5 rounded-xl tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline shadow-lg transition-css",
+  failedMsg = 'Something Went Wrong, Please Try Again',
+  classNames = 'w-1/3 md:w-1/5 rounded-xl tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline shadow-lg transition-css'
 }) => {
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const router = useRouter();
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const router = useRouter()
   return (
     <button
       disabled={disabled}
       onClick={async () => {
-        setSubmitting(true);
+        setSubmitting(true)
         try {
-          const { data } = await laravelApi().get(submitUrl);
-          if (isProduction) console.log(data);
-          notify(successMsg, { type: "success" });
+          const { data } = await laravelApi().get(submitUrl)
+          if (isProduction) console.log(data)
+          notify(successMsg, { type: 'success' })
         } catch (e) {
-          notify(failedMsg, { type: "error" });
+          notify(failedMsg, { type: 'error' })
         }
-        setSubmitting(false);
-        if (triggerUrl) await trigger(triggerUrl);
-        if (returnRoute) return router.push(returnRoute);
+        setSubmitting(false)
+        if (triggerUrl) await trigger(triggerUrl)
+        if (returnRoute) return router.push(returnRoute)
       }}
       className={`${classNames}`}
     >
       {submitting ? <ReactLoader /> : title}
     </button>
-  );
-};
+  )
+}
 
-export default MarkAsButton;
+export default MarkAsButton

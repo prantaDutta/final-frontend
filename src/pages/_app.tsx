@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps /* router */ }: AppProps) {
           fetcher: (url: string) =>
             laravelApi()
               .get(url)
-              .then((r) => r.data),
+              .then((r) => r.data)
         }}
       >
         {/*  This component shows the progress bar  */}

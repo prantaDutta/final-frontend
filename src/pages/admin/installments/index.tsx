@@ -1,30 +1,27 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import { Cell, Column } from "react-table";
-import useSWR from "swr";
-import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import ReadyMadeTable from "../../../components/ReactTable/ReadyMadeTable";
-import DashboardTitle from "../../../components/shared/DashboardTitle";
-import FetchError from "../../../components/shared/FetchError";
-import FlexibleSelectButton from "../../../components/shared/FlexibleSelectButton";
-import FullWidthReactLoader from "../../../components/shared/FullWidthReactLoader";
-import { formatDate } from "../../../utils/functions";
-import { ModifiedUserData } from "../../../utils/randomTypes";
-import withAdminAuth from "../../../utils/withAdminAuth";
-import { installmentStatusSelectTypes } from "../loans";
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { Cell, Column } from 'react-table'
+import useSWR from 'swr'
+import DashboardLayout from '../../../components/layouts/DashboardLayout'
+import ReadyMadeTable from '../../../components/ReactTable/ReadyMadeTable'
+import DashboardTitle from '../../../components/shared/DashboardTitle'
+import FetchError from '../../../components/shared/FetchError'
+import FlexibleSelectButton from '../../../components/shared/FlexibleSelectButton'
+import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import { formatDate } from '../../../utils/functions'
+import { ModifiedUserData } from '../../../utils/randomTypes'
+import withAdminAuth from '../../../utils/withAdminAuth'
+import { installmentStatusSelectTypes } from '../loans'
 
 interface InstallmentsProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const Installments: React.FC<InstallmentsProps> = ({ user }) => {
-  const [installmentStatus, setInstallmentStatus] =
-    useState<"due" | "unpaid" | "paid" | "all">("all");
-  const { data, mutate, error } = useSWR(
-    `/admin/installments/${installmentStatus}`
-  );
+  const [installmentStatus, setInstallmentStatus] = useState<'due' | 'unpaid' | 'paid' | 'all'>('all')
+  const { data, mutate, error } = useSWR(`/admin/installments/${installmentStatus}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Installments`}>
@@ -51,15 +48,15 @@ const Installments: React.FC<InstallmentsProps> = ({ user }) => {
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user } = context;
-  return { props: { user } };
-});
+  const { user } = context
+  return { props: { user } }
+})
 
-export default Installments;
+export default Installments
 
 export const AdminInstallmentTableHeader: Column[] = [
   //   {
@@ -67,33 +64,33 @@ export const AdminInstallmentTableHeader: Column[] = [
   //     accessor: "uniqueInstallmentId",
   //   },
   {
-    Header: "Amount",
-    accessor: "amount",
+    Header: 'Amount',
+    accessor: 'amount'
   },
   {
-    Header: "Status",
-    accessor: "status",
+    Header: 'Status',
+    accessor: 'status'
   },
   {
-    Header: "Penalty Amount",
-    accessor: "penaltyAmount",
+    Header: 'Penalty Amount',
+    accessor: 'penaltyAmount'
   },
   {
-    Header: "Total Amount",
-    accessor: "totalAmount",
+    Header: 'Total Amount',
+    accessor: 'totalAmount'
   },
   {
-    Header: "Due Date",
-    accessor: "dueDate",
-    Cell: ({ value }: Cell) => formatDate(value, "MMM D, YYYY"),
+    Header: 'Due Date',
+    accessor: 'dueDate',
+    Cell: ({ value }: Cell) => formatDate(value, 'MMM D, YYYY')
   },
   {
-    Header: "Action",
-    accessor: "id",
+    Header: 'Action',
+    accessor: 'id',
     Cell: ({ value }: Cell) => (
       <Link href={`/admin/installments/${value}`}>
         <span className="check">Check</span>
       </Link>
-    ),
-  },
-];
+    )
+  }
+]

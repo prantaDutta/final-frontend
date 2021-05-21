@@ -1,5 +1,5 @@
-import IndexPageSection from "./IndexPageSection";
-import React from "react";
+import IndexPageSection from './IndexPageSection'
+import React from 'react'
 
 interface provideInvestorsProps {}
 
@@ -17,34 +17,34 @@ const ProvideInvestors: React.FC<provideInvestorsProps> = ({}) => {
                 <p className="font-semibold text-2xl">{investor.title}</p>
                 <p className="font-normal text-lg mt-5">{investor.content}</p>
               </div>
-            );
+            )
           })}
       </div>
     </IndexPageSection>
-  );
-};
+  )
+}
 
 const investors = [
   {
-    title: "Verified Borrowers",
+    title: 'Verified Borrowers',
     content:
-      "Need not worry about your finances, LDC follows a 5 step LenDen screening mechanism which ensures lesser defaults and easy tracing of borrowers. “Click here” to understand the 5 step process in detail.",
+      'Need not worry about your finances, LDC follows a 5 step LenDen screening mechanism which ensures lesser defaults and easy tracing of borrowers. “Click here” to understand the 5 step process in detail.'
   },
   {
-    title: "Solid Returns",
+    title: 'Solid Returns',
     content:
-      "The average Rate of Interest offered to borrowers is 28% p.a. However, 15% – 17% p.a is the net returns after adjustment of defaulted borrowers and the platform fees. “Learn more” to earn more.",
+      'The average Rate of Interest offered to borrowers is 28% p.a. However, 15% – 17% p.a is the net returns after adjustment of defaulted borrowers and the platform fees. “Learn more” to earn more.'
   },
   {
-    title: "Diversified Investment",
+    title: 'Diversified Investment',
     content:
-      "It’s simpler to get started with a minimal investment of Rs.500 and the porfolio is better managed when your investment is spread across multiple borrowers. “Find out more“",
+      'It’s simpler to get started with a minimal investment of Rs.500 and the porfolio is better managed when your investment is spread across multiple borrowers. “Find out more“'
   },
   {
-    title: "Monthly Cash Flow",
+    title: 'Monthly Cash Flow',
     content:
-      "Monthly returns, are collected in an ESCROW account through auto-debit. Unlike other traditional investing instruments, cash flow starts immediately after the investment. “Know more“",
-  },
-];
+      'Monthly returns, are collected in an ESCROW account through auto-debit. Unlike other traditional investing instruments, cash flow starts immediately after the investment. “Know more“'
+  }
+]
 
-export default ProvideInvestors;
+export default ProvideInvestors

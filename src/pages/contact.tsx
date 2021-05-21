@@ -1,67 +1,53 @@
-import { withIronSession } from "next-iron-session";
-import React from "react";
-import { useForm } from "react-hook-form";
-import Layout from "../components/layouts/Layout";
-import InputTextField from "../components/ReactHookForm/InputTextField";
-import { laravelApi } from "../utils/api";
-import { NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
-import { validateEmail } from "../utils/functions";
-import { ModifiedUserData } from "../utils/randomTypes";
-import { notify } from "../utils/toasts";
+import { withIronSession } from 'next-iron-session'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import Layout from '../components/layouts/Layout'
+import InputTextField from '../components/ReactHookForm/InputTextField'
+import { laravelApi } from '../utils/api'
+import { NEXT_IRON_SESSION_CONFIG } from '../utils/constants'
+import { validateEmail } from '../utils/functions'
+import { ModifiedUserData } from '../utils/randomTypes'
+import { notify } from '../utils/toasts'
 
 interface contactProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const contact: React.FC<contactProps> = ({ user }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm()
   const submitHandler = async (values: any) => {
     try {
-      await laravelApi().post(`/get-help`, { values });
+      await laravelApi().post(`/get-help`, { values })
       notify(`We receive your message. We will get back to you`, {
-        type: "success",
-      });
+        type: 'success'
+      })
     } catch (e) {
-      console.log(e.response);
-      notify(`Something Went Wrong, Please Try Again`, { type: "error" });
+      console.log(e.response)
+      notify(`Something Went Wrong, Please Try Again`, { type: 'error' })
     }
-  };
+  }
   return (
     <Layout data={user} title={`Contact Grayscale Team`}>
       <div className="grid md:grid-cols-2 gap-5 text-gray-600 md:mx-16 mt-6 md:mt-12">
         <div className="hidden md:block text-center">
-          <h2 className="text-xl md:text-3xl font-bold tracking-wide">
-            Call Us
-          </h2>
+          <h2 className="text-xl md:text-3xl font-bold tracking-wide">Call Us</h2>
           <div className="grid grid-cols-2 my-5">
             <div className="text-left mt-5">
               <h4 className="text-xl font-bold tracking-wide">For Support</h4>
               <div className="mt-5 my-2">
-                <p className="text-md font-semibold mt-1.5">
-                  Call: 018XXXXXXXX
-                </p>
-                <p className="text-md font-semibold mt-1.5">
-                  Email: support@grayscale.com
-                </p>
+                <p className="text-md font-semibold mt-1.5">Call: 018XXXXXXXX</p>
+                <p className="text-md font-semibold mt-1.5">Email: support@grayscale.com</p>
               </div>
             </div>
             <div className="text-left mt-5">
-              <h4 className="text-xl font-bold tracking-wide">
-                For Complaints
-              </h4>
+              <h4 className="text-xl font-bold tracking-wide">For Complaints</h4>
               <div className="mt-5 my-2">
-                <p className="text-md font-semibold mt-1.5">
-                  Call: 017XXXXXXXX
-                </p>
-                <p className="text-md font-semibold mt-1.5">
-                  Email: complaints@grayscale.com
-                </p>
+                <p className="text-md font-semibold mt-1.5">Call: 017XXXXXXXX</p>
+                <p className="text-md font-semibold mt-1.5">Email: complaints@grayscale.com</p>
               </div>
             </div>
           </div>
-          <h2 className="text-3xl font-bold tracking-wide mt-10">
-            Office Address
-          </h2>
+          <h2 className="text-3xl font-bold tracking-wide mt-10">Office Address</h2>
 
           <div className="grid grid-cols-2 my-5">
             <div className="text-left mt-5">
@@ -88,9 +74,7 @@ const contact: React.FC<contactProps> = ({ user }) => {
         </div>
         <div className="mx-5 md:mx-0">
           <div>
-            <h2 className="text-xl md:text-3xl font-bold tracking-wide text-center">
-              Ask A Question Or Give FeedBack
-            </h2>
+            <h2 className="text-xl md:text-3xl font-bold tracking-wide text-center">Ask A Question Or Give FeedBack</h2>
           </div>
           <form
             onSubmit={handleSubmit(submitHandler)}
@@ -107,14 +91,10 @@ const contact: React.FC<contactProps> = ({ user }) => {
               name="email"
               placeholder="Enter Your Email"
               label="Your Email"
-              error={
-                errors.email?.type === "validate"
-                  ? "Invalid Email"
-                  : errors.email?.type
-              }
+              error={errors.email?.type === 'validate' ? 'Invalid Email' : errors.email?.type}
               register={register({
                 required: true,
-                validate: (value) => validateEmail(value),
+                validate: (value) => validateEmail(value)
               })}
             />
             <InputTextField
@@ -135,18 +115,18 @@ const contact: React.FC<contactProps> = ({ user }) => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withIronSession(async ({ req }) => {
-  const user = req.session.get("user");
+  const user = req.session.get('user')
   if (!user) {
-    return { props: {} };
+    return { props: {} }
   }
 
   return {
-    props: { user },
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+    props: { user }
+  }
+}, NEXT_IRON_SESSION_CONFIG)
 
-export default contact;
+export default contact

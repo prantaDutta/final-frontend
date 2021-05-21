@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
-import DashboardLayout from "../../../../components/layouts/DashboardLayout";
-import DashboardTitle from "../../../../components/shared/DashboardTitle";
-import FetchError from "../../../../components/shared/FetchError";
-import FullWidthReactLoader from "../../../../components/shared/FullWidthReactLoader";
-import MarkAsButton from "../../../../components/shared/MarkAsButton";
-import ShowDetailsInATableWithImages from "../../../../components/shared/ShowDetailsInATableWithImages";
-import ShowDetailsInATableWithLinks from "../../../../components/shared/ShowDetailsInATableWithLinks";
-import { objectToArrayAndExclude } from "../../../../utils/functions";
-import {
-  ModifiedUserData,
-  SelectOptionsTypes,
-} from "../../../../utils/randomTypes";
-import withAdminAuth from "../../../../utils/withAdminAuth";
+import React, { useEffect, useState } from 'react'
+import useSWR from 'swr'
+import DashboardLayout from '../../../../components/layouts/DashboardLayout'
+import DashboardTitle from '../../../../components/shared/DashboardTitle'
+import FetchError from '../../../../components/shared/FetchError'
+import FullWidthReactLoader from '../../../../components/shared/FullWidthReactLoader'
+import MarkAsButton from '../../../../components/shared/MarkAsButton'
+import ShowDetailsInATableWithImages from '../../../../components/shared/ShowDetailsInATableWithImages'
+import ShowDetailsInATableWithLinks from '../../../../components/shared/ShowDetailsInATableWithLinks'
+import { objectToArrayAndExclude } from '../../../../utils/functions'
+import { ModifiedUserData, SelectOptionsTypes } from '../../../../utils/randomTypes'
+import withAdminAuth from '../../../../utils/withAdminAuth'
 
 interface userProps {
-  user: ModifiedUserData;
-  userId: string;
+  user: ModifiedUserData
+  userId: string
 }
 
 const user: React.FC<userProps> = ({ user, userId }) => {
-  const { data, error } = useSWR(`/admin/user/${userId}`);
+  const { data, error } = useSWR(`/admin/user/${userId}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
-  const [pendingData, setPendingData] =
-    useState<"pending" | "verified">("verified");
+  const [pendingData, setPendingData] = useState<'pending' | 'verified'>('verified')
   useEffect(() => {
-    if (data && data.user.verified === "pending") {
-      setPendingData("pending");
+    if (data && data.user.verified === 'pending') {
+      setPendingData('pending')
     } else {
-      setPendingData("verified");
+      setPendingData('verified')
     }
-  }, [data]);
+  }, [data])
 
   return (
     <DashboardLayout data={user} title={`User Details`}>
@@ -46,7 +42,7 @@ const user: React.FC<userProps> = ({ user, userId }) => {
                 submitUrl={`/admin/verification-check/verified/${data.user.id}`}
                 classNames={`edit-btn disabled:opacity-50`}
                 successMsg={`Marked As Verified Successfully`}
-                disabled={data?.user.verified === "verified"}
+                disabled={data?.user.verified === 'verified'}
                 returnRoute={`/admin/users`}
                 triggerUrl={`/admin/users/verified`}
               />
@@ -58,7 +54,7 @@ const user: React.FC<userProps> = ({ user, userId }) => {
                 submitUrl={`/admin/verification-check/unverified/${data.user.id}`}
                 classNames={`edit-btn disabled:opacity-50`}
                 successMsg={`Marked As Unverified Successfully`}
-                disabled={data?.user.verified === "unverified"}
+                disabled={data?.user.verified === 'unverified'}
                 returnRoute={`/admin/users`}
                 triggerUrl={`/admin/users/unverified`}
               />
@@ -72,11 +68,8 @@ const user: React.FC<userProps> = ({ user, userId }) => {
           <ShowDetailsInATableWithLinks
             title="User Data"
             dataArray={[
-              ...objectToArrayAndExclude(data.user, ["id"]),
-              ...objectToArrayAndExclude(
-                data.verification ? data.verification : [],
-                ["id"]
-              ),
+              ...objectToArrayAndExclude(data.user, ['id']),
+              ...objectToArrayAndExclude(data.verification ? data.verification : [], ['id'])
             ]}
             showSelectButton
             selectArray={pendingUserSelectTypes}
@@ -84,19 +77,17 @@ const user: React.FC<userProps> = ({ user, userId }) => {
             setSelectValue={setPendingData}
           />
 
-          {pendingData === "pending" ? (
+          {pendingData === 'pending' ? (
             objectToArrayAndExclude(data.verificationPhotos).length > 0 ? (
               <ShowDetailsInATableWithImages
                 title={`Verification Images`}
                 dataArray={[
                   ...objectToArrayAndExclude(data.verificationPhotos),
-                  ...objectToArrayAndExclude(data.bankStatements),
+                  ...objectToArrayAndExclude(data.bankStatements)
                 ]}
               />
             ) : (
-              <h4 className={`text-center font-bold text-2xl my-4`}>
-                No Verification Photos Found
-              </h4>
+              <h4 className={`text-center font-bold text-2xl my-4`}>No Verification Photos Found</h4>
             )
           ) : (
             <ShowDetailsInATableWithLinks
@@ -105,7 +96,7 @@ const user: React.FC<userProps> = ({ user, userId }) => {
               urlArray={[
                 `/admin/users/${userId}/loans`,
                 `/admin/users/${userId}/user-installments`,
-                `/admin/users/${userId}/transactions`,
+                `/admin/users/${userId}/transactions`
               ]}
             />
           )}
@@ -114,28 +105,28 @@ const user: React.FC<userProps> = ({ user, userId }) => {
         <FullWidthReactLoader />
       )}
     </DashboardLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withAdminAuth(async (context) => {
-  const { user, query } = context;
+  const { user, query } = context
 
-  const userId: any = query.user;
+  const userId: any = query.user
 
   return {
-    props: { user, userId },
-  };
-});
+    props: { user, userId }
+  }
+})
 
-export default user;
+export default user
 
 export const pendingUserSelectTypes: SelectOptionsTypes[] = [
   {
-    title: "Pending",
-    value: "pending",
+    title: 'Pending',
+    value: 'pending'
   },
   {
-    title: "Verified",
-    value: "verified",
-  },
-];
+    title: 'Verified',
+    value: 'verified'
+  }
+]

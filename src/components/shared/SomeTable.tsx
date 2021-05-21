@@ -1,9 +1,9 @@
-import React from "react";
-import { PenaltyData } from "../../utils/randomTypes";
-import TableRow from "./TableRow";
+import React from 'react'
+import { PenaltyData } from '../../utils/randomTypes'
+import TableRow from './TableRow'
 
 interface SomeTableProps {
-  data: any;
+  data: any
 }
 
 const SomeTable: React.FC<SomeTableProps> = ({ data }) => {
@@ -20,12 +20,12 @@ const SomeTable: React.FC<SomeTableProps> = ({ data }) => {
         <tbody>
           {data &&
             data.map((datum: PenaltyData, i: number) => {
-              return <TableRow key={i} amount={datum.amount} day={datum.day} />;
+              return <TableRow key={i} amount={datum.amount} day={datum.day} />
             })}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default SomeTable;
+export default SomeTable

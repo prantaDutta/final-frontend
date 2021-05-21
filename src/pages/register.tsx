@@ -1,75 +1,70 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { withIronSession } from "next-iron-session";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import Layout from "../components/layouts/Layout";
-import InputPasswordField from "../components/ReactHookForm/InputPasswordField";
-import InputSelectField from "../components/ReactHookForm/InputSelectField";
-import InputTextField from "../components/ReactHookForm/InputTextField";
-import SubmitButton from "../components/shared/SubmitButton";
-import { authStatus } from "../states/authStates";
-import { authenticatedUserData } from "../states/userStates";
-import { laravelApi } from "../utils/api";
-import { isProduction, NEXT_IRON_SESSION_CONFIG } from "../utils/constants";
-import { UserRole } from "../utils/constantsArray";
-import { redirectToPage } from "../utils/functions";
-import { ModifiedUserData, RegisterFormValues } from "../utils/randomTypes";
-import { notify } from "../utils/toasts";
-import { registerValidationSchema } from "../validations/RegisterFormValiadtion";
+import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
+import { withIronSession } from 'next-iron-session'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import Layout from '../components/layouts/Layout'
+import InputPasswordField from '../components/ReactHookForm/InputPasswordField'
+import InputSelectField from '../components/ReactHookForm/InputSelectField'
+import InputTextField from '../components/ReactHookForm/InputTextField'
+import SubmitButton from '../components/shared/SubmitButton'
+import { authStatus } from '../states/authStates'
+import { authenticatedUserData } from '../states/userStates'
+import { laravelApi } from '../utils/api'
+import { isProduction, NEXT_IRON_SESSION_CONFIG } from '../utils/constants'
+import { UserRole } from '../utils/constantsArray'
+import { redirectToPage } from '../utils/functions'
+import { ModifiedUserData, RegisterFormValues } from '../utils/randomTypes'
+import { notify } from '../utils/toasts'
+import { registerValidationSchema } from '../validations/RegisterFormValiadtion'
 
 interface registerProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const Register: React.FC<registerProps> = ({ user }) => {
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const {
-    register,
-    handleSubmit,
-    errors,
-    setError,
-  } = useForm<RegisterFormValues>({
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const { register, handleSubmit, errors, setError } = useForm<RegisterFormValues>({
     resolver: yupResolver(registerValidationSchema),
-    mode: "onBlur",
-    reValidateMode: "onBlur",
-  });
-  const router = useRouter();
-  const [, toggleAuth] = useRecoilState(authStatus);
-  const [, setUserData] = useRecoilState(authenticatedUserData);
+    mode: 'onBlur',
+    reValidateMode: 'onBlur'
+  })
+  const router = useRouter()
+  const [, toggleAuth] = useRecoilState(authStatus)
+  const [, setUserData] = useRecoilState(authenticatedUserData)
 
   const onSubmit = async (values: RegisterFormValues) => {
-    setSubmitting(true);
+    setSubmitting(true)
 
-    await laravelApi(true).get("/sanctum/csrf-cookie");
+    await laravelApi(true).get('/sanctum/csrf-cookie')
     try {
       const {
-        data: { data },
-      } = await laravelApi().post("/register", values);
-      if (!isProduction) console.log(data);
-      toggleAuth(true);
-      setUserData(data);
-      await axios.post("/api/set-login-cookie", { data: data });
+        data: { data }
+      } = await laravelApi().post('/register', values)
+      if (!isProduction) console.log(data)
+      toggleAuth(true)
+      setUserData(data)
+      await axios.post('/api/set-login-cookie', { data: data })
       notify(`Welcome, Verify Your Mobile No`, {
-        type: "warning",
-      });
-      await router.push("/verify-mobile-no");
+        type: 'warning'
+      })
+      await router.push('/verify-mobile-no')
     } catch (e) {
-      if (!isProduction) console.log(e.response);
-      notify("Something Went Wrong, Please Try Again", {
-        type: "error",
-      });
-      setError("name", {
-        type: "manual",
-        message: "Something Went Wrong, Please Try Again",
-      });
+      if (!isProduction) console.log(e.response)
+      notify('Something Went Wrong, Please Try Again', {
+        type: 'error'
+      })
+      setError('name', {
+        type: 'manual',
+        message: 'Something Went Wrong, Please Try Again'
+      })
     }
 
-    setSubmitting(false);
-  };
+    setSubmitting(false)
+  }
 
   return (
     <Layout data={user} title={`Register Now`}>
@@ -128,29 +123,27 @@ const Register: React.FC<registerProps> = ({ user }) => {
           </form>
 
           <div className="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
-            Already have an account ?{" "}
+            Already have an account ?{' '}
             <Link href={`/login`}>
-              <a className="cursor-pointer text-primary hover:text-primaryAccent">
-                Log In
-              </a>
+              <a className="cursor-pointer text-primary hover:text-primaryAccent">Log In</a>
             </Link>
           </div>
         </main>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withIronSession(async ({ req, res }) => {
-  const user = req.session.get("user");
+  const user = req.session.get('user')
   if (user) {
     // return { props: {} };
-    await redirectToPage(req, res, "/dashboard");
+    await redirectToPage(req, res, '/dashboard')
   }
 
   return {
-    props: {},
-  };
-}, NEXT_IRON_SESSION_CONFIG);
+    props: {}
+  }
+}, NEXT_IRON_SESSION_CONFIG)
 
-export default Register;
+export default Register

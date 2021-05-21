@@ -7,13 +7,10 @@ export default function Introduction() {
             <div className="m-auto">
               {headlines.map((headline) => {
                 return (
-                  <p
-                    key={headline}
-                    className="text-xl sm:text-2xl md:text-3xl font-bold p-1"
-                  >
+                  <p key={headline} className="text-xl sm:text-2xl md:text-3xl font-bold p-1">
                     {headline}
                   </p>
-                );
+                )
               })}
 
               <div className="md:block m-3 md:m-6">
@@ -31,12 +28,8 @@ export default function Introduction() {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-const buttons = ["Get Started", "Watch Tutorials"];
-const headlines: string[] = [
-  "Lend Money ✅ ",
-  "Borrow Money ✅ ",
-  "Within 24 Hours 😲 ",
-];
+const buttons = ['Get Started', 'Watch Tutorials']
+const headlines: string[] = ['Lend Money ✅ ', 'Borrow Money ✅ ', 'Within 24 Hours 😲 ']

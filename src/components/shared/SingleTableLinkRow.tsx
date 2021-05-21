@@ -1,13 +1,13 @@
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link'
+import React from 'react'
 
 interface SingleTableLinkRowProps {
-  tdClass?: string;
-  d0: string;
-  d1: string;
-  i: number;
-  dataIsLink?: boolean;
-  url: string;
+  tdClass?: string
+  d0: string
+  d1: string
+  i: number
+  dataIsLink?: boolean
+  url: string
 }
 
 const SingleTableLinkRow: React.FC<SingleTableLinkRowProps> = ({
@@ -16,10 +16,10 @@ const SingleTableLinkRow: React.FC<SingleTableLinkRowProps> = ({
   i,
   url,
   dataIsLink = true,
-  tdClass = "sm:font-semibold border px-0 sm:px-8 py-1 sm:py-3 capitalize",
+  tdClass = 'sm:font-semibold border px-0 sm:px-8 py-1 sm:py-3 capitalize'
 }) => {
   return (
-    <tr className={`${i % 2 !== 0 && "bg-gray-300"}`}>
+    <tr className={`${i % 2 !== 0 && 'bg-gray-300'}`}>
       {dataIsLink ? (
         <>
           <td className={tdClass}>{d0}</td>
@@ -36,7 +36,7 @@ const SingleTableLinkRow: React.FC<SingleTableLinkRowProps> = ({
         </>
       )}
     </tr>
-  );
-};
+  )
+}
 
-export default SingleTableLinkRow;
+export default SingleTableLinkRow

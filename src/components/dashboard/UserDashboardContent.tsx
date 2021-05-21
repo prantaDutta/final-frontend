@@ -1,43 +1,43 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import useSWR from "swr";
-import { shouldNotify } from "../../states/userStates";
-import { isProduction } from "../../utils/constants";
-import { notify } from "../../utils/toasts";
-import DashboardTitle from "../shared/DashboardTitle";
-import FullWidthReactLoader from "../shared/FullWidthReactLoader";
-import DashboardBubble from "./DashboardBubble";
-import FetchError from "../shared/FetchError";
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import useSWR from 'swr'
+import { shouldNotify } from '../../states/userStates'
+import { isProduction } from '../../utils/constants'
+import { notify } from '../../utils/toasts'
+import DashboardTitle from '../shared/DashboardTitle'
+import FullWidthReactLoader from '../shared/FullWidthReactLoader'
+import DashboardBubble from './DashboardBubble'
+import FetchError from '../shared/FetchError'
 
 interface DashboardContentProps {
   data?: any
 }
 
-const UserDashboardContent: React.FC<DashboardContentProps> = ({data}) => {
-  const shouldNotifyValue = useRecoilValue(shouldNotify);
+const UserDashboardContent: React.FC<DashboardContentProps> = ({ data }) => {
+  const shouldNotifyValue = useRecoilValue(shouldNotify)
 
   if (data && shouldNotifyValue) {
     if (data.ongoing > 0) {
       // Providing toastId to prevent duplicate toast
       notify(`You have ${data.ongoing} Ongoing Loan(s)`, {
-        type: "info",
-        toastId: "dashboard-ongoing",
-      });
+        type: 'info',
+        toastId: 'dashboard-ongoing'
+      })
     }
 
     if (data.processing > 0) {
       notify(`You have ${data.processing} Processing Loan(s)`, {
-        type: "info",
-        toastId: "dashboard-processing",
-      });
+        type: 'info',
+        toastId: 'dashboard-processing'
+      })
     }
 
     if (data.dueInstallments > 0) {
       notify(`You have ${data.dueInstallments} Due Installment(s)`, {
-        type: "info",
-        toastId: "due-installments",
-      });
+        type: 'info',
+        toastId: 'due-installments'
+      })
     }
   }
   return (
@@ -66,10 +66,7 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({data}) => {
 
           <Link href={`/installments`}>
             <div className="mt-5">
-              <DashboardBubble
-                title="Due Installments"
-                shorterTitle={`${data.dueInstallments} Due Installment(s)`}
-              />
+              <DashboardBubble title="Due Installments" shorterTitle={`${data.dueInstallments} Due Installment(s)`} />
             </div>
           </Link>
         </div>
@@ -77,7 +74,7 @@ const UserDashboardContent: React.FC<DashboardContentProps> = ({data}) => {
         <FullWidthReactLoader />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default UserDashboardContent;
+export default UserDashboardContent

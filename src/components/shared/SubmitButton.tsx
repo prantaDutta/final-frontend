@@ -1,9 +1,9 @@
-import React from "react";
-import ReactLoader from "./ReactLoader";
+import React from 'react'
+import ReactLoader from './ReactLoader'
 
 interface SubmitButtonProps {
-  submitting: boolean;
-  title: string;
+  submitting: boolean
+  title: string
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ submitting, title }) => {
@@ -17,7 +17,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ submitting, title }) => {
         {submitting ? <ReactLoader /> : title}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default SubmitButton;
+export default SubmitButton

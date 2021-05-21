@@ -1,29 +1,28 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { Cell } from "react-table";
-import useSWR from "swr";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-import ReadyMadeTable from "../../components/ReactTable/ReadyMadeTable";
-import DashboardTitle from "../../components/shared/DashboardTitle";
-import FetchError from "../../components/shared/FetchError";
-import FlexibleSelectButton from "../../components/shared/FlexibleSelectButton";
-import FullWidthReactLoader from "../../components/shared/FullWidthReactLoader";
-import { ModifiedUserData } from "../../utils/randomTypes";
-import withAuth from "../../utils/withAuth";
-import { loanModeSelectTypes } from "../admin/loans";
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { Cell } from 'react-table'
+import useSWR from 'swr'
+import DashboardLayout from '../../components/layouts/DashboardLayout'
+import ReadyMadeTable from '../../components/ReactTable/ReadyMadeTable'
+import DashboardTitle from '../../components/shared/DashboardTitle'
+import FetchError from '../../components/shared/FetchError'
+import FlexibleSelectButton from '../../components/shared/FlexibleSelectButton'
+import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
+import { ModifiedUserData } from '../../utils/randomTypes'
+import withAuth from '../../utils/withAuth'
+import { loanModeSelectTypes } from '../admin/loans'
 
 interface currentLoansProps {
-  user: ModifiedUserData;
+  user: ModifiedUserData
 }
 
 const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
-  const router = useRouter();
-  const [loanType, setLoanType] =
-    useState<"processing" | "ongoing" | "finished" | "all">("all");
-  const { data, mutate, error } = useSWR(`/user/loans/${loanType}`);
+  const router = useRouter()
+  const [loanType, setLoanType] = useState<'processing' | 'ongoing' | 'finished' | 'all'>('all')
+  const { data, mutate, error } = useSWR(`/user/loans/${loanType}`)
   if (error) {
-    return <FetchError user={user} />;
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`All Loans`}>
@@ -36,11 +35,8 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
             selectArray={loanModeSelectTypes}
             isValidating={!data}
           />
-          {user.role === "borrower" && (
-            <button
-              onClick={() => router.push("/loans/new-loan")}
-              className="primary-btn"
-            >
+          {user.role === 'borrower' && (
+            <button onClick={() => router.push('/loans/new-loan')} className="primary-btn">
               New Loan
             </button>
           )}
@@ -62,48 +58,48 @@ const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
         )}
       </div>
     </DashboardLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = withAuth(async (context) => {
-  const { user } = context;
-  return { props: { user } };
-});
+  const { user } = context
+  return { props: { user } }
+})
 
-export default currentLoans;
+export default currentLoans
 
 export const UserLoansTableHeader = [
   {
-    Header: "Amount",
-    accessor: "amount",
+    Header: 'Amount',
+    accessor: 'amount'
   },
   // {
   //   Header: "Monthly Installment",
   //   accessor: "monthlyInstallment",
   // },
   {
-    Header: "Interest Rate",
-    accessor: "interestRate",
+    Header: 'Interest Rate',
+    accessor: 'interestRate'
   },
   {
-    Header: "Loan Duration",
-    accessor: "loanDuration",
+    Header: 'Loan Duration',
+    accessor: 'loanDuration'
   },
   {
-    Header: "Monthly Installment",
-    accessor: "monthlyInstallment",
+    Header: 'Monthly Installment',
+    accessor: 'monthlyInstallment'
   },
   {
-    Header: "Loan Mode",
-    accessor: "loanMode",
+    Header: 'Loan Mode',
+    accessor: 'loanMode'
   },
   {
-    Header: "Action",
-    accessor: "id",
+    Header: 'Action',
+    accessor: 'id',
     Cell: ({ value }: Cell) => (
       <Link href={`/loans/${value}`}>
         <span className="btn bg-primary text-white px-3 py-2">Check</span>
       </Link>
-    ),
-  },
-];
+    )
+  }
+]

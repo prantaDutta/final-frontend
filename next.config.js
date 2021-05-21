@@ -1,15 +1,15 @@
-const withPWA = require("next-pwa");
+const withPWA = require('next-pwa')
 
 module.exports = withPWA({
   future: {
-    webpack5: true,
+    webpack5: true
   },
   pwa: {
-    dest: "public",
+    dest: 'public',
     register: true,
     skipWaiting: true,
     // to disable pwa just set disable to true,
-    disable: process.env.NODE_ENV === "development",
-    publicExcludes: ["!uploads/**/*"],
-  },
-});
+    disable: process.env.NODE_ENV === 'development',
+    publicExcludes: ['!uploads/**/*']
+  }
+})

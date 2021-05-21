@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
-import SvgIcon from "./SvgIcon";
-import React from "react";
+import { useRouter } from 'next/router'
+import SvgIcon from './SvgIcon'
+import React from 'react'
 
 interface ShowNotificationsProps {
-  data: any;
+  data: any
 }
 
 const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <>
       {data.notifications.length > 0 ? (
@@ -24,9 +24,7 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
                 />
                 <div className="p-2 mr-2">
                   <h4 className="whitespace-nowrap">{notification.data.msg}</h4>
-                  <p className="text-primary text-center">
-                    {notification.diffForHumans}
-                  </p>
+                  <p className="text-primary text-center">{notification.diffForHumans}</p>
                 </div>
                 <SvgIcon
                   classNames="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
@@ -35,15 +33,12 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
               </div>
               {i < data.notifications.length - 1 && <hr />}
               {i === data.notifications.length - 1 && (
-                <p
-                  onClick={() => router.push("/settings/notifications")}
-                  className="edit-btn text-center m-2"
-                >
+                <p onClick={() => router.push('/settings/notifications')} className="edit-btn text-center m-2">
                   All Notifications
                 </p>
               )}
             </div>
-          );
+          )
         })
       ) : (
         // This is kinda unnecessary by the way
@@ -62,16 +57,13 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
             />
           </div>
-          <p
-            onClick={() => router.push("/settings/notifications")}
-            className="edit-btn text-center m-2"
-          >
+          <p onClick={() => router.push('/settings/notifications')} className="edit-btn text-center m-2">
             All Notifications
           </p>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ShowNotifications;
+export default ShowNotifications

@@ -1,11 +1,11 @@
-import { atom } from "recoil";
-import { NewLoanFormValues } from "../pages/loans/new-loan";
+import { atom } from 'recoil'
+import { NewLoanFormValues } from '../pages/loans/new-loan'
 
 export interface extendedNewLoanFormValues extends NewLoanFormValues {
-  modifiedMonthlyInstallment: number;
+  modifiedMonthlyInstallment: number
 }
 
 export const newLoanFormValues = atom<extendedNewLoanFormValues | null>({
-  key: "new-loan-form-values",
-  default: null,
-});
+  key: 'new-loan-form-values',
+  default: null
+})
