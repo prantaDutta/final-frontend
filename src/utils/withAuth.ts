@@ -16,6 +16,16 @@ function _withAuth(handler: any) {
       }
     }
 
+    if (user?.role === 'admin') {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/admin/dashboard'
+        },
+        props: {}
+      }
+    }
+
     const newCtx = {
       ...context,
       user

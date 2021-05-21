@@ -9,12 +9,23 @@ import { verificationFormValues } from '../../states/verificationStates'
 import { logout } from '../../utils/auth'
 import { linkArray } from '../../utils/randomTypes'
 
-export const links: linkArray[] = [
+export const userLinks: linkArray[] = [
   { href: '/', label: 'Home' },
   // { href: "/about", label: "About" },
   { href: '/contact', label: 'Contact' },
   { href: '/faq', label: 'FAQ' },
   { href: '/dashboard', label: 'Dashboard' },
+  { href: '/#', label: 'Log Out' },
+  { href: '/login', label: 'Log In' },
+  { href: '/register', label: 'Register' }
+]
+
+export const adminLinks: linkArray[] = [
+  { href: '/', label: 'Home' },
+  // { href: "/about", label: "About" },
+  { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/admin/dashboard', label: 'Dashboard' },
   { href: '/#', label: 'Log Out' },
   { href: '/login', label: 'Log In' },
   { href: '/register', label: 'Register' }
@@ -136,7 +147,7 @@ export default function Nav() {
 
       <div className={`${isDrawerOpen ? 'block' : 'hidden'} px-2 pt-2 pb-4 uppercase md:flex md:p-0 lg:mr-8 md:ml-5`}>
         {/* Rendering every nav items from links array */}
-        <NavItems links={links} />
+        <NavItems links={userData?.role === 'admin' ? adminLinks : userLinks} />
       </div>
     </div>
   )

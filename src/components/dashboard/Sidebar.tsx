@@ -23,8 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         openSidebarValue ? 'block z-30' : 'hidden'
       }`}
     >
-      <div className="hidden md:block cursor-pointer py-3">
-        {/* <Link href="/"> */}
+      <div className="hidden md:block cursor-pointer py-3" onClick={() => router.push('/')}>
         <Image
           src={`/new-logo.png`}
           alt="Icon"
@@ -33,7 +32,6 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           layout="responsive"
           className="object-contain"
         />
-        {/* </Link> */}
       </div>
       <div className="flex-col uppercase">
         {links.map((link) => {
