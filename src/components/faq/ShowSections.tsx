@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import faqQuestions from './faqQuestions'
+import faqQandA from '../../../jsons/faqQandA.json'
 
 interface ShowSectionsProps {
   active: string
 }
 
 const ShowSections: React.FC<ShowSectionsProps> = ({ active }) => {
-  const updatedQuestions = faqQuestions.filter((ques) =>
+  const updatedQuestions = faqQandA.filter((ques) =>
     ques.section.includes(active)
   )
   const [expand, setExpand] = useState(0)
