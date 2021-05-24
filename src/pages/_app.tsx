@@ -13,24 +13,17 @@ import SEO from '../../next-seo.config'
 import { RecoilExternalStatePortal } from '../SpecialComponents/RecoilExternalStatePortal'
 import '../styles/index.css'
 import { laravelApi } from '../utils/api'
-import { BASE_URL, isProduction } from '../utils/constants'
+import { BASE_URL } from '../utils/constants'
 
 axios.defaults.baseURL = BASE_URL
 axios.defaults.withCredentials = true
-
-// axios.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     if (!isProduction) console.log("Axios Error", error?.response);
-//   }
-// );
 
 function MyApp({ Component, pageProps /* router */ }: AppProps) {
   return (
     <RecoilRoot>
       <SWRConfig
         value={{
-          dedupingInterval: isProduction ? 1000 * 30 : 1000 * 60 * 5, // 5m
+          // dedupingInterval: isProduction ? 1000 * 10 : 1000 * 60 * 5, // 5m
           fetcher: (url: string) =>
             laravelApi()
               .get(url)

@@ -19,9 +19,6 @@ interface ChangePenaltyDataProps {
 
 const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
   const { data, error } = useSWR('/admin/get-penalty-data')
-  if (error) {
-    return <FetchError user={user} />
-  }
   const [penaltyDataValue, setPenaltyData] = useRecoilState(penaltyDataStates)
   useEffect(() => {
     if (data) {
@@ -44,6 +41,9 @@ const ChangePenaltyData: React.FC<ChangePenaltyDataProps> = ({ user }) => {
         type: 'error'
       })
     }
+  }
+  if (error) {
+    return <FetchError user={user} />
   }
   return (
     <DashboardLayout data={user} title={`Change Penalty Data`}>
