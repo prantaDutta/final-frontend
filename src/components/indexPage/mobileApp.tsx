@@ -1,6 +1,7 @@
-import IndexPageSection from './IndexPageSection'
-import SvgIcon from '../shared/SvgIcon'
+import Image from 'next/image'
 import React from 'react'
+import SvgIcon from '../shared/SvgIcon'
+import IndexPageSection from './IndexPageSection'
 
 interface mobileAppProps {}
 
@@ -9,7 +10,13 @@ const MobileApp: React.FC<mobileAppProps> = ({}) => {
     <IndexPageSection title="Our Brand New Mobile App">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
         <div className="col-span-1 lg:col-span-1 text-left pl-0 md:pl-16 pt-8 md:pt-10">
-          <img alt={`Android App Image`} src="/android-screen.png" className="h-full w-full object-fit" />
+          <Image
+            height="774"
+            width="1024"
+            alt={`Android App Image`}
+            src="/android-screen.png"
+            className="h-full w-full object-fit"
+          />
         </div>
         <div className="col-span-1 md:col-span-1 lg:col-span-2 text-left md:pl-32 pt-4 md:pt-10">
           <div>

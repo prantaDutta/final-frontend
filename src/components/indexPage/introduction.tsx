@@ -17,7 +17,7 @@ export default function Introduction() {
                 {buttons.map((btn) => (
                   <button
                     key={btn}
-                    className="bg-primary mb-2 md:mb-2 rounded-full text-white text-sm font-semibold px-2 md:px-4 py-1.5 md:py-3 uppercase mr-3"
+                    className="bg-primary mb-2 md:mb-2 rounded-full text-gray-200 text-sm font-semibold px-2 md:px-4 py-1.5 md:py-3 uppercase mr-3"
                   >
                     {btn}
                   </button>

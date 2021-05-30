@@ -58,7 +58,7 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-center pt-5 grid-gap-2">
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">GrayScale</h4>
+          <p className="font-semibold md:font-semibold text-xl md:text-base">GrayScale</p>
           <p className="text-md font-base mt-2">
             GrayScale is one of the fastest growing peer to peer (P2P) lending platforms in Bangladesh. It connects
             investors or lenders looking for high returns with creditworthy borrowers looking for short term personal
@@ -66,7 +66,7 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
           </p>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Quick Links</h4>
+          <p className="font-semibold md:font-semibold text-xl md:text-base">Quick Links</p>
           <div className="text-md font-base mt-2">
             {quickLinks &&
               quickLinks.map((link) => {
@@ -88,7 +88,7 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
           </div>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Address</h4>
+          <p className="font-semibold md:font-semibold text-xl md:text-base">Address</p>
 
           <div className="flex my-3 justify-center items-center">
             <svg
@@ -161,7 +161,7 @@ const UpperFooter: React.FC<upperFooterProps> = ({}) => {
           </div>
         </div>
         <div className="mt-4 sm:mt-3 px-4 md:mt-0 font-normal">
-          <h4 className="font-semibold md:font-semibold text-xl md:text-base">Subscribe</h4>
+          <p className="font-semibold md:font-semibold text-xl md:text-base">Subscribe</p>
           <p className="text-md font-base mt-2">Subscribe to our newsletter for latest updates</p>
           <div className="mt-2 flex justify-center items-center">
             <svg

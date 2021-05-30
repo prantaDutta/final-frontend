@@ -16,7 +16,7 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({ error, label, h
       {/*  h-24 add this class to reduce page shifting */}
       <label className="text-md font-bold text-gray-700 tracking-wide">{label}</label>
 
-      <div className="flex">
+      <div className="flex items-center">
         <input
           type={!eye ? 'password' : 'text'}
           className={`w-full bg-transparent text-md text-gray-500 font-semibold py-2 border-b focus:outline-none ${
@@ -25,7 +25,7 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({ error, label, h
           {...props}
           ref={register}
         />
-        <button type="button" className="focus:outline-none focus:ring-0" onClick={() => toggleEye(!eye)}>
+        <div className="focus:outline-none focus:ring-0" onClick={() => toggleEye(!eye)}>
           {eye ? (
             <svg
               className="w-4 h-4"
@@ -58,7 +58,7 @@ const InputPasswordField: React.FC<InputPasswordFieldProps> = ({ error, label, h
               />
             </svg>
           )}
-        </button>
+        </div>
       </div>
 
       <p className="text-red-600 pt-2 font-semibold text-sm italic">{error ? error : ' '}</p>
