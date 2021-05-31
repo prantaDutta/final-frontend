@@ -4,6 +4,7 @@ import DashboardLayout from '../../components/layouts/DashboardLayout'
 import DashboardTitle from '../../components/shared/DashboardTitle'
 import FetchError from '../../components/shared/FetchError'
 import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
+import PDFComponent from '../../components/shared/PDFComponent'
 import ShowDetailsInATableWithLinks from '../../components/shared/ShowDetailsInATableWithLinks'
 import { objectToArrayAndExclude } from '../../utils/functions'
 import { ModifiedUserData } from '../../utils/randomTypes'
@@ -23,18 +24,19 @@ const Deposit: React.FC<DepositProps> = ({ user, depositId }) => {
   if (error) {
     return <FetchError user={user} />
   }
+  let dataArray = []
+  if (data) {
+    dataArray = [...objectToArrayAndExclude(data.transaction, ['id']), ...objectToArrayAndExclude(data.details, ['id'])]
+  }
   return (
     <DashboardLayout data={user} title={`Deposit Details`}>
       <DashboardTitle title={`Deposit Details`} backButton />
 
       {data ? (
-        <ShowDetailsInATableWithLinks
-          title="Deposit Data"
-          dataArray={[
-            ...objectToArrayAndExclude(data.transaction, ['id']),
-            ...objectToArrayAndExclude(data.details, ['id'])
-          ]}
-        />
+        <>
+          <ShowDetailsInATableWithLinks title="Deposit Data" dataArray={dataArray} />
+          <PDFComponent data={dataArray} />
+        </>
       ) : (
         <FullWidthReactLoader />
       )}
