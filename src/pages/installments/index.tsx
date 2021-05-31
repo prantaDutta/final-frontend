@@ -75,15 +75,15 @@ export const InstallmentTableHeader: Column[] = [
   },
   {
     Header: 'Penalty Amount',
-    accessor: 'penaltyAmount'
+    accessor: 'penalty Amount'
   },
   {
     Header: 'Total Amount',
-    accessor: 'totalAmount'
+    accessor: 'total Amount'
   },
   {
     Header: 'Due Date',
-    accessor: 'dueDate',
+    accessor: 'due Date',
     Cell: ({ value }: Cell) => formatDate(value, 'MMM D, YYYY')
   },
   {

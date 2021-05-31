@@ -75,7 +75,7 @@ export const AdminTransactionsTableHeader: Column[] = [
   },
   {
     Header: 'Transaction Type',
-    accessor: 'transactionType'
+    accessor: 'transaction Type'
   },
   {
     Header: 'Status',
@@ -83,7 +83,7 @@ export const AdminTransactionsTableHeader: Column[] = [
   },
   {
     Header: 'Created At',
-    accessor: 'createdAt',
+    accessor: 'created At',
     Cell: ({ value }: Cell) => formatDate(value, 'MMM D, YYYY h:mm A')
   },
   {

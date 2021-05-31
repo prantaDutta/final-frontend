@@ -31,6 +31,9 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
   const { data: balanceData, mutate } = useSWR(`/user/balance`)
   const [showMainNav] = useRecoilState(mainNav)
 
+  // Fetch monthly due
+  const { data: dueData, mutate: dueMutate } = useSWR(`/user/due-balance`)
+
   return (
     <>
       <div className={`hidden md:flex justify-end items-center bg-gray-200 pr-4`}>
@@ -47,7 +50,7 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
               <h4>Available Balance: </h4>
               <h4 className="font-bold">
                 <div className="flex">
-                  <p>Tk. {balanceData ? balanceData.balance.toFixed(2) : (0).toFixed(2)}</p>
+                  <p>Tk. {balanceData ? parseFloat(balanceData.balance).toFixed(2) : (0).toFixed(2)}</p>
                   <button
                     className="pl-4 focus:outline-none focus:ring-0"
                     onClick={async () => {
@@ -68,6 +71,42 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
             </div>
           </div>
         )}
+
+        {userData?.role === 'borrower' && (
+          <div className="flex items-center cursor-pointer p-4">
+            <div>
+              <SvgIcon
+                classNames="w-6 h-6 mx-2"
+                d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+              />
+            </div>
+
+            <div>
+              <h4>Monthly Due: </h4>
+              <h4 className="font-bold">
+                <div className="flex">
+                  <p>Tk. {dueData ? parseFloat(dueData?.amount).toFixed(2) : (0).toFixed(2)}</p>
+                  <button
+                    className="pl-4 focus:outline-none focus:ring-0"
+                    onClick={async () => {
+                      setAnimate(true)
+                      setTimeout(() => {
+                        setAnimate(false)
+                      }, 1000)
+                      await dueMutate()
+                    }}
+                  >
+                    <SvgIcon
+                      classNames={`w-4 h-4 ${animate && 'animate-spin'}`}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </button>
+                </div>
+              </h4>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center cursor-pointer p-4 hover:bg-gray-300 rounded">
           <div>
             <SvgIcon
@@ -148,9 +187,16 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
               <button className="px-4 py-1 border-b-2 border-gray-300 w-full font-semibold text-right">
                 Welcome, {userData?.name}
               </button>
-              <button className="px-4 py-1 border-b-2 border-gray-300 w-full font-semibold text-right">
-                Balance: Tk. {balanceData ? balanceData.balance.toFixed(2) : (0).toFixed(2)}
-              </button>
+              {userData.role !== 'admin' && (
+                <button className="px-4 py-1 border-b-2 border-gray-300 w-full font-semibold text-right">
+                  Balance: Tk. {balanceData ? parseFloat(balanceData.balance).toFixed(2) : (0).toFixed(2)}
+                </button>
+              )}
+              {userData.role === 'borrower' && (
+                <button className="px-4 py-1 border-b-2 border-gray-300 w-full font-semibold text-right">
+                  Balance: Tk. {dueData ? parseFloat(dueData?.amount).toFixed(2) : (0).toFixed(2)}
+                </button>
+              )}
               <button
                 onClick={() => router.push('/notifications')}
                 className="px-4 py-1 border-b-2 border-gray-300 w-full font-semibold text-right"

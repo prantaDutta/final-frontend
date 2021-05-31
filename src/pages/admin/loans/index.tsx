@@ -64,19 +64,19 @@ export const AdminLoansTableHeader = [
   },
   {
     Header: 'Monthly Installment',
-    accessor: 'monthlyInstallment'
+    accessor: 'monthly Installment'
   },
   {
-    Header: 'Interest Rate',
-    accessor: 'interestRate'
+    Header: 'Interest Rate (%)',
+    accessor: 'interest Rate (%)'
   },
   {
-    Header: 'Loan Duration',
-    accessor: 'loanDuration'
+    Header: 'Loan Duration (Months)',
+    accessor: 'loan Duration (Months)'
   },
   {
     Header: 'Loan Mode',
-    accessor: 'loanMode'
+    accessor: 'loan Mode'
   },
   {
     Header: 'Action',

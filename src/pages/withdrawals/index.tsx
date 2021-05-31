@@ -28,7 +28,7 @@ const Withdrawals: React.FC<dashboardProps> = ({ user }) => {
     <DashboardLayout data={user} title={`Withdrawals`}>
       <div className="flex justify-between my-2">
         <DashboardTitle backButton={false} title="Withdraw Money" />
-        <button onClick={() => router.push('/withdrawals/withdraw')} className="primary-btn">
+        <button onClick={() => router.push('/withdrawals/withdraw-now')} className="primary-btn">
           Withdraw Money
         </button>
       </div>
@@ -60,7 +60,7 @@ export default Withdrawals
 export const withdrawalsTableHeader: Column[] = [
   {
     Header: 'Transaction Id',
-    accessor: 'transactionId'
+    accessor: 'transaction Id'
   },
   {
     Header: 'Amount',

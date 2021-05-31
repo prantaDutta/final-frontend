@@ -1,6 +1,5 @@
 import divisions from '../../jsons/divisions.json'
 import zilas from '../../jsons/zilas.json'
-import { withdrawalMethodsArray } from '../pages/withdrawals/withdraw'
 import { capitalize } from './functions'
 import { linkArray, SelectOptionsTypes } from './randomTypes'
 
@@ -161,13 +160,13 @@ export const numberTypes = (min: number, max: number) => {
 
 export const verificationRequestTableHeader = ['Field Name', 'Data']
 
-export const withdrawalMethodsTypes = () => {
-  let arr: SelectOptionsTypes[] = []
-  withdrawalMethodsArray.map((method) => {
-    arr.push({
-      value: method,
-      title: capitalize(method)
-    })
-  })
-  return arr
-}
+// export const withdrawalMethodsTypes = () => {
+//   let arr: SelectOptionsTypes[] = []
+//   withdrawalMethodsArray.map((method) => {
+//     arr.push({
+//       value: method,
+//       title: capitalize(method)
+//     })
+//   })
+//   return arr
+// }

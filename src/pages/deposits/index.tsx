@@ -57,7 +57,7 @@ export default Deposits
 export const DepositsTableHeader: Column[] = [
   {
     Header: 'Transaction Id',
-    accessor: 'transactionId'
+    accessor: 'transaction Id'
   },
   {
     Header: 'Amount',
