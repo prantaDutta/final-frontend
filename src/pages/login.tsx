@@ -49,7 +49,7 @@ const Login: React.FC<login2Props> = ({ user }) => {
       notify(`Welcome back, ${data.name}`, {
         type: 'success'
       })
-      if (!data.mobileNoVerified) return router.push('/verify-mobile-no')
+      if (!data['mobileNo Verified']) return router.push('/verify-mobile-no')
       if (data.role === 'admin') return router.push('/admin/dashboard')
       return router.push('/dashboard')
     } catch (e) {

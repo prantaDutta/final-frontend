@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 import useSWR from 'swr'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import DashboardTitle from '../../components/shared/DashboardTitle'
 import FetchError from '../../components/shared/FetchError'
 import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
-import ReactLoader from '../../components/shared/ReactLoader'
 import ShowDetailsInATableWithLinks from '../../components/shared/ShowDetailsInATableWithLinks'
 import { laravelApi } from '../../utils/api'
 import { objectToArrayAndExclude } from '../../utils/functions'
@@ -30,45 +31,66 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
       return <FetchError user={user} />
     }, 5000)
   }
-  const [submitting, setSubmitting] = useState<boolean>(false)
 
+  const handlePay = async () => {
+    try {
+      const { data: SomeData } = await laravelApi().post('/user/pay-installment', {
+        amount: data?.installment.totalAmount,
+        id: data?.installment.id
+      })
+      console.log('Successfully Paid', SomeData)
+      notify('Paid Successfully', {
+        type: 'success'
+      })
+      return router.push('/installments')
+    } catch (e) {
+      console.log(e)
+      notify(e?.response?.data?.error || 'Something Went Wrong', {
+        type: 'error'
+      })
+    }
+  }
+
+  const submit = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui bg-primary px-16 py-8 text-white rounded-lg">
+            <h1 className="font-bold text-2xl my-2">Are you sure?</h1>
+            <p className="text-xl font-semibold my-5">
+              You are paying {data?.installment['total Amount']} Tk. as installment
+            </p>
+            <div className="flex justify-between">
+              <button
+                className="px-4 py-2 rounded-lg bg-gray-200 text-primary focus:outline-none focus:ring-1 focus:ring-bg-gray-300"
+                onClick={onClose}
+              >
+                No
+              </button>
+              <button
+                className="px-4 py-2 rounded-lg bg-gray-200 text-primary focus:outline-none focus:ring-1 focus:ring-bg-gray-300"
+                onClick={async () => {
+                  await handlePay()
+                  onClose()
+                }}
+              >
+                Yes, Pay
+              </button>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
   return (
     <DashboardLayout data={user} title={`Installment Details`}>
       <div className="flex justify-between">
         <DashboardTitle title={`Installment Details`} />
         {data && data.installment.status !== 'paid' && user.role === 'borrower' && (
           <div>
-            {submitting ? (
-              <button className="edit-btn">
-                <ReactLoader />
-              </button>
-            ) : (
-              <button
-                onClick={async () => {
-                  setSubmitting(true)
-                  try {
-                    const { data: SomeData } = await laravelApi().post('/user/pay-installment', {
-                      amount: data?.installment.totalAmount,
-                      id: data?.installment.id
-                    })
-                    console.log('Successfully Paid', SomeData)
-                    notify('Paid Successfully', {
-                      type: 'success'
-                    })
-                    return router.push('/installments')
-                  } catch (e) {
-                    console.log(e)
-                    notify(e?.response?.data?.error || 'Something Went Wrong', {
-                      type: 'error'
-                    })
-                  }
-                  setSubmitting(false)
-                }}
-                className="edit-btn"
-              >
-                Pay Now
-              </button>
-            )}
+            <button className="container edit-btn" onClick={submit}>
+              Pay Now
+            </button>
           </div>
         )}
       </div>

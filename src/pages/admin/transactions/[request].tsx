@@ -4,7 +4,6 @@ import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import DashboardTitle from '../../../components/shared/DashboardTitle'
 import FetchError from '../../../components/shared/FetchError'
 import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
-import MarkAsButton from '../../../components/shared/MarkAsButton'
 import ShowDetailsInATableWithLinks from '../../../components/shared/ShowDetailsInATableWithLinks'
 import { objectToArrayAndExclude } from '../../../utils/functions'
 import { ModifiedUserData } from '../../../utils/randomTypes'
@@ -26,7 +25,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({ user, request })
     <DashboardLayout data={user} title={`Transaction Details`}>
       <div className="flex justify-between text-gray-900">
         <DashboardTitle title={`Transaction Details`} backButton />
-        {data && data.transaction.transactionType === 'withdraw' && (
+        {/* {data && data.transaction.transactionType === 'withdraw' && (
           <>
             <MarkAsButton
               title="Mark As Successful"
@@ -47,7 +46,7 @@ const WithdrawalRequests: React.FC<WithdrawalRequestProps> = ({ user, request })
               classNames={`edit-btn disabled:opacity-50`}
             />
           </>
-        )}
+        )} */}
       </div>
       {data ? (
         <>

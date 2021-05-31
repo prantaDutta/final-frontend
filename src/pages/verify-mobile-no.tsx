@@ -157,7 +157,7 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
 
 export const getServerSideProps = withAuth(async (context) => {
   const { user } = context
-  if (user?.mobileNoVerified) {
+  if (user['mobileNo Verified']) {
     return {
       redirect: {
         permanent: false,

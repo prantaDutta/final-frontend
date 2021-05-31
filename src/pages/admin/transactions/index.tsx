@@ -18,7 +18,7 @@ interface VerificationRequestsProps {
 
 const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
   const [transactionType, setType] = useState<'deposit' | 'withdraw' | 'all'>('withdraw')
-  const [transactionStatus, setStatus] = useState<'Pending' | 'Completed' | 'Failed' | 'Canceled' | 'all'>('Pending')
+  const [transactionStatus, setStatus] = useState<'Pending' | 'Completed' | 'Failed' | 'Canceled' | 'all'>('all')
   const { data, mutate, error } = useSWR(`/admin/transactions/${transactionType}/${transactionStatus}`)
   if (error) {
     return <FetchError user={user} />
