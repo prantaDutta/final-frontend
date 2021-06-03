@@ -53,7 +53,7 @@ export interface RegisterFormValues {
 }
 
 export type SelectOptionsTypes = {
-  value: string | number
+  value: string | number | boolean
   title: string | number
 }
 

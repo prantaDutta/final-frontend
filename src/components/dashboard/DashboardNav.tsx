@@ -22,7 +22,8 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
   const [, setVerifyData] = useRecoilState(verificationFormValues)
   const [, setNewLoanFormValues] = useRecoilState(newLoanFormValues)
   // for balance reload animation
-  const [animate, setAnimate] = useState(false)
+  const [balanceAnimate, setBalanceAnimate] = useState(false)
+  const [dueAnimate, setDueAnimate] = useState(false)
   const { data, mutate: NotifyMutate } = useSWR(`/user/dashboard-notifications`)
   // if (!isProduction) console.log("data: ", data);
   const [showNotificationsDiv, setNotificationsDiv] = useState<boolean>(false)
@@ -54,15 +55,15 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                   <button
                     className="pl-4 focus:outline-none focus:ring-0"
                     onClick={async () => {
-                      setAnimate(true)
+                      setBalanceAnimate(true)
                       setTimeout(() => {
-                        setAnimate(false)
+                        setBalanceAnimate(false)
                       }, 1000)
                       await mutate()
                     }}
                   >
                     <SvgIcon
-                      classNames={`w-4 h-4 ${animate && 'animate-spin'}`}
+                      classNames={`w-4 h-4 ${balanceAnimate && 'animate-spin'}`}
                       d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                     />
                   </button>
@@ -89,15 +90,15 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                   <button
                     className="pl-4 focus:outline-none focus:ring-0"
                     onClick={async () => {
-                      setAnimate(true)
+                      setDueAnimate(true)
                       setTimeout(() => {
-                        setAnimate(false)
+                        setDueAnimate(false)
                       }, 1000)
                       await dueMutate()
                     }}
                   >
                     <SvgIcon
-                      classNames={`w-4 h-4 ${animate && 'animate-spin'}`}
+                      classNames={`w-4 h-4 ${dueAnimate && 'animate-spin'}`}
                       d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                     />
                   </button>

@@ -2,7 +2,8 @@ import React from 'react'
 import useSWR from 'swr'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import Account from '../../components/settings/Account'
-import LoanPreference from '../../components/settings/LoanPreference'
+import LoanPreferenceForBorrower from '../../components/settings/LoanPreferenceForBorrower'
+import LoanPreferenceForLender from '../../components/settings/LoanPreferenceForLender'
 import Personal from '../../components/settings/Personal'
 import Security from '../../components/settings/Security'
 import DashboardTitle from '../../components/shared/DashboardTitle'
@@ -28,7 +29,8 @@ const Settings: React.FC<SettingsProps> = ({ user }) => {
           <Personal data={data} mutate={mutate} />
           <Account data={data} mutate={mutate} />
           <Security data={data} mutate={mutate} />
-          {user.role === 'lender' && <LoanPreference />}
+          {user.role === 'lender' && <LoanPreferenceForLender />}
+          {user.role === 'borrower' && <LoanPreferenceForBorrower />}
         </>
       ) : (
         <FullWidthReactLoader />

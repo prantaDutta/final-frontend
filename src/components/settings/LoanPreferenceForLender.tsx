@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
-import { loanPreferenceExpand } from '../../states/settingsStates'
+import { lenderLoanPreferenceExpand } from '../../states/settingsStates'
 import { SelectOptionsTypes } from '../../utils/randomTypes'
 import InputSelectField from '../ReactHookForm/InputSelectField'
 import SaveCancelButton from './SaveCancelButton'
@@ -14,8 +14,8 @@ type LoanPreferenceFormProps = {
   maximumDistributedAmount: string
 }
 
-const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
-  const [expand] = useRecoilState(loanPreferenceExpand)
+const LoanPreferenceForLender: React.FC<LoanPreferenceProps> = ({}) => {
+  const [expand] = useRecoilState(lenderLoanPreferenceExpand)
   const [showPreferenceField, setPreferenceField] = useState(false)
   const { data, mutate } = useSWR(`/user/get-loan-preferences`)
   const { register, errors, watch } = useForm<LoanPreferenceFormProps>({})
@@ -25,7 +25,7 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
       <SettingsName
         expand={expand}
         title={`Loan Preference`}
-        current={`loanPreference`}
+        current={`lenderLoanPreference`}
         svgD={`M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z`}
       />
 
@@ -65,7 +65,7 @@ const LoanPreference: React.FC<LoanPreferenceProps> = ({}) => {
   )
 }
 
-export default LoanPreference
+export default LoanPreferenceForLender
 
 export const generatingMaximumDistributedAmounts = () => {
   let arr: SelectOptionsTypes[] = []

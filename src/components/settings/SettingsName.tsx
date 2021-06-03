@@ -3,7 +3,8 @@ import { useRecoilState } from 'recoil'
 import {
   accountExpand,
   administrationExpand,
-  loanPreferenceExpand,
+  borrowerLoanPreferenceExpand,
+  lenderLoanPreferenceExpand,
   personalExpand,
   securityExpand
 } from '../../states/settingsStates'
@@ -20,7 +21,8 @@ const SettingsName: React.FC<SettingsNameProps> = ({ expand, title, svgD, curren
   const [account, setAccountExpand] = useRecoilState(accountExpand)
   const [security, setSecurityExpand] = useRecoilState(securityExpand)
   const [administration, setAdministrationExpand] = useRecoilState(administrationExpand)
-  const [loanPreference, setLoanPreferenceExpand] = useRecoilState(loanPreferenceExpand)
+  const [lenderLoanPreference, setLenderLoanPreferenceExpand] = useRecoilState(lenderLoanPreferenceExpand)
+  const [borrowerLoanPreference, setBorrowerLoanPreferenceExpand] = useRecoilState(borrowerLoanPreferenceExpand)
   return (
     <div
       onClick={() => {
@@ -29,31 +31,43 @@ const SettingsName: React.FC<SettingsNameProps> = ({ expand, title, svgD, curren
           setAccountExpand(false)
           setSecurityExpand(false)
           setAdministrationExpand(false)
-          setLoanPreferenceExpand(false)
+          setLenderLoanPreferenceExpand(false)
+          setBorrowerLoanPreferenceExpand(false)
         } else if (current === 'account') {
           setPersonalExpand(false)
           setAccountExpand(!account)
           setSecurityExpand(false)
           setAdministrationExpand(false)
-          setLoanPreferenceExpand(false)
+          setLenderLoanPreferenceExpand(false)
+          setBorrowerLoanPreferenceExpand(false)
         } else if (current === 'security') {
           setPersonalExpand(false)
           setAccountExpand(false)
           setSecurityExpand(!security)
           setAdministrationExpand(false)
-          setLoanPreferenceExpand(false)
+          setLenderLoanPreferenceExpand(false)
+          setBorrowerLoanPreferenceExpand(false)
         } else if (current === 'administration') {
           setPersonalExpand(false)
           setAccountExpand(false)
           setSecurityExpand(false)
           setAdministrationExpand(!administration)
-          setLoanPreferenceExpand(false)
-        } else if (current === 'loanPreference') {
+          setLenderLoanPreferenceExpand(false)
+          setBorrowerLoanPreferenceExpand(false)
+        } else if (current === 'lenderLoanPreference') {
           setPersonalExpand(false)
           setAccountExpand(false)
           setSecurityExpand(false)
           setAdministrationExpand(false)
-          setLoanPreferenceExpand(!loanPreference)
+          setLenderLoanPreferenceExpand(!lenderLoanPreference)
+          setBorrowerLoanPreferenceExpand(false)
+        } else if (current === 'borrowerLoanPreference') {
+          setPersonalExpand(false)
+          setAccountExpand(false)
+          setSecurityExpand(false)
+          setAdministrationExpand(false)
+          setLenderLoanPreferenceExpand(false)
+          setBorrowerLoanPreferenceExpand(!borrowerLoanPreference)
         }
       }}
       className={`mt-5 bg-primary text-white rounded-2xl px-2 md:px-3 flex justify-between items-center text-center cursor-pointer transition-css`}

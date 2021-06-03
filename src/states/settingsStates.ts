@@ -26,7 +26,12 @@ export const penaltyDataStates = atom<PenaltyData[] | null>({
   default: null
 })
 
-export const loanPreferenceExpand = atom<boolean>({
-  key: 'loan-preference-expand',
+export const lenderLoanPreferenceExpand = atom<boolean>({
+  key: 'lender-loan-preference-expand',
+  default: false
+})
+
+export const borrowerLoanPreferenceExpand = atom<boolean>({
+  key: 'borrower-loan-preference-expand',
   default: false
 })

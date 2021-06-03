@@ -77,7 +77,7 @@ const WithdrawNow: React.FC<WithdrawNowProps> = ({ user }) => {
       setLastWithdrawalAmount(values.amount)
       return openPopUp(values.amount)
     } catch (e) {
-      notify('Sorry, Insufficient Balance', {
+      notify(e?.response?.data?.error || 'Sorry, Something Went Wrong. Please Try Again', {
         type: 'error'
       })
     }
