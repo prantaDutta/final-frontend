@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
+    "@headlessui/react": "^1.2.0-d0e27ff",
     "@hookform/resolvers": "^1.4.0-beta.1",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",

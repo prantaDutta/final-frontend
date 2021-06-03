@@ -1,6 +1,7 @@
+import { Menu, Transition } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import useSWR from 'swr'
 import { authStatus } from '../../states/authStates'
@@ -8,6 +9,7 @@ import { mainNav } from '../../states/dashboardStates'
 import { newLoanFormValues } from '../../states/newLoanState'
 import { authenticatedUserData } from '../../states/userStates'
 import { verificationFormValues } from '../../states/verificationStates'
+import { laravelApi } from '../../utils/api'
 import { logout } from '../../utils/auth'
 import FloatingNotification from '../shared/FloatingNotifications'
 import SvgIcon from '../shared/SvgIcon'
@@ -120,7 +122,7 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
             <h4 className="font-bold">{userData?.name}</h4>
           </div>
         </div>
-        <div className="p-4 relative flex items-center max-w-full">
+        {/* <div className="p-4 relative flex items-center max-w-full">
           <button
             onClick={async () => {
               setNotificationsDiv(!showNotificationsDiv)
@@ -129,14 +131,14 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                 data.notifications.map((notification: any) => {
                   notificationIds.push(notification.id)
                 })
-                // try {
-                //   await laravelApi().post("/user/mark-three-as-notified", {
-                //     notificationIds,
-                //   });
-                // } catch (e) {
-                //   console.log("Problem Marking Notifications as read");
-                // }
-                // await NotifyMutate();
+                try {
+                  await laravelApi().post("/user/mark-three-as-notified", {
+                    notificationIds,
+                  });
+                } catch (e) {
+                  console.log("Problem Marking Notifications as read");
+                }
+                await NotifyMutate();
               }
             }}
             className="relative block border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
@@ -153,11 +155,61 @@ const DashboardNav: React.FC<MainContentNavProps> = ({}) => {
                   <span>{data?.count}</span>
                 </div>
               )}
-              {/*{showNotificationsDiv && <ShowNotifications data={data} />}*/}
               {showNotificationsDiv && <FloatingNotification data={data} />}
             </>
           )}
-        </div>
+        </div> */}
+
+        <Menu as="div" className="relative inline-block p-4">
+          <Menu.Button className="relative block border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out">
+            <span
+              onClick={async () => {
+                setNotificationsDiv(!showNotificationsDiv)
+                if (showNotificationsDiv) {
+                  let notificationIds: any[] = []
+                  data.notifications.map((notification: any) => {
+                    notificationIds.push(notification.id)
+                  })
+                  try {
+                    await laravelApi().post('/user/mark-three-as-notified', {
+                      notificationIds
+                    })
+                  } catch (e) {
+                    console.log('Problem Marking Notifications as read')
+                  }
+                  await NotifyMutate()
+                }
+              }}
+            >
+              <SvgIcon
+                classNames="h-6 w-6"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              />
+            </span>
+          </Menu.Button>
+          {data?.count > 0 && (
+            <div className="bg-primary text-white text-xs font-bold rounded-full px-1.5 py-0.5 absolute z-10 top-0 left-1/2 mt-1">
+              <span>{data?.count}</span>
+            </div>
+          )}
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 w-96 mt-5 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="px-1 py-1">
+                <Menu.Item>{({ active }) => <FloatingNotification data={data} />}</Menu.Item>
+              </div>
+              {/* ... */}
+            </Menu.Items>
+          </Transition>
+        </Menu>
+
         <div className="p-4 focus:outline-none focus:ring-1 focus:ring-primary">
           <button
             className="p-2 cursor-pointer rounded border-solid border-2 border-primary hover:bg-primaryAccent hover:text-white hover:border-0 active:bg-primaryAccent focus:outline-none focus:ring-0"

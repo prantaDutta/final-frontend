@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import SvgIcon from './SvgIcon'
 import React from 'react'
+import SvgIcon from './SvgIcon'
 
 interface FloatingNotificationsProps {
   data: any
@@ -9,25 +9,21 @@ interface FloatingNotificationsProps {
 const FloatingNotification: React.FC<FloatingNotificationsProps> = ({ data }) => {
   const router = useRouter()
   return (
-    <div
-      className={`mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full z-10 transform ${
-        data && data.count > 0 ? '-translate-x-75' : '-translate-x-56'
-      }`}
-    >
+    <div className={`mt-2 py-2 bg-white rounded-lg shadow-xl`}>
       {data.notifications.length > 0 ? (
         data.notifications.map((notification: any, i: number) => {
           return (
-            <>
-              <div className="flex justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">
+            <div key={i}>
+              <div className="flex justify-start items-center px-4 text-gray-800 text-sm font-bold">
                 <SvgIcon
                   classNames="w-6 h-6 inline mt-0.5 text-primary cursor-pointer"
                   d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
                 />
-                <div className="p-2 mr-2">
+                <div className="p-2 mr-2 flex-grow text-center">
                   <h4 key={i} className="whitespace-nowrap">
                     {notification.data.msg}
                   </h4>
-                  <p className="text-primary text-center">{notification.diffForHumans}</p>
+                  <p className="text-primary">{notification.diffForHumans}</p>
                 </div>
                 <SvgIcon
                   classNames="w-6 h-6 inline mt-0.5 text-red-600 cursor-pointer"
@@ -40,7 +36,7 @@ const FloatingNotification: React.FC<FloatingNotificationsProps> = ({ data }) =>
                   All Notifications
                 </p>
               )}
-            </>
+            </div>
           )
         })
       ) : (
