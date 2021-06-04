@@ -13,14 +13,14 @@ html {
 }
 
 /* For Hiding that arrow symbols in input number field */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -28,7 +28,7 @@ select {
   -moz-appearance: none;
   -webkit-appearance: none;
   text-indent: 0.01px;
-  text-overflow: "";
+  text-overflow: '';
 }
 
 /* My own custom classes */
