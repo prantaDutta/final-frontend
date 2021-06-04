@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import ShowSections from '../components/faq/ShowSections'
 import Layout from '../components/layouts/Layout'
 import { NEXT_IRON_SESSION_CONFIG } from '../utils/constants'
-import { redirectToPage } from '../utils/functions'
 import { ModifiedUserData } from '../utils/randomTypes'
 
 interface faqProps {
@@ -41,14 +40,13 @@ const faq: React.FC<faqProps> = ({ user }) => {
   )
 }
 
-export const getServerSideProps = withIronSession(async ({ req, res }) => {
+export const getServerSideProps = withIronSession(async ({ req }) => {
   const user = req.session.get('user')
-  if (user) {
-    await redirectToPage(req, res, '/dashboard')
+  if (!user) {
+    return { props: {} }
   }
-
   return {
-    props: {}
+    props: { user }
   }
 }, NEXT_IRON_SESSION_CONFIG)
 
