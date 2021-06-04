@@ -15,10 +15,17 @@ const FloatingNotification: React.FC<FloatingNotificationsProps> = ({ data }) =>
           return (
             <div key={i}>
               <div className="flex justify-start items-center px-4 text-gray-800 text-sm font-bold">
-                <SvgIcon
-                  classNames="w-6 h-6 inline mt-0.5 text-primary cursor-pointer"
-                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                />
+                {notification.readAt ? (
+                  <SvgIcon
+                    classNames="w-6 h-6 inline mt-0.5 text-primary cursor-pointer"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                ) : (
+                  <SvgIcon
+                    classNames="w-6 h-6 inline mt-0.5 text-primary cursor-pointer"
+                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                  />
+                )}
                 <div className="p-2 mr-2 flex-grow text-center">
                   <h4 key={i} className="whitespace-nowrap">
                     {notification.data.msg}
