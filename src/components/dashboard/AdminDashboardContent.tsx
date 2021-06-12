@@ -1,9 +1,7 @@
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useRecoilValue } from 'recoil'
-import useSWR from 'swr'
 import { shouldNotify } from '../../states/userStates'
-import { isProduction } from '../../utils/constants'
 import { notify } from '../../utils/toasts'
 import DashboardTitle from '../shared/DashboardTitle'
 import FullWidthReactLoader from '../shared/FullWidthReactLoader'
@@ -16,21 +14,6 @@ interface DashboardContentProps {
 const AdminDashboardContent: React.FC<DashboardContentProps> = ({ data }) => {
   const shouldNotifyValue = useRecoilValue(shouldNotify)
   if (data && shouldNotifyValue) {
-    if (data.loans > 0) {
-      // Providing toastId to prevent duplicate toast
-      notify(`You have ${data.loans} Processing Loans`, {
-        type: 'info',
-        toastId: 'dashboard-loans'
-      })
-    }
-
-    if (data.withdrawals > 0) {
-      notify(`You have ${data.withdrawals} Processing Withdrawals`, {
-        type: 'info',
-        toastId: 'dashboard-withdrawals'
-      })
-    }
-
     if (data.verifications > 0) {
       notify(`You have ${data.verifications} Verifications Requests`, {
         type: 'info',

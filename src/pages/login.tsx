@@ -93,12 +93,14 @@ const Login: React.FC<login2Props> = ({ user }) => {
 
             <div className="mt-6">
               <div className="text-right mb-4">
-                <a
-                  className="text-sm font-display font-semibold text-primary hover:text-primaryAccent
+                <Link href={`/forgot-password`}>
+                  <a
+                    className="text-sm font-display font-semibold text-primary hover:text-primaryAccent
                                         cursor-pointer"
-                >
-                  Forgot Password?
-                </a>
+                  >
+                    Forgot Password?
+                  </a>
+                </Link>
               </div>
               <SubmitButton submitting={submitting} title="Log In" />
             </div>

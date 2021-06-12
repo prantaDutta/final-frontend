@@ -34,7 +34,7 @@ const withdraw: React.FC<withdrawProps> = ({ user, withdrawId }) => {
 
       {data ? (
         <>
-          <ShowDetailsInATableWithLinks title="Deposit Data" dataArray={dataArray} />
+          <ShowDetailsInATableWithLinks title="Withdrawal Data" dataArray={dataArray} />
           <PDFComponent data={dataArray} />
         </>
       ) : (

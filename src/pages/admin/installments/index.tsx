@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { Cell, Column } from 'react-table'
+import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import ReadyMadeTable from '../../../components/ReactTable/ReadyMadeTable'
@@ -8,6 +9,7 @@ import DashboardTitle from '../../../components/shared/DashboardTitle'
 import FetchError from '../../../components/shared/FetchError'
 import FlexibleSelectButton from '../../../components/shared/FlexibleSelectButton'
 import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import { adminInstallmentsPageState } from '../../../states/dropdownStates'
 import { formatDate } from '../../../utils/functions'
 import { ModifiedUserData } from '../../../utils/randomTypes'
 import withAdminAuth from '../../../utils/withAdminAuth'
@@ -18,7 +20,7 @@ interface InstallmentsProps {
 }
 
 const Installments: React.FC<InstallmentsProps> = ({ user }) => {
-  const [installmentStatus, setInstallmentStatus] = useState<'due' | 'unpaid' | 'paid' | 'all'>('all')
+  const [installmentStatus, setInstallmentStatus] = useRecoilState(adminInstallmentsPageState)
   const { data, mutate, error } = useSWR(`/admin/installments/${installmentStatus}`)
   if (error) {
     return <FetchError user={user} />

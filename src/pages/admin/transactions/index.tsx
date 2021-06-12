@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { Cell, Column } from 'react-table'
+import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import ReadyMadeTable from '../../../components/ReactTable/ReadyMadeTable'
@@ -8,6 +9,7 @@ import DashboardTitle from '../../../components/shared/DashboardTitle'
 import FetchError from '../../../components/shared/FetchError'
 import FlexibleSelectButton from '../../../components/shared/FlexibleSelectButton'
 import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import { adminTransactionsStatusPageState, adminTransactionsTypePageState } from '../../../states/dropdownStates'
 import { formatDate } from '../../../utils/functions'
 import { ModifiedUserData, SelectOptionsTypes } from '../../../utils/randomTypes'
 import withAdminAuth from '../../../utils/withAdminAuth'
@@ -17,8 +19,8 @@ interface VerificationRequestsProps {
 }
 
 const WithdrawalRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
-  const [transactionType, setType] = useState<'deposit' | 'withdraw' | 'all'>('withdraw')
-  const [transactionStatus, setStatus] = useState<'Pending' | 'Completed' | 'Failed' | 'Canceled' | 'all'>('all')
+  const [transactionType, setType] = useRecoilState(adminTransactionsTypePageState)
+  const [transactionStatus, setStatus] = useRecoilState(adminTransactionsStatusPageState)
   const { data, mutate, error } = useSWR(`/admin/transactions/${transactionType}/${transactionStatus}`)
   if (error) {
     return <FetchError user={user} />

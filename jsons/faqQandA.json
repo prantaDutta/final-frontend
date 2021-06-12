@@ -5,10 +5,7 @@
     "question": "Can I Lend through Grayscale?",
     "answer": {
       "heading": "You can if you are",
-      "lines": [
-        "At least 18 years old",
-        "Are a Bangladeshi national with identity proof and address proof"
-      ]
+      "lines": ["At least 18 years old", "Are a Bangladeshi national with identity proof and address proof"]
     }
   },
   {
@@ -17,16 +14,13 @@
     "question": "Can I Borrow through Grayscale?",
     "answer": {
       "heading": "You can if you are",
-      "lines": [
-        "At least 18 years old",
-        "Are a Bangladeshi national with identity proof and address proof"
-      ]
+      "lines": ["At least 18 years old", "Are a Bangladeshi national with identity proof and address proof"]
     }
   },
   {
     "id": 3,
     "section": "lender-borrower",
-    "question": "What documents do I need to give at the time of their registration?",
+    "question": "What documents do I need to give at the time of registration?",
     "answer": {
       "heading": "We would require soft copies of the below documents",
       "lines": [
@@ -66,12 +60,7 @@
     "question": "What documents can I submit for my current address proof?",
     "answer": {
       "heading": "You can submit any of the following documents as your current address proof:",
-      "lines": [
-        "Driving License",
-        "Passport",
-        "Electricity bill (< 3 months old)",
-        "LPG bill (< 3 months old)"
-      ]
+      "lines": ["Driving License", "Passport", "Electricity bill (< 3 months old)", "LPG bill (< 3 months old)"]
     }
   },
   {
@@ -143,12 +132,7 @@
     "question": "How do I transfer money to my wallet?",
     "answer": {
       "heading": "We are using SSLCommerz as a payment gateway. Just go to 'deposits' and then click 'deposit now'. Then type the amount and press 'submit'. A new popup window will open. Just check if every details is alright. If so, click 'pay now'. Then select the payment method. You will receive an OTP. Type it and press submit. If your balance doesn't update automatically, just click refresh icon beside your balance. You can any of the following as a payment method",
-      "lines": [
-        "Bkash Mobile Banking",
-        "Nogod Mobile Banking",
-        "Rocket Mobile Banking",
-        "Visa, Mastercard, AmEx etc."
-      ]
+      "lines": ["Bkash Mobile Banking", "Nogod Mobile Banking", "Rocket Mobile Banking", "Visa, Mastercard, AmEx etc."]
     }
   },
   {

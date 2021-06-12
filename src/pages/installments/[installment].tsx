@@ -35,7 +35,7 @@ const Installment: React.FC<InstallmentProps> = ({ user, installmentId }) => {
   const handlePay = async () => {
     try {
       const { data: SomeData } = await laravelApi().post('/user/pay-installment', {
-        amount: data?.installment.totalAmount,
+        amount: data?.installment['total Amount'],
         id: data?.installment.id
       })
       console.log('Successfully Paid', SomeData)

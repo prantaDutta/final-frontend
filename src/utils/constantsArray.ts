@@ -76,12 +76,12 @@ export const adminSidebarLinks: linkArray[] = [
     href: '/admin/settings',
     label: 'Settings',
     svgD: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4'
-  },
-  {
-    href: '/admin/help',
-    label: 'Help',
-    svgD: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z'
   }
+  // {
+  //   href: '/admin/help',
+  //   label: 'Help',
+  //   svgD: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z'
+  // }
 ]
 
 export const UserRole: SelectOptionsTypes[] = [

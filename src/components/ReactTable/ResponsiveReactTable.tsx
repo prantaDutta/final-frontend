@@ -90,7 +90,7 @@ const ResponsiveReactTable: React.FC<ResponsiveTableProps> = ({
         <>
           <div className="flex justify-between md:mt-5 pb-5">
             {/* Goto Page 0 */}
-            <button className="p-2 w-1/6" disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
+            <button className="p-2 w-1/6 focus:outline-none" disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
               <svg
                 className="w-6 h-6 mx-auto"
                 fill="none"
@@ -104,7 +104,7 @@ const ResponsiveReactTable: React.FC<ResponsiveTableProps> = ({
             {/* Go to previous page */}
             {/* For Large Screen */}
             <button
-              className="px-2 w-1/3 md:w-1/6 bg-primary text-white font-semibold rounded-lg"
+              className="px-2 w-1/3 md:w-1/6 bg-primary text-white font-semibold rounded-lg focus:outline-none"
               disabled={!canPreviousPage}
               onClick={() => previousPage()}
             >
@@ -116,12 +116,12 @@ const ResponsiveReactTable: React.FC<ResponsiveTableProps> = ({
               <p className="font-semibold">Go to Page: </p>
               <input
                 type="number"
-                defaultValue={pageIndex + 1}
+                value={pageIndex + 1}
                 onChange={(e) => {
                   const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
                   gotoPage(pageNumber)
                 }}
-                className="w-1/5 text-center bg-transparent"
+                className="w-1/5 text-center bg-transparent font-bold"
               />
               <p className="font-bold"> of {pageCount}</p>
             </div>
@@ -139,14 +139,18 @@ const ResponsiveReactTable: React.FC<ResponsiveTableProps> = ({
             </select>
             {/* Goto the Next Page */}
             <button
-              className="w-1/4 md:w-1/6 bg-primary text-white rounded-lg font-semibold"
+              className="w-1/4 md:w-1/6 bg-primary text-white rounded-lg font-semibold focus:outline-none"
               disabled={!canNextPage}
               onClick={() => nextPage()}
             >
               Next
             </button>
             {/* Goto the last Page */}
-            <button className="p-2 w-1/5" disabled={!canNextPage} onClick={() => gotoPage(pageCount - 1)}>
+            <button
+              className="p-2 w-1/5 focus:outline-none"
+              disabled={!canNextPage}
+              onClick={() => gotoPage(pageCount - 1)}
+            >
               <SvgIcon classNames="w-6 h-6 mx-auto" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
             </button>
           </div>

@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import { Cell } from 'react-table'
+import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import ReadyMadeTable from '../../components/ReactTable/ReadyMadeTable'
@@ -9,6 +10,7 @@ import DashboardTitle from '../../components/shared/DashboardTitle'
 import FetchError from '../../components/shared/FetchError'
 import FlexibleSelectButton from '../../components/shared/FlexibleSelectButton'
 import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
+import { userLoansPageState } from '../../states/dropdownStates'
 import { ModifiedUserData } from '../../utils/randomTypes'
 import withAuth from '../../utils/withAuth'
 import { loanModeSelectTypes } from '../admin/loans'
@@ -19,7 +21,7 @@ interface currentLoansProps {
 
 const currentLoans: React.FC<currentLoansProps> = ({ user }) => {
   const router = useRouter()
-  const [loanType, setLoanType] = useState<'processing' | 'ongoing' | 'finished' | 'all'>('all')
+  const [loanType, setLoanType] = useRecoilState(userLoansPageState)
   const { data, mutate, error } = useSWR(`/user/loans/${loanType}`)
   if (error) {
     return <FetchError user={user} />

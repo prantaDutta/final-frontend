@@ -2,14 +2,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { Cell, Column } from 'react-table'
+import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import ReadyMadeTable from '../../components/ReactTable/ReadyMadeTable'
 import DashboardTitle from '../../components/shared/DashboardTitle'
 import FetchError from '../../components/shared/FetchError'
+import FlexibleSelectButton from '../../components/shared/FlexibleSelectButton'
 import FullWidthReactLoader from '../../components/shared/FullWidthReactLoader'
+import { userDepositsStatusPageState } from '../../states/dropdownStates'
 import { ModifiedUserData } from '../../utils/randomTypes'
 import withAuth from '../../utils/withAuth'
+import { selectTransactionStatusTypes } from '../admin/transactions'
 
 interface dashboardProps {
   user: ModifiedUserData
@@ -17,7 +21,8 @@ interface dashboardProps {
 
 const Deposits: React.FC<dashboardProps> = ({ user }) => {
   const router = useRouter()
-  const { data, mutate, error } = useSWR(`/user/get-all-deposits`)
+  const [depositStatus, setDepositStatus] = useRecoilState(userDepositsStatusPageState)
+  const { data, mutate, error } = useSWR(`/user/get-all-deposits/` + depositStatus)
   if (error) {
     return <FetchError user={user} />
   }
@@ -25,6 +30,12 @@ const Deposits: React.FC<dashboardProps> = ({ user }) => {
     <DashboardLayout data={user} title={`Deposits`}>
       <div className="flex justify-between my-2">
         <DashboardTitle backButton={false} title="Deposit Money" />
+        <FlexibleSelectButton
+          selectValue={depositStatus}
+          setSelectValue={setDepositStatus}
+          selectArray={selectTransactionStatusTypes}
+          isValidating={!data}
+        />
         <button onClick={() => router.push('/deposits/deposit-now')} className="primary-btn">
           Deposit
         </button>

@@ -9,11 +9,11 @@ interface FloatingNotificationsProps {
 const FloatingNotification: React.FC<FloatingNotificationsProps> = ({ data }) => {
   const router = useRouter()
   return (
-    <div className={`mt-2 py-2 bg-white rounded-lg shadow-xl`}>
+    <div className={`rounded-lg shadow-xl`}>
       {data.notifications.length > 0 ? (
         data.notifications.map((notification: any, i: number) => {
           return (
-            <div key={i}>
+            <div key={i} className={`py-1 ${notification.readAt ? 'bg-white' : 'bg-gray-100'}`}>
               <div className="flex justify-start items-center px-4 text-gray-800 text-sm font-bold">
                 {notification.readAt ? (
                   <SvgIcon

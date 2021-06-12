@@ -32,4 +32,4 @@ export default function Introduction() {
 }
 
 const buttons = ['Get Started', 'Watch Tutorials']
-const headlines: string[] = ['Lend Money ✅ ', 'Borrow Money ✅ ', 'Within 24 Hours 😲 ']
+const headlines: string[] = ['Lend Money ✅ ', 'Borrow Money ✅ ', 'Instantly 😲 ']

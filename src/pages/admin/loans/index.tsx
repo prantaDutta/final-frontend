@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { Cell } from 'react-table'
+import { useRecoilState } from 'recoil'
 import useSWR from 'swr'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import ReadyMadeTable from '../../../components/ReactTable/ReadyMadeTable'
@@ -8,6 +9,7 @@ import DashboardTitle from '../../../components/shared/DashboardTitle'
 import FetchError from '../../../components/shared/FetchError'
 import FlexibleSelectButton from '../../../components/shared/FlexibleSelectButton'
 import FullWidthReactLoader from '../../../components/shared/FullWidthReactLoader'
+import { adminLoansPageState } from '../../../states/dropdownStates'
 import { ModifiedUserData, SelectOptionsTypes } from '../../../utils/randomTypes'
 import withAdminAuth from '../../../utils/withAdminAuth'
 
@@ -16,7 +18,7 @@ interface VerificationRequestsProps {
 }
 
 const LoanRequests: React.FC<VerificationRequestsProps> = ({ user }) => {
-  const [requestType, setRequestType] = useState<'failed' | 'processing' | 'ongoing' | 'finished' | 'all'>('failed')
+  const [requestType, setRequestType] = useRecoilState(adminLoansPageState)
   const { data, mutate, error } = useSWR(`/admin/loans/${requestType}`)
   if (error) {
     return <FetchError user={user} />

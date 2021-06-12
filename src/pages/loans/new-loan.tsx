@@ -181,7 +181,7 @@ const NewLoan: React.FC<newLoanProps> = ({ user }) => {
                   name="interestRate"
                   halfWidth
                   value={data ? data.interestRate : 7}
-                  label="Your Desired Interest Rate (in %)"
+                  label="Interest Rate (in %)"
                   error={errors.interestRate?.message}
                   readOnly
                   register={register}

@@ -95,11 +95,7 @@ const ReactTable: React.FC<TableProps> = ({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
             </svg>
           </button>
-          <button
-            className="p-2 w-1/5 bg-primary text-white rounded-lg"
-            disabled={!canPreviousPage}
-            onClick={() => previousPage()}
-          >
+          <button className="edit-btn bg-primary text-white" disabled={!canPreviousPage} onClick={() => previousPage()}>
             Previous
           </button>
           <button className="p-2 w-1/5">
@@ -131,11 +127,7 @@ const ReactTable: React.FC<TableProps> = ({
               </option>
             ))}
           </select>
-          <button
-            className="p-2 w-1/5 bg-primary text-white rounded-lg"
-            disabled={!canNextPage}
-            onClick={() => nextPage()}
-          >
+          <button className="edit-btn bg-primary text-white" disabled={!canNextPage} onClick={() => nextPage()}>
             Next
           </button>
           <button className="p-2 w-1/5" disabled={!canNextPage} onClick={() => gotoPage(pageCount - 1)}>

@@ -20,7 +20,7 @@ const UserLoan: React.FC<UserLoanProps> = ({ user, loanId }) => {
   let { data, error } = useSWR(`/user/get-single-loan/${loanId}`)
 
   if (error) {
-    return <FetchError user={user} />
+    return <FetchError user={user} errorMsg={error?.response?.data?.error} />
   }
   return (
     <DashboardLayout data={user} title={`Loan Details`}>

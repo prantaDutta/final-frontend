@@ -21,10 +21,10 @@ const LoanInstallments: React.FC<LoanInstallmentsProps> = ({ user, loanId }) => 
   }
   return (
     <DashboardLayout data={user} title={`Loan Installments`}>
-      <DashboardTitle title={`User LoanInstallments`} backButton />
+      <DashboardTitle title={`User Loan Installments`} backButton />
       {data ? (
         <ReadyMadeTable
-          title={`All Installments By Loan ${data.id}`}
+          title={`All Installments For Loan ${data.id}`}
           data={data.installments}
           pagination
           isValidating={!data}

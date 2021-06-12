@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router'
-import SvgIcon from './SvgIcon'
 import React from 'react'
+import SvgIcon from './SvgIcon'
 
 interface ShowNotificationsProps {
   data: any
 }
 
+// ${
+//   notification.readAt ? 'bg-gray-500' : 'bg-white'
+// }
 const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
   const router = useRouter()
   return (
@@ -14,7 +17,7 @@ const ShowNotifications: React.FC<ShowNotificationsProps> = ({ data }) => {
         data.notifications.map((notification: any, i: number) => {
           return (
             <div
-              className="mt-2 py-2 bg-white rounded-lg shadow-xl absolute top-full transform -translate-x-75 z-10 max-w-md"
+              className={`mt-2 py-2 bg-gray-500 rounded-lg shadow-xl absolute top-full transform -translate-x-75 z-10 max-w-md`}
               key={i}
             >
               <div className="flex flex-grow justify-start items-center px-4 py-2 text-gray-800 text-sm font-bold">

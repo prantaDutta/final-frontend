@@ -67,7 +67,7 @@ const VerifyMobileNo: React.FC<VerifyMobileNoProps> = ({ user }) => {
       notify(`Your Mobile No is Successfully Verified`, {
         type: 'success'
       })
-      await router.push('/dashboard')
+      await router.push('/verify')
     } catch (e) {
       console.log(e.response)
       notify(`Something Went Wrong, Try Again`, {
